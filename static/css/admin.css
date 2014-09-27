@@ -1,0 +1,32 @@
+/* HEADER */
+
+#header {
+    background: #e92530;
+    color: #fff;
+}
+
+#header a:link, #header a:visited {
+    color: #fff;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #fff;
+}
+
+#branding h2 {
+    color: #fff;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #666;
+}
+
+a:link, a:visited {
+    color: #777;
+    text-decoration: none;
+}
+
+.module, table {
+    border-color: #666;
+}
+
