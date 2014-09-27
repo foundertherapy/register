@@ -9,9 +9,6 @@ TEMPLATE_DEBUG = DEBUG
 
 WSGI_APPLICATION = 'wsgi.heroku.application'
 
-DEFAULT_FILE_STORAGE = 'common.S3MediaStorage'
-STATICFILES_STORAGE = 'common.S3StaticStorage'
-
 import dj_database_url
 DATABASE_URL = os.environ['DATABASE_URL']
 DATABASES = {
