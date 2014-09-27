@@ -11,14 +11,14 @@ deployment:
     development:
         branch: master
         commands:
-            - heroku maintenance:on --app fiftythree-dev
+            - heroku maintenance:on --app fiftythree-client
             - git push git@heroku.com:fiftythree-dev.git $CIRCLE_SHA1:refs/heads/master
-            - heroku run ./manage.py migrate --noinput --app fiftythree-dev
-            - heroku maintenance:off --app fiftythree-dev
+            - heroku run ./manage.py migrate --noinput --app fiftythree-client
+            - heroku maintenance:off --app fiftythree-client
     production:
         branch: production
         commands:
-            - heroku maintenance:on --app fiftythree-dev
+            - heroku maintenance:on --app fiftythree-client
             - git push git@heroku.com:fiftythree-dev.git $CIRCLE_SHA1:refs/heads/production
-            - heroku run ./manage.py migrate --noinput --app fiftythree-dev
-            - heroku maintenance:off --app fiftythree-dev
+            - heroku run ./manage.py migrate --noinput --app fiftythree-client
+            - heroku maintenance:off --app fiftythree-client
