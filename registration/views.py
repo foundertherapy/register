@@ -34,6 +34,9 @@ class StateLookupView(django.views.generic.edit.FormView):
                 form.add_error('postal_code', e.message)
             django.contrib.messages.error(self.request, e.message)
             return super(StateLookupView, self).form_invalid(form)
+        except fiftythree.client.ServiceError as e:
+            form.add_error(field=None, error=e.message)
+            return super(StateLookupView, self).form_invalid(form)
 
         try:
             r = c.lookup_postal_code(postal_code)
@@ -43,6 +46,10 @@ class StateLookupView(django.views.generic.edit.FormView):
                 for error in errors:
                     form.add_error(field, error)
             return super(StateLookupView, self).form_invalid(form)
+        except fiftythree.client.ServiceError as e:
+            form.add_error(field=None, error=e.message)
+            return super(StateLookupView, self).form_invalid(form)
+
         if r and not r['accepts_registration']:
             return django.http.HttpResponseRedirect(r['redirect_url'])
         elif r:
@@ -69,6 +76,10 @@ class RegisterView(django.views.generic.edit.FormView):
                 for error in errors:
                     form.add_error(field, error)
             return super(RegisterView, self).form_invalid(form)
+        except fiftythree.client.ServiceError as e:
+            form.add_error(field=None, error=e.message)
+            return super(RegisterView, self).form_invalid(form)
+
         return super(RegisterView, self).form_valid(form)
 
 

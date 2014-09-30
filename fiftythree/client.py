@@ -12,6 +12,10 @@ class AuthenticationError(Exception):
     pass
 
 
+class ServiceError(Exception):
+    pass
+
+
 class InvalidDataError(Exception):
     def __init__(self, message, errors):
         self.errors = errors
@@ -56,6 +60,9 @@ class FiftyThreeClient(object):
         elif r.status_code == httplib.BAD_REQUEST:
             raise InvalidDataError('Invalid data.', r.json())
 
+        elif r.status_code == httplib.SERVICE_UNAVAILABLE:
+            raise ServiceError('Service unavailable.')
+
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
@@ -79,6 +86,9 @@ class FiftyThreeClient(object):
 
         elif r.status_code == httplib.BAD_REQUEST:
             raise InvalidDataError('Invalid data.', r.json())
+
+        elif r.status_code == httplib.SERVICE_UNAVAILABLE:
+            raise ServiceError('Service unavailable.')
 
         elif r.status_code == httplib.CREATED:
             logger.info('Successfully submitted email')
@@ -118,6 +128,9 @@ class FiftyThreeClient(object):
 
         elif r.status_code == httplib.BAD_REQUEST:
             raise InvalidDataError('Invalid data.', r.json())
+
+        elif r.status_code == httplib.SERVICE_UNAVAILABLE:
+            raise ServiceError('Service unavailable.')
 
         elif r.status_code == httplib.CREATED:
             logger.info('Successfully submitted registration')
