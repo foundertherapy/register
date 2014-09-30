@@ -50,14 +50,13 @@
 
         <div class="container">
             {% if messages %}
-            <ul class="messages">
                 {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                <div class="alert
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger
+                    {% else %}alert-info{% endif %}" role="alert">
                     {{ message }}
-                </li>
+                </div>
                 {% endfor %}
-            </ul>
             {% endif %}
 
             {% block content %}
