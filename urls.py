@@ -12,8 +12,7 @@ import django.contrib.admin
 urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(
-        r'^$', django.views.generic.TemplateView.as_view(
-            template_name='index.html')),
+        r'^', django.conf.urls.include('registration.urls')),
     django.conf.urls.url(
         r'^robots.txt$', django.views.generic.TemplateView.as_view(
             template_name='robots.txt')),

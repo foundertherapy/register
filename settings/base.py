@@ -93,6 +93,8 @@ INSTALLED_APPS = (
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'bootstrap3',
+    'registration',
 )
 
 COVERAGE_MODULE_EXCLUDES = (
@@ -107,6 +109,7 @@ COVERAGE_MODULE_EXCLUDES = (
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'bootstrap3',
 )
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.environ.get('CIRCLE_ARTIFACTS')
 
@@ -163,3 +166,7 @@ LOGGING = {
 }
 
 FIFTYTHREE_CLIENT_KEY = os.environ.get('FIFTYTHREE_CLIENT_KEY')
+FIFTYTHREE_CLIENT_ENDPOINT = os.environ.get(
+    'FIFTYTHREE_CLIENT_ENDPOINT', 'localhost:8000')
+
+SESSION_COOKIE_NAME = 'sessionid-53client'

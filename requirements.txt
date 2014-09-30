@@ -19,3 +19,5 @@ setuptools
 yolk
 uwsgi
 dj-static
+requests
+django-bootstrap3
