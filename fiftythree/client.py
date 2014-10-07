@@ -23,13 +23,14 @@ class InvalidDataError(Exception):
 
 
 class FiftyThreeClient(object):
-    _lookup_zipcode_path = '/api/postal-codes/'
-    _submit_email_path = '/api/emails/'
-    _register_path = '/api/registrations/'
 
-    def __init__(self, api_key, endpoint=None):
+    def __init__(self, api_key, endpoint=None, api_version='v1'):
         self.api_key = api_key
         self.endpoint = endpoint or 'fiftythree.organize.org'
+        self.api_version = api_version
+        self.lookup_zipcode_path = '/api/{}/postal-codes/'.format(api_version)
+        self.submit_email_path = '/api/{}/emails/'.format(api_version)
+        self.register_path = '/api/{}/registrations/'.format(api_version)
 
     @property
     def _headers(self):
@@ -39,7 +40,7 @@ class FiftyThreeClient(object):
 
     def lookup_postal_code(self, postal_code):
         url = ''.join(
-            ['http://', self.endpoint, self._lookup_zipcode_path,
+            ['http://', self.endpoint, self.lookup_zipcode_path,
              unicode(postal_code), '/', ])
         r = requests.get(url, headers=self._headers)
 
@@ -68,7 +69,7 @@ class FiftyThreeClient(object):
             return False
 
     def submit_email(self, email, postal_code):
-        url = ''.join(['http://', self.endpoint, self._submit_email_path, ])
+        url = ''.join(['http://', self.endpoint, self.submit_email_path, ])
         data = {
             'email': email,
             'postal_code': unicode(postal_code),
@@ -101,7 +102,7 @@ class FiftyThreeClient(object):
             self, email, first_name, last_name, birthdate, street_address,
             city, state, postal_code, license_id, middle_name=None,
             apartment=None):
-        url = ''.join(['http://', self.endpoint, self._register_path, ])
+        url = ''.join(['http://', self.endpoint, self.register_path, ])
         data = {
             'email': email,
             'first_name': first_name,
