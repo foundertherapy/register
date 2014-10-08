@@ -5,6 +5,7 @@ import django.http
 import django.views.generic.edit
 import django.core.urlresolvers
 import django.contrib.messages
+import django.forms
 
 import fiftythree.client
 
@@ -53,6 +54,13 @@ class StateLookupView(django.views.generic.edit.FormView):
         if r and not r['accepts_registration']:
             return django.http.HttpResponseRedirect(r['redirect_url'])
         elif r:
+            # we need to show the registration form, but first we should save
+            # the state and field data into the session for later use
+            self.request.session['user_email'] = email
+            self.request.session['user_state'] = r['state']
+            self.request.session['user_postal_code'] = postal_code
+            self.request.session['form_fields'] = r['fields']
+            print r['fields']
             return super(StateLookupView, self).form_valid(form)
 
 
@@ -60,6 +68,22 @@ class RegisterView(django.views.generic.edit.FormView):
     template_name = 'register.html'
     form_class = forms.RegisterForm
     success_url = django.core.urlresolvers.reverse_lazy('register_complete')
+
+    def get(self, request, *args, **kwargs):
+        # if we have a get request, we want to process the arguments passed in
+        # to see if we get data overrides
+        return super(RegisterView, self).get(request, *args, **kwargs)
+
+    def get_initial(self):
+        return {
+            'email': self.request.session.get('user_email'),
+            'postal_code': self.request.session.get('user_postal_code'),
+            'state': self.request.session.get('user_state'),
+        }
+
+    def get_form(self, form_class):
+        return form_class(
+            fields=self.request.session.get('form_fields'), **self.get_form_kwargs())
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.

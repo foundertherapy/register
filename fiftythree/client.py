@@ -98,25 +98,9 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def register(
-            self, email, first_name, last_name, birthdate, street_address,
-            city, state, postal_code, license_id, middle_name=None,
-            apartment=None):
+    def register(self, **data):
         url = ''.join(['http://', self.endpoint, self.register_path, ])
-        data = {
-            'email': email,
-            'first_name': first_name,
-            'middle_name': middle_name or '',
-            'last_name': last_name,
-            'birthdate': unicode(birthdate),
-            'street_address': street_address,
-            'apartment': apartment or '',
-            'city': city,
-            'state': state,
-            'postal_code': unicode(postal_code),
-            'license_id': license_id,
-            'source': 'http://fiftythree-dev.herokuapp.com/register/',
-        }
+        data['source'] = 'http://fiftythree-dev.herokuapp.com/register/'
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
