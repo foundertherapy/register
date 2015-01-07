@@ -4,7 +4,7 @@ dj-database-url
 django-extensions
 django-secure
 django-storages
-Django
+Django==1.7.2
 flake8
 ipython
 mock
@@ -21,3 +21,4 @@ uwsgi
 dj-static
 requests
 django-bootstrap3
+django-form-utils

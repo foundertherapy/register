@@ -24,7 +24,7 @@ class InvalidDataError(Exception):
 
 class FiftyThreeClient(object):
 
-    def __init__(self, api_key, endpoint=None, api_version='v1'):
+    def __init__(self, api_key, endpoint=None, api_version='v2'):
         self.api_key = api_key
         self.endpoint = endpoint or 'fiftythree.organize.org'
         self.api_version = api_version
@@ -42,7 +42,11 @@ class FiftyThreeClient(object):
         url = ''.join(
             ['http://', self.endpoint, self.lookup_zipcode_path,
              unicode(postal_code), '/', ])
-        r = requests.get(url, headers=self._headers)
+        try:
+            r = requests.get(url, headers=self._headers)
+        except requests.ConnectionError as e:
+            logger.error(e)
+            raise ServiceError('Service unavailable.')
 
         if r.status_code == httplib.OK:
             return r.json()
@@ -61,7 +65,8 @@ class FiftyThreeClient(object):
         elif r.status_code == httplib.BAD_REQUEST:
             raise InvalidDataError('Invalid data.', r.json())
 
-        elif r.status_code == httplib.SERVICE_UNAVAILABLE:
+        elif r.status_code in (
+                httplib.SERVICE_UNAVAILABLE, httplib.INTERNAL_SERVER_ERROR):
             raise ServiceError('Service unavailable.')
 
         else:
@@ -73,11 +78,19 @@ class FiftyThreeClient(object):
         data = {
             'email': email,
             'postal_code': unicode(postal_code),
+            'source_url': 'http://fiftythree-dev.herokuapp.com/register/'
         }
-        r = requests.post(url, headers=self._headers, data=data)
+        try:
+            r = requests.post(url, headers=self._headers, data=data)
+        except requests.ConnectionError as e:
+            logger.error(e)
+            raise ServiceError('Service unavailable.')
 
         if r.status_code == httplib.OK:
             return True
+
+        elif r.status_code == httplib.CREATED:
+            logger.info('Successfully submitted email')
 
         elif r.status_code in (httplib.UNAUTHORIZED, httplib.FORBIDDEN, ):
             raise AuthenticationError(r.json().get('detail'))
@@ -88,11 +101,9 @@ class FiftyThreeClient(object):
         elif r.status_code == httplib.BAD_REQUEST:
             raise InvalidDataError('Invalid data.', r.json())
 
-        elif r.status_code == httplib.SERVICE_UNAVAILABLE:
+        elif r.status_code in (
+                httplib.SERVICE_UNAVAILABLE, httplib.INTERNAL_SERVER_ERROR):
             raise ServiceError('Service unavailable.')
-
-        elif r.status_code == httplib.CREATED:
-            logger.info('Successfully submitted email')
 
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))
@@ -100,7 +111,7 @@ class FiftyThreeClient(object):
 
     def register(self, **data):
         url = ''.join(['http://', self.endpoint, self.register_path, ])
-        data['source'] = 'http://fiftythree-dev.herokuapp.com/register/'
+        data['source_url'] = 'http://fiftythree-dev.herokuapp.com/register/'
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
@@ -115,7 +126,8 @@ class FiftyThreeClient(object):
         elif r.status_code == httplib.BAD_REQUEST:
             raise InvalidDataError('Invalid data.', r.json())
 
-        elif r.status_code == httplib.SERVICE_UNAVAILABLE:
+        elif r.status_code in (
+                httplib.SERVICE_UNAVAILABLE, httplib.INTERNAL_SERVER_ERROR):
             raise ServiceError('Service unavailable.')
 
         elif r.status_code == httplib.CREATED:

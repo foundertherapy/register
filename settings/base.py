@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'django_coverage',
     'django_extensions',
     'bootstrap3',
+    'form_utils',
     'registration',
 )
 
@@ -110,6 +111,7 @@ COVERAGE_MODULE_EXCLUDES = (
     'django_coverage',
     'django_extensions',
     'bootstrap3',
+    'form_utils',
 )
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.environ.get('CIRCLE_ARTIFACTS')
 
@@ -117,7 +119,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'root': {
-        'level': 'INFO',
+        'level': 'DEBUG',
         'handlers': ['console', ],
     },
     'formatters': {
@@ -132,7 +134,7 @@ LOGGING = {
     },
     'handlers': {
         'null': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.NullHandler',
         },
         'mail_admins': {
@@ -159,7 +161,7 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['console', ],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': False,
         },
     },

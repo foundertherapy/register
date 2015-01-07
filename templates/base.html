@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="/favicon.ico">
 
-        <title>{{ html_title|default:"53" }}</title>
+        <title>ORGANIZE / {{ title|default:"Register to become an organ donor" }}</title>
         {% if html_description %}
             <meta name="description" content="{{ html_description }}">
         {% endif %}
@@ -40,7 +40,7 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{% url 'home' %}">Home</a></li>
+{#                        <li class="active"><a href="{% url 'home' %}">Home</a></li>#}
     {#                    <li><a href="#about">About</a></li>#}
     {#                    <li><a href="#contact">Contact</a></li>#}
                     </ul>

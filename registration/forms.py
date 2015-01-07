@@ -1,59 +1,109 @@
 from __future__ import unicode_literals
 
+import logging
+import re
+import collections
+
 from django.utils.translation import ugettext_lazy as _
-from django.forms.utils import ErrorList
 import django.forms
+import django.core.validators
+
+import form_utils.forms
+
+logger = logging.getLogger(__name__)
+
+REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
+
+RE_NON_ALPHA = re.compile('[\W]+')
+RE_POSTAL_CODE = re.compile(r'^[0-9]{5}$')
+validate_postal_code = django.core.validators.RegexValidator(
+    RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."),
+    'invalid')
 
 
 class StateLookupForm(django.forms.Form):
     email = django.forms.EmailField()
-    postal_code = django.forms.CharField(max_length=5, min_length=5)
+    postal_code = django.forms.CharField(
+        max_length=5, min_length=5, validators=[validate_postal_code])
 
 
-class RegisterForm(django.forms.Form):
-    # first_name = django.forms.CharField(max_length=50)
-    # middle_name = django.forms.CharField(max_length=50, required=False)
-    # last_name = django.forms.CharField(max_length=50)
-    # email = django.forms.EmailField()
-    # birthdate = django.forms.DateField()
-    # street_address = django.forms.CharField(max_length=100, required=False)
-    # city = django.forms.CharField(max_length=100)
-    # state = django.forms.CharField(max_length=2)
-    # postal_code = django.forms.CharField(max_length=5, min_length=5)
-    # license_id = django.forms.CharField(max_length=15)
-    def __init__(self, fields=None, data=None, files=None, auto_id='id_%s',
-                 prefix=None, initial=None, error_class=ErrorList,
-                 label_suffix=None, empty_permitted=False, ):
-        super(RegisterForm, self).__init__(
-            data=data, files=files, auto_id=auto_id, prefix=prefix,
-            initial=initial, error_class=error_class, label_suffix=label_suffix,
-            empty_permitted=empty_permitted)
+def register_form_generator(conf):
+    fieldsets = []
+    fields = collections.OrderedDict()
+    for index, fieldset_def in enumerate(conf['fieldsets']):
+        fieldset_title = fieldset_def['title']
+        fieldset_fields = fieldset_def['fields']
+        if not fieldset_fields:
+            continue
+        fieldset = (unicode(index), {
+            'legend': fieldset_title,
+            'fields': []}, )
 
-        if fields:
-            print fields
-            for field_name, field_def in fields.items():
-                d = {
-                    'label': field_def.get('name', ''),
-                    'required': field_def.get('required', False)
-                }
-                if 'choices' in field_def:
-                    choices = field_def.get('choices')
-                    if choices:
-                        choices = zip(choices, choices)
-                        d['choices'] = choices
-                elif 'max_length' in field_def:
-                    d['max_length'] = field_def.get('max_length')
+        for field_def in fieldset_def['fields']:
+            field_name = field_def['field_name']
+            field_type = field_def.get('type')
+            label = field_def['human_name']
+            is_required = field_def.get('required', False)
+            max_length = field_def.get('length')
+            initial = field_def.get('default')
+            help_text = field_def.get('help_text')
+            choices = field_def.get('choices')
+            is_editable = field_def.get('editable', True)
 
-                field_class = self.get_field_class(field_def)
-                self.fields[field_name] = field_class(**d)
+            d = {
+                'label': label,
+            }
 
-    def get_field_class(self, field_def):
-        field_type = field_def.get('type', 'string')
-        has_choices = field_def.get('choices')
+            if field_type == 'string' and choices and is_editable:
+                d['required'] = is_required
+                d['initial'] = initial
+                d['help_text'] = help_text
+                d['choices'] = choices
+                field_class = django.forms.ChoiceField
+            elif field_type == 'string' and field_name == 'email':
+                d['required'] = is_required
+                d['max_length'] = max_length
+                d['initial'] = initial
+                d['help_text'] = help_text
+                field_class = django.forms.EmailField
+            elif field_type == 'string':
+                d['required'] = is_required
+                d['max_length'] = max_length
+                d['initial'] = initial
+                d['help_text'] = help_text
+                field_class = django.forms.CharField
+            elif field_type == 'date':
+                d['required'] = is_required
+                d['initial'] = initial
+                d['help_text'] = help_text
+                field_class = django.forms.DateField
+            elif field_type == 'boolean':
+                d['initial'] = initial
+                d['help_text'] = help_text
+                # this must be false otherwise checkbox must be checked
+                if field_name != 'tos':
+                    d['required'] = False
+                field_class = django.forms.BooleanField
+            else:
+                raise Exception('Unknown field type: {}'.format(field_type))
 
-        if field_type == 'string' and not has_choices:
-            return django.forms.CharField
-        elif field_type == 'string' and has_choices:
-            return django.forms.ChoiceField
-        else:
-            return django.forms.Field
+            fields[field_name] = field_class(**d)
+            fieldset[1]['fields'].append(field_name)
+
+            if not is_editable:
+                widget = fields[field_name].widget
+                if isinstance(widget, django.forms.Select):
+                    widget.attrs['disabled'] = 'disabled'
+                else:
+                    widget.attrs['readonly'] = 'readonly'
+        fieldsets.append(fieldset)
+
+    cls_name = 'RegisterForm{}'.format(
+        RE_NON_ALPHA.sub('', conf['title'].title())).encode(
+        'ascii', errors='ignore')
+    cls = type(
+        cls_name,
+        (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ),
+        {'base_fieldsets': fieldsets, 'base_fields': fields,
+         'base_row_attrs': {}, })
+    return cls
