@@ -73,7 +73,7 @@ body:after {
 }
 
 .status-bar > div {
-    height: 4px;
+    height: 10px;
 }
 
 .btn-organize {
