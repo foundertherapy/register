@@ -22,3 +22,8 @@ dj-static
 requests
 django-bootstrap3
 django-form-utils
+django_debug_toolbar
+hiredis
+django-redis-cache
+django-redis-sessions
+django-debug-toolbar-template-timings

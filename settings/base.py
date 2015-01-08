@@ -75,6 +75,28 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 ROOT_URLCONF = 'urls'
 
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+DEBUG_TOOLBAR_CONFIG = {
+    # 'SHOW_TOOLBAR_CALLBACK': 'accounts.middleware.show_toolbar',
+    'RENDER_PANELS': True,
+}
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+    'debug_toolbar.panels.cache.CachePanel',
+    # 'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    # 'debug_toolbar.panels.redirects.RedirectsPanel',
+    'debug_toolbar.panels.profiling.ProfilingPanel',
+)
+
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL',
                                     'server@foundertherapy.co')
 
@@ -89,10 +111,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'django.contrib.admin',
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'debug_toolbar',
+    'template_timings_panel',
     'bootstrap3',
     'form_utils',
     'registration',
@@ -106,10 +129,11 @@ COVERAGE_MODULE_EXCLUDES = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'django.contrib.admin',
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'debug_toolbar',
+    'template_timings_panel',
     'bootstrap3',
     'form_utils',
 )
@@ -171,4 +195,16 @@ FIFTYTHREE_CLIENT_KEY = os.environ.get('FIFTYTHREE_CLIENT_KEY')
 FIFTYTHREE_CLIENT_ENDPOINT = os.environ.get(
     'FIFTYTHREE_CLIENT_ENDPOINT', 'localhost:8000')
 
-SESSION_COOKIE_NAME = 'sessionid-53client'
+REDIS_URL = os.getenv('REDISCLOUD_URL', 'redis://localhost:6379')
+REDIS = urlparse.urlparse(REDIS_URL)
+REDIS_EXPIRE_TIME = int(os.getenv('REDIS_EXPIRE_TIME', 60 * 60 * 24 * 30))
+REDIS_DB = 0
+
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_HOST = REDIS.hostname
+SESSION_REDIS_PORT = REDIS.port
+SESSION_REDIS_DB = REDIS_DB
+SESSION_REDIS_PASSWORD = REDIS.password
+SESSION_REDIS_PREFIX = 'session:register'
+SESSION_COOKIE_NAME = 'sessionid-register'
+SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length

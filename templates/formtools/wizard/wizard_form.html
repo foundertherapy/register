@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load registration_extras %}
 
 {% block head %}
 {{ wizard.form.media }}
@@ -8,23 +9,79 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+        <h1>{{ title }}</h1>
+    </div>
+</div>
 
-    <p>{{ title }}</p>
-
-    <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-
-    <p>
-        Step:
-        {% for n in wizard.steps.all %}
-            {% if n == wizard.steps.current %}
-                <b>{{ n }}</b>
+<div class="row status-bar">
+    <div class="col-lg-offset-3 col-md-offset-2 col-lg-1 col-md-1 col-sm-1 col-xs-1 organize-red-background"></div>
+    {% for step in wizard.steps.all %}
+        <div class="step-{{ step }}
+            col-lg-1 col-md-1 col-sm-1 col-xs-1
+            {% if step <= wizard.steps.current %}
+                organize-red-background
             {% else %}
-                {{ n }}
+                organize-gray-background
+            {% endif %}
+        "></div>
+    {% endfor %}
+</div>
+
+{% if cleaned_data %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+        {% for page in configuration %}
+            {% if page.fieldsets.0.fields and page.step != 7 %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="pull-right" href="{% url 'register' step=page.step %}">edit</a>
+                        <h3 class="panel-title">{{ page.title }}</h3>
+                    </div>
+                    <table class="table">
+                        {% for fieldset in page.fieldsets %}
+                            {% for field in fieldset.fields %}
+                                <tr>
+                                    {% if field.type == 'boolean' %}
+                                        <td colspan="2" class="">
+                                            {% if cleaned_data|key:field.field_name %}
+                                                <span class="organize-green">{% bootstrap_icon 'ok-circle' %}</span>
+                                            {% else %}
+                                                <span class="organize-red">{% bootstrap_icon 'ban-circle' %}</span>
+                                            {% endif %}
+                                            {{ field.human_name }}
+                                        </td>
+                                    {% else %}
+                                        <td width="200" class="organize-gray">{{ field.human_name }}</td>
+                                        <td width="*">{{ cleaned_data|key:field.field_name }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </table>
+                </div>
             {% endif %}
         {% endfor %}
-    </p>
+    </div>
+</div>
+{% endif %}
 
+{% if terms_of_service %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Terms of Service</h3>
+            </div>
+            <div class="panel-body" style="max-height: 315px; overflow-y: auto;">
+                {{ terms_of_service }}
+            </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
     <form role="form" action="." method="post">
         {% csrf_token %}
 
@@ -40,34 +97,48 @@
             {% endif %}
 
             {% for fieldset in wizard.form.fieldsets %}
-                <fieldset class="{{ fieldset.classes }}">
-                {% if fieldset.legend %}
-                    <legend>{{ fieldset.legend }}</legend>
-                {% endif %}
-                {% if fieldset.description %}
-                    <p class="description">{{ fieldset.description }}</p>
-                {% endif %}
+                {% if not forloop.first %}<hr />{% endif %}
 
-                {% for field in fieldset %}
-                    {% if field.is_hidden %}
-                        {{ field }}
-                    {% else %}
-                        {% bootstrap_field field %}
+                <fieldset class="{{ fieldset.classes }}">
+
+                    {% if wizard.form.fieldsets|length > 1 %}
+                        {% if fieldset.legend %}
+                            <legend>{{ fieldset.legend }}</legend>
+                        {% endif %}
+                        {% if fieldset.description %}
+                            <p class="description">{{ fieldset.description }}</p>
+                        {% endif %}
                     {% endif %}
-                {% endfor %}
+
+                    {% for field in fieldset %}
+                        {% if field.is_hidden %}
+                            {{ field }}
+                        {% else %}
+                            {% bootstrap_field field|tabindex:forloop.parentloop.counter %}
+                        {% endif %}
+                    {% endfor %}
                 </fieldset>
             {% endfor %}
         {% endif %}
 
+        <hr />
 
         {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                Continue
+            <a
+                {% if wizard.steps.prev %}
+                 href="{% url 'register' step=wizard.steps.prev %}"
+                {% else %}
+                 href="{% url 'start' %}"
+                {% endif %}
+             class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; Back</a>
+
+            <button type="submit" class="btn btn-primary btn-organize" tabindex="99">
+                Next &rsaquo;
             </button>
         {% endbuttons %}
     </form>
 
-    <p>{{ state_name }}</p>
+{#    <p>{{ state_name }}</p>#}
 
     </div>
 </div>

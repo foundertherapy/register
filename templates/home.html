@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{# hide the navbar logo on the home page #}
+{% block navbar_brand %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-md-offset-2 col-xs-12">
+        <h1 style="font-size: 50px; font-weight: bold;"><span class="organize-red">ORGAN</span><span class="organize-black">IZE</span></h1>
+        <h2 style="font-stretch: ultra-condensed; font-weight: normal;" class="text-uppercase">We make it easy to be an <span class="organize-red">Organ Donor</span>.</h2>
+        <p>Register or tell the world you support organ donation by posting #DonateMyParts on one of your social media platforms... any way you choose, your next-of-kin will know your wishes and they will be honored.</p>
+        <p>&nbsp;</p>
+        <p><a class="btn btn-default btn-lg text-uppercase btn-organize" href="{% url 'start' %}">Register Now</a></p>
+    </div>
+</div>
+{% endblock %}

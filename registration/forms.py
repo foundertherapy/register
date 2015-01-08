@@ -79,10 +79,10 @@ def register_form_generator(conf):
                 field_class = django.forms.DateField
             elif field_type == 'boolean':
                 d['initial'] = initial
-                d['help_text'] = help_text
                 # this must be false otherwise checkbox must be checked
-                if field_name != 'tos':
+                if field_name != 'agree_to_tos':
                     d['required'] = False
+                    d['help_text'] = help_text
                 field_class = django.forms.BooleanField
             else:
                 raise Exception('Unknown field type: {}'.format(field_type))

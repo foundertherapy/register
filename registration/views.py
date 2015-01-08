@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import logging
 import collections
-import itertools
 
 from django.conf import settings
 import django.http
@@ -12,6 +11,7 @@ import django.core.urlresolvers
 import django.contrib.messages
 import django.forms
 from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
+from django.contrib.formtools.wizard.storage import get_storage
 
 import fiftythree.client
 
@@ -25,9 +25,11 @@ SESSION_STATE = 'data_state'
 SESSION_STATE_NAME = 'data_state_name'
 SESSION_EMAIL = 'data_email'
 SESSION_POSTAL_CODE = 'data_postal_code'
+SESSION_TOS = 'data_terms_of_service'
+
 
 class StateLookupView(django.views.generic.edit.FormView):
-    template_name = 'index.html'
+    template_name = 'postal_code.html'
     form_class = forms.StateLookupForm
     success_url = django.core.urlresolvers.reverse_lazy(
         'register', kwargs={'step': '1', })
@@ -90,6 +92,7 @@ class StateLookupView(django.views.generic.edit.FormView):
         self.request.session[SESSION_EMAIL] = email
         self.request.session[SESSION_STATE] = r['state']
         self.request.session[SESSION_STATE_NAME] = r['state_name']
+        self.request.session[SESSION_TOS] = r['terms_of_service']
         self.request.session[SESSION_POSTAL_CODE] = postal_code
         self.request.session[SESSION_REGISTRATION_CONFIGURATION] = \
             r['registration_configuration']
@@ -107,32 +110,10 @@ class RegistrationWizard(NamedUrlSessionWizardView):
     page_count = 0
     configuration = None
 
-    def done(self, form_list, **kwargs):
-        data = {}
-        map(data.update, [form.cleaned_data for form in form_list])
-        response = self.submit_registration(data)
-
-        context = {
-            'form_data': data,
-            'response': response,
-        }
-        return django.shortcuts.render_to_response(
-            'formtools/wizard/done.html', context)
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.configuration:
-            if self.check_configuration():
-                self.process_registration_configuration()
-            else:
-                # we are missing registration configuration,
-                # so send the user back
-                return django.shortcuts.redirect('home')
-        return super(RegistrationWizard, self).dispatch(
-            request, *args, **kwargs)
-
     def check_configuration(self):
         if not self.configuration and \
-                (SESSION_REGISTRATION_CONFIGURATION not in self.request.session):
+                (SESSION_REGISTRATION_CONFIGURATION not in
+                 self.request.session):
             return False
         else:
             return True
@@ -158,6 +139,33 @@ class RegistrationWizard(NamedUrlSessionWizardView):
                 self.form_list[unicode(step)] = forms.register_form_generator(
                     conf=page_conf)
 
+    def done(self, form_list, **kwargs):
+        data = {}
+        map(data.update, [form.cleaned_data for form in form_list])
+        response = self.submit_registration(data)
+
+        context = {
+            'form_data': data,
+            'response': response,
+        }
+        return django.shortcuts.render_to_response(
+            'formtools/wizard/done.html', context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.configuration:
+            if self.check_configuration():
+                self.process_registration_configuration()
+            else:
+                prefix = self.get_prefix(*args, **kwargs)
+                storage = get_storage(self.storage_name, prefix, request,
+                                      getattr(self, 'file_storage', None))
+                storage.reset()
+                # we are missing registration configuration,
+                # so send the user back
+                return django.shortcuts.redirect('home')
+        return super(RegistrationWizard, self).dispatch(
+            request, *args, **kwargs)
+
     def submit_registration(self, data):
         c = fiftythree.client.FiftyThreeClient(
             settings.FIFTYTHREE_CLIENT_KEY,
@@ -173,9 +181,9 @@ class RegistrationWizard(NamedUrlSessionWizardView):
 
     def get_form_initial(self, step):
         data = super(RegistrationWizard, self).get_form_initial(step)
-        data['email'] = self.request.session['data_email']
-        data['state'] = self.request.session['data_state']
-        data['postal_code'] = self.request.session['data_postal_code']
+        data['email'] = self.request.session[SESSION_EMAIL]
+        data['state'] = self.request.session[SESSION_STATE]
+        data['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         return data
 
     def get_context_data(self, form, **kwargs):
@@ -186,4 +194,9 @@ class RegistrationWizard(NamedUrlSessionWizardView):
         d['state_name'] = self.request.session[SESSION_STATE_NAME]
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         d['email'] = self.request.session[SESSION_EMAIL]
+
+        if self.steps.current == self.steps.last:
+            d['cleaned_data'] = self.get_all_cleaned_data()
+            d['configuration'] = self.configuration
+            d['terms_of_service'] = self.request.session[SESSION_TOS]
         return d

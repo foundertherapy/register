@@ -9,13 +9,6 @@ TEMPLATE_DEBUG = True
 
 WSGI_APPLICATION = 'wsgi.heroku.application'
 
-import dj_database_url
-DATABASE_URL = os.environ['DATABASE_URL']
-DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL),
-}
-DATABASES['default']['CONN_MAX_AGE'] = None
-
 SECRET_KEY = os.environ['SECRET_KEY']
 
 CONFIGURED_ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
