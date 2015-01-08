@@ -9,7 +9,6 @@ flake8
 ipython
 mock
 pep8
-psycopg2
 py-bcrypt
 pycrypto
 pyflakes
