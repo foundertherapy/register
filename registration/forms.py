@@ -27,6 +27,18 @@ class StateLookupForm(django.forms.Form):
         max_length=5, min_length=5, validators=[validate_postal_code])
 
 
+def register_form_clean(self):
+    cleaned_data = super(self.__class__, self).clean()
+    if self.api_errors:
+        # api_errors is a dict of field_name: [error text] that should be added
+        # to each field if it is present
+        for k, v in self.api_errors.items():
+            if k in self.fields:
+                self.add_error(k, v)
+        # import ipdb; ipdb.set_trace()
+    return cleaned_data
+
+
 def register_form_generator(conf):
     fieldsets = []
     fields = collections.OrderedDict()
@@ -105,5 +117,6 @@ def register_form_generator(conf):
         cls_name,
         (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ),
         {'base_fieldsets': fieldsets, 'base_fields': fields,
-         'base_row_attrs': {}, })
+         'base_row_attrs': {}, 'clean': register_form_clean,
+         'api_errors': {}, })
     return cls

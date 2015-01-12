@@ -109,6 +109,7 @@ class RegistrationWizard(NamedUrlSessionWizardView):
     page_fieldsets = collections.OrderedDict()
     page_count = 0
     configuration = None
+    api_error_key = 'api_error'
 
     def check_configuration(self):
         if not self.configuration and \
@@ -139,14 +140,76 @@ class RegistrationWizard(NamedUrlSessionWizardView):
                 self.form_list[unicode(step)] = forms.register_form_generator(
                     conf=page_conf)
 
+    def submit_registration(self, data):
+        c = fiftythree.client.FiftyThreeClient(
+            settings.FIFTYTHREE_CLIENT_KEY,
+            settings.FIFTYTHREE_CLIENT_ENDPOINT)
+        try:
+            c.register(**data)
+        except fiftythree.client.InvalidDataError as e:
+            # django.contrib.messages.error(self.request, e.message)
+            return e.errors.items()
+        except fiftythree.client.ServiceError as e:
+            # django.contrib.messages.error(self.request, e.message)
+            return [[None, e.message]]
+
+    def render_done(self, form, **kwargs):
+        final_forms = collections.OrderedDict()
+        # walk through the form list and try to validate the data again.
+        # data = self.storage.get_step_data('4')
+        # data['4-street_address'] = ''
+        # print data
+        # self.storage.set_step_data('4', data)
+
+        for form_key in self.get_form_list():
+            form_obj = self.get_form(
+                step=form_key,
+                data=self.storage.get_step_data(form_key),
+                files=self.storage.get_step_files(form_key))
+            if not form_obj.is_valid():
+                return self.render_revalidation_failure(
+                    form_key, form_obj, **kwargs)
+            final_forms[form_key] = form_obj
+
+        # once forms are validated, submit the registration and render a
+        # failure if submission fails
+        data = {}
+        map(data.update, [form.cleaned_data for form in final_forms.values()])
+        del data['street_address']
+        api_errors = self.submit_registration(data)
+        if api_errors:
+            # there is an error submitting the data, so pull the error data and
+            # set the appropriate error on the form
+            api_errors = dict(api_errors)
+            self.storage.data[self.api_error_key] = api_errors
+            for form_key in self.get_form_list():
+                form_obj = self.get_form(
+                    step=form_key,
+                    data=self.storage.get_step_data(form_key),
+                    files=self.storage.get_step_files(form_key))
+                error_field_names = set(form_obj.fields.keys()).intersection(
+                    set(api_errors.keys()))
+                if error_field_names:
+                    form_obj.add_error(
+                        field=None, error=api_errors)
+                    return self.render_revalidation_failure(
+                        form_key, form_obj, **kwargs)
+
+
+
+        # render the done view and reset the wizard before returning the
+        # response. This is needed to prevent from rendering done with the
+        # same data twice.
+        done_response = self.done(final_forms.values(), form_dict=final_forms, **kwargs)
+        self.storage.reset()
+        return done_response
+
     def done(self, form_list, **kwargs):
         data = {}
         map(data.update, [form.cleaned_data for form in form_list])
-        response = self.submit_registration(data)
 
         context = {
             'form_data': data,
-            'response': response,
         }
         return django.shortcuts.render_to_response(
             'formtools/wizard/done.html', context)
@@ -166,18 +229,11 @@ class RegistrationWizard(NamedUrlSessionWizardView):
         return super(RegistrationWizard, self).dispatch(
             request, *args, **kwargs)
 
-    def submit_registration(self, data):
-        c = fiftythree.client.FiftyThreeClient(
-            settings.FIFTYTHREE_CLIENT_KEY,
-            settings.FIFTYTHREE_CLIENT_ENDPOINT)
-        try:
-            r = c.register(**data)
-        except fiftythree.client.InvalidDataError as e:
-            django.contrib.messages.error(self.request, e.message)
-            return e.errors.items()
-        except fiftythree.client.ServiceError as e:
-            django.contrib.messages.error(self.request, e.message)
-            return [[None, e.message]]
+    def get_form(self, step=None, data=None, files=None):
+        form_instance = super(RegistrationWizard, self).get_form(
+            step, data, files)
+        form_instance.api_errors = self.storage.data.get(self.api_error_key)
+        return form_instance
 
     def get_form_initial(self, step):
         data = super(RegistrationWizard, self).get_form_initial(step)

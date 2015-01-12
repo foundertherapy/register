@@ -76,6 +76,7 @@
             <div class="panel-body" style="max-height: 315px; overflow-y: auto;">
                 {{ terms_of_service }}
             </div>
+        </div>
     </div>
 </div>
 {% endif %}
@@ -111,10 +112,11 @@
                     {% endif %}
 
                     {% for field in fieldset %}
+
                         {% if field.is_hidden %}
                             {{ field }}
                         {% else %}
-                            {% bootstrap_field field|tabindex:forloop.parentloop.counter %}
+                            {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}
                         {% endif %}
                     {% endfor %}
                 </fieldset>

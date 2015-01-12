@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-12 16:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: registration/forms.py:20
+msgid "Enter a valid postal code consisting 5 numbers."
+msgstr ""
+
+#: settings/base.py:42
+msgid "English"
+msgstr ""
+
+#: settings/base.py:43
+msgid "Spanish"
+msgstr ""
+
+#: templates/admin/base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
+#: templates/admin/base_site.html:7
+msgid "Django administration"
+msgstr ""
+
+#: templates/admin/login.html:24
+msgid "Please correct the error below."
+msgstr ""
+
+#: templates/admin/login.html:24
+msgid "Please correct the errors below."
+msgstr ""
+
+#: templates/admin/login.html:44
+msgid "Password:"
+msgstr ""
+
+#: templates/admin/login.html:50
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: templates/admin/login.html:54
+msgid "Log in"
+msgstr ""
+
+#: templates/home.html:16
+#, python-format
+msgid "We make it easy to be an %(start_span)sOrgan Donor%(endspan)s."
+msgstr ""
+
+#: templates/home.html:20
+msgid ""
+"Register or tell the world you support organ donation by posting "
+"#DonateMyParts on one of your social media platforms... any way you choose, "
+"your next-of-kin will know your wishes and they will be honored."
+msgstr ""
+
+#: templates/home.html:25
+msgid "Register Now"
+msgstr ""

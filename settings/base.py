@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 import os
 import sys
 import urlparse
+from django.utils.translation import ugettext_lazy as _
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 APPSERVER = os.uname()[1]
@@ -12,8 +14,8 @@ INTERNAL_IPS = ('127.0.0.1', )
 SITE_ID = 1
 TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
-USE_I18N = False
-USE_L10N = False
+USE_I18N = True
+USE_L10N = True
 USE_TZ = True
 APPEND_SLASH = True
 
@@ -30,6 +32,15 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('es', _('Spanish')),
 )
 
 PASSWORD_HASHERS = (
@@ -49,6 +60,7 @@ DATETIME_INPUT_FORMATS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
