@@ -35,7 +35,6 @@ def register_form_clean(self):
         for k, v in self.api_errors.items():
             if k in self.fields:
                 self.add_error(k, v)
-        # import ipdb; ipdb.set_trace()
     return cleaned_data
 
 

@@ -192,7 +192,7 @@ LOGGING = {
         },
         'django.request': {
             'handlers': ['mail_admins', ],
-            'level': 'ERROR',
+            'level': 'WARNING',
             'propagate': True,
         },
         'django.db.backends': {
@@ -206,6 +206,10 @@ LOGGING = {
 FIFTYTHREE_CLIENT_KEY = os.environ.get('FIFTYTHREE_CLIENT_KEY')
 FIFTYTHREE_CLIENT_ENDPOINT = os.environ.get(
     'FIFTYTHREE_CLIENT_ENDPOINT', 'localhost:8000')
+FIFTYTHREE_CLIENT_SOURCE_URL = os.environ.get(
+    'FIFTYTHREE_CLIENT_SOURCE_URL', 'http://localhost')
+FIFTYTHREE_CLIENT_USE_SECURE = os.environ.get(
+    'FIFTYTHREE_CLIENT_USE_SECURE').lower() not in ('false', '0')
 
 REDIS_URL = os.getenv('REDISCLOUD_URL', 'redis://localhost:6379')
 REDIS = urlparse.urlparse(REDIS_URL)

@@ -30,6 +30,11 @@ SESSION_EMAIL = 'data_email'
 SESSION_POSTAL_CODE = 'data_postal_code'
 SESSION_TOS = 'data_terms_of_service'
 
+FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
+    api_key=settings.FIFTYTHREE_CLIENT_KEY,
+    endpoint=settings.FIFTYTHREE_CLIENT_ENDPOINT,
+    source_url=settings.FIFTYTHREE_CLIENT_SOURCE_URL)
+
 
 def clean_session(session):
     for key in (
@@ -39,6 +44,7 @@ def clean_session(session):
         if key in session:
             del session[key]
     return session
+
 
 class StateLookupView(django.views.generic.edit.FormView):
     template_name = 'postal_code.html'
@@ -53,14 +59,11 @@ class StateLookupView(django.views.generic.edit.FormView):
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        c = fiftythree.client.FiftyThreeClient(
-            settings.FIFTYTHREE_CLIENT_KEY,
-            settings.FIFTYTHREE_CLIENT_ENDPOINT)
         postal_code = form.cleaned_data['postal_code']
         email = form.cleaned_data['email']
 
         try:
-            c.submit_email(email, postal_code)
+            FIFTYTHREE_CLIENT.submit_email(email, postal_code)
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
                 form.add_error('email', e.message)
@@ -74,7 +77,7 @@ class StateLookupView(django.views.generic.edit.FormView):
             return super(StateLookupView, self).form_invalid(form)
 
         try:
-            r = c.lookup_postal_code(postal_code)
+            r = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
         except fiftythree.client.InvalidDataError as e:
             django.contrib.messages.error(self.request, e.message)
             for field, errors in e.errors.items():
@@ -146,16 +149,16 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
                     conf=page_conf)
 
     def submit_registration(self, data):
-        c = fiftythree.client.FiftyThreeClient(
-            settings.FIFTYTHREE_CLIENT_KEY,
-            settings.FIFTYTHREE_CLIENT_ENDPOINT)
         try:
-            c.register(**data)
+            FIFTYTHREE_CLIENT.register(**data)
         except fiftythree.client.InvalidDataError as e:
-            # django.contrib.messages.error(self.request, e.message)
+            logger.error(e.message)
             return e.errors.items()
         except fiftythree.client.ServiceError as e:
-            # django.contrib.messages.error(self.request, e.message)
+            logger.error(e.message)
+            return [[None, e.message]]
+        except fiftythree.client.AuthenticationError as e:
+            logger.error(e.message)
             return [[None, e.message]]
 
     def render_done(self, form, **kwargs):
