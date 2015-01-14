@@ -1,1 +1,1 @@
-web: uwsgi uwsgi.ini --enable-threads
+web: newrelic-admin run-program uwsgi --ini uwsgi.ini --enable-threads
