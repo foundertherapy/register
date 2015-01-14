@@ -15,13 +15,7 @@ urlpatterns = django.conf.urls.patterns(
         r'^start/$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(
         r'^register/(?P<step>.+)/$',
-        views.RegistrationWizard.as_view(
+        views.RegistrationWizardView.as_view(
             url_name='register', done_step_name='complete'),
         name='register'),
-
-    # django.conf.urls.url(
-    #     r'^register/$', views.RegistrationWizard.as_view(), name='register'),
-    # django.conf.urls.url(
-    #     r'^register/complete/$', views.RegisterCompleteView.as_view(),
-    #     name='complete'),
 )

@@ -29,7 +29,7 @@ class StateLookupForm(django.forms.Form):
 
 def register_form_clean(self):
     cleaned_data = super(self.__class__, self).clean()
-    if self.api_errors:
+    if self.api_errors and not self.skip_api_error_validation:
         # api_errors is a dict of field_name: [error text] that should be added
         # to each field if it is present
         for k, v in self.api_errors.items():
@@ -118,5 +118,5 @@ def register_form_generator(conf):
         (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ),
         {'base_fieldsets': fieldsets, 'base_fields': fields,
          'base_row_attrs': {}, 'clean': register_form_clean,
-         'api_errors': {}, })
+         'api_errors': {}, 'skip_api_error_validation': False, })
     return cls

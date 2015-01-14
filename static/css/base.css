@@ -1,9 +1,6 @@
 body {
-    background: #fff;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12O4omsKAAMPATfbtRcqAAAAAElFTkSuQmCC");
+    background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12O4omsKAAMPATfbtRcqAAAAAElFTkSuQmCC") no-repeat top center;
     background-size: 100% 10px;
-    background-repeat: no-repeat;
-    background-position: top center;
     padding-bottom: 80px;
 }
 
@@ -69,12 +66,31 @@ body:after {
 
 .status-bar {
     margin-bottom: 40px;
-    padding-left: 18px;
+    /*padding-left: 18px;*/
+    position: relative;
 }
 
 .status-bar > div {
     height: 10px;
 }
+
+.status-bar-icon {
+    color: #d42d35;
+    padding: 0;
+    margin: 0;
+}
+
+.status-bar-icon > .glyphicon {
+    background: url("data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==") no-repeat 2px 2px;
+    background-size: 56px 56px;
+    top: -34px;
+    padding: 0;
+    font-size: 60px;
+    margin: auto;
+    display: block;
+    width: 60px;
+}
+
 
 .btn-organize {
     color: #fff;
@@ -184,4 +200,49 @@ hr {
 
 .form-group:last-of-type {
     margin-bottom: 0;
+}
+
+.social-icons {
+    text-align: center;
+    margin-top: 40px;
+}
+
+a.twitter-icon {
+    background: #fff url("../images/twitter.png") no-repeat top center;
+    height: 100px;
+    width: 20%;
+    background-size: contain;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+a.facebook-icon {
+    background: #fff url("../images/facebook.png") no-repeat top center;
+    height: 100px;
+    width: 20%;
+    background-size: contain;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+a.instagram-icon {
+    background: #fff url("../images/instagram.png") no-repeat top center;
+    height: 100px;
+    width: 20%;
+    background-size: contain;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+a.email-icon {
+    background: #fff url("../images/email.png") no-repeat top center;
+    height: 100px;
+    width: 20%;
+    background-size: contain;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 5px;
 }
