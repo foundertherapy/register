@@ -175,7 +175,9 @@ class RegistrationWizard(NamedUrlSessionWizardView):
         # failure if submission fails
         data = {}
         map(data.update, [form.cleaned_data for form in final_forms.values()])
+        # TODO: REMOVE ME
         del data['street_address']
+        # TODO: END REMOVE ME
         api_errors = self.submit_registration(data)
         if api_errors:
             # there is an error submitting the data, so pull the error data and
