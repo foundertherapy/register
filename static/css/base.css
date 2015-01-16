@@ -1,7 +1,15 @@
+@font-face {
+  font-family: 'BebasNeue';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/BebasNeueRegular.otf') format('opentype');
+}
+
 body {
     background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12O4omsKAAMPATfbtRcqAAAAAElFTkSuQmCC") no-repeat top center;
     background-size: 100% 10px;
     padding-bottom: 80px;
+    font-family: 'Lato', sans-serif;
 }
 
 body:after {
@@ -27,6 +35,7 @@ body:after {
     padding: 50px 0;
     font-weight: bold;
     font-size: 24px;
+    font-family: sans-serif;
 }
 
 .navbar-brand a:hover,
@@ -41,7 +50,7 @@ body:after {
 }
 
 .organize-red {
-    color: #d42d35;
+    color: #d40000;
 }
 
 .organize-green {
@@ -49,7 +58,7 @@ body:after {
 }
 
 .organize-red-background {
-    background-color: #d42d35;
+    background-color: #d40000 !important;
 }
 
 .organize-black {
@@ -66,16 +75,28 @@ body:after {
 
 .status-bar {
     margin-bottom: 40px;
-    /*padding-left: 18px;*/
     position: relative;
 }
 
-.status-bar > div {
+.status-bar .step {
+    width: 10%;
     height: 10px;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    font-size: 85%;
+}
+
+.status-bar .step-counter {
+    line-height: 1;
+    margin-left: 10px;
+    display: inline-block;
+    font-size: 85%;
 }
 
 .status-bar-icon {
-    color: #d42d35;
+    color: #d40000;
     padding: 0;
     margin: 0;
 }
@@ -92,44 +113,52 @@ body:after {
 }
 
 
-.btn-organize {
-    color: #fff;
-    font-size: 24px;
-    background-color: #d42d35;
-    border-color: #d42d35;
-    border-radius: 0;
-    text-transform: uppercase;
-    padding: 6px 20px;
-    letter-spacing: 3px;
-}
-
+.btn-organize,
 .btn-organize:hover,
 .btn-organize:focus,
 .btn-organize:active,
-.btn-organize.active,
+.btn-organize.active {
+    color: #fff;
+    font-family: "BebasNeue", sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    background-color: #d40000;
+    border-color: #d40000;
+    border-radius: 0;
+    text-transform: uppercase;
+    padding: 12px 20px 4px 30px;
+    letter-spacing: 6px;
+    margin-right: 20px;
+}
+
 .btn-organize.disabled,
 .btn-organize[disabled] {
     color: #fff;
-    background-color:#a9302a;
-    *background-color:#a9302a;
-    border-color: #a9302a;
+    background-color: #222;
+    *background-color:#222;
+    border-color: #222;
 }
 
-.btn-secondary {
-    background-color: #aaa;
-    border-color: #aaa;
-}
-
+.btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus,
 .btn-secondary:active,
-.btn-secondary.active,
+.btn-secondary.active {
+    font-family: "BebasNeue", sans-serif;
+    font-size: 34px;
+    background-color: #aaa;
+    border-color: #aaa;
+    padding: 12px 20px 4px 30px;
+    letter-spacing: 6px;
+    margin-right: 20px;
+}
+
 .btn-secondary.disabled,
 .btn-secondary[disabled] {
     color: #fff;
-    background-color:#999;
-    *background-color:#999;
-    border-color: #999;
+    background-color:#aaa;
+    *background-color:#aaa;
+    border-color: #aaa;
 }
 
 label {
@@ -149,6 +178,10 @@ label {
 h1 {
     margin-top: 0;
     text-transform: uppercase;
+}
+
+h1,h2,h3,h4,h5 {
+    font-family: 'Montserrat', sans-serif;
 }
 
 

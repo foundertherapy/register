@@ -33,7 +33,8 @@ SESSION_TOS = 'data_terms_of_service'
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     api_key=settings.FIFTYTHREE_CLIENT_KEY,
     endpoint=settings.FIFTYTHREE_CLIENT_ENDPOINT,
-    source_url=settings.FIFTYTHREE_CLIENT_SOURCE_URL)
+    source_url=settings.FIFTYTHREE_CLIENT_SOURCE_URL,
+    use_secure=settings.FIFTYTHREE_CLIENT_USE_SECURE)
 
 
 def clean_session(session):
