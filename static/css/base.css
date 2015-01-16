@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12O4omsKAAMPATfbtRcqAAAAAElFTkSuQmCC") no-repeat top center;
+    background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC") no-repeat top center;
     background-size: 100% 10px;
     padding-bottom: 80px;
     font-family: 'Lato', sans-serif;
@@ -50,7 +50,7 @@ body:after {
 }
 
 .organize-red {
-    color: #d40000;
+    color: #ed2224;
 }
 
 .organize-green {
@@ -58,7 +58,7 @@ body:after {
 }
 
 .organize-red-background {
-    background-color: #d40000 !important;
+    background-color: #ed2224 !important;
 }
 
 .organize-black {
@@ -96,7 +96,7 @@ body:after {
 }
 
 .status-bar-icon {
-    color: #d40000;
+    color: #ed2224;
     padding: 0;
     margin: 0;
 }
@@ -122,8 +122,8 @@ body:after {
     font-family: "BebasNeue", sans-serif;
     font-size: 34px;
     line-height: 1;
-    background-color: #d40000;
-    border-color: #d40000;
+    background-color: #ed2224;
+    border-color: #ed2224;
     border-radius: 0;
     text-transform: uppercase;
     padding: 12px 20px 4px 30px;

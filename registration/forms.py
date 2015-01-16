@@ -70,6 +70,7 @@ def register_form_generator(conf):
                 d['initial'] = initial
                 d['help_text'] = help_text
                 d['choices'] = choices
+                d['widget'] = django.forms.RadioSelect
                 field_class = django.forms.ChoiceField
             elif field_type == 'string' and field_name == 'email':
                 d['required'] = is_required

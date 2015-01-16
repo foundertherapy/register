@@ -48,7 +48,7 @@ def clean_session(session):
 
 
 class StateLookupView(django.views.generic.edit.FormView):
-    template_name = 'postal_code.html'
+    template_name = 'start.html'
     form_class = forms.StateLookupForm
     success_url = django.core.urlresolvers.reverse_lazy(
         'register', kwargs={'step': '1', })
