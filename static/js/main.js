@@ -1,5 +1,5 @@
 $(function() {
-    var requiredInputFields = $("input[type='text|email']:required");
+    var requiredInputFields = $("input[type='text']:required,input[type='email']:required");
     var requiredCheckboxFields = $("input[type='checkbox']:required");
 
     function validate() {
