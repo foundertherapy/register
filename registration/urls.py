@@ -18,4 +18,10 @@ urlpatterns = django.conf.urls.patterns(
         views.RegistrationWizardView.as_view(
             url_name='register', done_step_name='complete'),
         name='register'),
+    django.conf.urls.url(
+        r'^not-supported/$', views.UnsupportedStateView.as_view(),
+        name='unsupported_state'),
+    django.conf.urls.url(
+        r'^redirect/$', views.StateRedirectView.as_view(),
+        name='redirect_state'),
 )

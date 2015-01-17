@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <h1>{{ state_name }} doesn't support registering through Organize</h1>
+
+        <p>
+            To show your support, you can declare.
+        </p>
+        <a class="btn btn-primary btn-organize" href="{% url 'redirect_state' %}">Declare in {{ state }}</a>
+    </div>
+</div>
+{% endblock %}

@@ -24,11 +24,13 @@ import forms
 logger = logging.getLogger(__name__)
 
 SESSION_REGISTRATION_CONFIGURATION = 'registration_configuration'
-SESSION_STATE = 'data_state'
-SESSION_STATE_NAME = 'data_state_name'
-SESSION_EMAIL = 'data_email'
-SESSION_POSTAL_CODE = 'data_postal_code'
-SESSION_TOS = 'data_terms_of_service'
+SESSION_STATE = 'register_state'
+SESSION_STATE_NAME = 'register_state_name'
+SESSION_EMAIL = 'register_email'
+SESSION_POSTAL_CODE = 'register_postal_code'
+SESSION_TOS = 'register_terms_of_service'
+SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
+SESSION_REDIRECT_URL = 'register_redirect_url'
 
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     api_key=settings.FIFTYTHREE_CLIENT_KEY,
@@ -41,7 +43,7 @@ def clean_session(session):
     for key in (
             SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME,
             SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-            SESSION_TOS):
+            SESSION_TOS, SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, ):
         if key in session:
             del session[key]
     return session
@@ -50,12 +52,18 @@ def clean_session(session):
 class StateLookupView(django.views.generic.edit.FormView):
     template_name = 'start.html'
     form_class = forms.StateLookupForm
-    success_url = django.core.urlresolvers.reverse_lazy(
-        'register', kwargs={'step': '1', })
+    accepts_registration = True
 
     def get(self, request, *args, **kwargs):
         clean_session(request.session)
         return super(StateLookupView, self).get(request, *args, **kwargs)
+
+    def get_success_url(self):
+        if self.accepts_registration:
+            return django.core.urlresolvers.reverse(
+                'register', kwargs={'step': '1', })
+        else:
+            return django.core.urlresolvers.reverse('unsupported_state')
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
@@ -96,16 +104,57 @@ class StateLookupView(django.views.generic.edit.FormView):
                 field=None, error='Unknown state registration configuration')
             return super(StateLookupView, self).form_invalid(form)
 
-        # we need to show the registration form, but first we should save
-        # the state and field data into the session for later use
         self.request.session[SESSION_EMAIL] = email
         self.request.session[SESSION_STATE] = r['state']
         self.request.session[SESSION_STATE_NAME] = r['state_name']
-        self.request.session[SESSION_TOS] = r['terms_of_service']
         self.request.session[SESSION_POSTAL_CODE] = postal_code
-        self.request.session[SESSION_REGISTRATION_CONFIGURATION] = \
-            r['registration_configuration']
+
+        if r['accepts_registration']:
+            self.accepts_registration = True
+            self.request.session[SESSION_ACCEPTS_REGISTRATION] = True
+            self.request.session[SESSION_REDIRECT_URL] = ''
+            # we need to show the registration form, but first we should save
+            # the state and field data into the session for later use
+            self.request.session[SESSION_TOS] = r['terms_of_service']
+            self.request.session[SESSION_REGISTRATION_CONFIGURATION] = \
+                r['registration_configuration']
+        else:
+            self.accepts_registration = False
+            self.request.session[SESSION_ACCEPTS_REGISTRATION] = False
+            self.request.session[SESSION_REDIRECT_URL] = r['redirect_url']
+
         return super(StateLookupView, self).form_valid(form)
+
+
+class UnsupportedStateView(django.views.generic.TemplateView):
+    template_name = 'unsupported_state.html'
+
+    def get(self, request, *args, **kwargs):
+        # if we don't have a session variable set for a state redirect,
+        # send the user back to 'start'
+        redirect_url = self.request.session.get(SESSION_REDIRECT_URL)
+        print redirect_url
+        if not redirect_url:
+            return django.shortcuts.redirect('start')
+        context = self.get_context_data(**kwargs)
+        context['state'] = self.request.session[SESSION_STATE]
+        context['state_name'] = self.request.session[SESSION_STATE_NAME]
+        return self.render_to_response(context)
+
+
+class StateRedirectView(django.views.generic.RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, *args, **kwargs):
+        # if we have a redirect_url defined, get it and redirect
+        redirect_url = self.request.session.get(SESSION_REDIRECT_URL)
+        # kill the session data since we want to reset the user flow
+        print redirect_url
+        clean_session(self.request.session)
+        if redirect_url:
+            return redirect_url
+        else:
+            return django.core.urlresolvers.reverse('start')
 
 
 class RegisterCompleteView(django.views.generic.TemplateView):
