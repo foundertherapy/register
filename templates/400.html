@@ -1,30 +1,59 @@
 {% load staticfiles %}
 
-<!DOCTYPE html >
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>400 - Bad Request</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="icon" href="/favicon.ico">
 
+        <title>400 - Bad Request</title>
+
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,300italic|Montserrat:700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
+
     <body>
-        <!-- Add your site or application content here -->
-        <p style="padding-top: 200px; text-align: center;">
-            <img src="{% static 'images/logo.png' %}" />
-        </p>
-        <h1 style="text-align: center;">400 - Bad Request</h1>
-        <p style="text-align: center;">The page you requested generated a bad request. Please check your URL and try again.</p>
+        <div class="navbar" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <p class="navbar-brand">
+                        {% block navbar_brand %}
+                            <a href="{% url 'home' %}"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}" /></a>
+                        {% endblock %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <!-- Add your site or application content here -->
+            <p style="text-align: center;">
+                <img src="{% static 'images/logo-large.png' %}" />
+            </p>
+            <h1 style="text-align: center;">400 - Bad Request</h1>
+            <p style="text-align: center;">The page you requested generated a bad request. Please check your URL and try again.</p>
+
+        </div><!-- /.container -->
 
         <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/jquery.js' %}"><\/script>')</script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script src="{% static 'js/main.js' %}"></script>
     </body>
 </html>
