@@ -8,6 +8,19 @@
 {{ wizard.form.media }}
 {% endblock %}
 
+{% block script %}
+<script src="{% static 'js/pickadate/picker.js' %}"></script>
+<script src="{% static 'js/pickadate/picker.date.js' %}"></script>
+<script src="{% static 'js/pickadate/legacy.js' %}"></script>
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'js/pickadate/themes/classic.css' %}" id="theme_base">
+<link rel="stylesheet" href="{% static 'js/pickadate/themes/classic.date.css' %}" id="theme_date">
+{% endblock %}
+
+
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
@@ -27,7 +40,7 @@
                 {% endif %}
             ">&nbsp;</div>
         {% endfor %}
-        <div class="step-counter">{{ wizard.steps.current|add:1 }} / {{ wizard.steps.count|add:1 }}</div>
+        <div class="step-counter">{{ wizard.steps.step1|add:1 }} / {{ wizard.steps.count|add:1 }}</div>
     {% endspaceless %}
     </div>
 </div>

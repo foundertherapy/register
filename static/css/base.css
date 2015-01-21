@@ -74,7 +74,7 @@ body:after {
 }
 
 .status-bar {
-    margin-bottom: 40px;
+    margin: 15px -15px;
     position: relative;
 }
 
@@ -93,6 +93,14 @@ body:after {
     margin-left: 10px;
     display: inline-block;
     font-size: 85%;
+}
+
+.status-bar .step-wide {
+    width: 60%;
+    height: 10px;
+    padding: 0;
+    margin: 0 auto;
+    line-height: 1;
 }
 
 .status-bar-icon {
@@ -237,7 +245,7 @@ hr {
 
 .social-icons {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 a.twitter-icon {

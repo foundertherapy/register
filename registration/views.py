@@ -31,6 +31,7 @@ SESSION_POSTAL_CODE = 'register_postal_code'
 SESSION_TOS = 'register_terms_of_service'
 SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
+SESSION_RESET_FORM = 'register_reset_form'
 
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     api_key=settings.FIFTYTHREE_CLIENT_KEY,
@@ -46,6 +47,7 @@ def clean_session(session):
             SESSION_TOS, SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, ):
         if key in session:
             del session[key]
+    session[SESSION_RESET_FORM] = True
     return session
 
 
@@ -133,7 +135,6 @@ class UnsupportedStateView(django.views.generic.TemplateView):
         # if we don't have a session variable set for a state redirect,
         # send the user back to 'start'
         redirect_url = self.request.session.get(SESSION_REDIRECT_URL)
-        print redirect_url
         if not redirect_url:
             return django.shortcuts.redirect('start')
         context = self.get_context_data(**kwargs)
@@ -149,7 +150,6 @@ class StateRedirectView(django.views.generic.RedirectView):
         # if we have a redirect_url defined, get it and redirect
         redirect_url = self.request.session.get(SESSION_REDIRECT_URL)
         # kill the session data since we want to reset the user flow
-        print redirect_url
         clean_session(self.request.session)
         if redirect_url:
             return redirect_url
@@ -277,6 +277,12 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
             'formtools/wizard/done.html', context)
 
     def dispatch(self, request, *args, **kwargs):
+        if request.session.get(SESSION_RESET_FORM):
+            del request.session[SESSION_RESET_FORM]
+            prefix = self.get_prefix(*args, **kwargs)
+            storage = get_storage(self.storage_name, prefix, request,
+                                  getattr(self, 'file_storage', None))
+            storage.reset()
         if not self.configuration:
             if self.check_configuration():
                 self.process_registration_configuration()

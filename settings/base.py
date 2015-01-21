@@ -224,3 +224,7 @@ SESSION_REDIS_PASSWORD = REDIS.password
 SESSION_REDIS_PREFIX = 'session:register'
 SESSION_COOKIE_NAME = 'sessionid-register'
 SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length
+
+BOOTSTRAP3 = {
+    'set_placeholder': False,
+}

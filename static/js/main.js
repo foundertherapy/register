@@ -25,4 +25,23 @@ $(function() {
     validate();
 
     $('input:not(:read-only)').not(":hidden").first().focus();
+
+    $('.datepicker').pickadate({
+        editable: true,
+        selectYears: 110,
+        selectMonths: true,
+        today: '',
+        clear: '',
+        format: 'm/d/yyyy',
+        max: new Date(),
+        onOpen: function() {
+            var currentDate = this.get();
+            if (currentDate) {
+                this.set('select', currentDate);
+            }
+        }
+    });
+
+    $('.phonenumber').mask("(999) 999-9999");
+
 });

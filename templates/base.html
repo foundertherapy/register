@@ -15,6 +15,7 @@
 
         <link href='http://fonts.googleapis.com/css?family=Lato:300,300italic|Montserrat:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        {% block css %}{% endblock %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
 
@@ -37,7 +38,7 @@
                     </button>
                     <p class="navbar-brand">
                         {% block navbar_brand %}
-                            <a href="{% url 'home' %}"><img width="160" height="24" alt="ORGANIZE Logo" src="{{ STATIC_URL }}images/logo-small.png"/></a>
+                            <a href="{% url 'home' %}"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a>
                         {% endblock %}
                     </p>
                 </div>
@@ -64,6 +65,7 @@
         <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/jquery.js' %}"><\/script>')</script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        {% block script %}{% endblock %}
         <script src="{% static 'js/main.js' %}"></script>
     </body>
 </html>

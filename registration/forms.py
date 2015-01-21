@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import logging
 import re
 import collections
+import datetime
 
 from django.utils.translation import ugettext_lazy as _
 import django.forms
@@ -14,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
 
+RE_NON_DECIMAL = re.compile(r'[^\d]+')
 RE_NON_ALPHA = re.compile('[\W]+')
 RE_POSTAL_CODE = re.compile(r'^[0-9]{5}$')
 validate_postal_code = django.core.validators.RegexValidator(
@@ -36,6 +38,23 @@ def register_form_clean(self):
             if k in self.fields:
                 self.add_error(k, v)
     return cleaned_data
+
+
+def register_form_clean_birthdate(self):
+    date = self.cleaned_data['birthdate']
+    if date >= datetime.date.today():
+        raise django.forms.ValidationError("Enter an accurate birthdate.")
+    return date
+
+
+def register_form_clean_phone_number(self):
+    phone_number = RE_NON_DECIMAL.sub('', self.cleaned_data['phone_number'])
+    if phone_number.startswith('1'):
+        phone_number = phone_number[1:]
+    if len(phone_number) != 10:
+        raise django.forms.ValidationError(
+            "Enter an accurate phone number including area code.")
+    return phone_number
 
 
 def register_form_generator(conf):
@@ -102,12 +121,19 @@ def register_form_generator(conf):
             fields[field_name] = field_class(**d)
             fieldset[1]['fields'].append(field_name)
 
+            widget = fields[field_name].widget
             if not is_editable:
-                widget = fields[field_name].widget
                 if isinstance(widget, django.forms.Select):
                     widget.attrs['disabled'] = 'disabled'
                 else:
                     widget.attrs['readonly'] = 'readonly'
+            if field_type == 'date':
+                widget.attrs['placeholder'] = '01/01/1980'
+                widget.attrs['class'] = 'datepicker'
+            if field_name == 'phone_number':
+                widget.attrs['placeholder'] = '(212) 555-1212'
+                widget.attrs['class'] = 'phonenumber'
+
         fieldsets.append(fieldset)
 
     cls_name = 'RegisterForm{}'.format(
@@ -115,8 +141,14 @@ def register_form_generator(conf):
         'ascii', errors='ignore')
     cls = type(
         cls_name,
-        (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ),
-        {'base_fieldsets': fieldsets, 'base_fields': fields,
-         'base_row_attrs': {}, 'clean': register_form_clean,
-         'api_errors': {}, 'skip_api_error_validation': False, })
+        (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ), {
+            'base_fieldsets': fieldsets,
+            'base_fields': fields,
+            'base_row_attrs': {},
+            'clean': register_form_clean,
+            'clean_birthdate': register_form_clean_birthdate,
+            'clean_phone_number': register_form_clean_phone_number,
+            'api_errors': {},
+            'skip_api_error_validation': False,
+        })
     return cls

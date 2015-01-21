@@ -24,4 +24,9 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(
         r'^redirect/$', views.StateRedirectView.as_view(),
         name='redirect_state'),
+
+
+    # django.conf.urls.url(
+    #     r'^done/$', django.views.generic.TemplateView.as_view(
+    #         template_name='formtools/wizard/done.html')),
 )
