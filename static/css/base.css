@@ -306,7 +306,7 @@ a.email-icon {
 }
 
 div.radio.input-lg {
-    padding: inherit;
+    padding: 0 0 0 20px;
     height: inherit;
     margin-top: inherit;
     margin-bottom: inherit;
@@ -333,8 +333,13 @@ legend {
     background-color: #ed2224;
     border-color: #ed2224;
 }
-.checkbox label::after,
-.radio label::after {
-    padding-top: 6px;
+
+.checkbox label::after {
     color: #fff;
+    padding-top: 6px;
+}
+
+.radio label::after {
+    background-color: #fff;
+    top: 7px;
 }
