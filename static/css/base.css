@@ -300,3 +300,23 @@ a.email-icon {
 .popover {
     font-family: inherit;
 }
+
+div.radio.input-lg {
+    padding: inherit;
+    height: inherit;
+    margin-top: inherit;
+    margin-bottom: inherit;
+}
+
+div.radio label,
+fieldset.checkbox label {
+    color: #555;
+}
+
+fieldset.checkbox div.form-group {
+    margin: 0;
+}
+
+fieldset.checkbox legend {
+    color: #aaa;
+}

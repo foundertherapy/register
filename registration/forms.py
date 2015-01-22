@@ -69,6 +69,8 @@ def register_form_generator(conf):
             'legend': fieldset_title,
             'fields': []}, )
 
+        has_booleans = False
+
         for field_def in fieldset_def['fields']:
             field_name = field_def['field_name']
             field_type = field_def.get('type')
@@ -109,6 +111,7 @@ def register_form_generator(conf):
                 d['help_text'] = help_text
                 field_class = django.forms.DateField
             elif field_type == 'boolean':
+                has_booleans = True
                 d['initial'] = initial
                 # this must be false otherwise checkbox must be checked
                 if field_name != 'agree_to_tos':
@@ -128,17 +131,21 @@ def register_form_generator(conf):
                 else:
                     widget.attrs['readonly'] = 'readonly'
             if field_type == 'date':
-                widget.attrs['placeholder'] = '01/01/1980'
+                widget.attrs['placeholder'] = '1/1/1980'
                 widget.attrs['class'] = 'datepicker'
             if field_name == 'phone_number':
                 widget.attrs['placeholder'] = '(212) 555-1212'
                 widget.attrs['class'] = 'phonenumber'
 
+        if has_booleans:
+            print 'has_booleans'
+            fieldset[1]['classes'] = ['checkbox', ]
         fieldsets.append(fieldset)
 
     cls_name = 'RegisterForm{}'.format(
         RE_NON_ALPHA.sub('', conf['title'].title())).encode(
         'ascii', errors='ignore')
+
     cls = type(
         cls_name,
         (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ), {
