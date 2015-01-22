@@ -199,7 +199,6 @@ label {
     border-color: #eee;
     -webkit-box-shadow: none;
     box-shadow: none;
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
 }
 
 .has-success .form-control:focus {

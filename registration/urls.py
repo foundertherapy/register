@@ -10,9 +10,12 @@ urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(
         r'^$', django.views.generic.TemplateView.as_view(
-            template_name='home.html'), name='home'),
+            template_name='registration/home.html'), name='home'),
     django.conf.urls.url(
         r'^start/$', views.StateLookupView.as_view(), name='start'),
+    django.conf.urls.url(
+        r'^terms-of-service/$', views.TermsOfServiceView.as_view(),
+        name='terms_of_service'),
     django.conf.urls.url(
         r'^register/(?P<step>.+)/$',
         views.RegistrationWizardView.as_view(

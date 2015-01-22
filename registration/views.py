@@ -52,7 +52,7 @@ def clean_session(session):
 
 
 class StateLookupView(django.views.generic.edit.FormView):
-    template_name = 'start.html'
+    template_name = 'registration/start.html'
     form_class = forms.StateLookupForm
     accepts_registration = True
 
@@ -129,7 +129,7 @@ class StateLookupView(django.views.generic.edit.FormView):
 
 
 class UnsupportedStateView(django.views.generic.TemplateView):
-    template_name = 'unsupported_state.html'
+    template_name = 'registration/unsupported_state.html'
 
     def get(self, request, *args, **kwargs):
         # if we don't have a session variable set for a state redirect,
@@ -158,7 +158,7 @@ class StateRedirectView(django.views.generic.RedirectView):
 
 
 class RegisterCompleteView(django.views.generic.TemplateView):
-    template_name = 'register_complete.html'
+    template_name = 'registration/register_complete.html'
 
 
 class RegistrationWizardView(NamedUrlSessionWizardView):
@@ -373,3 +373,24 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
             d['configuration'] = self.configuration
             d['terms_of_service'] = self.request.session[SESSION_TOS]
         return d
+
+
+class TermsOfServiceView(django.views.generic.TemplateView):
+    template_name = 'registration/terms_of_service.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        try:
+            r = FIFTYTHREE_CLIENT.terms_of_service()
+            context['terms_of_service'] = r['content']
+            context['hash'] = r['hash']
+            context['active_on'] = r['active_on']
+        except fiftythree.client.InvalidDataError as e:
+            logger.error(e.message)
+        except fiftythree.client.ServiceError as e:
+            logger.error(e.message)
+
+        return self.render_to_response(context)
+
+
