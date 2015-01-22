@@ -139,6 +139,10 @@ body:after {
     margin-right: 20px;
 }
 
+button.btn-organize:last-of-type {
+    margin-right: 0;
+}
+
 .btn-organize.disabled,
 .btn-organize[disabled] {
     color: #fff;
