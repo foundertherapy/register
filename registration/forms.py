@@ -138,8 +138,7 @@ def register_form_generator(conf):
                 widget.attrs['class'] = 'phonenumber'
 
         if has_booleans:
-            print 'has_booleans'
-            fieldset[1]['classes'] = ['checkbox', ]
+            fieldset[1]['classes'] = ['checkboxes', ]
         fieldsets.append(fieldset)
 
     cls_name = 'RegisterForm{}'.format(

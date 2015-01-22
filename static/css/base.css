@@ -243,6 +243,10 @@ hr {
     margin-bottom: 0;
 }
 
+.checkboxes .form-group {
+    margin: 0;
+}
+
 .social-icons {
     text-align: center;
     margin-top: 20px;
@@ -309,14 +313,28 @@ div.radio.input-lg {
 }
 
 div.radio label,
-fieldset.checkbox label {
+div.checkbox label {
     color: #555;
 }
 
-fieldset.checkbox div.form-group {
+.checkbox {
+    height: inherit;
+    padding: 0 0 0 20px;
     margin: 0;
 }
 
-fieldset.checkbox legend {
+legend {
     color: #aaa;
+}
+
+.checkbox label::before,
+.radio label::before {
+    top: 4px;
+    background-color: #ed2224;
+    border-color: #ed2224;
+}
+.checkbox label::after,
+.radio label::after {
+    padding-top: 6px;
+    color: #fff;
 }

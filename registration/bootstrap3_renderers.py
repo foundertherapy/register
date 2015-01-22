@@ -2,7 +2,9 @@ import bootstrap3.renderers
 
 from django.template.loader import get_template
 from django.template import Context
-from bootstrap3.forms import render_tag
+from django.utils.html import strip_tags
+
+from bootstrap3.forms import render_tag, render_label
 
 
 class FiftyThreeFieldRenderer(bootstrap3.renderers.FieldRenderer):
@@ -29,4 +31,7 @@ class FiftyThreeFieldRenderer(bootstrap3.renderers.FieldRenderer):
             html = render_tag('i', attrs=attrs) + html
         return html
 
-
+    def put_inside_label(self, html):
+        return html + render_label(
+            content=self.field.label, label_for=self.field.id_for_label,
+            label_title=strip_tags(self.field_help))
