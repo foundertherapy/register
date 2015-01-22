@@ -44,4 +44,6 @@ $(function() {
 
     $('.phonenumber').mask("(999) 999-9999");
 
+    $('[data-toggle="popover"]').popover();
+
 });

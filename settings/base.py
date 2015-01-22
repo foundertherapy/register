@@ -227,4 +227,12 @@ SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length
 
 BOOTSTRAP3 = {
     'set_placeholder': False,
+    'include_jquery': True,
+    'jquery_url': '//code.jquery.com/jquery-2.1.3.min.js',
+    'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/',
+    'field_renderers': {
+        'default': 'registration.bootstrap3_renderers.FiftyThreeFieldRenderer',
+        'inline': 'bootstrap3.renderers.InlineFieldRenderer',
+    },
+
 }

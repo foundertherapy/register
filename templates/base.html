@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +14,9 @@
             <meta name="description" content="{{ html_description }}">
         {% endif %}
 
+        {% bootstrap_css %}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Lato:300,300italic|Montserrat:700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         {% block css %}{% endblock %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
@@ -46,15 +48,7 @@
         </div>
 
         <div class="container">
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger
-                    {% else %}alert-info{% endif %}" role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
+            {% bootstrap_messages %}
 
             {% block content %}
                 {{ content }}
@@ -62,9 +56,8 @@
 
         </div><!-- /.container -->
 
-        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        {% bootstrap_javascript %}
         <script>window.jQuery || document.write('<script src="{% static 'js/jquery.js' %}"><\/script>')</script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         {% block script %}{% endblock %}
         <script src="{% static 'js/main.js' %}"></script>
     </body>

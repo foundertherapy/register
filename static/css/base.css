@@ -287,3 +287,16 @@ a.email-icon {
     text-decoration: none;
     margin: 0 5px;
 }
+
+
+.field-help {
+    display: inline-block;
+    padding: 0 5px;
+    color: #aaa;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.popover {
+    font-family: inherit;
+}
