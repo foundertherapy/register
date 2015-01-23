@@ -131,10 +131,10 @@ def register_form_generator(conf):
                 else:
                     widget.attrs['readonly'] = 'readonly'
             if field_type == 'date':
-                widget.attrs['placeholder'] = '1/1/1980'
+                widget.attrs['placeholder'] = '__/__/____'
                 widget.attrs['class'] = 'datepicker'
             if field_name == 'phone_number':
-                widget.attrs['placeholder'] = '(212) 555-1212'
+                widget.attrs['placeholder'] = '(___) ___-____'
                 widget.attrs['class'] = 'phonenumber'
 
         if has_booleans:
