@@ -330,9 +330,15 @@ legend {
     color: #aaa;
 }
 
-.checkbox label::before,
-.radio label::before {
+.checkbox input[type=checkbox] + label::before,
+.radio input[type=radio] + label::before {
     top: 4px;
+    background-color: #aaa;
+    border-color: #aaa;
+}
+
+.checkbox input[type=checkbox]:checked + label::before,
+.radio input[type=radio]:checked + label::before {
     background-color: #ed2224;
     border-color: #ed2224;
 }

@@ -57,6 +57,19 @@ def register_form_clean_phone_number(self):
     return phone_number
 
 
+def register_form_clean_ssn(self):
+    ssn = self.cleaned_data['ssn']
+    if len(ssn) != 4:
+        raise django.forms.ValidationError(
+            "Enter the last 4 digits of your social security number.")
+    try:
+        int(ssn)
+    except ValueError:
+        raise django.forms.ValidationError(
+            "Enter only digits.")
+    return ssn
+
+
 def register_form_generator(conf):
     fieldsets = []
     fields = collections.OrderedDict()
@@ -136,6 +149,9 @@ def register_form_generator(conf):
             if field_name == 'phone_number':
                 widget.attrs['placeholder'] = '(___) ___-____'
                 widget.attrs['class'] = 'phonenumber'
+            if field_name == 'ssn':
+                widget.attrs['placeholder'] = '____'
+                widget.attrs['class'] = 'ssn'
 
         if has_booleans:
             fieldset[1]['classes'] = ['checkboxes', ]
@@ -154,6 +170,7 @@ def register_form_generator(conf):
             'clean': register_form_clean,
             'clean_birthdate': register_form_clean_birthdate,
             'clean_phone_number': register_form_clean_phone_number,
+            'clean_ssn': register_form_clean_ssn,
             'api_errors': {},
             'skip_api_error_validation': False,
         })
