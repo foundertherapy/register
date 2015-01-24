@@ -33,7 +33,7 @@ class FiftyThreeFieldRenderer(bootstrap3.renderers.FieldRenderer):
                 'class': 'fa fa-question field-help',
                 'data-toggle': "popover",
                 'data-content': self.field_help,
-                'data-trigger': 'hover',
+                'data-trigger': 'click',
                 'data-placement': 'auto',
                 'data-title': 'Help for {}'.format(self.field.label), }
             html = render_tag('i', attrs=attrs) + html
