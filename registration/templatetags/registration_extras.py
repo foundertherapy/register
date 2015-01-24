@@ -1,5 +1,8 @@
 from django import template
 
+import phonenumbers
+import phonenumbers.phonenumberutil
+
 register = template.Library()
 
 
@@ -15,3 +18,13 @@ def tabindex(value, index):
 @register.filter
 def key(d, k):
     return d.get(k)
+
+
+@register.filter
+def phonenumber(p):
+    try:
+        phone_number = phonenumbers.parse(p, 'US')
+        return phonenumbers.format_number(
+            phone_number, phonenumbers.PhoneNumberFormat.NATIONAL)
+    except phonenumbers.phonenumberutil.NumberParseException:
+        return p
