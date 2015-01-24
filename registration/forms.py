@@ -42,13 +42,18 @@ def register_form_clean(self):
 
 def register_form_clean_birthdate(self):
     date = self.cleaned_data['birthdate']
+    if not date:
+        return date
     if date >= datetime.date.today():
         raise django.forms.ValidationError("Enter an accurate birthdate.")
     return date
 
 
 def register_form_clean_phone_number(self):
-    phone_number = RE_NON_DECIMAL.sub('', self.cleaned_data['phone_number'])
+    phone_number = self.cleaned_data['phone_number']
+    if not phone_number:
+        return phone_number
+    phone_number = RE_NON_DECIMAL.sub('', phone_number)
     if phone_number.startswith('1'):
         phone_number = phone_number[1:]
     if len(phone_number) != 10:
@@ -59,6 +64,8 @@ def register_form_clean_phone_number(self):
 
 def register_form_clean_ssn(self):
     ssn = self.cleaned_data['ssn']
+    if not ssn:
+        return ssn
     if len(ssn) != 4:
         raise django.forms.ValidationError(
             "Enter the last 4 digits of your social security number.")
