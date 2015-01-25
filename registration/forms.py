@@ -5,11 +5,13 @@ import re
 import collections
 import datetime
 
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 import django.forms
 import django.core.validators
 
 import form_utils.forms
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +28,31 @@ validate_postal_code = django.core.validators.RegexValidator(
 class StateLookupForm(django.forms.Form):
     email = django.forms.EmailField()
     postal_code = django.forms.CharField(
-        max_length=5, min_length=5, validators=[validate_postal_code])
+        max_length=5, min_length=5, validators=[validate_postal_code],
+        help_text=_('Your zip will determine which series of state-based '
+                    'requirements will be provided in the next series '
+                    'of steps.'))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if settings.DISABLE_EMAIL_VALIDATION:
+            logger.warning('Email validation disabled: DISABLE_EMAIL_VALIDATION '
+                           'is set')
+            return email
+        # use mailgun email address validator to check this email
+        if not hasattr(settings, 'MAILGUN_PUBLIC_API_KEY'):
+            logger.warning(
+                'Cannot validate email: MAILGUN_PUBLIC_API_KEY not set')
+            return email
+        r = requests.get(
+            'https://api.mailgun.net/v2/address/validate',
+            data={'address': email, },
+            auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
+        if r.status_code == 200:
+            if r.json()['is_valid']:
+                return email
+        logger.warning('Cannot validate email: {}'.format(r.text))
+        raise django.forms.ValidationError("Enter a valid email.")
 
 
 def register_form_clean(self):

@@ -187,6 +187,10 @@ label {
     font-weight: normal;
 }
 
+.help-block {
+    color: #aaa;
+}
+
 .form-control {
     border-radius: 0;
     background-color: #eee;

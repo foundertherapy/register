@@ -225,6 +225,9 @@ SESSION_REDIS_PREFIX = 'session:register'
 SESSION_COOKIE_NAME = 'sessionid-register'
 SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length
 
+DISABLE_EMAIL_VALIDATION = os.environ.get(
+    'DISABLE_EMAIL_VALIDATION', '').lower() in ('true', '1')
+
 BOOTSTRAP3 = {
     'set_placeholder': False,
     'include_jquery': True,

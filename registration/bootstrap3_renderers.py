@@ -16,28 +16,28 @@ RE_INPUT_TAG = re.compile(r'(<label.*>)(<input.*/>)')
 
 
 class FiftyThreeFieldRenderer(bootstrap3.renderers.FieldRenderer):
-    def append_to_field(self, html):
-        if self.field_errors:
-            help_html = get_template(
-                'bootstrap3/field_help_text_and_errors.html'
-            ).render(Context({
-                'field': self.field,
-                'help_text_and_errors': self.field_errors,
-                'layout': self.layout,
-            }))
-            html += '<span class="help-block">{help}</span>'.format(
-                help=help_html)
-
-        if self.field_help:
-            attrs = {
-                'class': 'fa fa-question field-help',
-                'data-toggle': "popover",
-                'data-content': self.field_help,
-                'data-trigger': 'click',
-                'data-placement': 'auto',
-                'data-title': 'Help for {}'.format(self.field.label), }
-            html = render_tag('i', attrs=attrs) + html
-        return html
+    # def append_to_field(self, html):
+    #     if self.field_errors:
+    #         help_html = get_template(
+    #             'bootstrap3/field_help_text_and_errors.html'
+    #         ).render(Context({
+    #             'field': self.field,
+    #             'help_text_and_errors': self.field_errors,
+    #             'layout': self.layout,
+    #         }))
+    #         html += '<span class="help-block">{help}</span>'.format(
+    #             help=help_html)
+    #
+    #     if self.field_help:
+    #         attrs = {
+    #             'class': 'fa fa-question field-help',
+    #             'data-toggle': "popover",
+    #             'data-content': self.field_help,
+    #             'data-trigger': 'click',
+    #             'data-placement': 'auto',
+    #             'data-title': 'Help for {}'.format(self.field.label), }
+    #         html = render_tag('i', attrs=attrs) + html
+    #     return html
 
     def post_widget_render(self, html):
         if isinstance(self.widget, RadioSelect):
