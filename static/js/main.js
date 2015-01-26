@@ -1,7 +1,7 @@
 $(function() {
-    var requiredInputFields = $("input[type='text']:required,input[type='email']:required");
-    var requiredCheckboxFields = $("input[type='checkbox']:required");
-    var requiredRadioFields = $("input[type='radio']:required");
+    var requiredInputFields = $("input[type='text'][required='required'],input[type='email'][required='required']");
+    var requiredCheckboxFields = $("input[type='checkbox'][required='required']");
+    var requiredRadioFields = $("input[type='radio'][required='required']");
     var requiredFieldCount = requiredInputFields.length + requiredCheckboxFields.length + requiredRadioFields.length;
 
     function validate() {
