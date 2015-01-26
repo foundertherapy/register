@@ -180,7 +180,7 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
     def process_registration_configuration(self):
         self.configuration = self.request.session[
             SESSION_REGISTRATION_CONFIGURATION]
-
+        import json; print json.dumps(self.configuration)
         self.page_count = len(self.configuration)
         logger.debug('process_registration_configuration: {}'.format(
             self.page_count))
@@ -191,7 +191,8 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
             step = unicode(page_conf['step'])
             title = page_conf['title']
             fieldsets = page_conf['fieldsets']
-            if fieldsets and fieldsets[0]['fields']:
+            if fieldsets and \
+                    any([fieldset['fields'] for fieldset in fieldsets]):
                 logging.debug('Processing step {}: {}'.format(step, title))
                 self.page_titles[step] = title
                 self.page_fieldsets[step] = fieldsets

@@ -2,7 +2,7 @@ $(function() {
     var requiredInputFields = $("input[type='text']:required,input[type='email']:required");
     var requiredCheckboxFields = $("input[type='checkbox']:required");
     var requiredRadioFields = $("input[type='radio']:required");
-    var requiredFieldCount = requiredInputFields.length + requiredCheckboxFields.length + requiredRadioFields.length
+    var requiredFieldCount = requiredInputFields.length + requiredCheckboxFields.length + requiredRadioFields.length;
 
     function validate() {
         var filledFieldsCount =
