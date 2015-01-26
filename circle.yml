@@ -1,7 +1,6 @@
 machine:
     environment:
         DJANGO_SETTINGS_MODULE: "settings.testing"
-        KOMBU_FERNET_KEY: "L4l6A0cI0t_hN9aMWy3AUAqWv7XavOjeVGggyo7apKI="
 
 test:
     override:
@@ -11,8 +10,8 @@ deployment:
     development:
         branch: development
         commands:
-            - git push git@heroku.com:register-dev.git $CIRCLE_SHA1:refs/heads/development
+            - git push git@heroku.com:register-dev.git $CIRCLE_SHA1:refs/heads/master
     production:
         branch: production
         commands:
-            - git push git@heroku.com:register-prod.git $CIRCLE_SHA1:refs/heads/production
+            - git push git@heroku.com:register-prod.git $CIRCLE_SHA1:refs/heads/master
