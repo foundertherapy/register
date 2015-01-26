@@ -46,4 +46,5 @@ $(function() {
     $('[data-toggle="popover"]').popover();
 
     $('input:not([readonly="readonly"])').not(":hidden").first().focus();
+    $('input, textarea').placeholder();
 });
