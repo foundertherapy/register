@@ -9,10 +9,10 @@ test:
 
 deployment:
     development:
-        branch: master
+        branch: development
         commands:
-            - git push git@heroku.com:fiftythree-client.git $CIRCLE_SHA1:refs/heads/master
+            - git push git@heroku.com:register-dev.git $CIRCLE_SHA1:refs/heads/development
     production:
         branch: production
         commands:
-            - git push git@heroku.com:fiftythree-client.git $CIRCLE_SHA1:refs/heads/production
+            - git push git@heroku.com:register-prod.git $CIRCLE_SHA1:refs/heads/production
