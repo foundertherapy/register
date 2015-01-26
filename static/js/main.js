@@ -24,8 +24,6 @@ $(function() {
     requiredRadioFields.bind("change keyup", validate);
     validate();
 
-    $('input:not(:read-only)').not(":hidden").first().focus();
-
     $('.datepicker').pickadate({
         editable: true,
         selectYears: 110,
@@ -47,4 +45,5 @@ $(function() {
 
     $('[data-toggle="popover"]').popover();
 
+    $('input:not([readonly="readonly"])').not(":hidden").first().focus();
 });
