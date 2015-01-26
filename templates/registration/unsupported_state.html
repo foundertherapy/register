@@ -1,16 +1,48 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
 {% load bootstrap3 %}
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <h1>{{ state_name }} doesn't support registering through Organize</h1>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <h1>{% blocktrans %}Whoops!!!{% endblocktrans %}</h1>
+    </div>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+</div>
 
-        <p>
-            To show your support, you can declare.
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 col-sm-6 col-xs-12">
+        <p class="lead">
+            {% blocktrans trimmed %}
+            Looks like {{ state_name }} doesn&rsquo;t accept registrations through ORGANIZE. You can, however, declare your support for donation by posting #DonateMyParts on your social media.
+            {% endblocktrans %}
         </p>
-        <a class="btn btn-primary btn-organize" href="{% url 'redirect_state' %}">Declare in {{ state }}</a>
+        <div class="social-icons">
+            <a href="http://twitter.com/intent/tweet?text=Made+a+big+move+today+and+finally+became+a+registered+organ+donor.+ORGANIZE.org+was+super+simple+and+now+I+can+%23DonateMyParts" class="twitter-icon">&nbsp;</a>
+            <a href="https://www.facebook.com/Organize" class="facebook-icon">&nbsp;</a>
+            <a href="http://instagram.com/organ_ize" class="instagram-icon">&nbsp;</a>
+        </div>
+{#        <a class="btn btn-primary btn-organize" href="{% url 'redirect_state' %}">Declare in {{ state }}</a>#}
+    </div>
+
+    <div class="visible-xs col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12">
+        &nbsp;
+    </div>
+
+    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 text-center">
+        <center><img src="{% static 'images/whoops-animated.gif' %}" class="img-responsive" /></center>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <p class="hashtag-large text-center">#DONATEMYPARTS</p>
     </div>
 </div>
 {% endblock %}

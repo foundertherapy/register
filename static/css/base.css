@@ -262,7 +262,7 @@ hr {
 a.twitter-icon {
     background: #fff url("../images/twitter.png") no-repeat top center;
     height: 100px;
-    width: 20%;
+    width: 28%;
     background-size: contain;
     display: inline-block;
     text-decoration: none;
@@ -272,7 +272,7 @@ a.twitter-icon {
 a.facebook-icon {
     background: #fff url("../images/facebook.png") no-repeat top center;
     height: 100px;
-    width: 20%;
+    width: 28%;
     background-size: contain;
     display: inline-block;
     text-decoration: none;
@@ -282,7 +282,7 @@ a.facebook-icon {
 a.instagram-icon {
     background: #fff url("../images/instagram.png") no-repeat top center;
     height: 100px;
-    width: 20%;
+    width: 28%;
     background-size: contain;
     display: inline-block;
     text-decoration: none;
@@ -292,7 +292,7 @@ a.instagram-icon {
 a.email-icon {
     background: #fff url("../images/email.png") no-repeat top center;
     height: 100px;
-    width: 20%;
+    width: 30%;
     background-size: contain;
     display: inline-block;
     text-decoration: none;
@@ -355,4 +355,26 @@ legend {
 .radio label::after {
     background-color: #fff;
     top: 7px;
+}
+
+.hashtag-large {
+    font-family: "BebasNeue", sans-serif;
+    font-weight: bold;
+    font-size: 70px;
+    color: #ed2224;
+    letter-spacing: 10px;
+}
+
+@media (max-width:767px) {
+    .hashtag-large {
+        font-size: 55px;
+        letter-spacing: 5px;
+    }
+}
+
+@media (max-width:480px) {
+    .hashtag-large {
+        font-size: 40px;
+        letter-spacing: 5px;
+    }
 }

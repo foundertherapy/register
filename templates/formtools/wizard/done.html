@@ -5,59 +5,44 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <h1 style="margin-bottom: 50px;" class="text-center">{{ title|default:"Congratulations" }}</h1>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <h1>{% blocktrans %}You&rsquo;re Registered{% endblocktrans %}</h1>
+    </div>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        &nbsp;
     </div>
 </div>
 
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <div class="status-bar">
-            {% spaceless %}
-            <div class="step-wide organize-red-background">&nbsp;</div>
-            {% endspaceless %}
-            <div class="status-bar-icon">
-                <span class="glyphicon glyphicon-ok-circle"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 col-sm-6 col-xs-12">
         <p class="lead">
             {% blocktrans trimmed %}
-            You&rsquo;re all set. You are now a registered organ donor. Seriously, you&rsquo;re all done, we won&rsquo;t even mail you or anything.
+            You&rsquo;re all set. You are now a registered organ donor. We think that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or just use modern technology:
             {% endblocktrans %}
         </p>
+        <div class="social-icons">
+            <a href="http://twitter.com/intent/tweet?text=Made+a+big+move+today+and+finally+became+a+registered+organ+donor.+ORGANIZE.org+was+super+simple+and+now+I+can+%23DonateMyParts" class="twitter-icon">&nbsp;</a>
+            <a href="https://www.facebook.com/Organize" class="facebook-icon">&nbsp;</a>
+            <a href="http://instagram.com/organ_ize" class="instagram-icon">&nbsp;</a>
+        </div>
+{#        <a class="btn btn-primary btn-organize" href="{% url 'redirect_state' %}">Declare in {{ state }}</a>#}
+    </div>
 
-        <hr/>
+    <div class="visible-xs col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12">
+        &nbsp;
+    </div>
 
-        <p style="padding: 10px 0;"><em>
-            {% blocktrans trimmed %}
-            The only thing we ask of you is to talk to your family and friends and let them know your decision. You could also encourage them to register as organ donors. Tell the world.
-            {% endblocktrans %}
-        </em></p>
-        <hr/>
+    <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 text-center">
+        <center><img src="{% static 'images/congratulations-animated.gif' %}" class="img-responsive" /></center>
     </div>
 </div>
-
 
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <div class="social-icons">
-            <a href="https://www.facebook.com/Organize" class="facebook-icon">&nbsp;</a>
-            <a href="https://twitter.com/organ_ize" class="twitter-icon">&nbsp;</a>
-            <a href="http://instagram.com/organ_ize" class="instagram-icon">&nbsp;</a>
-            <a href="mailto:" class="email-icon">&nbsp;</a>
-        </div>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+        <p class="hashtag-large text-center">#DONATEMYPARTS</p>
     </div>
 </div>
-
-
 {% endblock %}

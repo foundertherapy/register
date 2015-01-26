@@ -109,7 +109,6 @@ def register_form_generator(conf):
     for index, fieldset_def in enumerate(conf['fieldsets']):
         fieldset_title = fieldset_def['title']
         fieldset_fields = fieldset_def['fields']
-        print fieldset_title, ': ', fieldset_fields
 
         if not fieldset_fields:
             continue
@@ -121,7 +120,6 @@ def register_form_generator(conf):
 
         for field_def in fieldset_def['fields']:
             field_name = field_def['field_name']
-            print field_name
             field_type = field_def.get('type')
             label = field_def['human_name']
             is_required = field_def.get('required', False)
