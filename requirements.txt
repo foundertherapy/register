@@ -28,3 +28,4 @@ django-redis-sessions
 django-debug-toolbar-template-timings
 newrelic
 phonenumbers
+django-sslify
