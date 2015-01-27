@@ -24,24 +24,25 @@ $(function() {
     requiredRadioFields.bind("change keyup", validate);
     validate();
 
-    $('.datepicker').pickadate({
-        editable: true,
-        selectYears: 110,
-        selectMonths: true,
-        today: '',
-        clear: '',
-        format: 'm/d/yyyy',
-        max: new Date(),
-        onOpen: function() {
-            var currentDate = this.get();
-            if (currentDate) {
-                this.set('select', currentDate);
-            }
-        }
-    });
+    //$('.datepicker').pickadate({
+    //    editable: true,
+    //    selectYears: 110,
+    //    selectMonths: true,
+    //    today: '',
+    //    clear: '',
+    //    format: 'm/d/yyyy',
+    //    max: new Date(),
+    //    onOpen: function() {
+    //        var currentDate = this.get();
+    //        if (currentDate) {
+    //            this.set('select', currentDate);
+    //        }
+    //    }
+    //});
 
     $('.phonenumber').mask("(999) 999-9999");
     $('.ssn').mask("9999");
+    $('.date').mask("99/99/9999");
 
     $('[data-toggle="popover"]').popover();
 

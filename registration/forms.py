@@ -179,7 +179,7 @@ def register_form_generator(conf):
                     widget.attrs['readonly'] = 'readonly'
             if field_type == 'date':
                 widget.attrs['placeholder'] = '__/__/____'
-                widget.attrs['class'] = 'datepicker'
+                widget.attrs['class'] = 'date'
             if field_name == 'phone_number':
                 widget.attrs['placeholder'] = '(___) ___-____'
                 widget.attrs['class'] = 'phonenumber'
