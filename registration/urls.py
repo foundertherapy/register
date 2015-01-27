@@ -17,6 +17,9 @@ urlpatterns = django.conf.urls.patterns(
         r'^terms-of-service/$', views.TermsOfServiceView.as_view(),
         name='terms_of_service'),
     django.conf.urls.url(
+        r'^privacy-policy/$', views.PrivacyPolicyView.as_view(),
+        name='privacy_policy'),
+    django.conf.urls.url(
         r'^register/(?P<step>.+)/$',
         views.RegistrationWizardView.as_view(
             url_name='register', done_step_name='complete'),

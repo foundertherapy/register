@@ -16,6 +16,8 @@ from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
 from django.contrib.formtools.wizard.storage import get_storage
 from django.contrib.formtools.wizard.forms import ManagementForm
 
+import dateutil.parser
+
 import fiftythree.client
 
 import forms
@@ -377,16 +379,37 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
 
 
 class TermsOfServiceView(django.views.generic.TemplateView):
-    template_name = 'registration/terms_of_service.html'
+    template_name = 'registration/legal_document.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
 
+        context['title'] = 'Terms of Service'
         try:
             r = FIFTYTHREE_CLIENT.terms_of_service()
             context['terms_of_service'] = r['content']
             context['hash'] = r['hash']
-            context['active_on'] = r['active_on']
+            context['active_on'] = dateutil.parser.parse(r['active_on'])
+        except fiftythree.client.InvalidDataError as e:
+            logger.error(e.message)
+        except fiftythree.client.ServiceError as e:
+            logger.error(e.message)
+
+        return self.render_to_response(context)
+
+
+class PrivacyPolicyView(django.views.generic.TemplateView):
+    template_name = 'registration/legal_document.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        context['title'] = 'Privacy Policy'
+        try:
+            r = FIFTYTHREE_CLIENT.privacy_policy()
+            context['terms_of_service'] = r['content']
+            context['hash'] = r['hash']
+            context['active_on'] = dateutil.parser.parse(r['active_on'])
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
         except fiftythree.client.ServiceError as e:
