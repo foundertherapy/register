@@ -9,6 +9,10 @@ TEMPLATE_DEBUG = DEBUG
 
 WSGI_APPLICATION = 'wsgi.heroku.application'
 
+STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineCachedStorage'
+
+ADMIN_MEDIA_PREFIX = ''.join([STATIC_URL, 'admin/'])
+
 SECRET_KEY = os.environ['SECRET_KEY']
 
 CONFIGURED_ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
@@ -21,5 +25,8 @@ EMAIL_HOST = os.environ['MAILGUN_SMTP_SERVER']
 EMAIL_HOST_USER = os.environ['MAILGUN_SMTP_LOGIN']
 EMAIL_HOST_PASSWORD = os.environ['MAILGUN_SMTP_PASSWORD']
 EMAIL_PORT = os.environ['MAILGUN_SMTP_PORT']
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

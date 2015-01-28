@@ -6,12 +6,17 @@ TEMPLATE_DEBUG = DEBUG
 WSGI_APPLICATION = u'wsgi.local.application'
 
 DEFAULT_FILE_STORAGE = u'storages.backends.overwrite.OverwriteStorage'
+PIPELINE_ENABLED = False
+
+SESSION_COOKIE_AGE = 60
 
 MIDDLEWARE_CLASSES += (
     u'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 SECRET_KEY = '+kmou3aat2g72#5m1&jm8)&%e8+ccthb@@x8d359dj_k072azb'
+
+DISABLE_EMAIL_VALIDATION = True
 
 FIFTYTHREE_CLIENT_USE_SECURE = False
 

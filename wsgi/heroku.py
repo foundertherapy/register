@@ -8,6 +8,5 @@ https://docs.djangoproject.com/en/dev/howto/deployment/wsgi/
 """
 
 import django.core.wsgi
-import dj_static
 
-application = dj_static.Cling(django.core.wsgi.get_wsgi_application())
+application = django.core.wsgi.get_wsgi_application()

@@ -21,6 +21,35 @@ APPEND_SLASH = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
 
+# Configuration for django-storages to use S3
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_SECURE_URLS = True
+AWS_REDUCED_REDUNDANCY = False
+AWS_PRELOAD_METADATA = True
+AWS_IS_GZIPPED = True
+AWS_AUTO_CREATE_BUCKET = True
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = True
+
+import datetime
+import dateutil.relativedelta
+expires = datetime.datetime.utcnow() + \
+          dateutil.relativedelta.relativedelta(years=5)
+expires = expires.strftime('%a, %d %b %Y %H:%M:%S GMT')
+AWS_HEADERS = {
+    'Expires': expires,
+}
+
+GZIP_CONTENT_TYPES = (
+    'text/css',
+    'application/javascript',
+    'application/x-javascript',
+)
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
 
@@ -29,9 +58,16 @@ STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+PIPELINE_ENABLED = True
+PIPELINE_CSS_COMPRESSOR = None
+PIPELINE_JS_COMPRESSOR = None
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.PipelineFinder',
 )
 
 LOCALE_PATHS = (
@@ -127,6 +163,9 @@ INSTALLED_APPS = (
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'raven.contrib.django.raven_compat',
+    'pipeline',
+    'storages',
     'debug_toolbar',
     'template_timings_panel',
     'bootstrap3',
