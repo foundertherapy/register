@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 
 WSGI_APPLICATION = 'wsgi.heroku.application'
 
-STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineCachedStorage'
+STATICFILES_STORAGE = 'storage.NonPackagingS3PipelineCachedStorage'
 
 ADMIN_MEDIA_PREFIX = ''.join([STATIC_URL, 'admin/'])
 
