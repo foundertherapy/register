@@ -75,7 +75,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .organize-gray {
-    color: #aaa;
+    color: #333;
 }
 
 .organize-gray-background {
@@ -182,13 +182,18 @@ button.btn-organize:last-of-type {
 }
 
 label {
-    color: #aaa;
+    color: #333;
     text-transform: uppercase;
     font-weight: normal;
 }
 
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+    text-transform: none;
+}
+
 .help-block {
-    color: #aaa;
+    color: #333;
 }
 
 .form-control {
@@ -213,13 +218,13 @@ label {
 }
 
 .has-success .input-group-addon {
-    color:#aaa;
-    background-color:#eee;
-    border-color:#eee;
+    color: #333;
+    background-color: #eee;
+    border-color: #eee;
 }
 
 .has-success .form-control-feedback {
-    color:#aaa;
+    color:#333;
 }
 
 .has-success .help-block,
@@ -228,7 +233,7 @@ label {
 .has-success .checkbox,
 .has-success .radio-inline,
 .has-success .checkbox-inline {
-    color:#aaa
+    color:#333
 }
 
 legend {
@@ -303,7 +308,7 @@ a.email-icon {
 .field-help {
     display: inline-block;
     padding: 0 5px;
-    color: #aaa;
+    color: #333;
     margin-bottom: 5px;
     font-weight: normal;
 }
@@ -331,7 +336,7 @@ div.checkbox label {
 }
 
 legend {
-    color: #aaa;
+    color: #333;
 }
 
 .checkbox input[type=checkbox] + label::before,
