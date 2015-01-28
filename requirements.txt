@@ -4,7 +4,7 @@ dj-database-url
 django-extensions
 django-secure
 django-storages
-Django==1.7.3
+Django==1.7.4
 flake8
 ipython
 mock
