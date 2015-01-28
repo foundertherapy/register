@@ -378,16 +378,21 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         return d
 
 
-class TermsOfServiceView(django.views.generic.TemplateView):
+class LegalDocument(django.views.generic.TemplateView):
     template_name = 'registration/legal_document.html'
+    title = 'Legal Document'
+    api_name = None
+
+    def get_document(self):
+        return FIFTYTHREE_CLIENT.document(self.api_name)
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
 
-        context['title'] = 'Terms of Service'
+        context['title'] = self.title
         try:
-            r = FIFTYTHREE_CLIENT.terms_of_service()
-            context['terms_of_service'] = r['content']
+            r = self.get_document()
+            context['content'] = r['content']
             context['hash'] = r['hash']
             context['active_on'] = dateutil.parser.parse(r['active_on'])
         except fiftythree.client.InvalidDataError as e:
@@ -398,23 +403,16 @@ class TermsOfServiceView(django.views.generic.TemplateView):
         return self.render_to_response(context)
 
 
-class PrivacyPolicyView(django.views.generic.TemplateView):
-    template_name = 'registration/legal_document.html'
-
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-
-        context['title'] = 'Privacy Policy'
-        try:
-            r = FIFTYTHREE_CLIENT.privacy_policy()
-            context['terms_of_service'] = r['content']
-            context['hash'] = r['hash']
-            context['active_on'] = dateutil.parser.parse(r['active_on'])
-        except fiftythree.client.InvalidDataError as e:
-            logger.error(e.message)
-        except fiftythree.client.ServiceError as e:
-            logger.error(e.message)
-
-        return self.render_to_response(context)
+class TermsOfServiceView(LegalDocument):
+    title = 'Terms of Service'
+    api_name = 'terms-of-service'
 
 
+class PrivacyPolicyView(LegalDocument):
+    title = 'Privacy Policy'
+    api_name = 'privacy-policy'
+
+
+class TermsOfServiceByStateView(LegalDocument):
+    title = 'State-by-State Terms of Service'
+    api_name = 'terms-of-service-by-state'

@@ -39,10 +39,6 @@ class FiftyThreeClient(object):
         self.lookup_zipcode_path = '/api/{}/postal-codes/'.format(api_version)
         self.submit_email_path = '/api/{}/emails/'.format(api_version)
         self.register_path = '/api/{}/registrations/'.format(api_version)
-        self.terms_of_service_path = '/api/{}/terms-of-service/'.format(
-            api_version)
-        self.privacy_policy_path = '/api/{}/privacy-policy/'.format(
-            api_version)
 
     @property
     def _headers(self):
@@ -152,9 +148,9 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def terms_of_service(self):
+    def document(self, name):
         url = ''.join(
-            [self.scheme, self.endpoint, self.terms_of_service_path])
+            [self.scheme, self.endpoint, '/api/v2/', name, '/'])
         try:
             r = requests.get(url, headers=self._headers)
         except requests.ConnectionError as e:
@@ -168,7 +164,7 @@ class FiftyThreeClient(object):
             raise AuthenticationError(r.json().get('detail'))
 
         elif r.status_code == httplib.NOT_FOUND:
-            raise InvalidDataError('No Terms of Service Available.', {})
+            raise InvalidDataError('No Document Available.', {})
 
         elif r.status_code == httplib.UNPROCESSABLE_ENTITY:
             raise InvalidDataError(r.json().get('detail'), {})
@@ -183,36 +179,3 @@ class FiftyThreeClient(object):
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
-
-    def privacy_policy(self):
-        url = ''.join(
-            [self.scheme, self.endpoint, self.privacy_policy_path])
-        try:
-            r = requests.get(url, headers=self._headers)
-        except requests.ConnectionError as e:
-            logger.error(e)
-            raise ServiceError('Service unavailable.')
-
-        if r.status_code == httplib.OK:
-            return r.json()
-
-        elif r.status_code in (httplib.UNAUTHORIZED, httplib.FORBIDDEN, ):
-            raise AuthenticationError(r.json().get('detail'))
-
-        elif r.status_code == httplib.NOT_FOUND:
-            raise InvalidDataError('No Terms of Service Available.', {})
-
-        elif r.status_code == httplib.UNPROCESSABLE_ENTITY:
-            raise InvalidDataError(r.json().get('detail'), {})
-
-        elif r.status_code == httplib.BAD_REQUEST:
-            raise InvalidDataError('Invalid data.', r.json())
-
-        elif r.status_code in (
-                httplib.SERVICE_UNAVAILABLE, httplib.INTERNAL_SERVER_ERROR):
-            raise ServiceError('Service unavailable.')
-
-        else:
-            logger.info('Unknown status code: {}'.format(r.status_code))
-            return False
-

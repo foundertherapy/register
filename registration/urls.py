@@ -14,11 +14,17 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(
         r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(
-        r'^terms-of-service/$', views.TermsOfServiceView.as_view(),
+        r'^terms-of-service/$',
+        views.TermsOfServiceView.as_view(),
         name='terms_of_service'),
     django.conf.urls.url(
-        r'^privacy-policy/$', views.PrivacyPolicyView.as_view(),
+        r'^privacy-policy/$',
+        views.PrivacyPolicyView.as_view(),
         name='privacy_policy'),
+    django.conf.urls.url(
+        r'^terms-of-service-by-state/$',
+        views.TermsOfServiceByStateView.as_view(),
+        name='terms_of_service_by_state'),
     django.conf.urls.url(
         r'^register/(?P<step>.+)/$',
         views.RegistrationWizardView.as_view(
