@@ -184,6 +184,9 @@ COVERAGE_MODULE_EXCLUDES = (
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'raven.contrib.django.raven_compat',
+    'pipeline',
+    'storages',
     'debug_toolbar',
     'template_timings_panel',
     'bootstrap3',
@@ -272,7 +275,6 @@ BOOTSTRAP3 = {
     'set_placeholder': False,
     'include_jquery': True,
     'jquery_url': '//code.jquery.com/jquery-2.1.3.min.js',
-    'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/',
     'field_renderers': {
         'default': 'registration.bootstrap3_renderers.FiftyThreeFieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
