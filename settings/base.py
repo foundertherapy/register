@@ -194,12 +194,16 @@ COVERAGE_MODULE_EXCLUDES = (
 )
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.environ.get('CIRCLE_ARTIFACTS')
 
+RAVEN_CONFIG = {
+    'dsn': os.environ.get('RAVEN_DSN'),
+}
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'root': {
-        'level': 'DEBUG',
-        'handlers': ['console', ],
+        'level': 'INFO',
+        'handlers': ['sentry', 'console', ],
     },
     'formatters': {
         'verbose': {
@@ -215,6 +219,10 @@ LOGGING = {
         'null': {
             'level': 'INFO',
             'class': 'logging.NullHandler',
+        },
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -241,6 +249,15 @@ LOGGING = {
         'django.db.backends': {
             'handlers': ['console', ],
             'level': 'INFO',
+            'propagate': False,
+        },
+        'boto': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'sentry.errors': {
+            'level': 'INFO',
+            'handlers': ['console', ],
             'propagate': False,
         },
     },
