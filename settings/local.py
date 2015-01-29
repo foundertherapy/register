@@ -10,9 +10,8 @@ PIPELINE_ENABLED = False
 
 SESSION_COOKIE_AGE = 60
 
-MIDDLEWARE_CLASSES += (
-    u'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
+INSTALLED_APPS += ('debug_toolbar', 'template_timings_panel', )
 
 SECRET_KEY = '+kmou3aat2g72#5m1&jm8)&%e8+ccthb@@x8d359dj_k072azb'
 
