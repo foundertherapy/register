@@ -268,6 +268,33 @@ SESSION_REDIS_PREFIX = 'session:register'
 SESSION_COOKIE_NAME = 'sessionid-register'
 SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length
 
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': ':'.join([unicode(REDIS.hostname), unicode(REDIS.port)]),
+        'OPTIONS': {
+            'DB': REDIS_DB,
+            'PASSWORD': REDIS.password,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'PICKLE_VERSION': 2,
+        },
+        'KEY_PREFIX': 'register',
+        'TIMEOUT': 60 * 60 * 24,  # 1 day
+    },
+    'staticfiles': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': ':'.join([unicode(REDIS.hostname), unicode(REDIS.port)]),
+        'OPTIONS': {
+            'DB': REDIS_DB,
+            'PASSWORD': REDIS.password,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'PICKLE_VERSION': 2,
+        },
+        'KEY_PREFIX': 'sf',
+        'TIMEOUT': 60 * 60 * 24 * 180,  # 180 days
+    },
+}
+
 DISABLE_EMAIL_VALIDATION = os.environ.get(
     'DISABLE_EMAIL_VALIDATION', '').lower() in ('true', '1')
 
