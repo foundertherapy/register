@@ -69,6 +69,14 @@ class StateLookupView(django.views.generic.edit.FormView):
         else:
             return django.core.urlresolvers.reverse('unsupported_state')
 
+    def get_initial(self):
+        initial = self.initial.copy()
+        if 'email' in self.request.GET:
+            initial['email'] = self.request.GET['email']
+        if 'postal_code' in self.request.GET:
+            initial['postal_code'] = self.request.GET['postal_code']
+        return initial
+
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
