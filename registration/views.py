@@ -167,10 +167,6 @@ class StateRedirectView(django.views.generic.RedirectView):
             return django.core.urlresolvers.reverse('start')
 
 
-class RegisterCompleteView(django.views.generic.TemplateView):
-    template_name = 'registration/register_complete.html'
-
-
 class RegistrationWizardView(NamedUrlSessionWizardView):
     form_list = [forms.StateLookupForm, ]
     page_titles = collections.OrderedDict()
