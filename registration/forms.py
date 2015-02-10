@@ -11,6 +11,7 @@ import django.forms
 import django.core.validators
 
 import form_utils.forms
+import dateutil.parser
 import requests
 
 logger = logging.getLogger(__name__)
@@ -103,6 +104,17 @@ def register_form_clean_ssn(self):
     return ssn
 
 
+def validate_date_generator(min_value):
+    min_value = dateutil.parser.parse(min_value).date()
+
+    def validate_date(date):
+        if date < min_value:
+            raise django.core.validators.ValidationError(
+                _('Date must be later than {}.'.format(
+                    min_value.strftime('%m/%d/%Y'))), code='minimum')
+    return validate_date
+
+
 def register_form_generator(conf):
     fieldsets = []
     fields = collections.OrderedDict()
@@ -128,6 +140,7 @@ def register_form_generator(conf):
             help_text = field_def.get('help_text')
             choices = field_def.get('choices')
             is_editable = field_def.get('editable', True)
+            min_value = field_def.get('min_value')
 
             d = {
                 'label': label,
@@ -153,9 +166,12 @@ def register_form_generator(conf):
                 d['help_text'] = help_text
                 field_class = django.forms.CharField
             elif field_type == 'date':
+                print field_def
                 d['required'] = is_required
                 d['initial'] = initial
                 d['help_text'] = help_text
+                if min_value:
+                    d['validators'] = [validate_date_generator(min_value), ]
                 field_class = django.forms.DateField
             elif field_type == 'boolean':
                 has_booleans = True
