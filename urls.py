@@ -6,17 +6,21 @@ import django.views.generic
 import django.contrib.auth.urls
 import django.conf
 import django.conf.urls.static
+import django.conf.urls.i18n
 
 
 urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(
-        r'^', django.conf.urls.include('registration.urls')),
+        r'^i18n/', django.conf.urls.include('django.conf.urls.i18n')),
     django.conf.urls.url(
         r'^robots.txt$', django.views.generic.TemplateView.as_view(
             template_name='robots.txt')),
+    django.conf.urls.url(
+        r'^', django.conf.urls.include('registration.urls')),
+)
 
-) + django.conf.urls.static.static(
+urlpatterns += django.conf.urls.static.static(
     django.conf.settings.MEDIA_URL,
     document_root=django.conf.settings.MEDIA_ROOT)
 

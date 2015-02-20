@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% load raven %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,32 +33,37 @@
     </head>
 
     <body>
-        <div class="navbar" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <p class="navbar-brand">
-                        {% block navbar_brand %}
-                            <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a>
-                        {% endblock %}
-                    </p>
+        <div class="container">
+            <div class="row header">
+                <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8">
+                    {% block navbar_brand %}
+                        <p><a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a></p>
+                    {% endblock %}
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-right">
+                    {% block language_selector %}
+                        <form id="language-selector" role="form" action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <select id="language" name="language" class="form-control input-sm">
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    {% endblock %}
                 </div>
             </div>
-        </div>
 
-        <div class="container">
             {% bootstrap_messages %}
 
             {% block content %}
                 {{ content }}
             {% endblock %}
-
         </div><!-- /.container -->
+
 
         <div class="container footer-spacer"></div>
 

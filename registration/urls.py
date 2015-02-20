@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-import django.conf
 import django.conf.urls
 import django.views.generic
 
@@ -8,9 +7,6 @@ import views
 
 urlpatterns = django.conf.urls.patterns(
     '',
-    # django.conf.urls.url(
-    #     r'^$', django.views.generic.TemplateView.as_view(
-    #         template_name='registration/home.html'), name='home'),
     django.conf.urls.url(
         r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(

@@ -16,13 +16,13 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <h1>{{ title }}</h1>
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1>{% blocktrans %}{{ title }}{% endblocktrans %}</h1>
     </div>
 </div>
 
 <div class="row status-bar">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
     {% spaceless %}
         {% for step in wizard.steps.all %}
             <div class="step step-{{ step }}
@@ -40,13 +40,13 @@
 
 {% if cleaned_data %}
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         {% for page in configuration %}
             {% if page.fieldsets.0.fields and page.step != 7 %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a class="pull-right" href="{% url 'register' step=page.step %}">edit</a>
-                        <h3 class="panel-title">{{ page.title }}</h3>
+                        <a class="pull-right" href="{% url 'register' step=page.step %}">{% trans "edit" %}</a>
+                        <h3 class="panel-title">{% trans page.title %}</h3>
                     </div>
                     <table class="table">
                         {% for fieldset in page.fieldsets %}
@@ -59,10 +59,12 @@
                                             {% else %}
                                                 <span class="organize-red">{% bootstrap_icon 'ban-circle' %}</span>
                                             {% endif %}
-                                            {{ field.human_name }}
+                                            {% trans field.human_name %}
                                         </td>
                                     {% else %}
-                                        <td width="200" class="organize-gray">{{ field.human_name }}</td>
+                                        <td width="200" class="organize-gray">
+                                            {% trans field.human_name %}
+                                        </td>
                                         {% if field.field_name == 'phone_number' %}
                                             <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
                                         {% else %}
@@ -82,7 +84,7 @@
 
 {% if terms_of_service %}
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-sm-offset-2 col-xs-12">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sm-offset-2 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Terms of Service</h3>
@@ -96,8 +98,8 @@
 {% endif %}
 
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-    <form role="form" action="." method="post">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+    <form class="register" role="form" action="." method="post">
         {% csrf_token %}
 
         {{ wizard.management_form }}
@@ -118,15 +120,16 @@
 
                     {% if wizard.form.fieldsets|length > 1 %}
                         {% if fieldset.legend %}
-                            <legend>{{ fieldset.legend }}</legend>
+                            <legend>{% blocktrans with legend=fieldset.legend %}{{ legend }}{% endblocktrans %}</legend>
                         {% endif %}
                         {% if fieldset.description %}
-                            <p class="description">{{ fieldset.description }}</p>
+                            <p class="description">
+                                {% blocktrans with description=fieldset.description %}{{ description }}{% endblocktrans %}
+                            </p>
                         {% endif %}
                     {% endif %}
 
                     {% for field in fieldset %}
-
                         {% if field.is_hidden %}
                             {{ field }}
                         {% else %}
@@ -146,13 +149,13 @@
                 {% else %}
                  href="{% url 'start' %}"
                 {% endif %}
-             class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; Back</a>
+             class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; {% blocktrans %}Back{% endblocktrans %}</a>
 
-            <button type="submit" class="btn btn-primary btn-organize" tabindex="99">
+            <button type="submit" class="btn btn-primary btn-organize" tabindex="99" disabled>
                 {% if wizard.steps.current == wizard.steps.last %}
-                    Register &rsaquo;
+                    {% blocktrans %}Register{% endblocktrans %} &rsaquo;
                 {% else %}
-                    Next &rsaquo;
+                    {% blocktrans %}Next{% endblocktrans %} &rsaquo;
                 {% endif %}
             </button>
         {% endbuttons %}

@@ -14,8 +14,6 @@ INTERNAL_IPS = ('127.0.0.1', )
 SITE_ID = 1
 TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
-USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 APPEND_SLASH = True
 
@@ -114,6 +112,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+    'django.core.context_processors.i18n',
 )
 
 TEMPLATE_DIRS = (
@@ -291,7 +290,7 @@ CACHES = {
             'DB': REDIS_DB,
             'PASSWORD': REDIS.password,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'PICKLE_VERSION': 2,
+           'PICKLE_VERSION': 2,
         },
         'KEY_PREFIX': 'register',
         'TIMEOUT': 60 * 60 * 24,  # 1 day

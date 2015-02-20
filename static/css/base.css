@@ -34,22 +34,9 @@ h1,h2,h3,h4,h5 {
     height: 80px;
 }
 
-.navbar {
-    min-height: 100px;
-    margin-bottom: 0;
-}
-
-.navbar-brand {
-    height: 100px;
-    padding: 50px 0;
-    font-weight: bold;
-    font-size: 24px;
-    font-family: sans-serif;
-}
-
-.navbar-brand a:hover,
-.navbar-brand a:focus {
-    text-decoration: none;
+.header {
+    padding-top: 40px;
+    height: 110px;
 }
 
 .center-block {
@@ -142,9 +129,9 @@ h1,h2,h3,h4,h5 {
     border-color: #ed2224;
     border-radius: 0;
     text-transform: uppercase;
-    padding: 12px 20px 4px 30px;
+    padding: 12px 20px 4px 20px;
     letter-spacing: 6px;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 button.btn-organize:last-of-type {
@@ -168,9 +155,9 @@ button.btn-organize:last-of-type {
     font-size: 34px;
     background-color: #aaa;
     border-color: #aaa;
-    padding: 12px 20px 4px 30px;
+    padding: 12px 20px 4px 20px;
     letter-spacing: 6px;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .btn-secondary.disabled,

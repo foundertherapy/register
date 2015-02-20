@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import logging
 import collections
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 import django.http
 import django.shortcuts
@@ -87,33 +87,33 @@ class StateLookupView(django.views.generic.edit.FormView):
             FIFTYTHREE_CLIENT.submit_email(email, postal_code)
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
-                form.add_error('email', e.message)
+                form.add_error('email', _(e.message))
             else:
-                form.add_error('postal_code', e.message)
-            django.contrib.messages.error(self.request, e.message)
+                form.add_error('postal_code', _(e.message))
+            django.contrib.messages.error(self.request, _(e.message))
             return super(StateLookupView, self).form_invalid(form)
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
-            form.add_error(field=None, error=e.message)
+            form.add_error(field=None, error=_(e.message))
             return super(StateLookupView, self).form_invalid(form)
 
         try:
             r = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
         except fiftythree.client.InvalidDataError as e:
-            django.contrib.messages.error(self.request, e.message)
+            django.contrib.messages.error(self.request, _(e.message))
             for field, errors in e.errors.items():
                 for error in errors:
-                    form.add_error(field, error)
+                    form.add_error(field, _(error))
             return super(StateLookupView, self).form_invalid(form)
         except fiftythree.client.ServiceError as e:
-            form.add_error(field=None, error=e.message)
+            form.add_error(field=None, error=_(e.message))
             return super(StateLookupView, self).form_invalid(form)
 
         if 'registration_configuration' not in r:
             logger.error(
                 'Unknown state registration configuration: {}'.format(r))
             form.add_error(
-                field=None, error='Unknown state registration configuration')
+                field=None, error=_('Unknown state registration configuration'))
             return super(StateLookupView, self).form_invalid(form)
 
         self.request.session[SESSION_EMAIL] = email
@@ -195,7 +195,7 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         self.form_list = collections.OrderedDict()
         for page_conf in self.configuration:
             step = unicode(page_conf['step'])
-            title = page_conf['title']
+            title = _(page_conf['title'])
             fieldsets = page_conf['fieldsets']
             if fieldsets and \
                     any([fieldset['fields'] for fieldset in fieldsets]):
@@ -242,7 +242,7 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         if api_errors:
             # there is an error submitting the data, so pull the error data and
             # set the appropriate error on the form
-            api_errors = dict(api_errors)
+            api_errors = dict([(a, _(b)) for a, b in api_errors])
             logger.error('Received API errors for postal_code {}: {}'.format(
                 data['postal_code'], api_errors))
             self.storage.data[self.api_error_key] = api_errors
@@ -278,7 +278,7 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
 
         context = {
             # 'form_data': data,
-            'title': 'Congratulations!'
+            'title': _('Congratulations!')
         }
         return django.shortcuts.render_to_response(
             'formtools/wizard/done.html', context)

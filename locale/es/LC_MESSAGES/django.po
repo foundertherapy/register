@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: registration/forms.py:137
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 16:24+0000\n"
+"POT-Creation-Date: 2015-02-20 03:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,58 +19,300 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: registration/forms.py:20
+#: templates/formtools/wizard/wizard_form.html:125
+#, python-format
+msgid "%(description)s"
+msgstr ""
+
+#: registration/views.py:324
+msgid "ManagementForm data is missing or has been tampered."
+msgstr ""
+
+#: templates/registration/legal_document.html:15
+#, python-format
+msgid "%(title)s"
+msgstr ""
+
+#: templates/registration/legal_document.html:21
+msgid "Last modified"
+msgstr ""
+
+#: registration/forms.py:30
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: registration/forms.py:32
+msgid "Postal Code"
+msgstr "Código Postal"
+
+#: registration/forms.py:114
+msgid "Date must be later than {}."
+msgstr "La fecha debe ser posterior a {}"
+
+#: settings/base.py:76
+msgid "English"
+msgstr "Inglés"
+
+#: settings/base.py:77
+msgid "Spanish"
+msgstr "Español"
+
+#: templates/formtools/wizard/done.html:9
+msgid "You&rsquo;re Registered"
+msgstr "Ya estás registrado"
+
+#: templates/formtools/wizard/done.html:19
+msgid ""
+"You&rsquo;re all set. You are now a registered organ donor. We think "
+"that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or "
+"just use modern technology:"
+msgstr ""
+
+#: templates/registration/unsupported_state.html:9
+msgid "Whoops!!!"
+msgstr "¡Ups!"
+
+#: templates/registration/start.html:15
+msgid "Let&rsquo;s Begin..."
+msgstr "Empecemos..."
+
+#: templates/registration/start.html:45
+msgid "Continue"
+msgstr "Continuar"
+
+#: templates/formtools/wizard/wizard_form.html:150
+msgid "Back"
+msgstr "Regresar"
+
+#: templates/formtools/wizard/wizard_form.html:154
+msgid "Register"
+msgstr "Regístrate"
+
+#: templates/formtools/wizard/wizard_form.html:156
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/registration/unsupported_state.html:19
+#, python-format
+msgid ""
+"Looks like %(state_name)s doesn&rsquo;t accept registrations through "
+"ORGANIZE. You can, however, declare your support for donation by posting "
+"#DonateMyParts on your social media."
+msgstr ""
+"Parece que %(state_name)s no acepta los registros a través de ORGANIZE."
+"Sin embargo, puedes declarar tu apoyo a las donaciones al:"
+
+#: Page 1
+msgid ""
+"Your zip will determine which series of state-based requirements will be "
+"provided in the next series of steps."
+msgstr ""
+
+msgid "Invalid data."
+msgstr ""
+
+
+#: Page 2
+msgid "What's your Full Name?"
+msgstr "¿Cuál es tu Nombre Completo?"
+
+msgid "First Name"
+msgstr "Primer Nombre"
+
+msgid "Middle Name"
+msgstr "Segundo Nombre"
+
+msgid "Last Name"
+msgstr "Apellido"
+
+#: Page 3
+msgid "Tell us the basics..."
+msgstr "Dinos lo básico..."
+
+msgid "Gender"
+msgstr "Género"
+
+msgid "Male"
+msgstr "Hombre"
+
+msgid "Female"
+msgstr "Femenino"
+
+msgid "Country of Birth"
+msgstr "País de origen"
+
+msgid "Birth Date"
+msgstr "Fecha de Nacimiento"
+
+#: Page 4
+msgid "Where do you live?"
+msgstr "¿Dónde vives?"
+
+msgid "City"
+msgstr "Ciudad"
+
+msgid "State"
+msgstr "Estado"
+
+msgid "Zip Code"
+msgstr "Código Postal"
+
+#: Page 5
+msgid "Confirm your identity"
+msgstr "Confirma tu identidad"
+
+msgid "Driver's License or State ID #"
+msgstr "Licencia de Conducir o Identificación del Estado #"
+
+msgid "Social Security # (last 4 digits)"
+msgstr "Número de Seguro Social (Últimos 4 dígitos)"
+
+msgid "For ID verification purposes."
+msgstr "Con fines de verificación de identidad."
+
+#: Page 6
+msgid "Donation Preferences"
+msgstr "Preferencias de Donación"
+
+msgid "Select the organs you wish to donate"
+msgstr "Selecciona los órganos que deseas donar"
+
+msgid "Select the tissues you wish to donate"
+msgstr "Selecciona los tejidos que deseas donar"
+
+msgid "Select the eye parts you wish to donate"
+msgstr ""
+
+msgid "Select how you wish your gift to be used"
+msgstr ""
+
+msgid "Heart"
+msgstr "Corazón"
+
+msgid "Kidneys"
+msgstr "Riñones"
+
+msgid "Liver"
+msgstr "Hígado"
+
+msgid "Lungs"
+msgstr "Pulmones"
+
+msgid "Pancreas"
+msgstr "Páncreas"
+
+msgid "Pancreas (for islet cells)"
+msgstr "Páncreas (para Islotes de Langerhans)"
+
+msgid "Small Intestine"
+msgstr "Intestino Delgado"
+
+msgid "Bone & Associated Tissue"
+msgstr "Huesos y Tejidos Asociados"
+
+msgid "Tendons"
+msgstr "Tendones"
+
+msgid "Veins"
+msgstr "Venas"
+
+msgid "Arteries"
+msgstr "Arterias"
+
+msgid "Vessels (for Liver & Pancreas)"
+msgstr "Vasos (para Hígado y Páncreas)"
+
+msgid "Radius & Ulna"
+msgstr "Radio y Cúbito"
+
+msgid "Skin"
+msgstr "Tejido de Piel"
+
+msgid "Heart Valves"
+msgstr "Válvulas Cardíacas"
+
+msgid "Pericardium"
+msgstr "Pericardio"
+
+msgid "Vertebral Bodies"
+msgstr "Cuerpos Vertebrales"
+
+msgid "Soft Tissues"
+msgstr "Tejidos Blandos"
+
+msgid "Cartilage"
+msgstr "Cartílago"
+
+msgid "Eyes"
+msgstr "Ojos"
+
+msgid "Corneas"
+msgstr "Córnea"
+
+msgid "My gift of organs may be used for life-saving purposes"
+msgstr ""
+
+msgid "My gift of organs may be used for research"
+msgstr ""
+
+msgid "My gift of tissues may be used for life-saving purposes"
+msgstr ""
+
+msgid "My gift of tissues may be used for research"
+msgstr ""
+
+msgid "Limit my gift of skin to be used for life-saving and reconstructive procedures only"
+msgstr ""
+
+msgid "Limit my gift of tissues to be used in the United States only"
+msgstr ""
+
+msgid "Limit my gift of tissues to non-profit organizations only"
+msgstr ""
+
+msgid "My gift of organs may be used for therapy"
+msgstr ""
+
+msgid "My gift of tissues may be used for therapy"
+msgstr ""
+
+#: Page 7
+msgid "Confirm your information"
+msgstr ""
+
+
+msgid "Place of Birth"
+msgstr ""
+
+msgid "Phone Number"
+msgstr ""
+
+msgid "Mother's Maiden Name"
+msgstr "Apellido de soltera de tu madre"
+
+msgid ""
+"As it appears on your driver's license or state ID. This ensures that"
+"your registration preferences will be in sync with the DMV record."
+msgstr ""
+
+msgid "edit"
+msgstr ""
+
+msgid ""
+"In order to submit my registration information to the "
+"applicable state-operated organ and tissue donor registry and "
+"otherwise declare my organ and tissue donation status through "
+"Organize, I agree to ORGANIZE&rsquo;s <a href=\""
+"http://register.organize.org/terms-of-service/\">Terms of "
+"Service</a> and <a href=\"http://register.organize.org/privacy-"
+"policy/\">Privacy Policy</a> and those of the <a href=\""
+"http://register.organize.org/terms-of-service-by-state/\">"
+"applicable state registry</a>."
+msgstr ""
+
+
+#: registration/forms.py:34
+#: registration/forms.py:25
 msgid "Enter a valid postal code consisting 5 numbers."
 msgstr ""
 
-#: settings/base.py:42
-msgid "English"
-msgstr ""
-
-#: settings/base.py:43
-msgid "Spanish"
-msgstr ""
-
-#: templates/admin/base_site.html:4
-msgid "Django site admin"
-msgstr ""
-
-#: templates/admin/base_site.html:7
-msgid "Django administration"
-msgstr ""
-
-#: templates/admin/login.html:24
-msgid "Please correct the error below."
-msgstr ""
-
-#: templates/admin/login.html:24
-msgid "Please correct the errors below."
-msgstr ""
-
-#: templates/admin/login.html:44
-msgid "Password:"
-msgstr ""
-
-#: templates/admin/login.html:50
-msgid "Forgotten your password or username?"
-msgstr ""
-
-#: templates/admin/login.html:54
-msgid "Log in"
-msgstr ""
-
-#: templates/home.html:16
-#, python-format
-msgid "We make it easy to be an %(start_span)sOrgan Donor%(endspan)s."
-msgstr ""
-
-#: templates/home.html:20
-msgid ""
-"Register or tell the world you support organ donation by posting "
-"#DonateMyParts on one of your social media platforms... any way you choose, "
-"your next-of-kin will know your wishes and they will be honored."
-msgstr ""
-
-#: templates/home.html:25
-msgid "Register Now"
-msgstr ""

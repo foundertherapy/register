@@ -27,8 +27,9 @@ validate_postal_code = django.core.validators.RegexValidator(
 
 
 class StateLookupForm(django.forms.Form):
-    email = django.forms.EmailField()
+    email = django.forms.EmailField(label=_('Email'))
     postal_code = django.forms.CharField(
+        label=_('Postal Code'),
         max_length=5, min_length=5, validators=[validate_postal_code],
         help_text=_('Your zip will determine which series of state-based '
                     'requirements will be provided in the next series '
@@ -119,26 +120,30 @@ def register_form_generator(conf):
     fieldsets = []
     fields = collections.OrderedDict()
     for index, fieldset_def in enumerate(conf['fieldsets']):
-        fieldset_title = fieldset_def['title']
+        fieldset_title = _(fieldset_def['title'])
         fieldset_fields = fieldset_def['fields']
 
         if not fieldset_fields:
             continue
-        fieldset = (unicode(index), {
-            'legend': fieldset_title,
-            'fields': []}, )
+        fieldset = (unicode(index), {'legend': fieldset_title, 'fields': []}, )
 
         has_booleans = False
 
         for field_def in fieldset_def['fields']:
             field_name = field_def['field_name']
             field_type = field_def.get('type')
-            label = field_def['human_name']
+            label = _(field_def['human_name'] or '')
             is_required = field_def.get('required', False)
             max_length = field_def.get('length')
             initial = field_def.get('default')
-            help_text = field_def.get('help_text')
+            if field_def.get('help_text'):
+                help_text = _(field_def.get('help_text'))
+            else:
+                help_text = ''
+            # process choices to add internationalization
             choices = field_def.get('choices')
+            if choices:
+                choices = [(a, _(b)) for a, b in choices]
             is_editable = field_def.get('editable', True)
             min_value = field_def.get('min_value')
 
@@ -166,7 +171,6 @@ def register_form_generator(conf):
                 d['help_text'] = help_text
                 field_class = django.forms.CharField
             elif field_type == 'date':
-                print field_def
                 d['required'] = is_required
                 d['initial'] = initial
                 d['help_text'] = help_text

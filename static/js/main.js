@@ -1,7 +1,7 @@
 $(function() {
-    var requiredInputFields = $("input[type='text'][required='required'],input[type='email'][required='required']");
-    var requiredCheckboxFields = $("input[type='checkbox'][required='required']");
-    var requiredRadioFields = $("input[type='radio'][required='required']");
+    var requiredInputFields = $("form.register input[type='text'][required='required'], form.register input[type='email'][required='required']");
+    var requiredCheckboxFields = $("form.register input[type='checkbox'][required='required']");
+    var requiredRadioFields = $("form.register input[type='radio'][required='required']");
     var requiredFieldCount = requiredInputFields.length + requiredCheckboxFields.length + requiredRadioFields.length;
 
     function validate() {
@@ -14,9 +14,9 @@ $(function() {
                     function() { return $('input[name='+ $(this).attr("name") +']:checked').length > 0; }).length;
 
         if (filledFieldsCount == requiredFieldCount) {
-            $(":submit").prop("disabled", false);
+            $("form.register :submit").prop("disabled", false);
         } else {
-            $(":submit").prop("disabled", true);
+            $("form.register :submit").prop("disabled", true);
         }
     }
     requiredInputFields.bind("change keyup", validate);
@@ -32,4 +32,8 @@ $(function() {
 
     $('input:not([readonly="readonly"])').not(":hidden").first().focus();
     $('input, textarea').placeholder();
+
+    $("select#language").on("change", function() {
+        $("form#language-selector").submit();
+    });
 });
