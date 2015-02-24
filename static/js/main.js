@@ -33,7 +33,15 @@ $(function() {
     $('input:not([readonly="readonly"])').not(":hidden").first().focus();
     $('input, textarea').placeholder();
 
-    $("select#language").on("change", function() {
+    //$("select#language").on("change", function() {
+    //    $("form#language-selector").submit();
+    //});
+    $("a#language-spanish").on("click", function() {
+        $("form#language-selector input#language").val("es");
+        $("form#language-selector").submit();
+    });
+    $("a#language-english").on("click", function() {
+        $("form#language-selector input#language").val("en");
         $("form#language-selector").submit();
     });
 });

@@ -42,16 +42,18 @@
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-right">
                     {% block language_selector %}
+                        {% if LANGUAGE_CODE == 'en' %}
+                            {% language 'es' %}
+                                <a id="language-spanish" href="#">{% trans 'Spanish' %}</a>
+                            {% endlanguage %}
+                        {% else %}
+                            {% language 'en' %}
+                                <a id="language-english" href="#">{% trans 'English' %}</a>
+                            {% endlanguage %}
+                        {% endif %}
                         <form id="language-selector" role="form" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
-                            <select id="language" name="language" class="form-control input-sm">
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                                    {% trans language.name %}
-                                </option>
-                                {% endfor %}
-                            </select>
+                            <input type="hidden" id="language" name="language" value="">
                         </form>
                     {% endblock %}
                 </div>
