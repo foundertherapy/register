@@ -67,9 +67,11 @@
                                         </td>
                                         {% if field.field_name == 'phone_number' %}
                                             <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
+                                        {% else %}{% if field.field_name == 'gender' %}
+                                            <td width="*">{% if cleaned_data|key:field.field_name == 'M' %}{% trans 'Male' %}{% else %}{% trans 'Female' %}{% endif %}</td>
                                         {% else %}
                                             <td width="*">{{ cleaned_data|key:field.field_name }}</td>
-                                        {% endif %}
+                                        {% endif %}{% endif %}
                                     {% endif %}
                                 </tr>
                             {% endfor %}
