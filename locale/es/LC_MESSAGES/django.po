@@ -67,6 +67,9 @@ msgid ""
 "that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or "
 "just use modern technology:"
 msgstr ""
+"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos "
+"que es algo divertido y vale la pena compartirlo con todos por tus redes "
+"sociales."
 
 #: templates/registration/unsupported_state.html:9
 msgid "Whoops!!!"
@@ -90,7 +93,7 @@ msgstr "Regístrate"
 
 #: templates/formtools/wizard/wizard_form.html:156
 msgid "Next"
-msgstr "Siguiente"
+msgstr "Seguir"
 
 #: templates/registration/unsupported_state.html:19
 #, python-format
@@ -109,7 +112,7 @@ msgid ""
 msgstr ""
 
 msgid "Invalid data."
-msgstr ""
+msgstr "Información inválida."
 
 
 #: Page 2
@@ -148,6 +151,12 @@ msgstr "Fecha de Nacimiento"
 msgid "Where do you live?"
 msgstr "¿Dónde vives?"
 
+msgid "Street Address"
+msgstr "Dirección"
+
+msgid "Street Address 2"
+msgstr "Dirección 2"
+
 msgid "City"
 msgstr "Ciudad"
 
@@ -181,10 +190,10 @@ msgid "Select the tissues you wish to donate"
 msgstr "Selecciona los tejidos que deseas donar"
 
 msgid "Select the eye parts you wish to donate"
-msgstr ""
+msgstr "Indique la parte de sus ojos que desee donar"
 
 msgid "Select how you wish your gift to be used"
-msgstr ""
+msgstr "Indique cómo desea que sea utilizada su donación"
 
 msgid "Heart"
 msgstr "Corazón"
@@ -251,41 +260,51 @@ msgstr "Córnea"
 
 msgid "My gift of organs may be used for life-saving purposes"
 msgstr ""
+"Mi donación de órganos puede ser utilizada con el propósito de salvar vidas"
 
 msgid "My gift of organs may be used for research"
-msgstr ""
+msgstr "Mi donación de órganos puede ser utilizada para investigación"
 
 msgid "My gift of tissues may be used for life-saving purposes"
 msgstr ""
+"Mi donación de tejidos podrá ser utilizada con el propósito de salvar vidas"
 
 msgid "My gift of tissues may be used for research"
-msgstr ""
+msgstr "Mi donación de tejidos podrá ser utilizada para investigación"
 
-msgid "Limit my gift of skin to be used for life-saving and reconstructive procedures only"
+msgid ""
+"Limit my gift of skin to be used for life-saving and reconstructive "
+"procedures only"
 msgstr ""
+"Limiten mi donación de piel para ser utilizada solamente con propósitos de "
+"salvar vidas y en cirugías reconstructivas"
 
 msgid "Limit my gift of tissues to be used in the United States only"
 msgstr ""
+"Limiten mi donación de tejidos para ser utilizada exclusivamente en "
+"los Estados Unidos de América"
 
 msgid "Limit my gift of tissues to non-profit organizations only"
 msgstr ""
+"Limiten mi donación de tejidos solamente para organizaciones sin "
+"fines de lucro"
 
 msgid "My gift of organs may be used for therapy"
-msgstr ""
+msgstr "Mi donación de órganos podrá ser utilizada para terapias"
 
 msgid "My gift of tissues may be used for therapy"
-msgstr ""
+msgstr "Mi donación de tejidos podrá ser utilizada para terapias"
 
 #: Page 7
 msgid "Confirm your information"
-msgstr ""
+msgstr "Confirmar su información"
 
 
 msgid "Place of Birth"
-msgstr ""
+msgstr "Lugar de nacimiento"
 
 msgid "Phone Number"
-msgstr ""
+msgstr "Teléfono"
 
 msgid "Mother's Maiden Name"
 msgstr "Apellido de soltera de tu madre"
@@ -294,9 +313,13 @@ msgid ""
 "As it appears on your driver's license or state ID. This ensures that"
 "your registration preferences will be in sync with the DMV record."
 msgstr ""
+"Tal como aparece en su licencia de manejo o identificación del estado. "
+"Esto asegurará que las preferencias de su registro se sincronicen con "
+"los registros de la Oficina del Departamento de Vehículos de Motor "
+"(DMV, por sus siglas en inglés)."
 
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 msgid ""
 "In order to submit my registration information to the "
@@ -309,10 +332,18 @@ msgid ""
 "http://register.organize.org/terms-of-service-by-state/\">"
 "applicable state registry</a>."
 msgstr ""
+"Para enviar la información de mí registro a los registros aplicables "
+"de donadores de órganos y tejidos operados por el estado y declarar mi "
+"estatus de donador de órganos y tejidos a través de Organize, y estoy "
+"de acuerdo en <a href=\"http://register.organize.org/terms-of-service/\">"
+"los Términos de Servicio</a> y <a href=\"http://register.organize.org/"
+"privacy-policy/\">Políticas de Privacidad</a> de ORGANIZE así como la de "
+"<a href=\"http://register.organize.org/terms-of-service-by-state/\">"
+"los aplicables a los registros estatales</a>."
 
 
 #: registration/forms.py:34
 #: registration/forms.py:25
 msgid "Enter a valid postal code consisting 5 numbers."
-msgstr ""
+msgstr "Introduzca un código postal válido, de 5 números."
 
