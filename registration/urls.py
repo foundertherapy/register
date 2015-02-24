@@ -10,6 +10,10 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(
         r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(
+        r'^done/$', django.views.generic.TemplateView.as_view(
+            template_name='formtools/wizard/done.html'),
+        name='done'),
+    django.conf.urls.url(
         r'^terms-of-service/$',
         views.TermsOfServiceView.as_view(),
         name='terms_of_service'),
@@ -32,9 +36,4 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(
         r'^redirect/$', views.StateRedirectView.as_view(),
         name='redirect_state'),
-
-
-    # django.conf.urls.url(
-    #     r'^done/$', django.views.generic.TemplateView.as_view(
-    #         template_name='formtools/wizard/done.html')),
 )

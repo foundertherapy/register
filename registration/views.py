@@ -273,15 +273,7 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         return done_response
 
     def done(self, form_list, **kwargs):
-        # data = {}
-        # map(data.update, [form.cleaned_data for form in form_list])
-
-        context = {
-            # 'form_data': data,
-            'title': _('Congratulations!')
-        }
-        return django.shortcuts.render_to_response(
-            'formtools/wizard/done.html', context)
+        return django.shortcuts.redirect('done')
 
     def dispatch(self, request, *args, **kwargs):
         if request.session.get(SESSION_RESET_FORM):
