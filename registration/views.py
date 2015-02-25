@@ -254,6 +254,18 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
                 error_field_names = set(form_obj.fields.keys()).intersection(
                     set(api_errors.keys()))
                 if error_field_names:
+                    # process the date error as a special case for translation
+                    # because it has a variable
+                    # for k, v in api_errors.items():
+                    #     print v
+                    #     if v.startswith('Date must be later than'):
+                    #         v_start, v_end = v.split('than ')
+                    #         v_end = v_end.replace('.')
+                    #         date_error = dateutil.parser.parse(v_end)
+                    #         api_errors[k] = _(''.join([v_start, '%(date)s'])) \
+                    #                         % {'date': date_error, }
+                    #         break
+
                     form_obj.add_error(
                         field=None, error=api_errors)
                     return self.render_revalidation_failure(

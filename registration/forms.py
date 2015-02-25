@@ -54,7 +54,7 @@ class StateLookupForm(django.forms.Form):
             if r.json()['is_valid']:
                 return email
         logger.warning('Cannot validate email: {}'.format(r.text))
-        raise django.forms.ValidationError("Enter a valid email.")
+        raise django.forms.ValidationError(_('Enter a valid email.'))
 
 
 def register_form_clean(self):
@@ -73,7 +73,7 @@ def register_form_clean_birthdate(self):
     if not date:
         return date
     if date >= datetime.date.today():
-        raise django.forms.ValidationError("Enter an accurate birthdate.")
+        raise django.forms.ValidationError(_('Enter an accurate birthdate.'))
     return date
 
 
@@ -86,7 +86,7 @@ def register_form_clean_phone_number(self):
         phone_number = phone_number[1:]
     if len(phone_number) != 10:
         raise django.forms.ValidationError(
-            "Enter an accurate phone number including area code.")
+            _('Enter an accurate phone number including area code.'))
     return phone_number
 
 
@@ -96,12 +96,11 @@ def register_form_clean_ssn(self):
         return ssn
     if len(ssn) != 4:
         raise django.forms.ValidationError(
-            "Enter the last 4 digits of your social security number.")
+            _('Enter the last 4 digits of your social security number.'))
     try:
         int(ssn)
     except ValueError:
-        raise django.forms.ValidationError(
-            "Enter only digits.")
+        raise django.forms.ValidationError(_('Enter only digits.'))
     return ssn
 
 
@@ -110,9 +109,10 @@ def validate_date_generator(min_value):
 
     def validate_date(date):
         if date < min_value:
-            raise django.core.validators.ValidationError(
-                _('Date must be later than {}.'.format(
-                    min_value.strftime('%m/%d/%Y'))), code='minimum')
+            raise django.forms.ValidationError(
+                _('Date must be later than %(date)s.') %
+                {'date': min_value.strftime('%m/%d/%Y'), },
+                code='minimum')
     return validate_date
 
 
@@ -132,7 +132,7 @@ def register_form_generator(conf):
         for field_def in fieldset_def['fields']:
             field_name = field_def['field_name']
             field_type = field_def.get('type')
-            label = _(field_def['human_name'] or '')
+            label = _(field_def['human_name']) or ''
             is_required = field_def.get('required', False)
             max_length = field_def.get('length')
             initial = field_def.get('default')

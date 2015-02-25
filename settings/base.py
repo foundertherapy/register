@@ -165,7 +165,7 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     'pipeline',
     'storages',
-   'bootstrap3',
+    'bootstrap3',
     'form_utils',
     'registration',
 )

@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: registration/forms.py:137
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-20 03:22+0000\n"
+"POT-Creation-Date: 2015-02-25 21:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,23 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/formtools/wizard/wizard_form.html:125
-#, python-format
-msgid "%(description)s"
-msgstr ""
-
-#: registration/views.py:324
-msgid "ManagementForm data is missing or has been tampered."
-msgstr ""
-
-#: templates/registration/legal_document.html:15
-#, python-format
-msgid "%(title)s"
-msgstr ""
-
-#: templates/registration/legal_document.html:21
-msgid "Last modified"
-msgstr ""
+#: registration/forms.py:25
+msgid "Enter a valid postal code consisting 5 numbers."
+msgstr "Introduzca un código postal válido, de 5 números."
 
 #: registration/forms.py:30
 msgid "Email"
@@ -45,15 +30,31 @@ msgstr "Correo electrónico"
 msgid "Postal Code"
 msgstr "Código Postal"
 
-#: registration/forms.py:114
-msgid "Date must be later than {}."
-msgstr "La fecha debe ser posterior a {}"
+#: registration/forms.py:34
+msgid ""
+"Your zip will determine which series of state-based requirements will be "
+"provided in the next series of steps."
+msgstr ""
+"Tu código postal determinará la serie de requisitos estatales que te "
+"mostraremos en los próximos pasos."
 
-#: settings/base.py:76
+#: registration/forms.py:114
+msgid "Date must be later than %(date)s."
+msgstr "Por favor elija una fecha posterior a %(date)s."
+
+#: registration/views.py:116
+msgid "Unknown state registration configuration"
+msgstr ""
+
+#: registration/views.py:328
+msgid "ManagementForm data is missing or has been tampered."
+msgstr ""
+
+#: settings/base.py:76 templates/base.html:51
 msgid "English"
 msgstr "Inglés"
 
-#: settings/base.py:77
+#: settings/base.py:77 templates/base.html:47
 msgid "Spanish"
 msgstr "Español"
 
@@ -67,13 +68,53 @@ msgid ""
 "that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or "
 "just use modern technology:"
 msgstr ""
-"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos "
-"que es algo divertido y vale la pena compartirlo con todos por tus redes "
+"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos que "
+"es algo divertido y vale la pena compartirlo con todos por tus redes "
 "sociales."
 
-#: templates/registration/unsupported_state.html:9
-msgid "Whoops!!!"
-msgstr "¡Ups!"
+#: templates/formtools/wizard/wizard_form.html:20
+#: templates/registration/legal_document.html:15
+#, python-format
+msgid "%(title)s"
+msgstr "%(title)s"
+
+#: templates/formtools/wizard/wizard_form.html:48
+msgid "edit"
+msgstr "editar"
+
+#: templates/formtools/wizard/wizard_form.html:71
+msgid "Male"
+msgstr "Hombre"
+
+#: templates/formtools/wizard/wizard_form.html:71
+msgid "Female"
+msgstr "Femenino"
+
+#: templates/formtools/wizard/wizard_form.html:125
+#, python-format
+msgid "%(legend)s"
+msgstr ""
+
+#: templates/formtools/wizard/wizard_form.html:129
+#, python-format
+msgid "%(description)s"
+msgstr ""
+
+#: templates/formtools/wizard/wizard_form.html:154
+msgid "Back"
+msgstr "Regresar"
+
+#: templates/formtools/wizard/wizard_form.html:158
+msgid "Register"
+msgstr "Regístrate"
+
+#: templates/formtools/wizard/wizard_form.html:160
+msgid "Next"
+msgstr "Seguir"
+
+#: templates/registration/legal_document.html:21
+msgid "Last modified"
+msgstr ""
 
 #: templates/registration/start.html:15
 msgid "Let&rsquo;s Begin..."
@@ -83,17 +124,9 @@ msgstr "Empecemos..."
 msgid "Continue"
 msgstr "Continuar"
 
-#: templates/formtools/wizard/wizard_form.html:150
-msgid "Back"
-msgstr "Regresar"
-
-#: templates/formtools/wizard/wizard_form.html:154
-msgid "Register"
-msgstr "Regístrate"
-
-#: templates/formtools/wizard/wizard_form.html:156
-msgid "Next"
-msgstr "Seguir"
+#: templates/registration/unsupported_state.html:9
+msgid "Whoops!!!"
+msgstr "¡Ups!"
 
 #: templates/registration/unsupported_state.html:19
 #, python-format
@@ -102,22 +135,12 @@ msgid ""
 "ORGANIZE. You can, however, declare your support for donation by posting "
 "#DonateMyParts on your social media."
 msgstr ""
-"Parece que %(state_name)s no acepta los registros a través de ORGANIZE."
-"Sin embargo, puedes declarar tu apoyo a las donaciones al:"
-
-#: Page 1
-msgid ""
-"Your zip will determine which series of state-based requirements will be "
-"provided in the next series of steps."
-msgstr ""
-"Tu código postal determinará la serie de requisitos estatales que te "
-"mostraremos en los próximos pasos."
+"Parece que %(state_name)s no acepta los registros a través de ORGANIZE.Sin "
+"embargo, puedes declarar tu apoyo a las donaciones al:"
 
 msgid "Invalid data."
 msgstr "Información inválida."
 
-
-#: Page 2
 msgid "What's your Full Name?"
 msgstr "¿Cuál es tu Nombre Completo?"
 
@@ -130,18 +153,11 @@ msgstr "Segundo Nombre"
 msgid "Last Name"
 msgstr "Apellido"
 
-#: Page 3
 msgid "Tell us the basics..."
 msgstr "Dinos lo básico..."
 
 msgid "Gender"
 msgstr "Género"
-
-msgid "Male"
-msgstr "Hombre"
-
-msgid "Female"
-msgstr "Femenino"
 
 msgid "Country of Birth"
 msgstr "País de origen"
@@ -149,7 +165,6 @@ msgstr "País de origen"
 msgid "Birth Date"
 msgstr "Fecha de Nacimiento"
 
-#: Page 4
 msgid "Where do you live?"
 msgstr "¿Dónde vives?"
 
@@ -168,7 +183,6 @@ msgstr "Estado"
 msgid "Zip Code"
 msgstr "Código Postal"
 
-#: Page 5
 msgid "Confirm your identity"
 msgstr "Confirma tu identidad"
 
@@ -181,9 +195,8 @@ msgstr "Número de Seguro Social (Últimos 4 dígitos)"
 msgid "For ID verification purposes."
 msgstr "Con fines de verificación de identidad."
 
-#: Page 6
-msgid "Donation Preferences"
-msgstr "Preferencias de Donación"
+msgid "Donation preferences"
+msgstr "Preferencias de donación"
 
 msgid "Select the organs you wish to donate"
 msgstr "Selecciona los órganos que deseas donar"
@@ -262,14 +275,16 @@ msgstr "Córnea"
 
 msgid "My gift of organs may be used for life-saving purposes"
 msgstr ""
-"Mi donación de órganos puede ser utilizada con el propósito de salvar vidas"
+"Mi donación de órganos puede ser utilizada con el propósito de salvar "
+"vidas"
 
 msgid "My gift of organs may be used for research"
 msgstr "Mi donación de órganos puede ser utilizada para investigación"
 
 msgid "My gift of tissues may be used for life-saving purposes"
 msgstr ""
-"Mi donación de tejidos podrá ser utilizada con el propósito de salvar vidas"
+"Mi donación de tejidos podrá ser utilizada con el propósito de salvar "
+"vidas"
 
 msgid "My gift of tissues may be used for research"
 msgstr "Mi donación de tejidos podrá ser utilizada para investigación"
@@ -278,18 +293,18 @@ msgid ""
 "Limit my gift of skin to be used for life-saving and reconstructive "
 "procedures only"
 msgstr ""
-"Limiten mi donación de piel para ser utilizada solamente con propósitos de "
-"salvar vidas y en cirugías reconstructivas"
+"Limiten mi donación de piel para ser utilizada solamente con propósitos "
+"de salvar vidas y en cirugías reconstructivas"
 
 msgid "Limit my gift of tissues to be used in the United States only"
 msgstr ""
-"Limiten mi donación de tejidos para ser utilizada exclusivamente en "
-"los Estados Unidos de América"
+"Limiten mi donación de tejidos para ser utilizada exclusivamente en los "
+"Estados Unidos de América"
 
 msgid "Limit my gift of tissues to non-profit organizations only"
 msgstr ""
-"Limiten mi donación de tejidos solamente para organizaciones sin "
-"fines de lucro"
+"Limiten mi donación de tejidos solamente para organizaciones sin fines de "
+"lucro"
 
 msgid "My gift of organs may be used for therapy"
 msgstr "Mi donación de órganos podrá ser utilizada para terapias"
@@ -297,10 +312,8 @@ msgstr "Mi donación de órganos podrá ser utilizada para terapias"
 msgid "My gift of tissues may be used for therapy"
 msgstr "Mi donación de tejidos podrá ser utilizada para terapias"
 
-#: Page 7
 msgid "Confirm your information"
 msgstr "Confirmar su información"
-
 
 msgid "Place of Birth"
 msgstr "Lugar de nacimiento"
@@ -312,42 +325,43 @@ msgid "Mother's Maiden Name"
 msgstr "Apellido de soltera de tu madre"
 
 msgid ""
-"As it appears on your driver's license or state ID. This ensures that"
-"your registration preferences will be in sync with the DMV record."
+"As it appears on your driver's license or state ID. This ensures that your "
+"registration preferences will be in sync with the DMV record."
 msgstr ""
 "Tal como aparece en su licencia de manejo o identificación del estado. "
-"Esto asegurará que las preferencias de su registro se sincronicen con "
-"los registros de la Oficina del Departamento de Vehículos de Motor "
-"(DMV, por sus siglas en inglés)."
-
-msgid "edit"
-msgstr "editar"
+"Esto asegurará que las preferencias de su registro se sincronicen con los "
+"registros de la Oficina del Departamento de Vehículos de Motor (DMV, por "
+"sus siglas en inglés)."
 
 msgid ""
-"In order to submit my registration information to the "
-"applicable state-operated organ and tissue donor registry and "
-"otherwise declare my organ and tissue donation status through "
-"Organize, I agree to ORGANIZE&rsquo;s <a href=\""
-"http://register.organize.org/terms-of-service/\">Terms of "
-"Service</a> and <a href=\"http://register.organize.org/privacy-"
-"policy/\">Privacy Policy</a> and those of the <a href=\""
-"http://register.organize.org/terms-of-service-by-state/\">"
-"applicable state registry</a>."
+"In order to submit my registration information to the applicable state-"
+"operated organ and tissue donor registry and otherwise declare my organ "
+"and tissue donation status through Organize, I agree to ORGANIZE&rsquo;s "
+"<a href=\"http://register.organize.org/terms-of-service/\">Terms of "
+"Service</a> and <a href=\"http://register.organize.org/privacy-policy/"
+"\">Privacy Policy</a> and those of the <a href=\"http://register.organize."
+"org/terms-of-service-by-state/\">applicable state registry</a>."
 msgstr ""
-"Para enviar la información de mí registro a los registros aplicables "
-"de donadores de órganos y tejidos operados por el estado y declarar mi "
-"estatus de donador de órganos y tejidos a través de Organize, y estoy "
-"de acuerdo en <a href=\"http://register.organize.org/terms-of-service/\">"
-"los Términos de Servicio</a> y <a href=\"http://register.organize.org/"
-"privacy-policy/\">Políticas de Privacidad</a> de ORGANIZE así como la de "
-"<a href=\"http://register.organize.org/terms-of-service-by-state/\">"
-"los aplicables a los registros estatales</a>."
+"Para enviar la información de mí registro a los registros aplicables de "
+"donadores de órganos y tejidos operados por el estado y declarar mi "
+"estatus de donador de órganos y tejidos a través de Organize, y estoy de "
+"acuerdo en <a href=\"http://register.organize.org/terms-of-service/\">los "
+"Términos de Servicio</a> y <a href=\"http://register.organize.org/privacy-"
+"policy/\">Políticas de Privacidad</a> de ORGANIZE así como la de <a href="
+"\"http://register.organize.org/terms-of-service-by-state/\">los "
+"aplicables a los registros estatales</a>."
 
+msgid "Enter an accurate birthdate."
+msgstr "Ingrese una fecha de cumpleaños precisa."
 
-#: registration/forms.py:34
-#: registration/forms.py:25
-msgid "Enter a valid postal code consisting 5 numbers."
-msgstr "Introduzca un código postal válido, de 5 números."
+msgid "Enter the last 4 digits of your social security number."
+msgstr "Ingresa los últimos 4 dígitos de su número de seguro social."
 
-msgid "Date must be later than %(s)"
-msgstr "%(s)"
+msgid "Enter only digits."
+msgstr "Ingrese sólo dígitos."
+
+msgid "Enter an accurate phone number including area code."
+msgstr "Introduzca un número de teléfono exacta incluyendo código de área."
+
+msgid "Enter a valid email."
+msgstr "Introduzca una dirección de correo electrónico válida."
