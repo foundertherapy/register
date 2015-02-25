@@ -12,8 +12,6 @@ import django.conf.urls.i18n
 urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(
-        r'^localeurl/', django.conf.urls.include('localeurl.urls')),
-    django.conf.urls.url(
         r'^i18n/', django.conf.urls.include('django.conf.urls.i18n')),
     django.conf.urls.url(
         r'^robots.txt$', django.views.generic.TemplateView.as_view(
