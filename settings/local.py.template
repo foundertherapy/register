@@ -10,7 +10,10 @@ PIPELINE_ENABLED = False
 
 SESSION_COOKIE_AGE = 60
 
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
+MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
+if 'sslify.middleware.SSLifyMiddleware' in MIDDLEWARE_CLASSES:
+    MIDDLEWARE_CLASSES.remove('sslify.middleware.SSLifyMiddleware')
+
 INSTALLED_APPS += ('debug_toolbar', 'template_timings_panel', )
 
 SECRET_KEY = 'abc'
