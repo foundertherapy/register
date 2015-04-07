@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-25 21:12+0000\n"
+"POT-Creation-Date: 2015-04-07 22:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,28 @@ msgstr ""
 "Tu código postal determinará la serie de requisitos estatales que te "
 "mostraremos en los próximos pasos."
 
-#: registration/forms.py:114
+#: registration/forms.py:57
+msgid "Enter a valid email."
+msgstr "Introduzca una dirección de correo electrónico válida."
+
+#: registration/forms.py:76
+msgid "Enter an accurate birthdate."
+msgstr "Ingrese una fecha de cumpleaños precisa."
+
+#: registration/forms.py:89
+msgid "Enter an accurate phone number including area code."
+msgstr "Introduzca un número de teléfono exacta incluyendo código de área."
+
+#: registration/forms.py:99
+msgid "Enter the last 4 digits of your social security number."
+msgstr "Ingresa los últimos 4 dígitos de su número de seguro social."
+
+#: registration/forms.py:103
+msgid "Enter only digits."
+msgstr "Ingrese sólo dígitos."
+
+#: registration/forms.py:113
+#, python-format
 msgid "Date must be later than %(date)s."
 msgstr "Por favor elija una fecha posterior a %(date)s."
 
@@ -58,19 +79,38 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
-#: templates/formtools/wizard/done.html:9
 msgid "You&rsquo;re Registered"
 msgstr "Ya estás registrado"
 
-#: templates/formtools/wizard/done.html:19
+#: templates/formtools/wizard/done.html:9
+msgid "Thank you!"
+msgstr "¡Gracias!"
+
 msgid ""
 "You&rsquo;re all set. You are now a registered organ donor. We think "
 "that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or "
 "just use modern technology:"
 msgstr ""
-"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos que "
-"es algo divertido y vale la pena compartirlo con todos por tus redes "
+"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos "
+"que es algo divertido y vale la pena compartirlo con todos por tus redes "
 "sociales."
+
+#: templates/formtools/wizard/done.html:19
+msgid ""
+"Thanks for making the decision to register as an organ and/or tissue donor. "
+"ORGANIZE is currently submitting your registration on your behalf to your "
+"state based registry. We will be in touch shortly with an update."
+msgstr ""
+"Gracias por tomar la decisión de registrarte como un donador de órganos y/o "
+"tejidos. ORGANIZE está actualmente sometiendo tu registro a tu nombre en el "
+"registro de tu estado. Estaremos en contacto contigo muy pronto con "
+"información actualizada."
+
+#: templates/formtools/wizard/done.html:24
+msgid "In the meantime tell the world you support organ donation on social:"
+msgstr ""
+"Mientras tanto dile al mundo a través de los medios sociales que apoyas la "
+"donación de órganos:"
 
 #: templates/formtools/wizard/wizard_form.html:20
 #: templates/registration/legal_document.html:15
@@ -325,8 +365,8 @@ msgid "Mother's Maiden Name"
 msgstr "Apellido de soltera de tu madre"
 
 msgid ""
-"As it appears on your driver's license or state ID. This ensures that your "
-"registration preferences will be in sync with the DMV record."
+"As it appears on your driver's license or state ID. This ensures that "
+"your registration preferences will be in sync with the DMV record."
 msgstr ""
 "Tal como aparece en su licencia de manejo o identificación del estado. "
 "Esto asegurará que las preferencias de su registro se sincronicen con los "
@@ -350,18 +390,3 @@ msgstr ""
 "policy/\">Políticas de Privacidad</a> de ORGANIZE así como la de <a href="
 "\"http://register.organize.org/terms-of-service-by-state/\">los "
 "aplicables a los registros estatales</a>."
-
-msgid "Enter an accurate birthdate."
-msgstr "Ingrese una fecha de cumpleaños precisa."
-
-msgid "Enter the last 4 digits of your social security number."
-msgstr "Ingresa los últimos 4 dígitos de su número de seguro social."
-
-msgid "Enter only digits."
-msgstr "Ingrese sólo dígitos."
-
-msgid "Enter an accurate phone number including area code."
-msgstr "Introduzca un número de teléfono exacta incluyendo código de área."
-
-msgid "Enter a valid email."
-msgstr "Introduzca una dirección de correo electrónico válida."
