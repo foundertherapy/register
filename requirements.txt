@@ -11,7 +11,7 @@ django-redis-sessions
 django-secure
 django-sslify
 django-storages
-Django==1.7.6
+Django==1.7.7
 django_coverage
 flake8
 hiredis
@@ -22,7 +22,7 @@ paramiko
 newrelic
 pep8
 phonenumbers
-Pillow==2.7
+Pillow
 py-bcrypt
 pycrypto
 pyflakes
@@ -33,3 +33,4 @@ requests
 setuptools
 uwsgi
 yolk
+python-gettext
