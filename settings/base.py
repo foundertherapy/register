@@ -144,8 +144,8 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.profiling.ProfilingPanel',
 )
 
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL',
-                                    'server@foundertherapy.co')
+DEFAULT_FROM_EMAIL = os.environ.get(
+    'DEFAULT_FROM_EMAIL', 'server@organize.org')
 
 MAILGUN_PUBLIC_API_KEY = os.environ.get('MAILGUN_PUBLIC_API_KEY')
 MAILGUN_API_KEY = os.environ.get('MAILGUN_PUBLIC_API_KEY')

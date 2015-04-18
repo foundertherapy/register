@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 
 import logging
 import collections
+import datetime
 
+from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 import django.http
@@ -35,6 +37,8 @@ SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
 SESSION_RESET_FORM = 'register_reset_form'
 
+COOKIE_MINOR = 'register_minor'
+
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     api_key=settings.FIFTYTHREE_CLIENT_KEY,
     endpoint=settings.FIFTYTHREE_CLIENT_ENDPOINT,
@@ -60,6 +64,9 @@ class StateLookupView(django.views.generic.edit.FormView):
 
     def get(self, request, *args, **kwargs):
         clean_session(request.session)
+        if request.COOKIES.get(COOKIE_MINOR) == 'true':
+            return django.shortcuts.redirect('register_minor')
+
         return super(StateLookupView, self).get(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -240,9 +247,18 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         map(data.update, [form.cleaned_data for form in final_forms.values()])
         api_errors = self.submit_registration(data)
         if api_errors:
+            api_errors = dict(api_errors)
+            # check to see if we have an error with a minor registering
+            if 'non_field_errors' in api_errors.keys():
+                non_field_errors = api_errors['non_field_errors']
+                if 'Minors cannot register.' in non_field_errors:
+                    return self.render_restricted_minor_registration()
+
             # there is an error submitting the data, so pull the error data and
             # set the appropriate error on the form
-            api_errors = dict([(a, _(b)) for a, b in api_errors])
+            # call ugettext on the list of errors for each
+            api_errors = {a: [ugettext(c) for c in b]
+                          for a, b in api_errors.items()}
             logger.error('Received API errors for postal_code {}: {}'.format(
                 data['postal_code'], api_errors))
             self.storage.data[self.api_error_key] = api_errors
@@ -284,10 +300,27 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         clean_session(self.request.session)
         return done_response
 
+    def render_restricted_minor_registration(self):
+        """
+        This method gets called when we receive an error that we are trying to
+        register a minor. This should set a cookie that prevents additional
+        attempts at registration, and should redirect to the appropriate error
+        page.
+        """
+        response = django.shortcuts.redirect('register_minor')
+        response.set_cookie(
+            COOKIE_MINOR, 'true', expires=datetime.datetime(2033, 1, 1),
+            secure=False, httponly=True)
+        self.storage.reset()
+        return response
+
     def done(self, form_list, **kwargs):
         return django.shortcuts.redirect('done')
 
     def dispatch(self, request, *args, **kwargs):
+        if request.COOKIES.get(COOKIE_MINOR) == 'true':
+            return django.shortcuts.redirect('register_minor')
+
         if request.session.get(SESSION_RESET_FORM):
             del request.session[SESSION_RESET_FORM]
             prefix = self.get_prefix(*args, **kwargs)
@@ -384,6 +417,16 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
             d['configuration'] = self.configuration
             d['terms_of_service'] = self.request.session[SESSION_TOS]
         return d
+
+
+class ResetMinorCookieDocument(django.views.generic.RedirectView):
+    pattern_name = 'start'
+
+    def get(self, request, *args, **kwargs):
+        response = super(ResetMinorCookieDocument, self).get(
+            request, *args, **kwargs)
+        response.delete_cookie(COOKIE_MINOR)
+        return response
 
 
 class LegalDocument(django.views.generic.TemplateView):

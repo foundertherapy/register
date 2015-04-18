@@ -14,6 +14,14 @@ urlpatterns = django.conf.urls.patterns(
             template_name='formtools/wizard/done.html'),
         name='done'),
     django.conf.urls.url(
+        r'^restricted/$', django.views.generic.TemplateView.as_view(
+            template_name='formtools/wizard/register_minor.html'),
+        name='register_minor'),
+    django.conf.urls.url(
+        r'^reset-minor/$',
+        views.ResetMinorCookieDocument.as_view(),
+        name='reset_minor'),
+    django.conf.urls.url(
         r'^terms-of-service/$',
         views.TermsOfServiceView.as_view(),
         name='terms_of_service'),

@@ -390,3 +390,6 @@ msgstr ""
 "policy/\">Políticas de Privacidad</a> de ORGANIZE así como la de <a href="
 "\"http://register.organize.org/terms-of-service-by-state/\">los "
 "aplicables a los registros estatales</a>."
+
+msgid "Minors cannot register."
+msgstr "Los menores de edad no puede registrar."
