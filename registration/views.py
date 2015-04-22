@@ -57,16 +57,49 @@ def clean_session(session):
     return session
 
 
-class StateLookupView(django.views.generic.edit.FormView):
+class UserCheckMixin(object):
+    user_check_failure_path = ''  # can be path, url name or reverse_lazy
+
+    def check_user(self, request, user):
+        return True
+
+    def user_check_failed(self, request, *args, **kwargs):
+        return django.shortcuts.redirect(self.user_check_failure_path)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.check_user(request, request.user):
+            return self.user_check_failed(request, *args, **kwargs)
+        return super(UserCheckMixin, self).dispatch(request, *args, **kwargs)
+
+
+class MinorRestrictedMixin(UserCheckMixin):
+    user_check_failure_path = 'register_minor'
+    permission_required = None
+
+    def check_user(self, request, user):
+        return request.COOKIES.get(COOKIE_MINOR) != 'true'
+
+    def render_restricted_minor_registration(self):
+        """
+        This method gets called when we receive an error that we are trying to
+        register a minor. This should set a cookie that prevents additional
+        attempts at registration, and should redirect to the appropriate error
+        page.
+        """
+        response = django.shortcuts.redirect('register_minor')
+        response.set_cookie(
+            COOKIE_MINOR, 'true', expires=datetime.datetime(2033, 1, 1),
+            secure=False, httponly=True)
+        return response
+
+
+class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     template_name = 'registration/start.html'
     form_class = forms.StateLookupForm
     accepts_registration = True
 
     def get(self, request, *args, **kwargs):
         clean_session(request.session)
-        if request.COOKIES.get(COOKIE_MINOR) == 'true':
-            return django.shortcuts.redirect('register_minor')
-
         return super(StateLookupView, self).get(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -174,7 +207,7 @@ class StateRedirectView(django.views.generic.RedirectView):
             return django.core.urlresolvers.reverse('start')
 
 
-class RegistrationWizardView(NamedUrlSessionWizardView):
+class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
     form_list = [forms.StateLookupForm, ]
     page_titles = collections.OrderedDict()
     page_fieldsets = collections.OrderedDict()
@@ -252,6 +285,7 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
             if 'non_field_errors' in api_errors.keys():
                 non_field_errors = api_errors['non_field_errors']
                 if 'Minors cannot register.' in non_field_errors:
+                    self.storage.reset()
                     return self.render_restricted_minor_registration()
 
             # there is an error submitting the data, so pull the error data and
@@ -299,20 +333,6 @@ class RegistrationWizardView(NamedUrlSessionWizardView):
         # also clean out the session
         clean_session(self.request.session)
         return done_response
-
-    def render_restricted_minor_registration(self):
-        """
-        This method gets called when we receive an error that we are trying to
-        register a minor. This should set a cookie that prevents additional
-        attempts at registration, and should redirect to the appropriate error
-        page.
-        """
-        response = django.shortcuts.redirect('register_minor')
-        response.set_cookie(
-            COOKIE_MINOR, 'true', expires=datetime.datetime(2033, 1, 1),
-            secure=False, httponly=True)
-        self.storage.reset()
-        return response
 
     def done(self, form_list, **kwargs):
         return django.shortcuts.redirect('done')
@@ -469,7 +489,8 @@ class TermsOfServiceByStateView(LegalDocument):
     api_name = 'terms-of-service-by-state'
 
 
-class DeregistrationView(django.views.generic.edit.FormView):
+class DeregistrationView(
+    MinorRestrictedMixin, django.views.generic.edit.FormView):
     template_name = 'registration/deregister.html'
     success_url = django.core.urlresolvers.reverse_lazy('deregister_done')
     form_class = forms.DeregisterForm
@@ -505,19 +526,6 @@ class DeregistrationView(django.views.generic.edit.FormView):
                 return self.form_invalid(form)
 
         return super(DeregistrationView, self).form_valid(form)
-
-    def render_restricted_minor_registration(self):
-        """
-        This method gets called when we receive an error that we are trying to
-        register a minor. This should set a cookie that prevents additional
-        attempts at registration, and should redirect to the appropriate error
-        page.
-        """
-        response = django.shortcuts.redirect('register_minor')
-        response.set_cookie(
-            COOKIE_MINOR, 'true', expires=datetime.datetime(2033, 1, 1),
-            secure=False, httponly=True)
-        return response
 
     def submit_deregistration(self, data):
         try:
