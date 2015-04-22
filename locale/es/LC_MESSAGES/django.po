@@ -393,3 +393,22 @@ msgstr ""
 
 msgid "Minors cannot register."
 msgstr "Los menores de edad no puede registrar."
+
+msgid "Bust!"
+msgstr "¡CAISTE!"
+
+msgid ""
+"Looks like you&rsquo;re underage, which means you can&rsquo;t legally "
+"register to be an organ donor. Argh."
+msgstr ""
+"Parece que eres menor de edad, lo que significa que no puedes registrarte "
+"legalmente para ser un donador de órganos. Grrrr."
+
+msgid ""
+"In the meantime, please email your family/besties to tell them you want to "
+"be an organ donor and scream it from the mountaintops (or just on social, "
+"you know the drill)."
+msgstr ""
+"Mientras tanto por favor envía un correo electrónico a tu familia/amigos "
+"para decirles que quieres ser un donador de órganos y grítalo desde lo alto "
+"de la montaña (o solo a través de los medios sociales, ya sabes que hacer)."
