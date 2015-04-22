@@ -494,15 +494,15 @@ class DeregistrationView(django.views.generic.edit.FormView):
                 if 'Minors cannot register.' in non_field_errors:
                     return self.render_restricted_minor_registration()
 
-        api_errors = {a: [ugettext(c) for c in b]
-                      for a, b in api_errors.items()}
-        logger.error(
-            'Received API errors for registration: {}'.format(api_errors))
-        error_field_names = set(form.fields.keys()).intersection(
-            set(api_errors.keys()))
-        if error_field_names:
-            form.add_error(field=None, error=api_errors)
-            return self.form_invalid(form)
+            api_errors = {a: [ugettext(c) for c in b]
+                          for a, b in api_errors.items()}
+            logger.error(
+                'Received API errors for registration: {}'.format(api_errors))
+            error_field_names = set(form.fields.keys()).intersection(
+                set(api_errors.keys()))
+            if error_field_names:
+                form.add_error(field=None, error=api_errors)
+                return self.form_invalid(form)
 
         return super(DeregistrationView, self).form_valid(form)
 
