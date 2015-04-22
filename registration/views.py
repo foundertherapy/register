@@ -467,3 +467,68 @@ class PrivacyPolicyView(LegalDocument):
 class TermsOfServiceByStateView(LegalDocument):
     title = 'State-by-State Terms of Service'
     api_name = 'terms-of-service-by-state'
+
+
+class DeregistrationView(django.views.generic.edit.FormView):
+    template_name = 'registration/deregister.html'
+    success_url = django.core.urlresolvers.reverse_lazy('deregister_done')
+    form_class = forms.DeregisterForm
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        # email = form.cleaned_data['email']
+        # postal_code = form.cleaned_data['postal_code']
+        # first_name = form.cleaned_data['first_name']
+        # middle_name = form.cleaned_data['middle_name']
+        # last_name = form.cleaned_data['last_name']
+        # birthdate = form.cleaned_data['birthdate']
+
+        api_errors = self.submit_deregistration(form.cleaned_data)
+
+        if api_errors:
+            api_errors = dict(api_errors)
+            # check to see if we have an error with a minor registering
+            if 'non_field_errors' in api_errors.keys():
+                non_field_errors = api_errors['non_field_errors']
+                if 'Minors cannot register.' in non_field_errors:
+                    return self.render_restricted_minor_registration()
+
+        api_errors = {a: [ugettext(c) for c in b]
+                      for a, b in api_errors.items()}
+        logger.error(
+            'Received API errors for registration: {}'.format(api_errors))
+        error_field_names = set(form.fields.keys()).intersection(
+            set(api_errors.keys()))
+        if error_field_names:
+            form.add_error(field=None, error=api_errors)
+            return self.form_invalid(form)
+
+        return super(DeregistrationView, self).form_valid(form)
+
+    def render_restricted_minor_registration(self):
+        """
+        This method gets called when we receive an error that we are trying to
+        register a minor. This should set a cookie that prevents additional
+        attempts at registration, and should redirect to the appropriate error
+        page.
+        """
+        response = django.shortcuts.redirect('register_minor')
+        response.set_cookie(
+            COOKIE_MINOR, 'true', expires=datetime.datetime(2033, 1, 1),
+            secure=False, httponly=True)
+        return response
+
+    def submit_deregistration(self, data):
+        try:
+            FIFTYTHREE_CLIENT.deregister(**data)
+        except fiftythree.client.InvalidDataError as e:
+            logger.error(e.message)
+            return e.errors.items()
+        except fiftythree.client.ServiceError as e:
+            logger.error(e.message)
+            return [[None, e.message]]
+        except fiftythree.client.AuthenticationError as e:
+            logger.error(e.message)
+            return [[None, e.message]]
+

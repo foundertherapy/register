@@ -39,6 +39,7 @@ class FiftyThreeClient(object):
         self.lookup_zipcode_path = '/api/{}/postal-codes/'.format(api_version)
         self.submit_email_path = '/api/{}/emails/'.format(api_version)
         self.register_path = '/api/{}/registrations/'.format(api_version)
+        self.deregister_path = '/api/{}/deregistrations/'.format(api_version)
 
     @property
     def _headers(self):
@@ -143,6 +144,38 @@ class FiftyThreeClient(object):
 
         elif r.status_code == httplib.CREATED:
             logger.info('Successfully submitted registration')
+
+        else:
+            logger.info('Unknown status code: {}'.format(r.status_code))
+            return False
+
+    def deregister(self, **data):
+        url = ''.join([self.scheme, self.endpoint, self.deregister_path, ])
+        data['source_url'] = self.source_url
+        r = requests.post(url, headers=self._headers, data=data)
+        print r.content
+
+        if r.status_code == httplib.OK:
+            return True
+
+        elif r.status_code in (httplib.METHOD_NOT_ALLOWED, ):
+            raise AuthenticationError(r.json().get('detail'))
+
+        elif r.status_code in (httplib.UNAUTHORIZED, httplib.FORBIDDEN, ):
+            raise AuthenticationError(r.json().get('detail'))
+
+        elif r.status_code == httplib.UNPROCESSABLE_ENTITY:
+            raise InvalidDataError(r.json().get('detail'), {})
+
+        elif r.status_code == httplib.BAD_REQUEST:
+            raise InvalidDataError('Invalid data.', r.json())
+
+        elif r.status_code in (
+                httplib.SERVICE_UNAVAILABLE, httplib.INTERNAL_SERVER_ERROR):
+            raise ServiceError('Service unavailable.')
+
+        elif r.status_code == httplib.CREATED:
+            logger.info('Successfully submitted deregistration')
 
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))

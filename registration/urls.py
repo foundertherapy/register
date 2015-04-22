@@ -14,6 +14,10 @@ urlpatterns = django.conf.urls.patterns(
             template_name='formtools/wizard/done.html'),
         name='done'),
     django.conf.urls.url(
+        r'^deregister-done/$', django.views.generic.TemplateView.as_view(
+            template_name='registration/deregister_done.html'),
+        name='deregister_done'),
+    django.conf.urls.url(
         r'^restricted/$', django.views.generic.TemplateView.as_view(
             template_name='formtools/wizard/register_minor.html'),
         name='register_minor'),
@@ -38,6 +42,10 @@ urlpatterns = django.conf.urls.patterns(
         views.RegistrationWizardView.as_view(
             url_name='register', done_step_name='complete'),
         name='register'),
+    django.conf.urls.url(
+        r'^deregister/$',
+        views.DeregistrationView.as_view(),
+        name='deregister'),
     django.conf.urls.url(
         r'^not-supported/$', views.UnsupportedStateView.as_view(),
         name='unsupported_state'),
