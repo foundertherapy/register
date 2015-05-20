@@ -7,6 +7,7 @@ import datetime
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.utils.safestring import mark_safe
 import django.http
 import django.shortcuts
 import django.views.generic.edit
@@ -36,6 +37,7 @@ SESSION_TOS = 'register_terms_of_service'
 SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
 SESSION_RESET_FORM = 'register_reset_form'
+SESSION_REGISTRATION_UPDATE = 'registration_update'
 
 COOKIE_MINOR = 'register_minor'
 
@@ -50,7 +52,8 @@ def clean_session(session):
     for key in (
             SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME,
             SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-            SESSION_TOS, SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, ):
+            SESSION_TOS, SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL,
+            SESSION_REGISTRATION_UPDATE, ):
         if key in session:
             del session[key]
     session[SESSION_RESET_FORM] = True
@@ -117,6 +120,19 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             initial['postal_code'] = self.request.GET['postal_code']
         return initial
 
+    def get_context_data(self, **kwargs):
+        data = super(StateLookupView, self).get_context_data(**kwargs)
+        data['update'] = self.is_update
+        if data['update']:
+            data['page_title'] = _('Update your registration')
+        else:
+            data['page_title'] = _('Let&rsquo;s Begin...')
+        return data
+
+    @property
+    def is_update(self):
+        return self.kwargs.get('update') is True
+
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
@@ -160,6 +176,7 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         self.request.session[SESSION_STATE] = r['state']
         self.request.session[SESSION_STATE_NAME] = r['state_name']
         self.request.session[SESSION_POSTAL_CODE] = postal_code
+        self.request.session[SESSION_REGISTRATION_UPDATE] = self.is_update
 
         if r['accepts_registration']:
             self.accepts_registration = True
@@ -335,7 +352,10 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         return done_response
 
     def done(self, form_list, **kwargs):
-        return django.shortcuts.redirect('done')
+        if self.request.session[SESSION_REGISTRATION_UPDATE]:
+            return django.shortcuts.redirect('done')
+        else:
+            return django.shortcuts.redirect('update_done')
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
@@ -489,11 +509,11 @@ class TermsOfServiceByStateView(LegalDocument):
     api_name = 'terms-of-service-by-state'
 
 
-class DeregistrationView(
-    MinorRestrictedMixin, django.views.generic.edit.FormView):
-    template_name = 'registration/deregister.html'
-    success_url = django.core.urlresolvers.reverse_lazy('deregister_done')
-    form_class = forms.DeregisterForm
+class RevokeView(
+        MinorRestrictedMixin, django.views.generic.edit.FormView):
+    template_name = 'registration/revoke.html'
+    success_url = django.core.urlresolvers.reverse_lazy('revoke_done')
+    form_class = forms.RevokeForm
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
@@ -525,11 +545,11 @@ class DeregistrationView(
                 form.add_error(field=None, error=api_errors)
                 return self.form_invalid(form)
 
-        return super(DeregistrationView, self).form_valid(form)
+        return super(RevokeView, self).form_valid(form)
 
     def submit_deregistration(self, data):
         try:
-            FIFTYTHREE_CLIENT.deregister(**data)
+            FIFTYTHREE_CLIENT.revoke(**data)
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
             return e.errors.items()

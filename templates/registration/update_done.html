@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1>{% blocktrans %}Thank you!{% endblocktrans %}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-12">
+        <p class="lead">
+            {% blocktrans trimmed %}
+            Thank you! Your donor wishes have been updated. ORGANIZE retains a copy of your entire registry history for record keeping purposes, but this, most recent decision will supersede any previous registration decisions you have made.
+            {% endblocktrans %}
+        </p>
+        <p class="lead">
+            {% blocktrans trimmed %}
+            Be sure to tell the world you support organ donation on social:
+            {% endblocktrans %}
+        </p>
+        <div class="social-icons">
+            <a href="http://twitter.com/intent/tweet?text=Made+a+big+move+today+and+finally+became+a+registered+organ+donor.+ORGANIZE.org+was+super+simple+and+now+I+can+%23DonateMyParts" class="twitter-icon">&nbsp;</a>
+            <a href="https://www.facebook.com/Organize?app_data=%7B%22organization_id%22%3A2200%2C%22referring_action_id%22%3A5270%2C%22fb_referrer_uid%22%3Anull%2C%22source%22%3Anull%7D&v=app_335652843138116" class="facebook-icon">&nbsp;</a>
+            <a href="http://instagram.com/organ_ize" class="instagram-icon">&nbsp;</a>
+        </div>
+    </div>
+
+    <div class="visible-xs col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-12">&nbsp</div>
+
+    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 text-center">
+        <center><img src="{% static 'images/congratulations-animated.gif' %}" class="img-responsive" /></center>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <p class="hashtag-large text-center">#REGIFTMYLIFE</p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<!-- Google Code for Registration Conversion Page -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 911750952;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
+    var google_remarketing_only = false;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript>
+    <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

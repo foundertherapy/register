@@ -237,7 +237,7 @@ def register_form_generator(conf):
     return cls
 
 
-class DeregisterForm(django.forms.Form):
+class RevokeForm(django.forms.Form):
     email = django.forms.EmailField(label=_('Email'))
     first_name = django.forms.CharField(
         label=_('First Name'), max_length=150, min_length=1)

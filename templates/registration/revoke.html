@@ -12,13 +12,13 @@
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1>{% blocktrans %}Remove yourself from the registry...{% endblocktrans %}</h1>
+        <h1>{% blocktrans %}Revoke my registration from the ORGANIZE Registry{% endblocktrans %}</h1>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <form class="register" role="form" action="{% url 'deregister' %}" method="post">
+        <form class="register" role="form" action="{% url 'revoke' %}" method="post">
             {% csrf_token %}
             {% bootstrap_form form size='lg' %}
 
@@ -26,7 +26,7 @@
 
             {% buttons %}
                 <button type="submit" class="btn btn-primary btn-organize" disabled>
-                    {% blocktrans %}Submit Removal Request{% endblocktrans %} &rsaquo;
+                    {% blocktrans %}Revoke my registration{% endblocktrans %} &rsaquo;
                 </button>
             {% endbuttons %}
         </form>

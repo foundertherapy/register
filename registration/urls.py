@@ -10,17 +10,24 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(
         r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(
+        r'^update/$', views.StateLookupView.as_view(), kwargs={'update': True, },
+        name='update'),
+    django.conf.urls.url(
         r'^done/$', django.views.generic.TemplateView.as_view(
-            template_name='formtools/wizard/done.html'),
+            template_name='registration/done.html'),
         name='done'),
     django.conf.urls.url(
-        r'^deregister-done/$', django.views.generic.TemplateView.as_view(
-            template_name='registration/deregister_done.html'),
-        name='deregister_done'),
+        r'^update-done/$', django.views.generic.TemplateView.as_view(
+            template_name='registration/update_done.html'),
+        name='update_done'),
     django.conf.urls.url(
         r'^restricted/$', django.views.generic.TemplateView.as_view(
-            template_name='formtools/wizard/register_minor.html'),
+            template_name='registration/register_minor.html'),
         name='register_minor'),
+    django.conf.urls.url(
+        r'^update-revoke/$', django.views.generic.TemplateView.as_view(
+            template_name='registration/update_choice.html'),
+        name='update_choice'),
     django.conf.urls.url(
         r'^reset-minor/$',
         views.ResetMinorCookieDocument.as_view(),
@@ -43,9 +50,11 @@ urlpatterns = django.conf.urls.patterns(
             url_name='register', done_step_name='complete'),
         name='register'),
     django.conf.urls.url(
-        r'^deregister/$',
-        views.DeregistrationView.as_view(),
-        name='deregister'),
+        r'^revoke/$', views.RevokeView.as_view(), name='revoke'),
+    django.conf.urls.url(
+        r'^revoke-done/$', django.views.generic.TemplateView.as_view(
+            template_name='registration/revoke_done.html'),
+        name='revoke_done'),
     django.conf.urls.url(
         r'^not-supported/$', views.UnsupportedStateView.as_view(),
         name='unsupported_state'),

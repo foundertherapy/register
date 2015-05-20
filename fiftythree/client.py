@@ -39,7 +39,7 @@ class FiftyThreeClient(object):
         self.lookup_zipcode_path = '/api/{}/postal-codes/'.format(api_version)
         self.submit_email_path = '/api/{}/emails/'.format(api_version)
         self.register_path = '/api/{}/registrations/'.format(api_version)
-        self.deregister_path = '/api/{}/deregistrations/'.format(api_version)
+        self.revoke_path = '/api/{}/revocations/'.format(api_version)
 
     @property
     def _headers(self):
@@ -149,14 +149,14 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def deregister(self, **data):
-        url = ''.join([self.scheme, self.endpoint, self.deregister_path, ])
+    def revoke(self, **data):
+        url = ''.join([self.scheme, self.endpoint, self.revoke_path, ])
         data['source_url'] = self.source_url
         r = requests.post(url, headers=self._headers, data=data)
         print r.content
 
         if r.status_code == httplib.OK:
-            return True
+            return r.json
 
         elif r.status_code in (httplib.METHOD_NOT_ALLOWED, ):
             raise AuthenticationError(r.json().get('detail'))
@@ -175,7 +175,7 @@ class FiftyThreeClient(object):
             raise ServiceError('Service unavailable.')
 
         elif r.status_code == httplib.CREATED:
-            logger.info('Successfully submitted deregistration')
+            logger.info('Successfully submitted revocation')
 
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))

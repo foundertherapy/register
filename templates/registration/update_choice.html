@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <p>
+            <a href="{% url 'update' %}" class="btn btn-primary btn-organize">
+                {% blocktrans %}Update Donor Wishes{% endblocktrans %} &rsaquo;
+            </a>
+        </p>
+        <p>
+            {% blocktrans trimmed %}
+            To update your donor wishes, please fill out the update form in its entirety. All updated information you submit will automatically update your registration.
+            {% endblocktrans %}
+        </p>
+
+        <p class="lead">
+            {% blocktrans trimmed %}
+            OR
+            {% endblocktrans %}
+        </p>
+
+        <p>
+            <a href="{% url 'revoke' %}" class="btn btn-primary btn-organize">
+                {% blocktrans %}Revoke My Registration{% endblocktrans %} &rsaquo;
+            </a>
+        </p>
+        <p>
+            {% blocktrans trimmed %}
+            If you no longer want to be an organ donor
+            {% endblocktrans %}
+        </p>
+
+    </div>
+</div>
+{% endblock %}

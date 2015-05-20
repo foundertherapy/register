@@ -12,7 +12,7 @@
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1>{% blocktrans %}Let&rsquo;s Begin...{% endblocktrans %}</h1>
+        <h1>{% autoescape off %}{% blocktrans %}{{ page_title }}{% endblocktrans %}{% endautoescape %}</h1>
     </div>
 </div>
 
@@ -33,9 +33,21 @@
             <hr />
 
             {% buttons %}
+                {% if update %}
+                    <a href="{% url 'start' %}" class="btn btn-secondary btn-organize" tabindex="100">
+                        &lsaquo; {% blocktrans %}Cancel{% endblocktrans %}
+                    </a>
+                {% endif %}
+
                 <button type="submit" class="btn btn-primary btn-organize" disabled>
                     {% blocktrans %}Continue{% endblocktrans %} &rsaquo;
                 </button>
+
+                {% if not update %}
+                    <a href="{% url 'update_choice' %}" class="btn btn-link" tabindex="100">
+                        {% blocktrans %}Update registration{% endblocktrans %}
+                    </a>
+                {% endif %}
             {% endbuttons %}
         </form>
     </div>
