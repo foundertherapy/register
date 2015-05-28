@@ -552,7 +552,7 @@ class RevokeView(
     def get_success_url(self):
         if self.postal_code:
             return django.core.urlresolvers.reverse_lazy(
-                'revoke_done', postal_code=self.postal_code)
+                'revoke_done', kwargs={'postal_code': self.postal_code, })
         else:
             return django.core.urlresolvers.reverse_lazy('revoke-done')
 
