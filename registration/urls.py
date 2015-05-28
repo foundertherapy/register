@@ -52,9 +52,10 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(
         r'^revoke/$', views.RevokeView.as_view(), name='revoke'),
     django.conf.urls.url(
-        r'^revoke-done/$', django.views.generic.TemplateView.as_view(
-            template_name='registration/revoke_done.html'),
-        name='revoke_done'),
+        r'^revoke-done/(?P<postal_code>[0-9]{5})/$',
+        views.RevokeDoneView.as_view(), name='revoke_done'),
+    django.conf.urls.url(
+        r'^revoke-done/$', views.RevokeDoneView.as_view(), name='revoke_done'),
     django.conf.urls.url(
         r'^not-supported/$', views.UnsupportedStateView.as_view(),
         name='unsupported_state'),

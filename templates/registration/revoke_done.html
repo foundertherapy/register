@@ -16,9 +16,15 @@
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <p class="lead">
-            {% blocktrans trimmed %}
-            We have removed your registration from the ORGANIZE database, however, you may still be registered in your Donate Life state registry. To ensure you have fully de-registered, please visit your appropriate state registry website and update your status there as well.
-            {% endblocktrans %}
+            {% if registry_url %}
+                {% blocktrans trimmed %}
+                We have removed your registration from the ORGANIZE database, however, you may still be registered in your Donate Life state registry. To ensure you have fully de-registered, please visit <a href="{{ registry_url }}">your appropriate state registry website</a> and update your status there as well.
+                {% endblocktrans %}
+            {% else %}
+                {% blocktrans trimmed %}
+                We have removed your registration from the ORGANIZE database, however, you may still be registered in your Donate Life state registry. To ensure you have fully de-registered, please visit your appropriate state registry website and update your status there as well.
+                {% endblocktrans %}
+            {% endif %}
         </p>
     </div>
 </div>

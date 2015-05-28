@@ -7,7 +7,6 @@ import datetime
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.utils.safestring import mark_safe
 import django.http
 import django.shortcuts
 import django.views.generic.edit
@@ -512,7 +511,7 @@ class TermsOfServiceByStateView(LegalDocument):
 class RevokeView(
         MinorRestrictedMixin, django.views.generic.edit.FormView):
     template_name = 'registration/revoke.html'
-    success_url = django.core.urlresolvers.reverse_lazy('revoke_done')
+    postal_code = ''
     form_class = forms.RevokeForm
 
     def form_valid(self, form):
@@ -545,7 +544,17 @@ class RevokeView(
                 form.add_error(field=None, error=api_errors)
                 return self.form_invalid(form)
 
+        # if the form is valid, set the postal_code
+        self.postal_code = form.cleaned_data['postal_code']
+
         return super(RevokeView, self).form_valid(form)
+
+    def get_success_url(self):
+        if self.postal_code:
+            return django.core.urlresolvers.reverse_lazy(
+                'revoke_done', postal_code=self.postal_code)
+        else:
+            return django.core.urlresolvers.reverse_lazy('revoke-done')
 
     def submit_deregistration(self, data):
         try:
@@ -559,4 +568,26 @@ class RevokeView(
         except fiftythree.client.AuthenticationError as e:
             logger.error(e.message)
             return [[None, e.message]]
+
+
+class RevokeDoneView(django.views.generic.TemplateView):
+    template_name = 'registration/revoke_done.html'
+    title = _('Donor Registration Revocation Complete')
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        context['title'] = self.title
+        if 'postal_code' in self.kwargs:
+            try:
+                r = FIFTYTHREE_CLIENT.lookup_postal_code(
+                    self.kwargs['postal_code'])
+                context['registry_url'] = r.get('registry_url')
+            except fiftythree.client.InvalidDataError as e:
+                logger.error(e.message)
+            except fiftythree.client.ServiceError as e:
+                logger.error(e.message)
+
+        return self.render_to_response(context)
+
 
