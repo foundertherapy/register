@@ -32,7 +32,6 @@ SESSION_STATE = 'register_state'
 SESSION_STATE_NAME = 'register_state_name'
 SESSION_EMAIL = 'register_email'
 SESSION_POSTAL_CODE = 'register_postal_code'
-SESSION_TOS = 'register_terms_of_service'
 SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
 SESSION_RESET_FORM = 'register_reset_form'
@@ -51,7 +50,7 @@ def clean_session(session):
     for key in (
             SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME,
             SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-            SESSION_TOS, SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL,
+            SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL,
             SESSION_REGISTRATION_UPDATE, ):
         if key in session:
             del session[key]
@@ -181,9 +180,6 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             self.accepts_registration = True
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = True
             self.request.session[SESSION_REDIRECT_URL] = ''
-            # we need to show the registration form, but first we should save
-            # the state and field data into the session for later use
-            self.request.session[SESSION_TOS] = r['terms_of_service']
             self.request.session[SESSION_REGISTRATION_CONFIGURATION] = \
                 r['registration_configuration']
         else:
@@ -454,7 +450,6 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         if self.steps.current == self.steps.last:
             d['cleaned_data'] = self.get_all_cleaned_data()
             d['configuration'] = self.configuration
-            d['terms_of_service'] = self.request.session[SESSION_TOS]
         return d
 
 
