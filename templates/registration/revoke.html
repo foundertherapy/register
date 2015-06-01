@@ -25,10 +25,18 @@
             <hr />
 
             {% buttons %}
-                <button type="submit" class="btn btn-primary btn-organize" disabled>
-                    {% blocktrans %}Revoke my registration{% endblocktrans %} &rsaquo;
-                </button>
+                <p>
+                    <button type="submit" class="btn btn-primary btn-organize" disabled>
+                        {% blocktrans %}Revoke my registration{% endblocktrans %} &rsaquo;
+                    </button>
+                </p>
             {% endbuttons %}
+
+
+            {% blocktrans %}
+            <p>This does <b>not</b> revoke your registration from your state registry. To revoke your registration from your own state registry, you must do so directly through their online portal.</p>
+            {% endblocktrans %}
+
         </form>
     </div>
 </div>
