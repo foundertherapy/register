@@ -153,7 +153,6 @@ class FiftyThreeClient(object):
         url = ''.join([self.scheme, self.endpoint, self.revoke_path, ])
         data['source_url'] = self.source_url
         r = requests.post(url, headers=self._headers, data=data)
-        print r.content
 
         if r.status_code == httplib.OK:
             return r.json
