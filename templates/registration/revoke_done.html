@@ -3,6 +3,12 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
+{% block script %}
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
@@ -17,23 +23,15 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <p class="lead">
             {% if registry_url %}
-                {% blocktrans trimmed %}
-                Revoking your decision will de-register you only from the ORGANIZE registry, and it is important that you de-register yourself from the <a href="{{ registry_url }}">appropriate Donate Life state registry as well</a>. When you registered through ORGANIZE, we created a registration for you in our database, as well as a duplicate registration in your state registry.  However, for a de-registration, ORGANIZE only has the ability to do that in our own registry, not in any Donate Life state registry, so you must also separately de-register in your state registry otherwise they may still have your previous donor registration as their most recent indication of your donor wishes.
+                {% blocktrans trimmed with url=registry_url %}
+                Revoking your decision will de-register you only from the ORGANIZE registry, and it is important that you de-register yourself from the <a href="{{ url }}">appropriate Donate Life state registry as well</a>. When you registered through ORGANIZE, we created a registration for you in our database, as well as a duplicate registration in your state registry. However, for a de-registration, ORGANIZE only has the ability to do that in our own registry, not in any Donate Life state registry, so you must also separately de-register in your state registry otherwise they may still have your previous donor registration as their most recent indication of your donor wishes.
                 {% endblocktrans %}
             {% else %}
                 {% blocktrans trimmed %}
-                Revoking your decision will de-register you only from the ORGANIZE registry, and it is important that you de-register yourself from the appropriate Donate Life state registry as well. When you registered through ORGANIZE, we created a registration for you in our database, as well as a duplicate registration in your state registry.  However, for a de-registration, ORGANIZE only has the ability to do that in our own registry, not in any Donate Life state registry, so you must also separately de-register in your state registry otherwise they may still have your previous donor registration as their most recent indication of your donor wishes.
+                Revoking your decision will de-register you only from the ORGANIZE registry, and it is important that you de-register yourself from the appropriate Donate Life state registry as well. When you registered through ORGANIZE, we created a registration for you in our database, as well as a duplicate registration in your state registry. However, for a de-registration, ORGANIZE only has the ability to do that in our own registry, not in any Donate Life state registry, so you must also separately de-register in your state registry otherwise they may still have your previous donor registration as their most recent indication of your donor wishes.
                 {% endblocktrans %}
             {% endif %}
         </p>
     </div>
 </div>
-
-
-{% endblock %}
-
-{% block script %}
-<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
 {% endblock %}
