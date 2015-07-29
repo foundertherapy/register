@@ -11,7 +11,7 @@ django-redis-sessions
 django-secure
 django-sslify
 django-storages
-Django==1.7.8
+Django==1.7.9
 django_coverage
 flake8
 hiredis
