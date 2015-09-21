@@ -31,6 +31,7 @@ SESSION_REGISTRATION_CONFIGURATION = 'registration_configuration'
 SESSION_STATE = 'register_state'
 SESSION_STATE_NAME = 'register_state_name'
 SESSION_EMAIL = 'register_email'
+SESSION_SUBSCRIBE_TO_EMAIL_LIST = 'register_subscribe_to_email_list'
 SESSION_POSTAL_CODE = 'register_postal_code'
 SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
@@ -48,10 +49,10 @@ FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
 
 def clean_session(session):
     for key in (
-            SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME,
-            SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-            SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL,
-            SESSION_REGISTRATION_UPDATE, ):
+            SESSION_EMAIL, SESSION_SUBSCRIBE_TO_EMAIL_LIST,
+            SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE,
+            SESSION_REGISTRATION_CONFIGURATION, SESSION_ACCEPTS_REGISTRATION,
+            SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE, ):
         if key in session:
             del session[key]
     session[SESSION_RESET_FORM] = True
@@ -116,6 +117,8 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             initial['email'] = self.request.GET['email']
         if 'postal_code' in self.request.GET:
             initial['postal_code'] = self.request.GET['postal_code']
+        if 'subscribe_to_email_list' in self.request.GET:
+            initial['subscribe_to_email_list'] = self.request.GET['subscribe_to_email_list']
         return initial
 
     def get_context_data(self, **kwargs):
@@ -136,9 +139,10 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         # It should return an HttpResponse.
         postal_code = form.cleaned_data['postal_code']
         email = form.cleaned_data['email']
+        subscribe_to_email_list = form.cleaned_data['subscribe_to_email_list']
 
         try:
-            FIFTYTHREE_CLIENT.submit_email(email, postal_code)
+            FIFTYTHREE_CLIENT.submit_email(email, postal_code, subscribe_to_email_list)
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
                 form.add_error('email', _(e.message))
@@ -171,6 +175,7 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             return super(StateLookupView, self).form_invalid(form)
 
         self.request.session[SESSION_EMAIL] = email
+        self.request.session[SESSION_SUBSCRIBE_TO_EMAIL_LIST] = subscribe_to_email_list
         self.request.session[SESSION_STATE] = r['state']
         self.request.session[SESSION_STATE_NAME] = r['state_name']
         self.request.session[SESSION_POSTAL_CODE] = postal_code
