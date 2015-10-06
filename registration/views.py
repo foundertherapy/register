@@ -348,9 +348,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
     def done(self, form_list, **kwargs):
         if self.request.session[SESSION_REGISTRATION_UPDATE]:
-            return django.shortcuts.redirect('done')
-        else:
             return django.shortcuts.redirect('update_done')
+        else:
+            return django.shortcuts.redirect('done')
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
