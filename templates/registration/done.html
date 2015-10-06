@@ -4,39 +4,58 @@
 {% load bootstrap3 %}
 
 {% block content %}
+
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <h1>{% blocktrans %}Thank you!{% endblocktrans %}</h1>
     </div>
 </div>
+
+
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
 </div>
 
 <div class="row">
-    <div class="col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-12">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <p class="lead">
             {% blocktrans trimmed %}
-            Thanks for making the decision to register as an organ and/or tissue donor. ORGANIZE is currently submitting your registration on your behalf to your state based registry. We will be in touch shortly with an update.
+            You're amazing and officially one of our favorite people on the internet, but you’re not quite done…
             {% endblocktrans %}
         </p>
         <p class="lead">
             {% blocktrans trimmed %}
-            In the meantime tell the world you support organ donation on social:
+            It’s super important that your friends and fam know that you want to #DonateYourParts. Even though you registered with us, your next of kin will still be asked to support your decision.
+            Letting them know what you’ve decided now makes it SO much easier for them.
             {% endblocktrans %}
         </p>
         <div class="social-icons">
+            <a href="mailto:" class="email-icon">&nbsp;</a>
             <a href="https://twitter.com/intent/tweet?text=Made+a+big+move+today+%26+became+a+registered+organ+donor.+@organ_ize+was+super+easy+%26+now+I+can+%23DonateMyParts+ORGANIZE.org" class="twitter-icon">&nbsp;</a>
             <a href="https://www.facebook.com/Organize?app_data=%7B%22organization_id%22%3A2200%2C%22referring_action_id%22%3A5270%2C%22fb_referrer_uid%22%3Anull%2C%22source%22%3Anull%7D&v=app_335652843138116" class="facebook-icon">&nbsp;</a>
-            <a href="http://instagram.com/organ_ize" class="instagram-icon">&nbsp;</a>
         </div>
+        <div class="start-campaign-section">
+            <p class="lead">
+                {% blocktrans trimmed %}
+                or
+                {% endblocktrans %}
+            </p>
+            <p class="lead">
+                {% blocktrans trimmed %}
+                <a href="#">Start Your Own Campaign</a>
+                {% endblocktrans %}
+            </p>
+        </div>
+        <p class="lead">
+            {% blocktrans trimmed %}
+            Your donor wishes have been recorded. ORGANIZE retains a copy of your entire registry history for record keeping purposes, but this, most recent decision will supersede any previous registration decisions you have made with us.
+            {% endblocktrans %}
+        </p>
+
     </div>
 
-    <div class="visible-xs col-lg-3 col-lg-offset-3 col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-12">&nbsp</div>
+    <div class="visible-xs col-lg-3 col-md-4 col-sm-5 col-xs-12">&nbsp;</div>
 
-    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 text-center">
-        <center><img src="{% static 'images/congratulations-animated.gif' %}" class="img-responsive" /></center>
-    </div>
 </div>
 
 <div class="row">
@@ -44,7 +63,7 @@
 </div>
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <p class="hashtag-large text-center">#REGIFTMYLIFE</p>
+        <p class="hashtag-large text-center">#DONATEMYPARTS</p>
     </div>
 </div>
 

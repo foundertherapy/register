@@ -29,6 +29,10 @@ urlpatterns = django.conf.urls.patterns(
             template_name='registration/update_choice.html'),
         name='update_choice'),
     django.conf.urls.url(
+        r'^coming-soon/$', django.views.generic.TemplateView.as_view(
+            template_name='registration/coming_soon.html'),
+        name='done'),
+    django.conf.urls.url(
         r'^reset-minor/$',
         views.ResetMinorCookieDocument.as_view(),
         name='reset_minor'),

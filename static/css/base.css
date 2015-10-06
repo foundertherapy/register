@@ -250,9 +250,19 @@ hr {
     margin: 0;
 }
 
-.social-icons {
+.social-icons, .start-campaign-section {
     text-align: center;
     margin-top: 20px;
+}
+
+a.email-icon {
+    background: #fff url("../images/email.png") no-repeat top center;
+    height: 100px;
+    width: 28%;
+    background-size: contain;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 5px;
 }
 
 a.twitter-icon {
@@ -267,16 +277,6 @@ a.twitter-icon {
 
 a.facebook-icon {
     background: #fff url("../images/facebook.png") no-repeat top center;
-    height: 100px;
-    width: 28%;
-    background-size: contain;
-    display: inline-block;
-    text-decoration: none;
-    margin: 0 5px;
-}
-
-a.instagram-icon {
-    background: #fff url("../images/instagram.png") no-repeat top center;
     height: 100px;
     width: 28%;
     background-size: contain;
