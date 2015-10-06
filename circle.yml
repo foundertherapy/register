@@ -2,10 +2,6 @@ machine:
     environment:
         DJANGO_SETTINGS_MODULE: "settings.testing"
 
-test:
-    override:
-        - ./manage.py test_coverage
-
 deployment:
     development:
         branch: development
