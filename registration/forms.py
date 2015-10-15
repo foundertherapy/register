@@ -40,6 +40,10 @@ class StateLookupForm(django.forms.Form):
         help_text=_('Your zip will determine which series of state-based '
                     'requirements will be provided in the next series '
                     'of steps.'))
+    subscribe_to_email_list = django.forms.BooleanField(
+        label=_('Keep me updated on all things ORGANIZE. The most exciting thing '
+                'to happen to your inbox since "You\'ve got mail!".'), initial=True,
+                required=False)
 
     def clean_email(self):
         email = self.cleaned_data['email']

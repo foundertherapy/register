@@ -82,11 +82,12 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def submit_email(self, email, postal_code):
+    def submit_email(self, email, postal_code, subscribe_to_email_list=False):
         url = ''.join([self.scheme, self.endpoint, self.submit_email_path, ])
         data = {
             'email': email,
             'postal_code': unicode(postal_code),
+            'subscribe_to_email_list': subscribe_to_email_list,
             'source_url': self.source_url
         }
         try:
