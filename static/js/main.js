@@ -45,8 +45,9 @@ $(function() {
         $("form#language-selector").submit();
     });
 
-
     if (window.location.href.indexOf('done') > -1) {
-        window.parent.document.getElementById('organize_registration_btn').innerHTML = 'Donate Again?';
+        if (window.parent.document.getElementById('organize_registration_btn') !== undefined) {
+            window.parent.document.getElementById('organize_registration_btn').innerHTML = 'Donate Again?';
+        }
     }
 });
