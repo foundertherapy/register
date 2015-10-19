@@ -38,13 +38,6 @@ function closeOrganizeIframe() {
     organizeModalCloseDivTag.setAttribute('class', 'organize-close');
     organizeModalCloseDivTag.innerHTML = 'X';
 
-    var iframeTag = document.createElement('iframe');
-    iframeTag.setAttribute('src', 'http://127.0.0.1:8888/');
-    iframeTag.setAttribute('width', '100%');
-    iframeTag.setAttribute('height', '100%');
-    iframeTag.setAttribute('class', 'organize-iframe');
-    iframeTag.setAttribute('id', 'organize_iframe');
-
     organizeModalContentDivTag.appendChild(organizeModalCloseDivTag);
     organizeModalDivTag.appendChild(organizeModalContentDivTag);
 
@@ -57,6 +50,7 @@ function closeOrganizeIframe() {
     var organizeRegistrationBtnTag = document.createElement('div');
     organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
+    organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
     organizeRegistrationBtnTag.innerHTML = 'Donate Now';
 
     organizeRegistrationDivTag.appendChild(organizeRegistrationBtnTag);
