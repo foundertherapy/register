@@ -1,7 +1,7 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', 'http://127.0.0.1:8888/?company_id=1');
+    iframeTag.setAttribute('src', 'http://127.0.0.1:8888');
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
