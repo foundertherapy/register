@@ -13,6 +13,7 @@ django-sslify
 django-storages
 Django==1.7.9
 django_coverage
+dj-database-url
 flake8
 hiredis
 ipython

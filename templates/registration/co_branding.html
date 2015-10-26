@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block script %}
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1>{% autoescape off %}{% blocktrans %}{{ page_title }}{% endblocktrans %}{% endautoescape %}</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <form class="register" enctype="multipart/form-data" role="form" action="{% url 'co_branding' %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form size='lg' %}
+
+            <hr />
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary btn-organize" disabled>
+                    {% blocktrans %}Submit{% endblocktrans %} &rsaquo;
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+{% endblock %}

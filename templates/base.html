@@ -45,7 +45,13 @@
             <div class="row header">
                 <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8">
                     {% block navbar_brand %}
-                        <p><a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a></p>
+                        <p>
+                            {% if request.session.co_branding_enabled %}
+                                <a href="{{ request.session.co_branding_company_home_page }}"><img width="160" height="24" alt="{{ request.session.co_branding_company_name }} Logo" src="{{ request.session.co_branding_company_logo }}"/></a>
+                            {% else %}
+                                <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a>
+                            {% endif %}
+                        </p>
                     {% endblock %}
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-right">

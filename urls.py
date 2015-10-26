@@ -7,6 +7,7 @@ import django.contrib.auth.urls
 import django.conf
 import django.conf.urls.static
 import django.conf.urls.i18n
+import django.contrib.admin
 
 
 urlpatterns = django.conf.urls.patterns(
@@ -18,6 +19,7 @@ urlpatterns = django.conf.urls.patterns(
             template_name='robots.txt')),
     django.conf.urls.url(
         r'^', django.conf.urls.include('registration.urls')),
+    django.conf.urls.url(r'^admin/', django.conf.urls.include(django.contrib.admin.site.urls)),
 )
 
 urlpatterns += django.conf.urls.static.static(
@@ -30,3 +32,9 @@ if django.conf.settings.DEBUG:
         django.conf.urls.url(
             r'^__debug__/', django.conf.urls.include(debug_toolbar.urls)),
     )
+
+
+django.contrib.admin.site.site_title = 'Register Admin'
+django.contrib.admin.site.site_header = 'Register Admin'
+django.contrib.admin.site.index_title = 'Home'
+django.contrib.admin.site.disable_action('delete_selected')
