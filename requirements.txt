@@ -13,6 +13,7 @@ django-sslify
 django-storages-redux
 Django==1.7.9
 django_coverage
+django-shortuuidfield
 dj-database-url
 flake8
 hiredis
@@ -35,5 +36,4 @@ uwsgi
 yolk
 python-gettext
 psycopg2
-django-shortuuidfield
 django-template-email

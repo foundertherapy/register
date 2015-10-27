@@ -1,7 +1,7 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', 'http://127.0.0.1:8888');
+    iframeTag.setAttribute('src', organizeIFrameSRC);
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
@@ -19,7 +19,7 @@ function closeOrganizeIframe() {
 
     var linkTag = document.createElement('link');
     linkTag.setAttribute('rel', 'stylesheet');
-    linkTag.setAttribute('href', 'http://127.0.0.1:8888/static/css/modal.css');
+    linkTag.setAttribute('href', organizeStyleSRC);
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 

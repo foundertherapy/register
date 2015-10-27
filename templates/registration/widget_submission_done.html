@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1 class="text-center">{% blocktrans %}Here you go!{% endblocktrans %}</h1>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+        <p class="lead text-center">
+            {% blocktrans trimmed %}
+                Here is your widget code. </br>
+                Your Email: {{ email }} </br>
+                Your Company Name: {{ company_name }} </br>
+            {% endblocktrans %}
+        </p>
+        <p class="lead text-center">
+            {% blocktrans trimmed %}
+                <p style="font-size: medium;">Please paste this code to your site in order to get the widget displayed.</p>
+                <!--
+                    <script id="organize_widget_script">
+                        var sourceUUID = '{{ company_source }}';
+                        (function() {
+                            var scriptTag = document.createElement('script');
+                            scriptTag.setAttribute('src', 'http://127.0.0.1:8888/static/js/widget.js');
+                            var organizeScriptNode = document.getElementById('organize_widget_script');
+                            var parentNode = organizeScriptNode.parentNode;
+                            parentNode.insertBefore(scriptTag, organizeScriptNode);
+                        })();
+                    </script>
+                -->
+                <textarea id="widget-script-textarea" class="form-control custom-control" readonly rows="10" style="cursor: pointer; margin-top: 10px;" data-clipboard-target="#widget-script-textarea" onclick="Javascript: new Clipboard('#widget-script-textarea');">
+                    <script id="organize_widget_script">&#013;
+                        var organizeSourceUUID = '{{ company_source }}';
+                        var organizeIFrameSRC = '{{ iframe_src }}';
+                        var organizeStyleSRC = '{{ css_src }}';
+                        !function(){var t=document.createElement("script");t.setAttribute("src", "{{ widget_js_url }}");var e=document.getElementById("organize_widget_script"),r=e.parentNode;r.insertBefore(t,e)}();&#013;
+                    </script>
+                </textarea>
+                <p style="font-size: small; color: #aaaaaa;">* Click on the text area to copy to clipboard.</p>
+            {% endblocktrans %}
+        </p>
+    </div>
+
+    <div class="visible-xs col-lg-3 col-md-4 col-sm-5 col-xs-12">&nbsp;</div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<!-- Google Code for Registration Conversion Page -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 911750952;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
+    var google_remarketing_only = false;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript>
+    <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/clipboard.min.js' %}"></script>
+{% endblock %}

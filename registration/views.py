@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import collections
 import datetime
 import logging
+import urlparse
 
 import dateutil.parser
 import django.contrib.messages
@@ -20,6 +21,9 @@ from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
 import cobrand.models
+from models import WidgetSubmission
+import dateutil.parser
+
 import fiftythree.client
 import forms
 
@@ -38,6 +42,9 @@ SESSION_REGISTRATION_UPDATE = 'registration_update'
 SESSION_COBRAND_COMPANY_NAME = 'cobrand_company_name'
 SESSION_COBRAND_COMPANY_LOGO = 'cobrand_company_logo'
 SESSION_COBRAND_ACTIVE = 'cobrand_active'
+SESSION_WIDGET_COMPANY_EMAIL = 'widget_company_email'
+SESSION_WIDGET_COMPANY_NAME = 'widget_company_name'
+SESSION_WIDGET_COMPANY_SOURCE = 'widget_company_source'
 
 COOKIE_MINOR = 'register_minor'
 
@@ -602,5 +609,49 @@ class RevokeDoneView(django.views.generic.TemplateView):
                 logger.error(e.message)
             except fiftythree.client.ServiceError as e:
                 logger.error(e.message)
+
+        return self.render_to_response(context)
+
+
+class WidgetSubmissionView(django.views.generic.edit.FormView):
+    template_name = 'registration/widget_submission.html'
+    form_class = forms.WidgetSubmissionForm
+
+    def get_success_url(self):
+        return django.core.urlresolvers.reverse('widget_submission_done')
+
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        company_name = form.cleaned_data['company_name']
+
+        widget_registration = WidgetSubmission.objects.create(email=email, company_name=company_name)
+
+        self.request.session[SESSION_WIDGET_COMPANY_SOURCE] = widget_registration.company_source
+        self.request.session[SESSION_WIDGET_COMPANY_NAME] = widget_registration.company_name
+        self.request.session[SESSION_WIDGET_COMPANY_EMAIL] = widget_registration.email
+
+        return super(WidgetSubmissionView, self).form_valid(form)
+
+
+class WidgetSubmissionDoneView(django.views.generic.TemplateView):
+    template_name = 'registration/widget_submission_done.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['page_title'] = 'Here is your widget!'
+        context['email'] = self.request.session[SESSION_WIDGET_COMPANY_EMAIL]
+        context['company_name'] = self.request.session[SESSION_WIDGET_COMPANY_NAME]
+        context['company_source'] = self.request.session[SESSION_WIDGET_COMPANY_SOURCE]
+
+        parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
+        protocol = parsed_url.scheme
+        domain = parsed_url.hostname
+        port = str(parsed_url.port)
+
+        register_home_page_url = '{}://{}{}/'.format(protocol, domain, (':' + port) if port else '')
+        context['widget_js_url'] = '{}static/js/widget.js'.format(register_home_page_url)
+        context['css_src'] = '{}static/css/modal.css'.format(register_home_page_url)
+        context['iframe_src'] = '{}?source_uuid={}'.format(register_home_page_url,
+                                                           self.request.session[SESSION_WIDGET_COMPANY_SOURCE])
 
         return self.render_to_response(context)
