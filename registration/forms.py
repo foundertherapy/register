@@ -4,19 +4,18 @@ import logging
 import re
 import collections
 import datetime
+import form_utils.forms
+import requests
+import dateutil.parser
 
-from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 import django.forms
 import django.forms.utils
 import django.forms.widgets
-from django.core.validators import RegexValidator, URLValidator
-
-import form_utils.forms
-import dateutil.parser
-import requests
 
 from PIL import Image
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+from django.core.validators import RegexValidator, URLValidator
 from django.core.files.base import ContentFile
 from django.core.exceptions import ValidationError
 
@@ -28,9 +27,7 @@ REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
 RE_NON_DECIMAL = re.compile(r'[^\d]+')
 RE_NON_ALPHA = re.compile('[\W]+')
 RE_POSTAL_CODE = re.compile(r'^[0-9]{5}$')
-validate_postal_code = RegexValidator(
-    RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."),
-    'invalid')
+validate_postal_code = RegexValidator(RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."), 'invalid')
 
 CHOICES_GENDER = (
     ('M', _('Male')),
@@ -295,7 +292,9 @@ class CoBrandingForm(django.forms.Form):
     email = django.forms.EmailField(label=_('Email'))
     company_name = django.forms.CharField(label=_('Company Name'), max_length=30, min_length=1)
     company_home_url = django.forms.CharField(label=_('Company Home Page URL'), max_length=255, min_length=5)
-    company_logo = django.forms.ImageField(label=_('Select a logo'), help_text='Upload a logo for your company with a maximum size of 1 MB.\nThe logo should not exceed the dimensions of 200 x 200 pixels.')
+    company_logo = django.forms.ImageField(label=_('Select a logo'),
+                                           help_text='Upload a logo for your company with a maximum size of 1 MB.\nThe logo should '
+                                                     'not exceed the dimensions of 200 x 200 pixels.')
 
     def clean_email(self):
         email = self.cleaned_data['email']
