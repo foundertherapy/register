@@ -648,7 +648,7 @@ class WidgetSubmissionDoneView(django.views.generic.TemplateView):
         domain = parsed_url.hostname
         port = str(parsed_url.port)
 
-        register_home_page_url = '{}://{}{}/'.format(protocol, domain, (':' + port) if port else '')
+        register_home_page_url = '//{}{}/'.format(domain, (':' + port) if port else '')
         context['widget_js_url'] = '{}static/js/widget.js'.format(register_home_page_url)
         context['css_src'] = '{}static/css/modal.css'.format(register_home_page_url)
         context['iframe_src'] = '{}?source_uuid={}'.format(register_home_page_url,
