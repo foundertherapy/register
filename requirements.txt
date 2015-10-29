@@ -34,3 +34,4 @@ setuptools
 uwsgi
 yolk
 python-gettext
+psycopg2

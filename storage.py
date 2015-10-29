@@ -8,3 +8,7 @@ from storages.backends.s3boto import S3BotoStorage
 class NonPackagingS3PipelineCachedStorage(
         NonPackagingMixin, PipelineMixin, CachedFilesMixin, S3BotoStorage):
     location = 'static'
+
+
+class MediaStorage(S3BotoStorage):
+    location = 'media'

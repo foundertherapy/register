@@ -2,14 +2,26 @@
 from __future__ import unicode_literals
 import os
 import sys
+
 import urlparse
+import datetime
+import dateutil.relativedelta
+
 from django.utils.translation import ugettext_lazy as _
+
+
+def is_environ_true(name):
+    return os.environ.get(name, '').lower() in ('true', 't', '1', )
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 APPSERVER = os.uname()[1]
 
 INTERNAL_IPS = ('127.0.0.1', )
+ADMINS = (
+    ('Dana Spiegel', 'dana@foundertherapy.co'),
+    ('Waseem Omar', 'waseem@foundertherapy.co'),
+)
 
 SITE_ID = 1
 TIME_ZONE = 'UTC'
@@ -33,8 +45,6 @@ AWS_AUTO_CREATE_BUCKET = True
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_FILE_OVERWRITE = True
 
-import datetime
-import dateutil.relativedelta
 expires = datetime.datetime.utcnow() + \
           dateutil.relativedelta.relativedelta(years=5)
 expires = expires.strftime('%a, %d %b %Y %H:%M:%S GMT')
@@ -267,11 +277,12 @@ FIFTYTHREE_CLIENT_SOURCE_URL = os.environ.get(
 FIFTYTHREE_CLIENT_USE_SECURE = os.environ.get(
     'FIFTYTHREE_CLIENT_USE_SECURE', '').lower() not in ('false', '0')
 
-REDIS_URL = os.getenv('REDISCLOUD_URL', 'redis://localhost:6379')
-REDIS = urlparse.urlparse(REDIS_URL)
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 REDIS_EXPIRE_TIME = int(os.getenv('REDIS_EXPIRE_TIME', 60 * 60 * 24 * 30))
 REDIS_DB = 0
+REDIS = urlparse.urlparse(REDIS_URL)
 
+# TODO: update to match 53 session configuration
 SESSION_ENGINE = 'redis_sessions.session'
 SESSION_REDIS_HOST = REDIS.hostname
 SESSION_REDIS_PORT = REDIS.port
@@ -324,3 +335,9 @@ BOOTSTRAP3 = {
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', 'localhost')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 25)
+EMAIL_USE_TLS = is_environ_true('EMAIL_USE_TLS')
