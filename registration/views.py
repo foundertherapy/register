@@ -20,12 +20,12 @@ from django.forms import ValidationError
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-import cobrand.models
-from models import WidgetSubmission
 import dateutil.parser
 
+import cobrand.models
 import fiftythree.client
 import forms
+import models
 
 
 logger = logging.getLogger(__name__)
@@ -624,7 +624,7 @@ class WidgetSubmissionView(django.views.generic.edit.FormView):
         email = form.cleaned_data['email']
         company_name = form.cleaned_data['company_name']
 
-        widget_registration = WidgetSubmission.objects.create(email=email, company_name=company_name)
+        widget_registration = models.WidgetSubmission.objects.create(email=email, company_name=company_name)
 
         self.request.session[SESSION_WIDGET_COMPANY_SOURCE] = widget_registration.company_source
         self.request.session[SESSION_WIDGET_COMPANY_NAME] = widget_registration.company_name
@@ -642,16 +642,5 @@ class WidgetSubmissionDoneView(django.views.generic.TemplateView):
         context['email'] = self.request.session[SESSION_WIDGET_COMPANY_EMAIL]
         context['company_name'] = self.request.session[SESSION_WIDGET_COMPANY_NAME]
         context['company_source'] = self.request.session[SESSION_WIDGET_COMPANY_SOURCE]
-
-        parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
-        protocol = parsed_url.scheme
-        domain = parsed_url.hostname
-        port = str(parsed_url.port)
-
-        register_home_page_url = '//{}{}/'.format(domain, (':' + port) if port else '')
-        context['widget_js_url'] = '{}static/js/widget.js'.format(register_home_page_url)
-        context['css_src'] = '{}static/css/modal.css'.format(register_home_page_url)
-        context['iframe_src'] = '{}?source_uuid={}'.format(register_home_page_url,
-                                                           self.request.session[SESSION_WIDGET_COMPANY_SOURCE])
 
         return self.render_to_response(context)

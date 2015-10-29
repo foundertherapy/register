@@ -29,28 +29,29 @@
         <p class="lead text-center">
             {% blocktrans trimmed %}
                 <p style="font-size: medium;">Please paste this code to your site in order to get the widget displayed.</p>
-                <!--
-                    <script id="organize_widget_script">
-                        var sourceUUID = '{{ company_source }}';
-                        (function() {
-                            var scriptTag = document.createElement('script');
-                            scriptTag.setAttribute('src', 'http://127.0.0.1:8888/static/js/widget.js');
-                            var organizeScriptNode = document.getElementById('organize_widget_script');
-                            var parentNode = organizeScriptNode.parentNode;
-                            parentNode.insertBefore(scriptTag, organizeScriptNode);
-                        })();
-                    </script>
-                -->
-                <textarea id="widget-script-textarea" class="form-control custom-control" readonly rows="10" style="cursor: pointer; margin-top: 10px;" data-clipboard-target="#widget-script-textarea" onclick="Javascript: new Clipboard('#widget-script-textarea');">
-                    <script id="organize_widget_script">&#013;
-                        var organizeSourceUUID = '{{ company_source }}';
-                        var organizeIFrameSRC = '{{ iframe_src }}';
-                        var organizeStyleSRC = '{{ css_src }}';
-                        !function(){var t=document.createElement("script");t.setAttribute("src", "{{ widget_js_url }}");var e=document.getElementById("organize_widget_script"),r=e.parentNode;r.insertBefore(t,e)}();&#013;
-                    </script>
-                </textarea>
+            {% endblocktrans %}
+            <!--
+                <script id="organize_widget_script">
+                    var sourceUUID = '{{ company_source }}';
+                    (function() {
+                        var scriptTag = document.createElement('script');
+                        scriptTag.setAttribute('src', 'http://127.0.0.1:8888/static/js/widget.js');
+                        var organizeScriptNode = document.getElementById('organize_widget_script');
+                        var parentNode = organizeScriptNode.parentNode;
+                        parentNode.insertBefore(scriptTag, organizeScriptNode);
+                    })();
+                </script>
+            -->
+            <textarea id="widget-script-textarea" class="form-control custom-control" readonly rows="10" style="cursor: pointer; margin-top: 10px;" data-clipboard-target="#widget-script-textarea" onclick="Javascript: new Clipboard('#widget-script-textarea');">
+<script id="organize_widget_script">
+    var organizeSourceUUID = "{{ company_source }}";
+    !function(){var t=document.createElement("script");t.setAttribute("src", "//s3.amazonaws.com/register-prod/static/js/widget.js");var e=document.getElementById("organize_widget_script"),r=e.parentNode;r.insertBefore(t,e)}();
+</script>
+            </textarea>
+            {% blocktrans trimmed %}
                 <p style="font-size: small; color: #aaaaaa;">* Click on the text area to copy to clipboard.</p>
             {% endblocktrans %}
+
         </p>
     </div>
 

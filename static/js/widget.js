@@ -1,7 +1,7 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', organizeIFrameSRC);
+    iframeTag.setAttribute('src', 'https://register.organize.org/?source_uuid=' + organizeSourceUUID);
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
@@ -19,7 +19,7 @@ function closeOrganizeIframe() {
 
     var linkTag = document.createElement('link');
     linkTag.setAttribute('rel', 'stylesheet');
-    linkTag.setAttribute('href', organizeStyleSRC);
+    linkTag.setAttribute('href', '//s3.amazonaws.com/register-prod/static/css/modal.css');
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 
