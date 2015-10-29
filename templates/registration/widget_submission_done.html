@@ -45,7 +45,7 @@
             <textarea id="widget-script-textarea" class="form-control custom-control" readonly rows="10" style="cursor: pointer; margin-top: 10px;" data-clipboard-target="#widget-script-textarea" onclick="Javascript: new Clipboard('#widget-script-textarea');">
 <script id="organize_widget_script">
     var organizeSourceUUID = "{{ company_source }}";
-    !function(){var t=document.createElement("script");t.setAttribute("src", "{% static js/widget.js %}");var e=document.getElementById("organize_widget_script"),r=e.parentNode;r.insertBefore(t,e)}();
+    !function(){var t=document.createElement("script");t.setAttribute("src", "{% static 'js/widget.js' %}");var e=document.getElementById("organize_widget_script"),r=e.parentNode;r.insertBefore(t,e)}();
 </script>
             </textarea>
             {% blocktrans trimmed %}
