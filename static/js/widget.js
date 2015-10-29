@@ -19,7 +19,7 @@ function closeOrganizeIframe() {
 
     var linkTag = document.createElement('link');
     linkTag.setAttribute('rel', 'stylesheet');
-    linkTag.setAttribute('href', '//s3.amazonaws.com/register-prod/static/css/modal.css');
+    linkTag.setAttribute('href', '//s3.amazonaws.com/register-dev/static/css/modal.css');
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 
@@ -36,7 +36,7 @@ function closeOrganizeIframe() {
     var organizeModalCloseDivTag = document.createElement('div');
     organizeModalCloseDivTag.setAttribute('onclick', 'javascript: closeOrganizeIframe()');
     organizeModalCloseDivTag.setAttribute('class', 'organize-close');
-    organizeModalCloseDivTag.innerHTML = 'X';
+    organizeModalCloseDivTag.innerHTML = '&times;';
 
     organizeModalContentDivTag.appendChild(organizeModalCloseDivTag);
     organizeModalDivTag.appendChild(organizeModalContentDivTag);
