@@ -8,8 +8,16 @@ deployment:
         commands:
             - git push git@heroku.com:register-dev.git $CIRCLE_SHA1:refs/heads/master -f :
                 timeout: 400
+            - heroku maintenance:on --app register-dev
+            - heroku run ./manage.py migrate --noinput --app register-dev :
+                timeout: 400
+            - heroku maintenance:off --app register-dev
     production:
         branch: production
         commands:
             - git push git@heroku.com:register-prod.git $CIRCLE_SHA1:refs/heads/master -f :
                 timeout: 400
+            - heroku maintenance:on --app register-prod
+            - heroku run ./manage.py migrate --noinput --app register-prod :
+                timeout: 400
+            - heroku maintenance:off --app register-prod
