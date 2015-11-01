@@ -1,7 +1,7 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', 'https://register.organize.org/?source_uuid=' + organizeSourceUUID);
+    iframeTag.setAttribute('src', 'https://register-dev.organize.org/?source_uuid=' + organizeSourceUUID);
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
@@ -43,22 +43,21 @@ function closeOrganizeIframe() {
 
     document.getElementsByTagName('body')[0].appendChild(organizeModalDivTag);
 
-    var organizeRegistrationDivTag = document.createElement('div');
-    organizeRegistrationDivTag.setAttribute('id', 'organize_registration_div');
-    organizeRegistrationDivTag.setAttribute('class', 'organize-registration-div');
+    //var organizeRegistrationDivTag = document.createElement('div');
+    //organizeRegistrationDivTag.setAttribute('id', 'organize_registration_div');
+    //organizeRegistrationDivTag.setAttribute('class', 'organize-registration-div');
 
     var organizeRegistrationBtnTag = document.createElement('div');
     organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
     organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
-    organizeRegistrationBtnTag.innerHTML = 'Donate Now';
-
-    organizeRegistrationDivTag.appendChild(organizeRegistrationBtnTag);
+    var widgetChoiceImagePath = "//s3.amazonaws.com/register-dev/static/images/" + organizeWidgetChoice + ".png";
+    organizeRegistrationBtnTag.innerHTML = '<img style="height: 100%;" src="' + widgetChoiceImagePath + '"/>';
 
     organizeScriptNode = document.getElementById('organize_widget_script');
     parentNode = organizeScriptNode.parentNode;
 
-    parentNode.insertBefore(organizeRegistrationDivTag, organizeScriptNode);
+    parentNode.insertBefore(organizeRegistrationBtnTag, organizeScriptNode);
 
 })();
 

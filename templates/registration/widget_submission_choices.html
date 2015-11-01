@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block script %}
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1>{% autoescape off %}{% blocktrans %}Choose your widget{% endblocktrans %}{% endautoescape %}</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <form class="register" action="{% url 'widget_submission_done' %}" method="post">
+            {% csrf_token %}
+            <div id="id_widget_choice">
+                <div class="radio input-lg" style="margin-bottom: 20px;">
+                    <input class="" id="id_widget_choice_0" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-03">
+                    <label for="id_widget_choice_0"><img style="height: 415px;" src="{% static 'images/GivingTuesday_One_Pager-03.png' %}"/></label>
+                </div>
+                <div class="radio input-lg" style="margin-bottom: 20px;">
+                    <input class="" id="id_widget_choice_1" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-04">
+                    <label for="id_widget_choice_1"><img style="height: 42px;" src="{% static 'images/GivingTuesday_One_Pager-04.png' %}"/></label>
+                </div>
+                <div class="radio input-lg" style="margin-bottom: 20px;">
+                    <input class="" id="id_widget_choice_2" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-10">
+                    <label for="id_widget_choice_2"><img style="height: 170px;" src="{% static 'images/GivingTuesday_One_Pager-10.png' %}"/></label>
+                </div>
+                <div class="radio input-lg" style="margin-bottom: 20px;">
+                    <input class="" id="id_widget_choice_3" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-11">
+                    <label for="id_widget_choice_3"><img style="height: 170px;" src="{% static 'images/GivingTuesday_One_Pager-11.png' %}"/></label>
+                </div>
+                <div class="radio input-lg" style="margin-bottom: 20px;">
+                    <input class="" id="id_widget_choice_4" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-12">
+                    <label for="id_widget_choice_4"><img style="height: 111px;" src="{% static 'images/GivingTuesday_One_Pager-12.png' %}"/></label>
+                </div>
+            </div>
+
+            {% buttons %}
+                <button type="submit" class="btn btn-primary btn-organize" disabled>
+                    {% blocktrans %}Submit{% endblocktrans %} &rsaquo;
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+{% endblock %}

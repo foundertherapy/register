@@ -10,13 +10,11 @@ import datetime
 from django.utils.translation import ugettext_lazy as _
 
 
-logger = logging.getLogger(__name__)
-
-
 class WidgetSubmission(django.db.models.Model):
     email = django.db.models.EmailField(blank=False, null=False)
     company_name = django.db.models.CharField(max_length=30, blank=False, null=False)
     company_source = shortuuidfield.ShortUUIDField(_('Company Source'), db_index=True, blank=False, null=False)
+    widget_choice = django.db.models.CharField(max_length=50, blank=True)
     created_on = django.db.models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
     updated_on = django.db.models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 

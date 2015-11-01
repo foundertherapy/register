@@ -27,7 +27,7 @@
   box-shadow:0 0 10px #000;
 }
 
-.organize-close {
+.organize-close{
     position: absolute;
     right: 14px;
     top: 23px;
@@ -49,13 +49,9 @@
 }
 
 .organize-registration-btn{
-  border-radius:5px;
-  background:#e92530;
   cursor: pointer;
   width: 100%;
-  line-height: 29px;
   text-align: center;
-  color: #ffffff;
 }
 
 .organize-iframe{

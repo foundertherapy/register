@@ -45,6 +45,7 @@ SESSION_COBRAND_ACTIVE = 'cobrand_active'
 SESSION_WIDGET_COMPANY_EMAIL = 'widget_company_email'
 SESSION_WIDGET_COMPANY_NAME = 'widget_company_name'
 SESSION_WIDGET_COMPANY_SOURCE = 'widget_company_source'
+SESSION_WIDGET_CHOICE = 'widget_choice'
 
 COOKIE_MINOR = 'register_minor'
 
@@ -618,7 +619,7 @@ class WidgetSubmissionView(django.views.generic.edit.FormView):
     form_class = forms.WidgetSubmissionForm
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse('widget_submission_done')
+        return django.core.urlresolvers.reverse('widget_submission_choices')
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -633,14 +634,22 @@ class WidgetSubmissionView(django.views.generic.edit.FormView):
         return super(WidgetSubmissionView, self).form_valid(form)
 
 
+
 class WidgetSubmissionDoneView(django.views.generic.TemplateView):
     template_name = 'registration/widget_submission_done.html'
 
-    def get(self, request, *args, **kwargs):
+    def post(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        email = self.request.session[SESSION_WIDGET_COMPANY_EMAIL]
+        company_name = self.request.session[SESSION_WIDGET_COMPANY_NAME]
+        widget_choice = self.request.POST.get('widget_choice', None)
+
+        widget_submission = WidgetSubmission.objects.create(email=email, company_name=company_name, widget_choice=widget_choice[0])
+
         context['page_title'] = 'Here is your widget!'
         context['email'] = self.request.session[SESSION_WIDGET_COMPANY_EMAIL]
         context['company_name'] = self.request.session[SESSION_WIDGET_COMPANY_NAME]
-        context['company_source'] = self.request.session[SESSION_WIDGET_COMPANY_SOURCE]
+        context['company_source'] = widget_submission.company_source
+        context['widget_choice'] = widget_choice
 
         return self.render_to_response(context)
