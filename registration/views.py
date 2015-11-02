@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 
 import collections
 import datetime
-import logging
-import urlparse
 
 import dateutil.parser
 import django.contrib.messages
@@ -12,6 +10,7 @@ import django.forms
 import django.http
 import django.shortcuts
 import django.views.generic.edit
+import django.forms
 from django.conf import settings
 from django.contrib.formtools.wizard.forms import ManagementForm
 from django.contrib.formtools.wizard.storage import get_storage
@@ -20,6 +19,7 @@ from django.forms import ValidationError
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
+import logging
 import dateutil.parser
 
 import cobrand.models
@@ -617,39 +617,34 @@ class RevokeDoneView(django.views.generic.TemplateView):
 class WidgetSubmissionView(django.views.generic.edit.FormView):
     template_name = 'registration/widget_submission.html'
     form_class = forms.WidgetSubmissionForm
+    company_source = None
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse('widget_submission_choices')
+        return '{}?company_source={}'.format(django.core.urlresolvers.reverse('widget_submission_done'), self.company_source)
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
         company_name = form.cleaned_data['company_name']
+        home_page_url = form.cleaned_data['home_page_url']
 
-        widget_registration = models.WidgetSubmission.objects.create(email=email, company_name=company_name)
 
-        self.request.session[SESSION_WIDGET_COMPANY_SOURCE] = widget_registration.company_source
-        self.request.session[SESSION_WIDGET_COMPANY_NAME] = widget_registration.company_name
-        self.request.session[SESSION_WIDGET_COMPANY_EMAIL] = widget_registration.email
+        widget_submission = models.WidgetSubmission.objects.create(email=email, company_name=company_name, home_page_url=home_page_url)
+
+        # self.request.session[SESSION_WIDGET_COMPANY_SOURCE] = widget_registration.company_source
+        # self.request.session[SESSION_WIDGET_COMPANY_NAME] = widget_registration.company_name
+        # self.request.session[SESSION_WIDGET_COMPANY_EMAIL] = widget_registration.email
+
+        self.company_source = widget_submission.company_source
 
         return super(WidgetSubmissionView, self).form_valid(form)
-
 
 
 class WidgetSubmissionDoneView(django.views.generic.TemplateView):
     template_name = 'registration/widget_submission_done.html'
 
-    def post(self, *args, **kwargs):
+    def get(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        email = self.request.session[SESSION_WIDGET_COMPANY_EMAIL]
-        company_name = self.request.session[SESSION_WIDGET_COMPANY_NAME]
-        widget_choice = self.request.POST.get('widget_choice', None)
-
-        widget_submission = WidgetSubmission.objects.create(email=email, company_name=company_name, widget_choice=widget_choice[0])
-
         context['page_title'] = 'Here is your widget!'
-        context['email'] = self.request.session[SESSION_WIDGET_COMPANY_EMAIL]
-        context['company_name'] = self.request.session[SESSION_WIDGET_COMPANY_NAME]
-        context['company_source'] = widget_submission.company_source
-        context['widget_choice'] = widget_choice
+        context['company_source'] = self.request.GET.get('company_source')
 
         return self.render_to_response(context)

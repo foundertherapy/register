@@ -14,9 +14,9 @@ class WidgetSubmission(django.db.models.Model):
     email = django.db.models.EmailField(blank=False, null=False)
     company_name = django.db.models.CharField(max_length=30, blank=False, null=False)
     company_source = shortuuidfield.ShortUUIDField(_('Company Source'), db_index=True, blank=False, null=False)
-    widget_choice = django.db.models.CharField(max_length=50, blank=True)
-    created_on = django.db.models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
-    updated_on = django.db.models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+    home_page_url = django.db.models.CharField(max_length=255, blank=True, null=True)
+    created_on = django.db.models.DateTimeField(auto_now_add=True)
+    updated_on = django.db.models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return unicode(self.company_name)

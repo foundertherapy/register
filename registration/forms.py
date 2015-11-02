@@ -4,9 +4,6 @@ import logging
 import re
 import collections
 import datetime
-import form_utils.forms
-import requests
-import dateutil.parser
 
 import django.forms
 import django.forms.utils
@@ -15,6 +12,11 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 from django.utils.safestring import mark_safe
+from django.core.exceptions import ValidationError
+
+import form_utils.forms
+import requests
+import dateutil.parser
 
 
 logger = logging.getLogger(__name__)
@@ -292,6 +294,7 @@ class RevokeForm(django.forms.Form):
 class WidgetSubmissionForm(django.forms.Form):
     email = django.forms.EmailField(label=_('Email'))
     company_name = django.forms.CharField(label=_('Company Name'), max_length=30, min_length=1)
+    home_page_url = django.forms.CharField(label=_('Home Page URL'), max_length=255, min_length=5)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -309,3 +312,13 @@ class WidgetSubmissionForm(django.forms.Form):
                 return email
         logger.warning('Cannot validate email: {}'.format(r.text))
         raise django.forms.ValidationError(_('Enter a valid email.'))
+
+    def clean_home_page_url(self):
+        home_page_url = self.cleaned_data['home_page_url']
+        validate_url = django.core.validators.URLValidator()
+        try:
+            validate_url(home_page_url)
+        except ValidationError:
+            raise django.forms.ValidationError(_('Your company\'s URL format is not valid.'))
+
+        return home_page_url

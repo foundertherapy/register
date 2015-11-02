@@ -16,19 +16,35 @@
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
 </div>
-
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+        <div id="id_widget_choice">
+            <div class="radio input-lg" style="margin-bottom: 20px;">
+                <input class="" id="id_widget_choice_0" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-03">
+                <label for="id_widget_choice_0"><img style="height: 415px;" src="{% static 'images/GivingTuesday_One_Pager-03.png' %}"/></label>
+            </div>
+            <div class="radio input-lg" style="margin-bottom: 20px;">
+                <input class="" id="id_widget_choice_1" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-04">
+                <label for="id_widget_choice_1"><img style="height: 42px;" src="{% static 'images/GivingTuesday_One_Pager-04.png' %}"/></label>
+            </div>
+            <div class="radio input-lg" style="margin-bottom: 20px;">
+                <input class="" id="id_widget_choice_2" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-10">
+                <label for="id_widget_choice_2"><img style="height: 170px;" src="{% static 'images/GivingTuesday_One_Pager-10.png' %}"/></label>
+            </div>
+            <div class="radio input-lg" style="margin-bottom: 20px;">
+                <input class="" id="id_widget_choice_3" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-11">
+                <label for="id_widget_choice_3"><img style="height: 170px;" src="{% static 'images/GivingTuesday_One_Pager-11.png' %}"/></label>
+            </div>
+            <div class="radio input-lg" style="margin-bottom: 20px;">
+                <input class="" id="id_widget_choice_4" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-12">
+                <label for="id_widget_choice_4"><img style="height: 111px;" src="{% static 'images/GivingTuesday_One_Pager-12.png' %}"/></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-24">
         <p class="lead text-center">
             {% blocktrans trimmed %}
-                Here is your widget code. </br>
-                Your Email: {{ email }} </br>
-                Your Company Name: {{ company_name }} </br>
-            {% endblocktrans %}
-        </p>
-        <p class="lead text-center">
-            {% blocktrans trimmed %}
-                <p style="font-size: medium;">Please paste this code to your site in order to get the widget displayed.</p>
+                <p style="font-size: medium;">Please copy this code to your site in order to get the widget displayed.</p>
             {% endblocktrans %}
             <!--
                 <script id="organize_widget_script">
@@ -43,11 +59,7 @@
                 </script>
             -->
             <textarea id="widget-script-textarea" class="form-control custom-control" readonly rows="10" style="cursor: pointer; margin-top: 10px;" data-clipboard-target="#widget-script-textarea" onclick="Javascript: new Clipboard('#widget-script-textarea');">
-<script id="organize_widget_script">
-    var organizeSourceUUID = "{{ company_source }}";
-    var organizeWidgetChoice = "{{ widget_choice }}";
-    !function(){var t=document.createElement("script");t.setAttribute("src", "{% static 'js/widget.js' %}");var e=document.getElementById("organize_widget_script"),r=e.parentNode;r.insertBefore(t,e)}();
-</script>
+
             </textarea>
             {% blocktrans trimmed %}
                 <p style="font-size: small; color: #aaaaaa;">* Click on the text area to copy to clipboard.</p>
@@ -55,9 +67,6 @@
 
         </p>
     </div>
-
-    <div class="visible-xs col-lg-3 col-md-4 col-sm-5 col-xs-12">&nbsp;</div>
-
 </div>
 
 {% endblock %}
@@ -84,4 +93,16 @@
 <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/clipboard.min.js' %}"></script>
+<script type="text/javascript">
+    $('input[name="widget_choice"]').on('change', function(){
+        var jsCode = $(this).val()
+        $("#widget-script-textarea").val("").delay(200).queue(function(setJSCode) {
+              $("#widget-script-textarea").val("<script id=\"organize_widget_script\"> var organizeSourceUUID = \"{{ company_source }}\"; " +
+                "var organizeWidgetChoice = \"" + jsCode + "\"; !function(){var t=document.createElement(\"script\");" +
+                "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\");var e=document.getElementById(\"organize_widget_script\");" +
+                "r=e.parentNode;r.insertBefore(t,e)}(); <\/script>");
+              setJSCode();
+        });
+    });
+</script>
 {% endblock %}
