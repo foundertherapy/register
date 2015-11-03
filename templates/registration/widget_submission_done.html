@@ -99,7 +99,7 @@
         var imgHeight = $(this).attr("img-height");
         $("#widget-script-textarea").val("").delay(200).queue(function(setJSCode) {
               $("#widget-script-textarea").val(
-                      "<div style=\"height=" + imgHeight + "\"><script id=\"organize_widget_script\"> " +
+                      "<div style=\"height:" + imgHeight + ";\"><script id=\"organize_widget_script\"> " +
                       "var organizeSourceUUID = \"{{ company_source }}\";var organizeWidgetChoice = \"" + jsCode + "\";" +
                       "!function(){var t=document.createElement(\"script\");" +
                       "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\");" +
