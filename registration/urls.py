@@ -34,5 +34,6 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(r'^not-supported/$', views.UnsupportedStateView.as_view(), name='unsupported_state'),
     django.conf.urls.url(r'^redirect/$', views.StateRedirectView.as_view(), name='redirect_state'),
     django.conf.urls.url(r'^widget-submission/$', views.WidgetSubmissionView.as_view(), name='widget_submission'),
-    django.conf.urls.url(r'^widget-submission-done/$', views.WidgetSubmissionDoneView.as_view(), name='widget_submission_done'),
+    django.conf.urls.url(r'^widget-submission-done/(?P<company_source>.+)/$', views.WidgetSubmissionDoneView.as_view(),
+                         name='widget_submission_done'),
 )

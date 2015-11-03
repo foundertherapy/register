@@ -620,7 +620,7 @@ class WidgetSubmissionView(django.views.generic.edit.FormView):
     company_source = None
 
     def get_success_url(self):
-        return '{}?company_source={}'.format(django.core.urlresolvers.reverse('widget_submission_done'), self.company_source)
+        return django.core.urlresolvers.reverse_lazy('widget_submission_done', kwargs={'company_source': self.company_source, })
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -645,6 +645,6 @@ class WidgetSubmissionDoneView(django.views.generic.TemplateView):
     def get(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         context['page_title'] = 'Here is your widget!'
-        context['company_source'] = self.request.GET.get('company_source')
+        context['company_source'] = self.kwargs['company_source']
 
         return self.render_to_response(context)

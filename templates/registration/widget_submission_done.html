@@ -20,23 +20,23 @@
     <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
         <div id="id_widget_choice">
             <div class="radio input-lg" style="margin-bottom: 20px;">
-                <input class="" id="id_widget_choice_0" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-03">
+                <input class="" id="id_widget_choice_0" name="widget_choice" required="required" img-height="625px" title="" type="radio" value="GivingTuesday_One_Pager-03">
                 <label for="id_widget_choice_0"><img style="height: 415px;" src="{% static 'images/GivingTuesday_One_Pager-03.png' %}"/></label>
             </div>
             <div class="radio input-lg" style="margin-bottom: 20px;">
-                <input class="" id="id_widget_choice_1" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-04">
+                <input class="" id="id_widget_choice_1" name="widget_choice" required="required" img-height="62px" title="" type="radio" value="GivingTuesday_One_Pager-04">
                 <label for="id_widget_choice_1"><img style="height: 42px;" src="{% static 'images/GivingTuesday_One_Pager-04.png' %}"/></label>
             </div>
             <div class="radio input-lg" style="margin-bottom: 20px;">
-                <input class="" id="id_widget_choice_2" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-10">
+                <input class="" id="id_widget_choice_2" name="widget_choice" required="required" img-height="260px" title="" type="radio" value="GivingTuesday_One_Pager-10">
                 <label for="id_widget_choice_2"><img style="height: 170px;" src="{% static 'images/GivingTuesday_One_Pager-10.png' %}"/></label>
             </div>
             <div class="radio input-lg" style="margin-bottom: 20px;">
-                <input class="" id="id_widget_choice_3" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-11">
+                <input class="" id="id_widget_choice_3" name="widget_choice" required="required" img-height="260px" title="" type="radio" value="GivingTuesday_One_Pager-11">
                 <label for="id_widget_choice_3"><img style="height: 170px;" src="{% static 'images/GivingTuesday_One_Pager-11.png' %}"/></label>
             </div>
             <div class="radio input-lg" style="margin-bottom: 20px;">
-                <input class="" id="id_widget_choice_4" name="widget_choice" required="required" title="" type="radio" value="GivingTuesday_One_Pager-12">
+                <input class="" id="id_widget_choice_4" name="widget_choice" required="required" img-height="166px" title="" type="radio" value="GivingTuesday_One_Pager-12">
                 <label for="id_widget_choice_4"><img style="height: 111px;" src="{% static 'images/GivingTuesday_One_Pager-12.png' %}"/></label>
             </div>
         </div>
@@ -95,12 +95,16 @@
 <script src="{% static 'js/clipboard.min.js' %}"></script>
 <script type="text/javascript">
     $('input[name="widget_choice"]').on('change', function(){
-        var jsCode = $(this).val()
+        var jsCode = $(this).val();
+        var imgHeight = $(this).attr("img-height");
         $("#widget-script-textarea").val("").delay(200).queue(function(setJSCode) {
-              $("#widget-script-textarea").val("<script id=\"organize_widget_script\"> var organizeSourceUUID = \"{{ company_source }}\"; " +
-                "var organizeWidgetChoice = \"" + jsCode + "\"; !function(){var t=document.createElement(\"script\");" +
-                "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\");var e=document.getElementById(\"organize_widget_script\");" +
-                "r=e.parentNode;r.insertBefore(t,e)}(); <\/script>");
+              $("#widget-script-textarea").val(
+                      "<div style=\"height=" + imgHeight + "\"><script id=\"organize_widget_script\"> " +
+                      "var organizeSourceUUID = \"{{ company_source }}\";var organizeWidgetChoice = \"" + jsCode + "\";" +
+                      "!function(){var t=document.createElement(\"script\");" +
+                      "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\");" +
+                      "var e=document.getElementById(\"organize_widget_script\");" +
+                      "r=e.parentNode;r.insertBefore(t,e)}(); <\/script><\/div>");
               setJSCode();
         });
     });
