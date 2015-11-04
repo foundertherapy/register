@@ -7,6 +7,7 @@ import datetime
 import form_utils.forms
 import requests
 import dateutil.parser
+import copy
 
 import django.forms
 import django.forms.utils
@@ -315,12 +316,13 @@ class CoBrandingForm(django.forms.Form):
 
     def clean_company_logo(self):
         company_logo = self.cleaned_data['company_logo']
-        company_logo_file = ContentFile(company_logo.read())
+        tmp_logo = copy.deepcopy(company_logo)
+        company_logo_file = ContentFile(tmp_logo.read())
         if company_logo._size > 1 * 1024 * 1024:
             raise django.forms.ValidationError(_('Logo size exceeds the limit of 1 MB'))
         logo = Image.open(company_logo_file)
         (width, height) = logo.size
-        if width > 200 or height > 200:
+        if width > 500 or height > 500:
             raise django.forms.ValidationError(_('Logo dimensions exceeds 200x200 pixels.'))
         return company_logo
 

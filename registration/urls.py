@@ -34,5 +34,5 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(r'^not-supported/$', views.UnsupportedStateView.as_view(), name='unsupported_state'),
     django.conf.urls.url(r'^redirect/$', views.StateRedirectView.as_view(), name='redirect_state'),
     django.conf.urls.url(r'^co-brand/$', views.CoBrandingView.as_view(), name='co_branding'),
-    django.conf.urls.url(r'^co-brand-done/$', views.CoBrandingDoneView.as_view(), name='co_branding_done'),
+    django.conf.urls.url(r'^co-branding-done/(?P<cobrand_id>.+)/$', views.CoBrandingDoneView.as_view(), name='co_branding_done'),
 )

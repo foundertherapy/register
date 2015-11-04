@@ -47,7 +47,7 @@
                     {% block navbar_brand %}
                         <p>
                             {% if request.session.co_branding_enabled %}
-                                <a href="{{ request.session.co_branding_company_home_page }}"><img width="160" height="24" alt="{{ request.session.co_branding_company_name }} Logo" src="{{ request.session.co_branding_company_logo }}"/></a>
+                                <a href="{{ request.session.co_branding_company_home_url }}"><img alt="{{ request.session.co_branding_company_name }} Logo" src="{{ MEDIA_URL }}co-brands/{{ request.session.co_branding_company_logo }}"/></a>
                             {% else %}
                                 <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a>
                             {% endif %}

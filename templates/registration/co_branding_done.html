@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1 class="text-center">{% blocktrans %}Here you go!{% endblocktrans %}</h1>
+        <h1 class="text-center">{% blocktrans %}{{ page_title }}{% endblocktrans %}</h1>
     </div>
 </div>
 
@@ -22,19 +22,11 @@
         <p class="lead text-center">
             {% blocktrans trimmed %}
                 Here is your cobranded organize URL. </br>
-                Your Email: {{ email }} </br>
-                Your Company Name: {{ company_name }} </br>
-                Your Company Home URL: {{ co_branding_company_home_page }} </br>
             {% endblocktrans %}
         </p>
         <p class="lead text-center">
             {% blocktrans trimmed %}
-                <img src="{{ company_logo }}"/> </br>
-            {% endblocktrans %}
-        </p>
-        <p class="lead text-center">
-            {% blocktrans trimmed %}
-                Your company's co-branded URL: {{ company_organize_url }}
+                {{ company_organize_url }}
             {% endblocktrans %}
         </p>
     </div>

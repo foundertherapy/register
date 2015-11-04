@@ -15,7 +15,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('email', models.EmailField(max_length=75)),
-                ('company_name', models.CharField(max_length=50)),
+                ('company_name', models.CharField(max_length=30)),
+                ('company_logo', models.CharField(max_length=255, null=True, blank=True)),
+                ('company_home_url', models.CharField(max_length=255, null=True, blank=True)),
+                ('cobrand_id', models.CharField(max_length=100, null=True, blank=True)),
             ],
             options={
             },

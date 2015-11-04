@@ -105,15 +105,12 @@ class MinorRestrictedMixin(UserCheckMixin):
 
 class CoBrandingCheckMixin(object):
     def dispatch(self, request, *args, **kwargs):
-        company_id = None
-        company_id_name = request.GET.get('co-brand')
-        if company_id_name and '-' in company_id_name:
-            company_id = company_id_name.split('-')[0]
+        cobrand_id = self.request.GET.get('cobrand_id')
 
-        if company_id:
-            company_registration = CoBrandingRegistration.objects.get(id=company_id)
+        if cobrand_id:
+            company_registration = CoBrandingRegistration.objects.get(cobrand_id=cobrand_id)
             request.session[SESSION_COBRANDING] = True
-            request.session[SESSION_COMPANY_LOGO] = company_registration.company_logo
+            request.session[SESSION_COMPANY_LOGO] = '{}.png'.format(cobrand_id)
             request.session[SESSION_COMPANY_NAME] = company_registration.company_name
             request.session[SESSION_COMPANY_HOME_URL] = company_registration.company_home_url
 
@@ -612,9 +609,10 @@ class RevokeDoneView(django.views.generic.TemplateView):
 class CoBrandingView(django.views.generic.edit.FormView):
     template_name = 'registration/co_branding.html'
     form_class = forms.CoBrandingForm
+    cobrand_id = None
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse('co_branding_done')
+        return django.core.urlresolvers.reverse_lazy('co_branding_done', kwargs={'cobrand_id': self.cobrand_id,})
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -624,28 +622,10 @@ class CoBrandingView(django.views.generic.edit.FormView):
 
         co_branding_registration = CoBrandingRegistration.objects.create(email=email, company_name=company_name,
                                                                          company_home_url=company_home_url)
+        self.cobrand_id = co_branding_registration.cobrand_id
 
-        co_branding_id = '{}-{}'.format(co_branding_registration.id, co_branding_registration.company_name).replace(' ', '_')
-        company_logo_file_name = '{}.png'.format(co_branding_id)
-        path = default_storage.save('co-brands/{}'.format(company_logo_file_name), ContentFile(company_logo.read()))
-        company_logo_file_path = os.path.join(settings.MEDIA_ROOT, path)
-
-        co_branding_registration.company_logo = company_logo_file_path
-        co_branding_registration.co_branding_id = co_branding_id
-        co_branding_registration.save()
-
-        self.request.session[SESSION_COMPANY_EMAIL] = email
-        self.request.session[SESSION_COMPANY_NAME] = company_name
-        self.request.session[SESSION_COMPANY_LOGO] = company_logo_file_path
-        self.request.session[SESSION_COMPANY_HOME_URL] = company_home_url
-
-        parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
-        protocol = parsed_url.scheme
-        domain = parsed_url.hostname
-        port = parsed_url.port
-
-        self.request.session[SESSION_CO_BRANDING_ORGANIZE_URL] = \
-            '{}://{}{}?co-brand={}'.format(protocol, domain, (':' + str(port)) if port else '', co_branding_id)
+        company_logo_file_name = '{}.png'.format(co_branding_registration.cobrand_id)
+        default_storage.save('co-brands/{}'.format(company_logo_file_name), ContentFile(company_logo.read()))
 
         return super(CoBrandingView, self).form_valid(form)
 
@@ -656,10 +636,13 @@ class CoBrandingDoneView(django.views.generic.TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         context['page_title'] = 'You Are Co-Branded!'
-        context['email'] = self.request.session[SESSION_COMPANY_EMAIL]
-        context['company_name'] = self.request.session[SESSION_COMPANY_NAME]
-        context['company_logo'] = self.request.session[SESSION_COMPANY_LOGO]
-        context['co_branding_company_home_page'] = self.request.session[SESSION_COMPANY_HOME_URL]
-        context['company_organize_url'] = self.request.session[SESSION_CO_BRANDING_ORGANIZE_URL]
+
+        parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
+        protocol = parsed_url.scheme
+        domain = parsed_url.hostname
+        port = parsed_url.port
+
+        context['company_organize_url'] = '{}://{}{}?cobrand_id={}'.format(
+            protocol, domain, (':' + str(port)) if port else '', self.kwargs['cobrand_id'])
 
         return self.render_to_response(context)
