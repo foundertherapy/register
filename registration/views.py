@@ -617,10 +617,10 @@ class RevokeDoneView(django.views.generic.TemplateView):
 class WidgetSubmissionView(django.views.generic.edit.FormView):
     template_name = 'registration/widget_submission.html'
     form_class = forms.WidgetSubmissionForm
-    company_source = None
+    widget_id = None
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse_lazy('widget_submission_done', kwargs={'company_source': self.company_source, })
+        return django.core.urlresolvers.reverse_lazy('widget_submission_done', kwargs={'widget_id': self.widget_id, })
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -634,7 +634,7 @@ class WidgetSubmissionView(django.views.generic.edit.FormView):
         # self.request.session[SESSION_WIDGET_COMPANY_NAME] = widget_registration.company_name
         # self.request.session[SESSION_WIDGET_COMPANY_EMAIL] = widget_registration.email
 
-        self.company_source = widget_submission.company_source
+        self.widget_id = widget_submission.widget_id
 
         return super(WidgetSubmissionView, self).form_valid(form)
 
@@ -645,6 +645,6 @@ class WidgetSubmissionDoneView(django.views.generic.TemplateView):
     def get(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         context['page_title'] = 'Here is your widget!'
-        context['company_source'] = self.kwargs['company_source']
+        context['widget_id'] = self.kwargs['widget_id']
 
         return self.render_to_response(context)

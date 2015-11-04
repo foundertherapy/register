@@ -48,7 +48,7 @@
             {% endblocktrans %}
             <!--
                 <script id="organize_widget_script">
-                    var sourceUUID = '{{ company_source }}';
+                    var sourceUUID = '{{ widget_id }}';
                     (function() {
                         var scriptTag = document.createElement('script');
                         scriptTag.setAttribute('src', 'http://127.0.0.1:8888/static/js/widget.js');
@@ -95,12 +95,12 @@
 <script src="{% static 'js/clipboard.min.js' %}"></script>
 <script type="text/javascript">
     $('input[name="widget_choice"]').on('change', function(){
-        var jsCode = $(this).val();
+        var widgetChoice = $(this).val();
         var imgHeight = $(this).attr("img-height");
         $("#widget-script-textarea").val("").delay(200).queue(function(setJSCode) {
               $("#widget-script-textarea").val(
                       "<div style=\"height:" + imgHeight + ";\"><script id=\"organize_widget_script\"> " +
-                      "var organizeSourceUUID = \"{{ company_source }}\";var organizeWidgetChoice = \"" + jsCode + "\";" +
+                      "var organizeWidgetId = \"{{ widget_id }}\";var organizeWidgetChoice = \"" + widgetChoice + "\";" +
                       "!function(){var t=document.createElement(\"script\");" +
                       "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\");" +
                       "var e=document.getElementById(\"organize_widget_script\");" +

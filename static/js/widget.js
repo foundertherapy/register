@@ -1,7 +1,7 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', 'https://register-dev.organize.org/?source_uuid=' + organizeSourceUUID);
+    iframeTag.setAttribute('src', 'https://register-dev.organize.org/?widget_id=' + organizeWidgetId);
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
