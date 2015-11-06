@@ -4,7 +4,7 @@ import logging
 
 import django.db.models
 import django.core.cache
-from django.template.defaultfilters import slugify
+import django.template.defaultfilters
 import django.core.urlresolvers
 
 import shortuuidfield
@@ -31,7 +31,7 @@ class CobrandCompany(django.db.models.Model):
         return unicode(self.company_name)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.company_name)
+        self.slug = django.template.defaultfilters.slugify(self.company_name)
         super(CobrandCompany, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
