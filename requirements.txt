@@ -36,3 +36,4 @@ uwsgi
 yolk
 python-gettext
 psycopg2
+django-shortuuidfield
