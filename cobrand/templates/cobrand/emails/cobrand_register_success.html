@@ -1,7 +1,8 @@
 {% load email %}
+{% load url_extras %}
 
 {% subject %}
-Thanks for setting up your ORGANIZE Registration Site for {{ company_name }}!
+Thanks for setting up your ORGANIZE Registration Site for {{ company_name|urldecode }}!
 {% endsubject %}
 
 {% body %}
