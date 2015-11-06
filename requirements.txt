@@ -37,3 +37,4 @@ yolk
 python-gettext
 psycopg2
 django-shortuuidfield
+django-template-email

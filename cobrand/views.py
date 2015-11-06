@@ -17,8 +17,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from PIL import Image, ImageFile
 
-import forms
 import models
+import forms
+import emails
 
 
 logger = logging.getLogger(__name__)
@@ -55,6 +56,10 @@ class CobrandCompanyCreateView(django.views.generic.edit.CreateView):
         resized_company_logo.save(io, format='PNG', quality=IMAGE_QUALITY, optimize=True, progressive=False)
 
         default_storage.save('cobrand/{}'.format(resized_filename), ContentFile(io.getvalue()))
+
+        emails.send_admin_cobrand_register(cobrand_company=self.object)
+        emails.send_cobrand_company_register_success(cobrand_company=self.object)
+
         return response
 
 
@@ -71,7 +76,10 @@ class CobrandCompanyDetailView(django.views.generic.DetailView):
         protocol = parsed_url.scheme
         domain = parsed_url.hostname
         port = parsed_url.port
-        host = ':'.join([domain, unicode(port)])
+        if port:
+            host = ':'.join([domain, unicode(port)])
+        else:
+            host = domain
 
         kwargs['company_redirect_url'] = '{}://{}{}'.format(protocol, host, self.object.get_redirect_url())
 

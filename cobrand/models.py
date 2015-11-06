@@ -23,6 +23,10 @@ class CobrandCompany(django.db.models.Model):
     uuid = shortuuidfield.ShortUUIDField(auto=True, unique=True, db_index=True)
     slug = django.db.models.SlugField(unique=True, db_index=True, editable=False)
 
+    class Meta:
+        verbose_name_plural = 'Cobrand Companies'
+        verbose_name = 'Cobrand Company'
+
     def __unicode__(self):
         return unicode(self.company_name)
 

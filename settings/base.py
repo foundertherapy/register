@@ -154,8 +154,7 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.profiling.ProfilingPanel',
 )
 
-DEFAULT_FROM_EMAIL = os.environ.get(
-    'DEFAULT_FROM_EMAIL', 'server@organize.org')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'server@organize.org')
 
 MAILGUN_PUBLIC_API_KEY = os.environ.get('MAILGUN_PUBLIC_API_KEY')
 MAILGUN_API_KEY = os.environ.get('MAILGUN_PUBLIC_API_KEY')
@@ -180,6 +179,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'raven.contrib.django.raven_compat',
     'pipeline',
+    'template_email',
     'storages',
     'bootstrap3',
     'form_utils',
@@ -357,3 +357,9 @@ DATABASE_URL = os.environ.get(u'DATABASE_URL', u'sqlite:///register.sqlite')
 DATABASES = {
     u'default': dj_database_url.parse(DATABASE_URL),
 }
+
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', 'localhost')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 25)
+EMAIL_USE_TLS = is_environ_true('EMAIL_USE_TLS')

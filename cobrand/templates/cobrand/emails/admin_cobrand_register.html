@@ -1,0 +1,15 @@
+{% load email %}
+
+{% subject %}
+[REGISTER] New Cobrand Company: {{ company_name }}
+{% endsubject %}
+
+{% body %}
+A new company signed up to use Cobranded Registration.
+
+Company Name: {{ company_name }}
+Contact Name: {{ contact_name }}
+Contact Email: {{ contact_email }}
+
+{{ cobrand_url }}
+{% endbody %}

@@ -1,0 +1,20 @@
+{% load email %}
+
+{% subject %}
+Thanks for setting up your ORGANIZE Registration Site for {{ company_name }}!
+{% endsubject %}
+
+{% body %}
+{{ contact_name }},
+
+You're all set! Your custom link is below (go ahead and give it a test run!).
+
+{{ redirect_url }}
+
+Now set your alarm for Giving Tuesday, December 1, and get ready to hit send.
+
+We'll follow up with you afterward and let you know how many registrations we collected through your link! - Thanks again!
+
+
+The ORGANIZE Team
+{% endbody %}
