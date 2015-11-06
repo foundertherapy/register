@@ -18,6 +18,21 @@
 </div>
 
 <div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+        <p class="lead text-center">
+            {% blocktrans trimmed %}
+                Thanks so much for partnering with ORGANIZE for Giving Tuesday!
+            {% endblocktrans %}
+        </p>
+        <p class="lead text-center">
+            {% blocktrans trimmed %}
+                Please fill out the form below to create a Branded Register Site for your company. Once completed, we&rsquo;ll give you a link you can share with your community for that site.
+            {% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <form class="register" enctype="multipart/form-data" role="form" action="{% url 'cobrand_create' %}" method="post">
             {% csrf_token %}

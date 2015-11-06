@@ -6,7 +6,12 @@ import django.forms
 import django.forms.utils
 import django.forms.widgets
 import django.conf
+import django.utils.six  # Python 3 compatibility
+import django.utils.safestring
+import django.utils.functional
+import django.core.urlresolvers
 from django.utils.translation import ugettext_lazy as _
+
 
 import requests
 
@@ -14,12 +19,19 @@ import models
 
 
 logger = logging.getLogger(__name__)
+mark_safe_lazy = django.utils.functional.lazy(django.utils.safestring.mark_safe, django.utils.six.text_type)
+
+
+def get_tos_label():
+    return mark_safe_lazy(
+        _('I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.'))
 
 
 class CobrandCompanyCreateForm(django.forms.ModelForm):
     company_logo = django.forms.ImageField(
         label=_('Upload Company Logo'),
         help_text='Upload a logo for your company in either JPEG or PNG format.')
+    tos = django.forms.BooleanField(label=get_tos_label(), widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
 
     class Meta:
         model = models.CobrandCompany

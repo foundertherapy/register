@@ -18,7 +18,7 @@ class CobrandCompanyAdmin(django.contrib.admin.ModelAdmin):
             'fields': ('created_on', 'updated_on', 'uuid', ),
         }),
         ('Company Information', {
-            'fields': ('company_name', 'created_on', 'contact_email', 'contact_name', 'slug', ),
+            'fields': ('company_name', 'contact_email', 'contact_name', ),
         }),
         ('Cobranding Information', {
             'fields': ('slug', 'cobrand_url', 'logo', ),

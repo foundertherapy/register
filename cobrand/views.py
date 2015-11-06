@@ -70,7 +70,8 @@ class CobrandCompanyDetailView(django.views.generic.DetailView):
     slug_url_kwarg = 'uuid'
 
     def get_context_data(self, **kwargs):
-        kwargs['page_title'] = _('You Are Co-Branded!')
+        kwargs['page_title'] = _('Thanks for Signing Up!')
+        kwargs['title'] = kwargs['page_title']
 
         parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
         protocol = parsed_url.scheme
