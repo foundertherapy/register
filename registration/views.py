@@ -1,33 +1,27 @@
 from __future__ import unicode_literals
 
-import logging
 import collections
 import datetime
-import os
-import urlparse
+import logging
 
 import dateutil.parser
-import fiftythree.client
-import forms
-
+import django.contrib.messages
+import django.core.urlresolvers
+import django.forms
 import django.http
 import django.shortcuts
 import django.views.generic.edit
-import django.core.urlresolvers
-import django.contrib.messages
-import django.forms
-
+from django.conf import settings
+from django.contrib.formtools.wizard.forms import ManagementForm
+from django.contrib.formtools.wizard.storage import get_storage
+from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
+from django.forms import ValidationError
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from django.forms import ValidationError
-from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
-from django.contrib.formtools.wizard.storage import get_storage
-from django.contrib.formtools.wizard.forms import ManagementForm
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
 
-from models import CoBrandingRegistration
+import cobrand.models
+import fiftythree.client
+import forms
 
 
 logger = logging.getLogger(__name__)
@@ -41,12 +35,9 @@ SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
 SESSION_RESET_FORM = 'register_reset_form'
 SESSION_REGISTRATION_UPDATE = 'registration_update'
-SESSION_COMPANY_NAME = 'co_branding_company_name'
-SESSION_COMPANY_EMAIL = 'co_branding_company_email'
-SESSION_COMPANY_LOGO = 'co_branding_company_logo'
-SESSION_CO_BRANDING_ORGANIZE_URL = 'co_branding_organize_url'
-SESSION_COMPANY_HOME_URL = 'co_branding_company_home_url'
-SESSION_COBRANDING = 'co_branding_enabled'
+SESSION_COBRAND_COMPANY_NAME = 'cobrand_company_name'
+SESSION_COBRAND_COMPANY_LOGO = 'cobrand_company_logo'
+SESSION_COBRAND_ACTIVE = 'cobrand_active'
 
 COOKIE_MINOR = 'register_minor'
 
@@ -66,6 +57,12 @@ def clean_session(session):
     session[SESSION_RESET_FORM] = True
     return session
 
+def clean_cobrand(session):
+    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, ):
+        if key in session:
+            del session[key]
+    return session
+
 
 class UserCheckMixin(object):
     user_check_failure_path = ''  # can be path, url name or reverse_lazy
@@ -80,6 +77,22 @@ class UserCheckMixin(object):
         if not self.check_user(request, request.user):
             return self.user_check_failed(request, *args, **kwargs)
         return super(UserCheckMixin, self).dispatch(request, *args, **kwargs)
+
+
+class CobrandCheckMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        cobrand_id = self.request.GET.get('cobrand_id')
+
+        if cobrand_id:
+            try:
+                cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
+                request.session[SESSION_COBRAND_ACTIVE] = True
+                request.session[SESSION_COBRAND_COMPANY_LOGO] = '{}.png'.format(cobrand_company.uuid)
+                request.session[SESSION_COBRAND_COMPANY_NAME] = cobrand_company.company_name
+            except cobrand.models.CobrandCompany.DoesNotExist:
+                pass
+
+        return super(CobrandCheckMixin, self).dispatch(request, *args, **kwargs)
 
 
 class MinorRestrictedMixin(UserCheckMixin):
@@ -103,21 +116,7 @@ class MinorRestrictedMixin(UserCheckMixin):
         return response
 
 
-class CoBrandingCheckMixin(object):
-    def dispatch(self, request, *args, **kwargs):
-        cobrand_id = self.request.GET.get('cobrand_id')
-
-        if cobrand_id:
-            company_registration = CoBrandingRegistration.objects.get(cobrand_id=cobrand_id)
-            request.session[SESSION_COBRANDING] = True
-            request.session[SESSION_COMPANY_LOGO] = '{}.png'.format(cobrand_id)
-            request.session[SESSION_COMPANY_NAME] = company_registration.company_name
-            request.session[SESSION_COMPANY_HOME_URL] = company_registration.company_home_url
-
-        return super(CoBrandingCheckMixin, self).dispatch(request, *args, **kwargs)
-
-
-class StateLookupView(MinorRestrictedMixin, CoBrandingCheckMixin, django.views.generic.edit.FormView):
+class StateLookupView(MinorRestrictedMixin, CobrandCheckMixin, django.views.generic.edit.FormView):
     template_name = 'registration/start.html'
     form_class = forms.StateLookupForm
     accepts_registration = True
@@ -364,6 +363,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         self.storage.reset()
         # also clean out the session
         clean_session(self.request.session)
+        clean_cobrand(self.request.session)
         return done_response
 
     def done(self, form_list, **kwargs):
@@ -602,47 +602,5 @@ class RevokeDoneView(django.views.generic.TemplateView):
                 logger.error(e.message)
             except fiftythree.client.ServiceError as e:
                 logger.error(e.message)
-
-        return self.render_to_response(context)
-
-
-class CoBrandingView(django.views.generic.edit.FormView):
-    template_name = 'registration/co_branding.html'
-    form_class = forms.CoBrandingForm
-    cobrand_id = None
-
-    def get_success_url(self):
-        return django.core.urlresolvers.reverse_lazy('co_branding_done', kwargs={'cobrand_id': self.cobrand_id,})
-
-    def form_valid(self, form):
-        email = form.cleaned_data['email']
-        company_name = form.cleaned_data['company_name']
-        company_logo = form.cleaned_data['company_logo']
-        company_home_url = form.cleaned_data['company_home_url']
-
-        co_branding_registration = CoBrandingRegistration.objects.create(email=email, company_name=company_name,
-                                                                         company_home_url=company_home_url)
-        self.cobrand_id = co_branding_registration.cobrand_id
-
-        company_logo_file_name = '{}.png'.format(co_branding_registration.cobrand_id)
-        default_storage.save('co-brands/{}'.format(company_logo_file_name), ContentFile(company_logo.read()))
-
-        return super(CoBrandingView, self).form_valid(form)
-
-
-class CoBrandingDoneView(django.views.generic.TemplateView):
-    template_name = 'registration/co_branding_done.html'
-
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['page_title'] = 'You Are Co-Branded!'
-
-        parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
-        protocol = parsed_url.scheme
-        domain = parsed_url.hostname
-        port = parsed_url.port
-
-        context['company_organize_url'] = '{}://{}{}?cobrand_id={}'.format(
-            protocol, domain, (':' + str(port)) if port else '', self.kwargs['cobrand_id'])
 
         return self.render_to_response(context)

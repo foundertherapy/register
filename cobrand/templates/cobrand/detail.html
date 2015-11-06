@@ -21,12 +21,19 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
         <p class="lead text-center">
             {% blocktrans trimmed %}
-                Here is your cobranded organize URL. </br>
+                This is your custom link to send out to your team:
             {% endblocktrans %}
         </p>
         <p class="lead text-center">
             {% blocktrans trimmed %}
-                {{ company_organize_url }}
+                <form>
+                    <input id="redirect_url" type="text" class="form-control input-lg" value="{{ company_redirect_url }}"></input>
+                </form>
+            {% endblocktrans %}
+        </p>
+        <p class="lead text-center">
+            {% blocktrans trimmed %}
+                We&rsquo;ll tally up your registrations and let you know just how lives you may have potentially saved. If you plan on sending this out to your team, we recommend you use the email copy below, but feel free to change it up to make it your own.
             {% endblocktrans %}
         </p>
     </div>
@@ -58,4 +65,9 @@
 <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
 <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script type="text/javascript">
+    $(function(){
+        $(document).on('click', 'input[#redirect_url]', function(){ this.select(); });
+    });
+</script>
 {% endblock %}

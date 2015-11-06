@@ -184,6 +184,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'form_utils',
     'registration',
+    'cobrand',
 )
 
 

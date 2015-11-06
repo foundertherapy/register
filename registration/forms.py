@@ -7,21 +7,18 @@ import datetime
 import form_utils.forms
 import requests
 import dateutil.parser
-import copy
 
 import django.forms
 import django.forms.utils
 import django.forms.widgets
-
-from PIL import Image
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import RegexValidator, URLValidator
-from django.core.files.base import ContentFile
-from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
+from django.utils.safestring import mark_safe
 
 
 logger = logging.getLogger(__name__)
+
 
 REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
 
@@ -34,6 +31,7 @@ CHOICES_GENDER = (
     ('M', _('Male')),
     ('F', _('Female')),
 )
+
 
 class StateLookupForm(django.forms.Form):
     email = django.forms.EmailField(label=_('Email'))
@@ -190,7 +188,9 @@ def register_form_generator(conf):
                 has_booleans = True
                 d['initial'] = initial
                 # this must be false otherwise checkbox must be checked
-                if field_name != 'agree_to_tos':
+                if field_name == 'agree_to_tos':
+                    d['help_text'] = mark_safe(help_text)
+                else:
                     d['required'] = False
                     d['help_text'] = help_text
                 field_class = django.forms.BooleanField
@@ -287,51 +287,3 @@ class RevokeForm(django.forms.Form):
                 return email
         logger.warning('Cannot validate email: {}'.format(r.text))
         raise django.forms.ValidationError(_('Enter a valid email.'))
-
-
-class CoBrandingForm(django.forms.Form):
-    email = django.forms.EmailField(label=_('Email'))
-    company_name = django.forms.CharField(label=_('Company Name'), max_length=30, min_length=1)
-    company_home_url = django.forms.CharField(label=_('Company Home Page URL'), max_length=255, min_length=5)
-    company_logo = django.forms.ImageField(label=_('Select a logo'),
-                                           help_text='Upload a logo for your company with a maximum size of 1 MB.\nThe logo should '
-                                                     'not exceed the dimensions of 200 x 200 pixels.')
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if settings.DISABLE_EMAIL_VALIDATION:
-            logger.warning('Email validation disabled: DISABLE_EMAIL_VALIDATION is set')
-            return email
-        # use mailgun email address validator to check this email
-        if not hasattr(settings, 'MAILGUN_PUBLIC_API_KEY'):
-            logger.warning('Cannot validate email: MAILGUN_PUBLIC_API_KEY not set')
-            return email
-        r = requests.get('https://api.mailgun.net/v2/address/validate', data={'address': email, },
-                         auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
-        if r.status_code == 200:
-            if r.json()['is_valid']:
-                return email
-        logger.warning('Cannot validate email: {}'.format(r.text))
-        raise django.forms.ValidationError(_('Enter a valid email.'))
-
-    def clean_company_logo(self):
-        company_logo = self.cleaned_data['company_logo']
-        tmp_logo = copy.deepcopy(company_logo)
-        company_logo_file = ContentFile(tmp_logo.read())
-        if company_logo._size > 1 * 1024 * 1024:
-            raise django.forms.ValidationError(_('Logo size exceeds the limit of 1 MB'))
-        logo = Image.open(company_logo_file)
-        (width, height) = logo.size
-        if width > 500 or height > 500:
-            raise django.forms.ValidationError(_('Logo dimensions exceeds 200x200 pixels.'))
-        return company_logo
-
-    def clean_company_home_url(self):
-        company_home_url = self.cleaned_data['company_home_url']
-        validate_url = URLValidator()
-        try:
-            validate_url(company_home_url)
-        except ValidationError:
-            raise django.forms.ValidationError(_('Your company\'s URL format is not valid.'))
-
-        return company_home_url
