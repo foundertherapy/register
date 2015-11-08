@@ -17,6 +17,7 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(r'^', django.conf.urls.include('registration.urls')),
     django.conf.urls.url(r'^brand/', django.conf.urls.include('cobrand.urls')),
     django.conf.urls.url(r'^admin/', django.conf.urls.include(django.contrib.admin.site.urls)),
+    django.conf.urls.url(r'^widget/', django.conf.urls.include('widget.urls')),
 )
 
 urlpatterns += django.conf.urls.static.static(

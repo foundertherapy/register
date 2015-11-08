@@ -12,7 +12,6 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 from django.utils.safestring import mark_safe
-from django.core.exceptions import ValidationError
 
 import form_utils.forms
 import requests
@@ -289,36 +288,3 @@ class RevokeForm(django.forms.Form):
                 return email
         logger.warning('Cannot validate email: {}'.format(r.text))
         raise django.forms.ValidationError(_('Enter a valid email.'))
-
-
-class WidgetSubmissionForm(django.forms.Form):
-    email = django.forms.EmailField(label=_('Email'))
-    company_name = django.forms.CharField(label=_('Company Name'), max_length=30, min_length=1)
-    home_page_url = django.forms.CharField(label=_('Home Page URL'), max_length=255, min_length=5)
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if settings.DISABLE_EMAIL_VALIDATION:
-            logger.warning('Email validation disabled: DISABLE_EMAIL_VALIDATION is set')
-            return email
-        # use mailgun email address validator to check this email
-        if not hasattr(settings, 'MAILGUN_PUBLIC_API_KEY'):
-            logger.warning('Cannot validate email: MAILGUN_PUBLIC_API_KEY not set')
-            return email
-        r = requests.get('https://api.mailgun.net/v2/address/validate', data={'address': email, },
-                         auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
-        if r.status_code == 200:
-            if r.json()['is_valid']:
-                return email
-        logger.warning('Cannot validate email: {}'.format(r.text))
-        raise django.forms.ValidationError(_('Enter a valid email.'))
-
-    def clean_home_page_url(self):
-        home_page_url = self.cleaned_data['home_page_url']
-        validate_url = django.core.validators.URLValidator()
-        try:
-            validate_url(home_page_url)
-        except ValidationError:
-            raise django.forms.ValidationError(_('Your company\'s URL format is not valid.'))
-
-        return home_page_url

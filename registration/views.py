@@ -25,7 +25,6 @@ import dateutil.parser
 import cobrand.models
 import fiftythree.client
 import forms
-import models
 
 
 logger = logging.getLogger(__name__)
@@ -610,41 +609,5 @@ class RevokeDoneView(django.views.generic.TemplateView):
                 logger.error(e.message)
             except fiftythree.client.ServiceError as e:
                 logger.error(e.message)
-
-        return self.render_to_response(context)
-
-
-class WidgetSubmissionView(django.views.generic.edit.FormView):
-    template_name = 'registration/widget_submission.html'
-    form_class = forms.WidgetSubmissionForm
-    widget_id = None
-
-    def get_success_url(self):
-        return django.core.urlresolvers.reverse_lazy('widget_submission_done', kwargs={'widget_id': self.widget_id, })
-
-    def form_valid(self, form):
-        email = form.cleaned_data['email']
-        company_name = form.cleaned_data['company_name']
-        home_page_url = form.cleaned_data['home_page_url']
-
-
-        widget_submission = models.WidgetSubmission.objects.create(email=email, company_name=company_name, home_page_url=home_page_url)
-
-        # self.request.session[SESSION_WIDGET_COMPANY_SOURCE] = widget_registration.company_source
-        # self.request.session[SESSION_WIDGET_COMPANY_NAME] = widget_registration.company_name
-        # self.request.session[SESSION_WIDGET_COMPANY_EMAIL] = widget_registration.email
-
-        self.widget_id = widget_submission.widget_id
-
-        return super(WidgetSubmissionView, self).form_valid(form)
-
-
-class WidgetSubmissionDoneView(django.views.generic.TemplateView):
-    template_name = 'registration/widget_submission_done.html'
-
-    def get(self, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['page_title'] = 'Here is your widget!'
-        context['widget_id'] = self.kwargs['widget_id']
 
         return self.render_to_response(context)

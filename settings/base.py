@@ -157,11 +157,6 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'server@organize.org')
 MAILGUN_PUBLIC_API_KEY = os.environ.get('MAILGUN_PUBLIC_API_KEY')
 MAILGUN_API_KEY = os.environ.get('MAILGUN_PUBLIC_API_KEY')
 
-ADMINS = (
-    ('Dana Spiegel', 'dana@foundertherapy.co'),
-    ('Brian Tait', 'brian@foundertherapy.co'),
-    ('Waseem Omar', 'waseem@foundertherapy.co'),
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -183,6 +178,7 @@ INSTALLED_APPS = (
     'form_utils',
     'registration',
     'cobrand',
+    'widget',
 )
 
 
