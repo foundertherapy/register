@@ -16,7 +16,7 @@ class WidgetSubmissionAdmin(django.contrib.admin.ModelAdmin):
             'fields': ('created_on', 'updated_on', 'uuid', ),
         }),
         ('Company Information', {
-            'fields': ('company_name', 'company_home_url', 'created_on', 'updated_on', 'contact_email', 'contact_name', ),
+            'fields': ('company_name', 'company_home_url', 'contact_email', 'contact_name', ),
         }),
         ('Widget Information', {
             'fields': ('uuid', ),
