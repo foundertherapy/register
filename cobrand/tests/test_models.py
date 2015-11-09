@@ -18,7 +18,7 @@ class CobrandCompanyTestCase(TestCase):
             lambda: models.CobrandCompany.objects.create(company_name='test', contact_email='a@a.com', contact_name='test user'))
 
     def test_save(self):
-        # ensure slug and uunid are filled on save
+        # ensure slug and uuid are filled on save
         cobrand_company = models.CobrandCompany(company_name='Test. Company, Ltd', contact_email='a@a.com', contact_name='test user')
         cobrand_company.save()
         self.assertEqual(cobrand_company.slug, 'test-company-ltd')
