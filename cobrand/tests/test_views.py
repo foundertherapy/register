@@ -22,6 +22,7 @@ class CobrandCompanyCreateViewTestCase(django.test.TestCase):
 
     def test_get(self):
         r = self.client.get('/brand/')
+        print r.url
         self.assertEqual(r.status_code, 200)
         # make sure there's a form on this page with the right fields
         self.assertTemplateUsed(r, 'cobrand/create.html')
