@@ -350,10 +350,3 @@ EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
 EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 25)
 EMAIL_USE_TLS = is_environ_true('EMAIL_USE_TLS')
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASE_URL = os.environ.get(u'DATABASE_URL', u'sqlite:///register.sqlite')
-DATABASES = {
-    u'default': dj_database_url.parse(DATABASE_URL),
-}
