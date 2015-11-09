@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
 import logging
-import urlparse
-import cStringIO
 
 import django.contrib.messages
 import django.core.urlresolvers
@@ -10,15 +8,8 @@ import django.forms
 import django.http
 import django.shortcuts
 import django.views.generic.edit
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
-
-from PIL import Image, ImageFile
 
 import forms
-import models
 
 
 logger = logging.getLogger(__name__)

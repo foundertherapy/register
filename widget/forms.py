@@ -1,9 +1,6 @@
 from __future__ import unicode_literals
 
 import logging
-import requests
-
-import models
 
 import django.forms
 import django.forms.utils
@@ -14,6 +11,10 @@ import django.core.exceptions
 import django.utils.functional
 import django.utils.safestring
 import django.utils.six
+
+import requests
+
+import models
 
 from django.utils.translation import ugettext_lazy as _
 

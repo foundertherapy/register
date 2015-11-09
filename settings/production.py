@@ -13,7 +13,6 @@ TEMPLATE_DEBUG = DEBUG
 WSGI_APPLICATION = 'wsgi.heroku.application'
 
 STATICFILES_STORAGE = 'storage.NonPackagingS3PipelineCachedStorage'
-DEFAULT_FILE_STORAGE = 'storage.MediaStorage'
 MEDIA_URL = 'https://%s/media/'.format(AWS_S3_CUSTOM_DOMAIN)
 
 ADMIN_MEDIA_PREFIX = ''.join([STATIC_URL, 'admin/'])
