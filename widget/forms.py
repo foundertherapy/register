@@ -11,17 +11,27 @@ import django.forms.widgets
 import django.conf
 import django.core.validators
 import django.core.exceptions
+import django.utils.functional
+import django.utils.safestring
+import django.utils.six
 
 from django.utils.translation import ugettext_lazy as _
 
 
 logger = logging.getLogger(__name__)
+mark_safe_lazy = django.utils.functional.lazy(django.utils.safestring.mark_safe, django.utils.six.text_type)
+
+
+def get_tos_label():
+    return mark_safe_lazy(_('I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.'))
 
 
 class WidgetCreateForm(django.forms.ModelForm):
     class Meta:
         model = models.WidgetSubmission
         fields = ['company_name', 'company_home_url', 'contact_name', 'contact_email', ]
+
+    tos = django.forms.BooleanField(label=get_tos_label(), widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
 
     def clean_email(self):
         contact_email = self.cleaned_data['contact_email']
