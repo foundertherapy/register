@@ -1,7 +1,7 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', 'https://register.organize.org/?widget_id=' + organizeWidgetId);
+    iframeTag.setAttribute('src', 'https://register-dev.organize.org/?widget_id=' + organizeWidgetId);
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
@@ -19,7 +19,7 @@ function closeOrganizeIframe() {
 
     var linkTag = document.createElement('link');
     linkTag.setAttribute('rel', 'stylesheet');
-    linkTag.setAttribute('href', '//s3.amazonaws.com/register-prod/static/css/modal.css');
+    linkTag.setAttribute('href', '//s3.amazonaws.com/register-dev/static/css/modal.css');
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 
@@ -51,7 +51,7 @@ function closeOrganizeIframe() {
     organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
     organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
-    var widgetChoiceImagePath = "//s3.amazonaws.com/register-prod/static/images/" + organizeWidgetChoice + ".png";
+    var widgetChoiceImagePath = "//s3.amazonaws.com/register-dev/static/images/" + organizeWidgetChoice + ".png";
     organizeRegistrationBtnTag.innerHTML = '<img style="height: 100%;" src="' + widgetChoiceImagePath + '"/>';
 
     organizeScriptNode = document.getElementById('organize_widget_script');
