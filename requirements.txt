@@ -20,7 +20,6 @@ ipython
 mock
 moto
 paramiko
-newrelic
 pep8
 phonenumbers
 Pillow
