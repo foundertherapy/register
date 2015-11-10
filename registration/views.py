@@ -39,10 +39,6 @@ SESSION_REGISTRATION_UPDATE = 'registration_update'
 SESSION_COBRAND_COMPANY_NAME = 'cobrand_company_name'
 SESSION_COBRAND_COMPANY_LOGO = 'cobrand_company_logo'
 SESSION_COBRAND_ACTIVE = 'cobrand_active'
-SESSION_WIDGET_COMPANY_EMAIL = 'widget_company_email'
-SESSION_WIDGET_COMPANY_NAME = 'widget_company_name'
-SESSION_WIDGET_COMPANY_SOURCE = 'widget_company_source'
-SESSION_WIDGET_CHOICE = 'widget_choice'
 
 COOKIE_MINOR = 'register_minor'
 
