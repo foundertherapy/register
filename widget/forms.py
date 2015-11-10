@@ -28,11 +28,12 @@ def get_tos_label():
 
 
 class WidgetCreateForm(django.forms.ModelForm):
-    class Meta:
-        model = models.WidgetSubmission
-        fields = ['company_name', 'company_home_url', 'contact_name', 'contact_email', ]
-
     tos = django.forms.BooleanField(label=get_tos_label(), widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
+
+    class Meta:
+        model = models.WidgetHost
+        fields = ['contact_name', 'contact_email', 'host_url', ]
+
 
     def clean_email(self):
         contact_email = self.cleaned_data['contact_email']
@@ -50,13 +51,3 @@ class WidgetCreateForm(django.forms.ModelForm):
                 return contact_email
         logger.warning('Cannot validate email: {}'.format(r.text))
         raise django.forms.ValidationError(_('Enter a valid email.'))
-
-    def clean_company_home_url(self):
-        company_home_url = self.cleaned_data['company_home_url']
-        validate_url = django.core.validators.URLValidator()
-        try:
-            validate_url(company_home_url)
-        except django.core.exceptions.ValidationError:
-            raise django.forms.ValidationError(_('Your company\'s URL format is not valid.'))
-
-        return company_home_url

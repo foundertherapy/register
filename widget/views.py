@@ -8,6 +8,7 @@ import django.forms
 import django.http
 import django.shortcuts
 import django.views.generic.edit
+from django.utils.translation import ugettext_lazy as _
 
 import forms
 
@@ -28,7 +29,7 @@ class WidgetSelectView(django.views.generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(WidgetSelectView, self).get_context_data()
-        context['page_title'] = 'Here is your widget!'
+        context['page_title'] = _('Configure your Widget')
         context['widget_id'] = self.kwargs['uuid']
 
         return context

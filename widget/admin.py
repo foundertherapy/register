@@ -6,20 +6,17 @@ import django.contrib.sites.models
 import models
 
 
-@django.contrib.admin.register(models.WidgetSubmission)
+@django.contrib.admin.register(models.WidgetHost)
 class WidgetSubmissionAdmin(django.contrib.admin.ModelAdmin):
-    list_display = ('company_name', 'company_home_url', 'created_on', 'updated_on', 'contact_email', 'contact_name', 'uuid', )
-    search_fields = ('company_name', 'contact_email', 'contact_name', 'uuid', )
+    list_display = ('uuid', 'host_url', 'created_on', 'contact_email', 'contact_name', )
+    search_fields = ('host_url', 'contact_email', 'contact_name', 'uuid', )
     ordering = ('-created_on', )
     fieldsets = (
         ('Status', {
             'fields': ('created_on', 'updated_on', 'uuid', ),
         }),
         ('Company Information', {
-            'fields': ('company_name', 'company_home_url', 'contact_email', 'contact_name', ),
-        }),
-        ('Widget Information', {
-            'fields': ('uuid', ),
+            'fields': ('contact_email', 'contact_name', 'host_url', ),
         }),
     )
     readonly_fields = ('created_on', 'updated_on', 'uuid', )
