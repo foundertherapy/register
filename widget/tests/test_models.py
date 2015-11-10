@@ -7,7 +7,7 @@ from django.test import TestCase
 from widget import models
 
 
-class WidgetSubmissionTestCase(TestCase):
+class WidgetHostTestCase(TestCase):
     def test_unique(self):
         # ensure company_name is unique
         models.WidgetHost.objects.create(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
@@ -17,11 +17,11 @@ class WidgetSubmissionTestCase(TestCase):
 
     def test_save(self):
         # ensure uuid is filled on save
-        widget_submission = models.WidgetHost(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
-        widget_submission.save()
-        self.assertEqual(len(widget_submission.uuid), 22)
+        widget_host = models.WidgetHost(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
+        widget_host.save()
+        self.assertEqual(len(widget_host.uuid), 22)
 
     def test_get_absolute_url(self):
-        widget_submission = models.WidgetHost(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
-        widget_submission.save()
-        self.assertEqual(widget_submission.get_absolute_url(), '/widget/{}/'.format(widget_submission.uuid))
+        widget_host = models.WidgetHost(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
+        widget_host.save()
+        self.assertEqual(widget_host.get_absolute_url(), '/widget/{}/'.format(widget_host.uuid))

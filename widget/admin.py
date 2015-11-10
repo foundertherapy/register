@@ -7,7 +7,7 @@ import models
 
 
 @django.contrib.admin.register(models.WidgetHost)
-class WidgetSubmissionAdmin(django.contrib.admin.ModelAdmin):
+class WidgetHostAdmin(django.contrib.admin.ModelAdmin):
     list_display = ('uuid', 'host_url', 'created_on', 'contact_email', 'contact_name', )
     search_fields = ('host_url', 'contact_email', 'contact_name', 'uuid', )
     ordering = ('-created_on', )
