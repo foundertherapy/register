@@ -8,18 +8,14 @@ import datetime
 import django.forms
 import django.forms.utils
 import django.forms.widgets
+import django.core.validators
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import RegexValidator
 from django.utils.safestring import mark_safe
 
 import form_utils.forms
 import requests
 import dateutil.parser
-
-import dateutil.parser
-import form_utils.forms
-import requests
 
 
 logger = logging.getLogger(__name__)
@@ -30,7 +26,9 @@ REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
 RE_NON_DECIMAL = re.compile(r'[^\d]+')
 RE_NON_ALPHA = re.compile('[\W]+')
 RE_POSTAL_CODE = re.compile(r'^[0-9]{5}$')
-validate_postal_code = RegexValidator(RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."), 'invalid')
+validate_postal_code = django.core.validators.RegexValidator(
+    RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."), 'invalid')
+
 
 CHOICES_GENDER = (
     ('M', _('Male')),

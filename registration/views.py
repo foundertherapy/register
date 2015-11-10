@@ -1,12 +1,12 @@
 from __future__ import unicode_literals
 
+import logging
 import collections
 import datetime
 
 import dateutil.parser
 import django.contrib.messages
 import django.core.urlresolvers
-import django.forms
 import django.http
 import django.shortcuts
 import django.views.generic.edit
@@ -15,11 +15,9 @@ from django.conf import settings
 from django.contrib.formtools.wizard.forms import ManagementForm
 from django.contrib.formtools.wizard.storage import get_storage
 from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
-from django.forms import ValidationError
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
-import logging
 import dateutil.parser
 
 import cobrand.models
@@ -63,6 +61,7 @@ def clean_session(session):
             del session[key]
     session[SESSION_RESET_FORM] = True
     return session
+
 
 def clean_cobrand(session):
     for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, ):
@@ -419,7 +418,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         # Check if form was refreshed
         management_form = ManagementForm(self.request.POST, prefix=self.prefix)
         if not management_form.is_valid():
-            raise ValidationError(
+            raise django.forms.ValidationError(
                 _('ManagementForm data is missing or has been tampered.'),
                 code='missing_management_form',
             )
