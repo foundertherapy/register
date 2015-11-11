@@ -4,6 +4,9 @@ from .base import *
 
 import os
 
+import dj_database_url
+
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -14,7 +17,6 @@ DEFAULT_FILE_STORAGE = 'storage.MediaStorage'
 
 ADMIN_MEDIA_PREFIX = ''.join([STATIC_URL, 'admin/'])
 
-import dj_database_url
 DATABASE_URL = os.environ['DATABASE_URL']
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL),
