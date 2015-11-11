@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+        <p class="lead">
+            {% blocktrans trimmed %}
+                Select a button below to engage your audience and allow them to register as organ donors without leaving your site.
+            {% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+        <img class="widget-cta" id="cta-banner" data-widget-choice="banner" width="625" src="{% static 'images/widget/banner.png' %}"/>
+        <img class="widget-cta" id="cta-skyscraper" data-widget-choice="skyscraper" width="167" src="{% static 'images/widget/skyscraper.png' %}"/>
+        <img class="widget-cta" id="cta-box-1" data-widget-choice="box-1" width="313" src="{% static 'images/widget/box-1.png' %}"/>
+        <img class="widget-cta" id="cta-box-2" data-widget-choice="box-2" width="313" src="{% static 'images/widget/box-2.png' %}"/>
+        <img class="widget-cta" id="cta-button" data-widget-choice="button" width="125" src="{% static 'images/widget/button.png' %}"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+        <p class="lead">
+            {% blocktrans trimmed %}
+                Copy and paste the code below into the HTML for your site. We&rsquo;ll also send you an email with a link to this page so you can always change your mind later!
+            {% endblocktrans %}
+        </p>
+
+        <pre id="widget-script" data-clipboard-target="#widget-script" onclick="new Clipboard('#widget-script');"></pre>
+        <p class="text-muted">
+            {% blocktrans trimmed %}Click on the code above to copy to your clipboard.{% endblocktrans %}
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<!-- Google Code for Registration Conversion Page -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 911750952;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
+    var google_remarketing_only = false;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript>
+    <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/clipboard.min.js' %}"></script>
+<script type="text/javascript">
+    $('img[class="widget-cta"]').on('click', function() {
+        var widgetChoice = $(this).data('widget-choice');
+        var imgHeight = $(this).height();
+        $("#widget-script").val("").delay(200).queue(function(setJSCode) {
+              $("#widget-script").text(
+                  "<div style=\"height: " + imgHeight + ";\"><script id=\"organize_widget_script\">" +
+                  "var organizeWidgetId=\"{{ uuid }}\"; var organizeWidgetChoice=\"" + widgetChoice + "\"; " +
+                  "!function(){var t=document.createElement(\"script\"); " +
+                  "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\"); " +
+                  "var e=document.getElementById(\"organize_widget_script\"); " +
+                  "r=e.parentNode; " +
+                  "r.insertBefore(t,e)}();<\/script><\/div>");
+              setJSCode();
+        });
+        $('img.widget-cta').removeClass('selected');
+        $(this).addClass('selected');
+    });
+    $('img#cta-banner').click();
+</script>
+{% endblock %}

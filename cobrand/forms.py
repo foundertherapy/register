@@ -29,7 +29,7 @@ def get_tos_label():
 
 class CobrandCompanyCreateForm(django.forms.ModelForm):
     company_logo = django.forms.ImageField(
-        label=_('Upload Company Logo'),
+        label=_('Company Logo'),
         help_text='Upload a logo for your company in either JPEG or PNG format.')
     tos = django.forms.BooleanField(label=get_tos_label(), widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
 

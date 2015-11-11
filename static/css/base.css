@@ -388,3 +388,23 @@ legend {
         letter-spacing: 5px;
     }
 }
+
+
+.widget-cta {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    /*border: 3px solid #fff;*/
+    float: left;
+}
+
+.widget-cta.selected {
+    /*border: 3px solid #000;*/
+    -moz-box-shadow: 0 0 9px 2px #000000;
+    -webkit-box-shadow: 0 0 9px 2px #000000;
+    box-shadow: 0 0 9px 2px #000000;
+}
+
+.widget-script {
+    cursor: pointer;
+    margin-top: 10px;
+}

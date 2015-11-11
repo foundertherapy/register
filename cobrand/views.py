@@ -12,7 +12,6 @@ import django.shortcuts
 import django.views.generic.edit
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
 from PIL import Image, ImageFile
@@ -32,6 +31,11 @@ THUMBNAIL_SIZE = (200, 100)
 class CobrandCompanyCreateView(django.views.generic.edit.CreateView):
     template_name = 'cobrand/create.html'
     form_class = forms.CobrandCompanyCreateForm
+
+    def get_context_data(self, **kwargs):
+        context = super(CobrandCompanyCreateView, self).get_context_data(**kwargs)
+        context['title'] = _('Giving Tuesday Branded Registry')
+        return context
 
     def get_success_url(self):
         return django.core.urlresolvers.reverse_lazy('cobrand_view', kwargs={'uuid': self.object.uuid, })
@@ -70,8 +74,8 @@ class CobrandCompanyDetailView(django.views.generic.DetailView):
     slug_url_kwarg = 'uuid'
 
     def get_context_data(self, **kwargs):
-        kwargs['page_title'] = _('Thanks for Signing Up!')
-        kwargs['title'] = kwargs['page_title']
+        context = super(CobrandCompanyDetailView, self).get_context_data(**kwargs)
+        context['title'] = _('Thanks for Signing Up for a Branded Registry Page!')
 
         parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
         protocol = parsed_url.scheme
@@ -81,10 +85,9 @@ class CobrandCompanyDetailView(django.views.generic.DetailView):
             host = ':'.join([domain, unicode(port)])
         else:
             host = domain
+        context['company_redirect_url'] = '{}://{}{}'.format(protocol, host, self.object.get_redirect_url())
 
-        kwargs['company_redirect_url'] = '{}://{}{}'.format(protocol, host, self.object.get_redirect_url())
-
-        return kwargs
+        return context
 
 
 class CobrandRedirect(django.views.generic.RedirectView):
