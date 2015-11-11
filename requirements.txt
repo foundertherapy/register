@@ -10,7 +10,7 @@ django-redis-cache
 django-redis-sessions
 django-secure
 django-sslify
-django-storages
+django-storages-redux
 Django==1.7.9
 django_coverage
 dj-database-url
