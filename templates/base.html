@@ -121,10 +121,10 @@
   ga('create', 'UA-52343415-1', 'organize.org', {'allowLinker': true});
   ga('require', 'linker');
   ga('linker:autoLink', ['organize.org'] );
-  ga('send', 'pageview');
 
   {% switch 'track-gt-campaign' %}
   ga('set', 'campaignName', '2015-gt');
+  ga('set', 'campaignId', '2015-gt');
 
   var cobrand_id = '{{ request.session.cobrand_id }}';
   var widget_id = '{{ request.session.widget_id }}';
@@ -145,6 +145,8 @@
       ga('set', 'campaignMedium', 'email');
   }
   {% endswitch %}
+
+  ga('send', 'pageview');
 
 </script>
 

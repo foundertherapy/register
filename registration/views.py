@@ -64,8 +64,21 @@ def clean_session(session):
     return session
 
 
-def clean_cobrand(session):
-    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, ):
+def clean_email_source_session(session):
+    if SESSION_REG_SOURCE in session:
+        del session[SESSION_REG_SOURCE]
+    return session
+
+
+def clean_cobrand_session(session):
+    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID, ):
+        if key in session:
+            del session[key]
+    return session
+
+
+def clean_widget_session(session):
+    for key in (SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, ):
         if key in session:
             del session[key]
     return session
@@ -94,6 +107,8 @@ class ExternalSourceCheckMixin(object):
 
         if cobrand_id:
             try:
+                clean_widget_session(request.session)
+                clean_email_source_session(request.session)
                 cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
                 request.session[SESSION_COBRAND_ACTIVE] = True
                 request.session[SESSION_COBRAND_ID] = cobrand_id
@@ -103,13 +118,19 @@ class ExternalSourceCheckMixin(object):
                 pass
         elif widget_id:
             try:
+                clean_cobrand_session(request.session)
+                clean_email_source_session(request.session)
                 widget_host = widget.models.WidgetHost.objects.get(uuid=widget_id)
                 request.session[SESSION_WIDGET_ID] = widget_id
                 request.session[SESSION_WIDGET_HOST_URL] = widget_host.host_url
             except widget.models.WidgetHost.DoesNotExist:
                 pass
         elif reg_source:
+            clean_cobrand_session(request.session)
+            clean_widget_session(request.session)
             request.session[SESSION_REG_SOURCE] = reg_source
+        else:
+            clean_widget_session(request.session)
 
         return super(ExternalSourceCheckMixin, self).dispatch(request, *args, **kwargs)
 
@@ -382,7 +403,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         self.storage.reset()
         # also clean out the session
         clean_session(self.request.session)
-        clean_cobrand(self.request.session)
+        clean_cobrand_session(self.request.session)
+        clean_widget_session(self.request.session)
+        clean_email_source_session(self.request.session)
         return done_response
 
     def done(self, form_list, **kwargs):
