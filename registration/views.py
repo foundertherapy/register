@@ -88,10 +88,9 @@ class UserCheckMixin(object):
 
 class ExternalSourceCheckMixin(object):
     def dispatch(self, request, *args, **kwargs):
-
-        cobrand_id = self.request.GET.get('cobrand_id')
-        widget_id = self.request.GET.get('widget_id')
-        reg_source = self.request.GET.get('reg_source')
+        cobrand_id = request.GET.get('cobrand_id')
+        widget_id = request.GET.get('widget_id')
+        reg_source = request.GET.get('reg_source')
 
         if cobrand_id:
             try:

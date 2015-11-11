@@ -37,3 +37,5 @@ yolk
 python-gettext
 psycopg2
 django-template-email
+django-waffle
+

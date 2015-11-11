@@ -2,6 +2,7 @@
 {% load bootstrap3 %}
 {% load raven %}
 {% load i18n %}
+{% load waffle_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -121,6 +122,8 @@
   ga('require', 'linker');
   ga('linker:autoLink', ['organize.org'] );
   ga('send', 'pageview');
+
+  {% switch 'track-gt-campaign' %}
   ga('set', 'campaignName', '2015-gt');
 
   var cobrand_id = '{{ request.session.cobrand_id }}';
@@ -141,6 +144,7 @@
       ga('set', 'campaignSource', reg_source);
       ga('set', 'campaignMedium', 'email');
   }
+  {% endswitch %}
 
 </script>
 

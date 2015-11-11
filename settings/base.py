@@ -109,6 +109,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'waffle.middleware.WaffleMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -170,6 +171,7 @@ INSTALLED_APPS = (
     'djangosecure',
     'django_coverage',
     'django_extensions',
+    'waffle',
     'raven.contrib.django.raven_compat',
     'pipeline',
     'template_email',
@@ -200,6 +202,7 @@ COVERAGE_MODULE_EXCLUDES = (
     'template_timings_panel',
     'bootstrap3',
     'form_utils',
+    'waffle',
 )
 COVERAGE_REPORT_HTML_OUTPUT_DIR = os.environ.get('CIRCLE_ARTIFACTS')
 
