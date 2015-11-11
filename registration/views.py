@@ -21,6 +21,7 @@ from django.utils.translation import ugettext_lazy as _
 import dateutil.parser
 
 import cobrand.models
+import widget.models
 import fiftythree.client
 import forms
 
@@ -36,9 +37,13 @@ SESSION_ACCEPTS_REGISTRATION = 'register_accepts_registration'
 SESSION_REDIRECT_URL = 'register_redirect_url'
 SESSION_RESET_FORM = 'register_reset_form'
 SESSION_REGISTRATION_UPDATE = 'registration_update'
+SESSION_COBRAND_ID = 'cobrand_id'
 SESSION_COBRAND_COMPANY_NAME = 'cobrand_company_name'
 SESSION_COBRAND_COMPANY_LOGO = 'cobrand_company_logo'
 SESSION_COBRAND_ACTIVE = 'cobrand_active'
+SESSION_WIDGET_ID = 'widget_id'
+SESSION_WIDGET_HOST_URL = 'widget_host_url'
+SESSION_REG_SOURCE = 'reg_source'
 
 COOKIE_MINOR = 'register_minor'
 
@@ -81,20 +86,33 @@ class UserCheckMixin(object):
         return super(UserCheckMixin, self).dispatch(request, *args, **kwargs)
 
 
-class CobrandCheckMixin(object):
+class ExternalSourceCheckMixin(object):
     def dispatch(self, request, *args, **kwargs):
+
         cobrand_id = self.request.GET.get('cobrand_id')
+        widget_id = self.request.GET.get('widget_id')
+        reg_source = self.request.GET.get('reg_source')
 
         if cobrand_id:
             try:
                 cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
                 request.session[SESSION_COBRAND_ACTIVE] = True
+                request.session[SESSION_COBRAND_ID] = cobrand_id
                 request.session[SESSION_COBRAND_COMPANY_LOGO] = '{}.png'.format(cobrand_company.uuid)
                 request.session[SESSION_COBRAND_COMPANY_NAME] = cobrand_company.company_name
             except cobrand.models.CobrandCompany.DoesNotExist:
                 pass
+        elif widget_id:
+            try:
+                widget_host = widget.models.WidgetHost.objects.get(uuid=widget_id)
+                request.session[SESSION_WIDGET_ID] = widget_id
+                request.session[SESSION_WIDGET_HOST_URL] = widget_host.host_url
+            except widget.models.WidgetHost.DoesNotExist:
+                pass
+        elif reg_source:
+            request.session[SESSION_REG_SOURCE] = reg_source
 
-        return super(CobrandCheckMixin, self).dispatch(request, *args, **kwargs)
+        return super(ExternalSourceCheckMixin, self).dispatch(request, *args, **kwargs)
 
 
 class MinorRestrictedMixin(UserCheckMixin):
@@ -118,7 +136,7 @@ class MinorRestrictedMixin(UserCheckMixin):
         return response
 
 
-class StateLookupView(MinorRestrictedMixin, CobrandCheckMixin, django.views.generic.edit.FormView):
+class StateLookupView(MinorRestrictedMixin, ExternalSourceCheckMixin, django.views.generic.edit.FormView):
     template_name = 'registration/start.html'
     form_class = forms.StateLookupForm
     accepts_registration = True

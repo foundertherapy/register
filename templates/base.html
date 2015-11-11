@@ -121,6 +121,26 @@
   ga('require', 'linker');
   ga('linker:autoLink', ['organize.org'] );
   ga('send', 'pageview');
+  ga('set', 'campaignName', '2015-gt');
+
+  var cobrand_id = '{{ request.session.cobrand_id }}';
+  var widget_id = '{{ request.session.widget_id }}';
+  var reg_source = '{{ request.session.reg_source }}';
+  if (cobrand_id != '') {
+      ga('set', 'campaignContent', cobrand_id);
+      ga('set', 'campaignSource', '{{ request.session.cobrand_company_name }}');
+      ga('set', 'campaignMedium', 'cobrand');
+  }
+  else if (widget_id != '') {
+      ga('set', 'campaignContent', widget_id);
+      ga('set', 'campaignSource', '{{ request.session.widget_host_url }}');
+      ga('set', 'campaignMedium', 'widget');
+  }
+  else if (reg_source != '') {
+      ga('set', 'campaignContent', reg_source);
+      ga('set', 'campaignSource', reg_source);
+      ga('set', 'campaignMedium', 'email');
+  }
 
 </script>
 
