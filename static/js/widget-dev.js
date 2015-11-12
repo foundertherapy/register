@@ -19,7 +19,7 @@ function closeOrganizeIframe() {
 
     var linkTag = document.createElement('link');
     linkTag.setAttribute('rel', 'stylesheet');
-    linkTag.setAttribute('href', '//s3.amazonaws.com/register-dev/static/css/modal.css');
+    linkTag.setAttribute('href', '//d1qr8e9x47knhm.cloudfront.net/static/css/modal.css');
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 
@@ -51,7 +51,7 @@ function closeOrganizeIframe() {
     organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
     organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
-    var widgetChoiceImagePath = "//s3.amazonaws.com/register-dev/static/images/" + organizeWidgetChoice + ".png";
+    var widgetChoiceImagePath = "//d1qr8e9x47knhm.cloudfront.net/static/images/widget/" + organizeWidgetChoice + ".png";
     organizeRegistrationBtnTag.innerHTML = '<img style="height: 100%;" src="' + widgetChoiceImagePath + '"/>';
 
     organizeScriptNode = document.getElementById('organize_widget_script');
