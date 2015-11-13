@@ -1,0 +1,16 @@
+{% load email %}
+
+{% subject %}
+[REGISTER] New Widget: {{ host_url }}
+{% endsubject %}
+
+{% body %}
+A new site signed up to use Widget Registration.
+
+UUID: {{ uuid }}
+Contact Name: {{ contact_name }}
+Contact Email: {{ contact_email }}
+Host URL: {{ host_url }}
+
+{{ widget_url }}
+{% endbody %}

@@ -11,6 +11,7 @@ MAILGUN_HEADERS_NO_TRACK = {
     'X-Mailgun-Track': 'no',
 }
 
+
 def send_admin_cobrand_register(cobrand_company):
     context = {
         'company_name': cobrand_company.company_name,
@@ -26,8 +27,6 @@ def send_admin_cobrand_register(cobrand_company):
 
 
 def send_cobrand_company_register_success(cobrand_company):
-    # this is also known as "Email A"
-    # Send 30 minutes after a user starts registering, but then doesn't complete
     context = {
         'company_name': cobrand_company.company_name,
         'contact_email': cobrand_company.contact_email,

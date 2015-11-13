@@ -1,0 +1,18 @@
+{% load email %}
+{% load url_extras %}
+
+{% subject %}
+Thanks for setting up your ORGANIZE Giving Tuesday Embedded Registration for your website!
+{% endsubject %}
+
+{% body %}
+{{ contact_name }},
+
+You've now received your button for your very own pop-up to register people to be organ donors. If you want to adjust any settings, click the link below to generate updated code to insert into the HTML code on your site:
+
+{{ widget_url }}
+
+Thank you in advance for your support around Giving Tuesday, this December 1st. Any additional outreach you can provide would be greatly appreciated. We'll circle back with results.
+
+The ORGANIZE Team
+{% endbody %}
