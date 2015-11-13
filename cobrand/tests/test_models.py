@@ -22,7 +22,7 @@ class CobrandCompanyTestCase(TestCase):
         cobrand_company = models.CobrandCompany(company_name='Test. Company, Ltd', contact_email='a@a.com', contact_name='test user')
         cobrand_company.save()
         self.assertEqual(cobrand_company.slug, 'test-company-ltd')
-        self.assertEqual(len(cobrand_company.uuid), 22)
+        self.assertIn(len(cobrand_company.uuid), [21, 22])
 
     def test_get_absolute_url(self):
         cobrand_company = models.CobrandCompany(company_name='Test. Company, Ltd', contact_email='a@a.com', contact_name='test user')

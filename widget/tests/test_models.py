@@ -19,7 +19,7 @@ class WidgetHostTestCase(TestCase):
         # ensure uuid is filled on save
         widget_host = models.WidgetHost(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
         widget_host.save()
-        self.assertEqual(len(widget_host.uuid), 22)
+        self.assertIn(len(widget_host.uuid), [21, 22])
 
     def test_get_absolute_url(self):
         widget_host = models.WidgetHost(contact_email='a@a.com', contact_name='test user', host_url='http://localhost')
