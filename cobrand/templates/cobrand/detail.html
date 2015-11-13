@@ -14,44 +14,47 @@
 
 
 <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
-</div>
-
-<div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
-        <p class="lead text-center">
+        <p class="lead">
             {% blocktrans trimmed %}
-                This is your custom link to send out to your team:
+                YOUR LINK:
             {% endblocktrans %}
         </p>
-        <p class="lead text-center">
+        <p class="lead">
             {% blocktrans trimmed %}
                 <form>
                     <input id="redirect_url" type="text" class="form-control input-lg" value="{{ company_redirect_url }}"></input>
                 </form>
             {% endblocktrans %}
         </p>
-        <p class="lead text-center">
+        <p class="lead">
             {% blocktrans trimmed %}
-                We&rsquo;ll tally up your registrations and let you know just how many lives you may have potentially saved. If you plan on sending this out to your team, we recommend you use the email copy below, but feel free to change it up to make it your own.
+                We&rsquo;ll let you know how many registrations you helped collect.
             {% endblocktrans %}
         </p>
 
-        <p class="lead text-center">
-            {% blocktrans trimmed %}
-                <div class="well well-lg">
-                    <p>Hi Everyone,</p>
+    <div class="panel panel-default panel-danger">
+        <div class="panel-heading lead">
+            Here is some sample copy to use in an email:
+        </div>
+        <div class="panel-body">
+            <p class="lead">Since today is <a href="http://www.givingtuesday.com/">Giving Tuesday</a> {{ object.company_name }} thought this would be a great opportunity to offer you a way to give back for free by <a href="{{ company_redirect_url }}">REGISTERING TO BE AN ORGAN DONOR</a>.</p>
 
-                    <p>We&rsquo;ve recently partnered with <a href="http://www.organize.org">ORGANIZE</a>, an amazing non-profit working to solve the organ donation crisis in the U.S.  Seeing as today is <a href="http://givingtuesday.org">Giving Tuesday</a>, we thought this would be a great opportunity to offer you all a way to give back at no cost: by registering to be an organ donor.</p>
+            <p class="lead">Take 47 seconds to register to be an ORGAN DONOR.</p>
 
-                    <p></p>It’s quick and easy and very impactful.</p>
+            <p class="lead">You are six times more likely to need an organ than become a donor. Be a part of GivingTuesday and <a href="{{ company_redirect_url }}">REGISTER HERE</a> to save up to eight lives.</p>
 
-                    <p>Just follow the link and you&rsquo;ll be well on your way to supporting a great organization and an even better cause!</p>
+            <p class="lead">If you&rsquo;ve already gone through the process at your state&rsquo;s DMV (sorry, that must have been rough), please consider <a href="{{ company_redirect_url }}">REGISTERING</a> again to make sure your registration will be searchable even outside of your current state of residence.</p>
 
-                    <p><a href="{{ company_redirect_url }}">{{ company_redirect_url }}</a></p>
-                </div>
-            {% endblocktrans %}
-        </p>
+            <p class="lead">Thank you for giving back,</p>
+
+            <p class="lead">ORGANIZE and {{ object.company_name }}</p>
+
+            <hr/>
+
+            <p class="lead">ORGANIZE is a new 501(c)3 non-profit modernizing the organ donation system, and built the country&rsquo;s first ever central donor registry. Our goal is to solve the organ donation crisis in the next three years and then to shut our doors completely.</p>
+
+        </div>
     </div>
 
     <div class="visible-xs col-lg-3 col-md-4 col-sm-5 col-xs-12">&nbsp;</div>

@@ -340,9 +340,6 @@ BOOTSTRAP3 = {
 
 }
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
 EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', 'localhost')
 EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
 EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
