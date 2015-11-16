@@ -82,12 +82,13 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def submit_email(self, email, postal_code):
+    def submit_email(self, email, postal_code, external_source_data):
         url = ''.join([self.scheme, self.endpoint, self.submit_email_path, ])
         data = {
             'email': email,
             'postal_code': unicode(postal_code),
-            'source_url': self.source_url
+            'source_url': self.source_url,
+            'external_source_data': external_source_data,
         }
         try:
             r = requests.post(url, headers=self._headers, data=data)
@@ -118,9 +119,10 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def register(self, **data):
+    def register(self, external_source_data, **data):
         url = ''.join([self.scheme, self.endpoint, self.register_path, ])
         data['source_url'] = self.source_url
+        data['external_source_data'] = external_source_data
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
@@ -149,9 +151,10 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def revoke(self, **data):
+    def revoke(self, external_source_data, **data):
         url = ''.join([self.scheme, self.endpoint, self.revoke_path, ])
         data['source_url'] = self.source_url
+        data['external_source_data'] = external_source_data
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:

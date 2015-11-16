@@ -84,6 +84,16 @@ def clean_widget_session(session):
     return session
 
 
+def get_external_source_data(session):
+    external_source_data = {}
+    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID,
+                SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, SESSION_REG_SOURCE, ):
+        if key in session:
+            external_source_data[key] = session[key]
+
+    return external_source_data
+
+
 class UserCheckMixin(object):
     user_check_failure_path = ''  # can be path, url name or reverse_lazy
 
@@ -201,7 +211,7 @@ class StateLookupView(MinorRestrictedMixin, ExternalSourceCheckMixin, django.vie
         email = form.cleaned_data['email']
 
         try:
-            FIFTYTHREE_CLIENT.submit_email(email, postal_code)
+            FIFTYTHREE_CLIENT.submit_email(email, postal_code, get_external_source_data(self.request.session))
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
                 form.add_error('email', _(e.message))
@@ -318,7 +328,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
     def submit_registration(self, data):
         try:
-            FIFTYTHREE_CLIENT.register(**data)
+            FIFTYTHREE_CLIENT.register(get_external_source_data(self.request.session), **data)
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
             return e.errors.items()
@@ -615,7 +625,7 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 
     def submit_deregistration(self, data):
         try:
-            FIFTYTHREE_CLIENT.revoke(**data)
+            FIFTYTHREE_CLIENT.revoke(get_external_source_data(self.request.session), **data)
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
             return e.errors.items()
