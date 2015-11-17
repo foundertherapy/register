@@ -410,9 +410,11 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         self.storage.reset()
         # also clean out the session
         clean_session(self.request.session)
-        clean_cobrand_session(self.request.session)
-        clean_widget_session(self.request.session)
-        clean_email_source_session(self.request.session)
+        # I Don't think we need to clear those session values on registration done, as it is going to be cleared on the
+        # next visit for Start page anyways.
+        # clean_cobrand_session(self.request.session)
+        # clean_widget_session(self.request.session)
+        # clean_email_source_session(self.request.session)
         return done_response
 
     def done(self, form_list, **kwargs):
