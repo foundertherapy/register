@@ -86,8 +86,7 @@ def clean_widget_session(session):
 
 def get_external_source_data(session):
     external_source_data = {}
-    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID,
-                SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, SESSION_REG_SOURCE, ):
+    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, SESSION_REG_SOURCE, ):
         if key in session:
             external_source_data[key] = session[key]
 
@@ -139,8 +138,6 @@ class ExternalSourceCheckMixin(object):
             clean_cobrand_session(request.session)
             clean_widget_session(request.session)
             request.session[SESSION_REG_SOURCE] = reg_source
-        else:
-            clean_widget_session(request.session)
 
         return super(ExternalSourceCheckMixin, self).dispatch(request, *args, **kwargs)
 

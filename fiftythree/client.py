@@ -88,7 +88,11 @@ class FiftyThreeClient(object):
             'email': email,
             'postal_code': unicode(postal_code),
             'source_url': self.source_url,
-            'external_source_data': external_source_data,
+            'cobrand_id': external_source_data.get('cobrand_id'),
+            'cobrand_company_name': external_source_data.get('cobrand_company_name'),
+            'widget_id': external_source_data.get('widget_id'),
+            'widget_host_url': external_source_data.get('widget_host_url'),
+            'reg_source': external_source_data.get('reg_source'),
         }
         try:
             r = requests.post(url, headers=self._headers, data=data)
@@ -122,7 +126,11 @@ class FiftyThreeClient(object):
     def register(self, external_source_data, **data):
         url = ''.join([self.scheme, self.endpoint, self.register_path, ])
         data['source_url'] = self.source_url
-        data['external_source_data'] = external_source_data
+        data['cobrand_id'] = external_source_data.get('cobrand_id')
+        data['cobrand_company_name'] = external_source_data.get('cobrand_company_name')
+        data['widget_id'] = external_source_data.get('widget_id')
+        data['widget_host_url'] = external_source_data.get('widget_host_url')
+        data['reg_source'] = external_source_data.get('reg_source')
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
@@ -154,7 +162,11 @@ class FiftyThreeClient(object):
     def revoke(self, external_source_data, **data):
         url = ''.join([self.scheme, self.endpoint, self.revoke_path, ])
         data['source_url'] = self.source_url
-        data['external_source_data'] = external_source_data
+        data['cobrand_id'] = external_source_data.get('cobrand_id')
+        data['cobrand_company_name'] = external_source_data.get('cobrand_company_name')
+        data['widget_id'] = external_source_data.get('widget_id')
+        data['widget_host_url'] = external_source_data.get('widget_host_url')
+        data['reg_source'] = external_source_data.get('reg_source')
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
