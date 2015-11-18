@@ -11,14 +11,16 @@ import django.http
 import django.shortcuts
 import django.views.generic.edit
 import django.forms
+import django.utils
 from django.conf import settings
 from django.contrib.formtools.wizard.forms import ManagementForm
 from django.contrib.formtools.wizard.storage import get_storage
 from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
-from django.utils.translation import ugettext
+from django.utils.translation import (ugettext, activate, )
 from django.utils.translation import ugettext_lazy as _
 
 import dateutil.parser
+import urlparse
 
 import cobrand.models
 import widget.models
@@ -362,7 +364,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             # there is an error submitting the data, so pull the error data and
             # set the appropriate error on the form
             # call ugettext on the list of errors for each
-            api_errors = {a: [ugettext(c) for c in b]
+            api_errors = {a: [django.utils.translation.ugettext(c) for c in b]
                           for a, b in api_errors.items()}
             logger.error('Received API errors for postal_code {}: {}'.format(
                 data['postal_code'], api_errors))
@@ -591,7 +593,7 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                 if 'Minors cannot register.' in non_field_errors:
                     return self.render_restricted_minor_registration()
 
-            api_errors = {a: [ugettext(c) for c in b]
+            api_errors = {a: [django.utils.translation.ugettext(c) for c in b]
                           for a, b in api_errors.items()}
             logger.error(
                 'Received API errors for registration: {}'.format(api_errors))
