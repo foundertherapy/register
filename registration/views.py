@@ -138,6 +138,10 @@ class ExternalSourceCheckMixin(object):
             clean_cobrand_session(request.session)
             clean_widget_session(request.session)
             request.session[SESSION_REG_SOURCE] = reg_source
+        else:
+            # Clean widget session only if no external source params exist in the URL, because widget params are the only that we
+            # don't want to keep for returning users, unless widget_id is in the URL.
+            clean_widget_session(request.session)
 
         return super(ExternalSourceCheckMixin, self).dispatch(request, *args, **kwargs)
 
