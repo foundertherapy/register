@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+{% load get_static_prefix from static %}
 {% load bootstrap3 %}
+
+
+{% block title %}Thanks for Signing Up for an Embedded Registration Button!{% endblock %}
 
 
 {% block content %}
@@ -73,7 +77,7 @@
                   "<div style=\"height: " + imgHeight + "px;\"><script id=\"organize_widget_script\">" +
                   "var organizeWidgetId=\"{{ uuid }}\"; var organizeWidgetChoice=\"" + widgetChoice + "\"; " +
                   "!function(){var t=document.createElement(\"script\"); " +
-                  "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\"); " +
+                  "t.setAttribute(\"src\", \"{% get_static_prefix %}js/widget.js\"); " +
                   "var e=document.getElementById(\"organize_widget_script\"); " +
                   "r=e.parentNode; " +
                   "r.insertBefore(t,e)}();<\/script><\/div>");
