@@ -93,6 +93,7 @@ class FiftyThreeClient(object):
             'widget_id': external_source_data.get('widget_id'),
             'widget_host_url': external_source_data.get('widget_host_url'),
             'reg_source': external_source_data.get('reg_source'),
+            'variant_id': external_source_data.get('variant_id'),
         }
         try:
             r = requests.post(url, headers=self._headers, data=data)
@@ -131,6 +132,7 @@ class FiftyThreeClient(object):
         data['widget_id'] = external_source_data.get('widget_id')
         data['widget_host_url'] = external_source_data.get('widget_host_url')
         data['reg_source'] = external_source_data.get('reg_source')
+        data['variant_id'] = external_source_data.get('variant_id')
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
@@ -167,6 +169,7 @@ class FiftyThreeClient(object):
         data['widget_id'] = external_source_data.get('widget_id')
         data['widget_host_url'] = external_source_data.get('widget_host_url')
         data['reg_source'] = external_source_data.get('reg_source')
+        data['variant_id'] = external_source_data.get('variant_id')
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:

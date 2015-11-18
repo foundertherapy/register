@@ -44,6 +44,7 @@ SESSION_COBRAND_ACTIVE = 'cobrand_active'
 SESSION_WIDGET_ID = 'widget_id'
 SESSION_WIDGET_HOST_URL = 'widget_host_url'
 SESSION_REG_SOURCE = 'reg_source'
+SESSION_VARIANT_ID = 'variant_id'
 
 COOKIE_MINOR = 'register_minor'
 
@@ -65,8 +66,9 @@ def clean_session(session):
 
 
 def clean_email_source_session(session):
-    if SESSION_REG_SOURCE in session:
-        del session[SESSION_REG_SOURCE]
+    for key in (SESSION_REG_SOURCE, SESSION_VARIANT_ID, ):
+        if key in session:
+            del session[key]
     return session
 
 
@@ -86,7 +88,8 @@ def clean_widget_session(session):
 
 def get_external_source_data(session):
     external_source_data = {}
-    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, SESSION_REG_SOURCE, ):
+    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, SESSION_REG_SOURCE,
+                SESSION_VARIANT_ID, ):
         if key in session:
             external_source_data[key] = session[key]
 
@@ -113,6 +116,7 @@ class ExternalSourceCheckMixin(object):
         cobrand_id = request.GET.get('cobrand_id')
         widget_id = request.GET.get('widget_id')
         reg_source = request.GET.get('reg_source')
+        variant_id = request.GET.get('variant_id')
 
         if cobrand_id:
             try:
@@ -138,6 +142,7 @@ class ExternalSourceCheckMixin(object):
             clean_cobrand_session(request.session)
             clean_widget_session(request.session)
             request.session[SESSION_REG_SOURCE] = reg_source
+            request.session[SESSION_VARIANT_ID] = variant_id
         else:
             # Clean widget session only if no external source params exist in the URL, because widget params are the only that we
             # don't want to keep for returning users, unless widget_id is in the URL.

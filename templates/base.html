@@ -129,6 +129,7 @@
   var cobrand_id = '{{ request.session.cobrand_id }}';
   var widget_id = '{{ request.session.widget_id }}';
   var reg_source = '{{ request.session.reg_source }}';
+  var variant_id = '{{ request.session.variant_id }}';
   if (cobrand_id != '') {
       ga('set', 'campaignContent', cobrand_id);
       ga('set', 'campaignSource', '{{ request.session.cobrand_company_name }}');
@@ -140,7 +141,7 @@
       ga('set', 'campaignMedium', 'widget');
   }
   else if (reg_source != '') {
-      ga('set', 'campaignContent', reg_source);
+      ga('set', 'campaignContent', variant_id);
       ga('set', 'campaignSource', reg_source);
       ga('set', 'campaignMedium', 'email');
   }
