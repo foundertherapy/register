@@ -136,7 +136,7 @@ msgstr "Español"
 #: templates/formtools/wizard/wizard_form.html:20
 #: templates/registration/legal_document.html:15
 #, python-format
-msgid "%(title)s"
+msgid "k%(title)s"
 msgstr "%(title)s"
 
 #: templates/formtools/wizard/wizard_form.html:48
@@ -185,8 +185,8 @@ msgstr "¡Gracias!"
 
 #: templates/registration/done.html:22
 msgid ""
-"You're amazing and officially one of our favorite people on the internet, "
-"but you’re not quite done&ellip;"
+"You&rsquo;re amazing and officially one of our favorite people on the internet, "
+"but you&rsquo;re not quite done&hellip;"
 msgstr ""
 
 #: templates/registration/done.html:27
@@ -315,12 +315,6 @@ msgstr ""
 "Life, así que usted tendrá que cancelar su registro estatal de manera "
 "separada, de lo contrario ellos tendrán su información de registro previo "
 "como su más reciente indicación de los deseos del donador."
-
-#: templates/registration/start.html:16
-#, fuzzy, python-format
-#| msgid "%(title)s"
-msgid "%(title)s"
-msgstr "%(title)s"
 
 #: templates/registration/start.html:39
 msgid "Cancel"
