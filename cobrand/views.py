@@ -12,7 +12,6 @@ import django.shortcuts
 import django.views.generic.edit
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-from django.utils.translation import ugettext_lazy as _
 
 from PIL import Image, ImageFile
 
@@ -34,7 +33,7 @@ class CobrandCompanyCreateView(django.views.generic.edit.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CobrandCompanyCreateView, self).get_context_data(**kwargs)
-        context['title'] = _('Giving Tuesday Branded Registry')
+        context['title'] = 'Giving Tuesday Branded Registry'
         return context
 
     def get_success_url(self):
@@ -75,7 +74,7 @@ class CobrandCompanyDetailView(django.views.generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CobrandCompanyDetailView, self).get_context_data(**kwargs)
-        context['title'] = _('Thanks for Signing Up for a Branded Registry Page!')
+        context['title'] = 'Thanks for Signing Up for a Branded Registry Page!'
 
         parsed_url = urlparse.urlparse(self.request.build_absolute_uri())
         protocol = parsed_url.scheme

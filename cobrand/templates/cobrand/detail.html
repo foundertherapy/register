@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load i18n %}
 {% load staticfiles %}
 {% load bootstrap3 %}
 
@@ -7,50 +6,39 @@
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+        <p class="lead">YOUR LINK:</p>
         <p class="lead">
-            {% blocktrans trimmed %}
-                YOUR LINK:
-            {% endblocktrans %}
+            <form>
+                <input id="redirect_url" type="text" class="form-control input-lg" value="{{ company_redirect_url }}"></input>
+            </form>
         </p>
-        <p class="lead">
-            {% blocktrans trimmed %}
-                <form>
-                    <input id="redirect_url" type="text" class="form-control input-lg" value="{{ company_redirect_url }}"></input>
-                </form>
-            {% endblocktrans %}
-        </p>
-        <p class="lead">
-            {% blocktrans trimmed %}
-                We&rsquo;ll let you know how many registrations you helped collect.
-            {% endblocktrans %}
-        </p>
+        <p class="lead">We&rsquo;ll let you know how many registrations you helped collect.</p>
 
-    <div class="panel panel-default panel-danger">
-        <div class="panel-heading lead">
-            Here is some sample copy to use in an email:
-        </div>
-        <div class="panel-body">
-            <p class="lead">Since today is <a href="http://www.givingtuesday.com/">Giving Tuesday</a> {{ object.company_name }} thought this would be a great opportunity to offer you a way to give back for free by <a href="{{ company_redirect_url }}">REGISTERING TO BE AN ORGAN DONOR</a>.</p>
+        <div class="panel panel-default panel-danger">
+            <div class="panel-heading lead">
+                Here is some sample copy to use in an email:
+            </div>
+            <div class="panel-body">
+                <p class="lead">Since today is <a href="http://www.givingtuesday.com/">Giving Tuesday</a> {{ object.company_name }} thought this would be a great opportunity to offer you a way to give back for free by <a href="{{ company_redirect_url }}">REGISTERING TO BE AN ORGAN DONOR</a>.</p>
 
-            <p class="lead">Take 47 seconds to register to be an ORGAN DONOR.</p>
+                <p class="lead">Take 47 seconds to register to be an ORGAN DONOR.</p>
 
-            <p class="lead">You are six times more likely to need an organ than become a donor. Be a part of GivingTuesday and <a href="{{ company_redirect_url }}">REGISTER HERE</a> to save up to eight lives.</p>
+                <p class="lead">You are six times more likely to need an organ than become a donor. Be a part of GivingTuesday and <a href="{{ company_redirect_url }}">REGISTER HERE</a> to save up to eight lives.</p>
 
-            <p class="lead">If you&rsquo;ve already gone through the process at your state&rsquo;s DMV (sorry, that must have been rough), please consider <a href="{{ company_redirect_url }}">REGISTERING</a> again to make sure your registration will be searchable even outside of your current state of residence.</p>
+                <p class="lead">If you&rsquo;ve already gone through the process at your state&rsquo;s DMV (sorry, that must have been rough), please consider <a href="{{ company_redirect_url }}">REGISTERING</a> again to make sure your registration will be searchable even outside of your current state of residence.</p>
 
-            <p class="lead">Thank you for giving back,</p>
+                <p class="lead">Thank you for giving back,</p>
 
-            <p class="lead">ORGANIZE and {{ object.company_name }}</p>
+                <p class="lead">ORGANIZE and {{ object.company_name }}</p>
 
-            <hr/>
+                <hr/>
 
-            <p class="lead">ORGANIZE is a new 501(c)3 non-profit modernizing the organ donation system, and built the country&rsquo;s first ever central donor registry. Our goal is to solve the organ donation crisis in the next three years and then to shut our doors completely.</p>
+                <p class="lead">ORGANIZE is a new 501(c)3 non-profit modernizing the organ donation system, and built the country&rsquo;s first ever central donor registry. Our goal is to solve the organ donation crisis in the next three years and then to shut our doors completely.</p>
 
+            </div>
         </div>
     </div>
-
     <div class="visible-xs col-lg-3 col-md-4 col-sm-5 col-xs-12">&nbsp;</div>
-
 </div>
 
 {% endblock %}

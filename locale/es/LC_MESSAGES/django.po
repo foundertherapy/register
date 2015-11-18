@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-07 22:04+0000\n"
+"POT-Creation-Date: 2015-11-18 04:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: registration/forms.py:25
+#: registration/forms.py:30
 msgid "Enter a valid postal code consisting 5 numbers."
 msgstr "Introduzca un código postal válido, de 5 números."
 
-#: registration/forms.py:30
+#: registration/forms.py:34 templates/formtools/wizard/wizard_form.html:71
+msgid "Male"
+msgstr "Hombre"
+
+#: registration/forms.py:35 templates/formtools/wizard/wizard_form.html:71
+msgid "Female"
+msgstr "Femenino"
+
+#: registration/forms.py:40 registration/forms.py:247
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: registration/forms.py:32
+#: registration/forms.py:42 registration/forms.py:255
 msgid "Postal Code"
 msgstr "Código Postal"
 
-#: registration/forms.py:34
+#: registration/forms.py:44
 msgid ""
 "Your zip will determine which series of state-based requirements will be "
 "provided in the next series of steps."
@@ -38,79 +46,92 @@ msgstr ""
 "Tu código postal determinará la serie de requisitos estatales que te "
 "mostraremos en los próximos pasos."
 
-#: registration/forms.py:57
+#: registration/forms.py:67 registration/forms.py:292
 msgid "Enter a valid email."
 msgstr "Introduzca una dirección de correo electrónico válida."
 
-#: registration/forms.py:76
+#: registration/forms.py:86
 msgid "Enter an accurate birthdate."
 msgstr "Ingrese una fecha de cumpleaños precisa."
 
-#: registration/forms.py:89
+#: registration/forms.py:99
 msgid "Enter an accurate phone number including area code."
 msgstr "Introduzca un número de teléfono exacta incluyendo código de área."
 
-#: registration/forms.py:99
+#: registration/forms.py:109
 msgid "Enter the last 4 digits of your social security number."
 msgstr "Ingresa los últimos 4 dígitos de su número de seguro social."
 
-#: registration/forms.py:103
+#: registration/forms.py:113
 msgid "Enter only digits."
 msgstr "Ingrese sólo dígitos."
 
-#: registration/forms.py:113
+#: registration/forms.py:123
 #, python-format
 msgid "Date must be later than %(date)s."
 msgstr "Por favor elija una fecha posterior a %(date)s."
 
-#: registration/views.py:116
+#: registration/forms.py:249
+msgid "First Name"
+msgstr "Primer Nombre"
+
+#: registration/forms.py:251
+msgid "Middle Name"
+msgstr "Segundo Nombre"
+
+#: registration/forms.py:253
+msgid "Last Name"
+msgstr "Apellido"
+
+#: registration/forms.py:258
+msgid "Gender"
+msgstr "Género"
+
+#: registration/forms.py:261
+msgid "Birthdate"
+msgstr "Fecha de nacimiento"
+
+#: registration/forms.py:265
+msgid ""
+"In order to revoke my organ and tissue donation status through Organize, I "
+"agree to ORGANIZE&rsquo;s <a href=\"http://register.organize.org/terms-of-"
+"service/\">Terms of Service</a> and <a href=\"http://register.organize.org/"
+"privacy-policy/\">Privacy Policy</a>."
+msgstr ""
+"Con el fin de revocar mi estado donación de órganos y tejidos a través "
+"ORGANIZE, estoy de acuerdo de que <a href=\"http://register.organize.org/"
+"terms-of-service/\">Términos de Servicio</a> y <a href=\"http://register."
+"organize.org/privacy-policy/\">Política de Privacidad</a> de ORGANIZE."
+
+#: registration/views.py:187
+#, fuzzy
+#| msgid "Update registration"
+msgid "Update your registration"
+msgstr "Actualización de registro"
+
+#: registration/views.py:189
+msgid "Let&rsquo;s Begin..."
+msgstr "Empecemos..."
+
+#: registration/views.py:233
 msgid "Unknown state registration configuration"
 msgstr ""
 
-#: registration/views.py:328
+#: registration/views.py:458
 msgid "ManagementForm data is missing or has been tampered."
 msgstr ""
 
-#: settings/base.py:76 templates/base.html:51
+#: registration/views.py:632
+msgid "Donor Registration Revocation Complete"
+msgstr ""
+
+#: settings/base.py:84 templates/base.html:66
 msgid "English"
 msgstr "Inglés"
 
-#: settings/base.py:77 templates/base.html:47
+#: settings/base.py:85 templates/base.html:62
 msgid "Spanish"
 msgstr "Español"
-
-msgid "You&rsquo;re Registered"
-msgstr "Ya estás registrado"
-
-#: templates/formtools/wizard/done.html:9
-msgid "Thank you!"
-msgstr "¡Gracias!"
-
-msgid ""
-"You&rsquo;re all set. You are now a registered organ donor. We think "
-"that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or "
-"just use modern technology:"
-msgstr ""
-"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos "
-"que es algo divertido y vale la pena compartirlo con todos por tus redes "
-"sociales."
-
-#: templates/formtools/wizard/done.html:19
-msgid ""
-"Thanks for making the decision to register as an organ and/or tissue donor. "
-"ORGANIZE is currently submitting your registration on your behalf to your "
-"state based registry. We will be in touch shortly with an update."
-msgstr ""
-"Gracias por tomar la decisión de registrarte como un donador de órganos y/o "
-"tejidos. ORGANIZE está actualmente sometiendo tu registro a tu nombre en el "
-"registro de tu estado. Estaremos en contacto contigo muy pronto con "
-"información actualizada."
-
-#: templates/formtools/wizard/done.html:24
-msgid "In the meantime tell the world you support organ donation on social:"
-msgstr ""
-"Mientras tanto dile al mundo a través de los medios sociales que apoyas la "
-"donación de órganos:"
 
 #: templates/formtools/wizard/wizard_form.html:20
 #: templates/registration/legal_document.html:15
@@ -122,23 +143,15 @@ msgstr "%(title)s"
 msgid "edit"
 msgstr "editar"
 
-#: templates/formtools/wizard/wizard_form.html:71
-msgid "Male"
-msgstr "Hombre"
-
-#: templates/formtools/wizard/wizard_form.html:71
-msgid "Female"
-msgstr "Femenino"
-
 #: templates/formtools/wizard/wizard_form.html:125
 #, python-format
 msgid "%(legend)s"
-msgstr ""
+msgstr "%(legend)s"
 
 #: templates/formtools/wizard/wizard_form.html:129
 #, python-format
 msgid "%(description)s"
-msgstr ""
+msgstr "%(description)s"
 
 #: templates/formtools/wizard/wizard_form.html:154
 msgid "Back"
@@ -152,17 +165,174 @@ msgstr "Regístrate"
 msgid "Next"
 msgstr "Seguir"
 
+#: templates/registration/coming_soon_campaign.html:10
+#: templates/registration/coming_soon_email.html:10
+msgid "Coming Soon"
+msgstr ""
+
+#: templates/registration/coming_soon_campaign.html:22
+#: templates/registration/coming_soon_email.html:22
+msgid ""
+"We're building out this super rad feature, but it's just not quite done yet. "
+"We'll let you know as soon as it is!"
+msgstr ""
+
+#: templates/registration/done.html:10
+#: templates/registration/revoke_done.html:15
+#: templates/registration/update_done.html:9
+msgid "Thank you!"
+msgstr "¡Gracias!"
+
+#: templates/registration/done.html:22
+msgid ""
+"You're amazing and officially one of our favorite people on the internet, "
+"but you’re not quite done&ellip;"
+msgstr ""
+
+#: templates/registration/done.html:27
+msgid ""
+"It&rsquo;s super important that your friends and fam know that you want to "
+"#DonateYourParts. Even though you registered with us, your next of kin will "
+"still be asked to support your decision. Letting them know what you’ve "
+"decided now makes it SO much easier for them."
+msgstr ""
+
+#: templates/registration/done.html:39
+#: templates/registration/register_minor.html:35
+#: templates/registration/update_choice.html:28
+#: templates/registration/update_done.html:35
+msgid "or"
+msgstr "o"
+
+#: templates/registration/done.html:44
+#: templates/registration/register_minor.html:40
+#: templates/registration/update_done.html:40
+msgid "<a href=\"/coming-soon-campaign\">Start Your Own Campaign</a>"
+msgstr ""
+
+#: templates/registration/done.html:50
+#, fuzzy
+#| msgid ""
+msgid ""
+"Your donor wishes have been recorded. ORGANIZE retains a copy of your entire "
+"registry history for record keeping purposes, but this, most recent decision "
+"will supersede any previous registration decisions you have made with us."
+msgstr ""
+"Gracias! Sus deseos de los donantes han sido actualizados. ORGANIZAR "
+"conserva una copia de su historial de registro con fines de mantenimiento de "
+"registros, pero esto, la decisión más reciente sustituirá a cualquier "
+"decisión de registro anteriores que ha realizado."
+
 #: templates/registration/legal_document.html:21
 msgid "Last modified"
 msgstr ""
 
-#: templates/registration/start.html:15
-msgid "Let&rsquo;s Begin..."
-msgstr "Empecemos..."
+#: templates/registration/register_minor.html:9
+msgid "Bust!"
+msgstr "¡CAISTE!"
 
-#: templates/registration/start.html:45
+#: templates/registration/register_minor.html:19
+msgid ""
+"Looks like you&rsquo;re underage, which means you can&rsquo;t legally "
+"register to be an organ donor. Argh."
+msgstr ""
+"Parece que eres menor de edad, lo que significa que no puedes registrarte "
+"legalmente para ser un donador de órganos. Grrrr."
+
+#: templates/registration/register_minor.html:24
+msgid ""
+"In the meantime, please email your family/besties to tell them you want to "
+"be an organ donor and scream it from the mountaintops (or just on social, "
+"you know the drill)."
+msgstr ""
+"Mientras tanto por favor envía un correo electrónico a tu familia/amigos "
+"para decirles que quieres ser un donador de órganos y grítalo desde lo alto "
+"de la montaña (o solo a través de los medios sociales, ya sabes que hacer)."
+
+#: templates/registration/revoke.html:15
+msgid "Revoke my registration from the ORGANIZE Registry"
+msgstr "Revoque mi registro de la base de datos de ORGANIZE"
+
+#: templates/registration/revoke.html:30
+msgid "Revoke my registration"
+msgstr "Revocar el registro de mi"
+
+#: templates/registration/revoke.html:37
+msgid ""
+"This does <b>not</b> revoke your registration from your state registry. To "
+"revoke your registration from your own state registry, you must do so "
+"directly through their online portal."
+msgstr ""
+"Esto <b>no revoca</b> su inscripción de su registro estatal. Para revocar su "
+"registro de su propio registro estatal, debe hacerlo directamente a través "
+"de su portal en línea."
+
+#: templates/registration/revoke_done.html:26
+#, python-format
+msgid ""
+"Revoking your decision will de-register you only from the ORGANIZE registry, "
+"and it is important that you de-register yourself from the <a href=\"%(url)s"
+"\">appropriate Donate Life state registry as well</a>. When you registered "
+"through ORGANIZE, we created a registration for you in our database, as well "
+"as a duplicate registration in your state registry. However, for a de-"
+"registration, ORGANIZE only has the ability to do that in our own registry, "
+"not in any Donate Life state registry, so you must also separately de-"
+"register in your state registry otherwise they may still have your previous "
+"donor registration as their most recent indication of your donor wishes."
+msgstr ""
+"Al revocar su decisión usted cancelará solamente su información de la base "
+"de datos de ORGANIZE, y es importante que usted cancele su registro de <a "
+"href=\"%(url)s\">la lista estatal de Donate Life también</a>. Cuando usted "
+"se registró a través ORGANIZE, nosotros creamos un registro para usted en "
+"nuestra base de datos, así como un duplicado de su registro en la base de "
+"datos del estado. Sin embargo, para cancelar su registro, ORGANIZE sólo "
+"tiene la capacidad de hacerlo en nuestro propio registro, no en los "
+"registros del estado Donate Life, así que usted tendrá que cancelar su "
+"registro estatal de manera separada, de lo contrario ellos tendrán su "
+"información de registro previo como su más reciente indicación de los deseos "
+"del donador."
+
+#: templates/registration/revoke_done.html:30
+#, fuzzy
+msgid ""
+"Revoking your decision will de-register you only from the ORGANIZE registry, "
+"and it is important that you de-register yourself from the appropriate "
+"Donate Life state registry as well. When you registered through ORGANIZE, we "
+"created a registration for you in our database, as well as a duplicate "
+"registration in your state registry. However, for a de-registration, "
+"ORGANIZE only has the ability to do that in our own registry, not in any "
+"Donate Life state registry, so you must also separately de-register in your "
+"state registry otherwise they may still have your previous donor "
+"registration as their most recent indication of your donor wishes."
+msgstr ""
+"Al revocar su decisión usted cancelará solamente su información de la base "
+"de datos de ORGANIZE, y es importante que usted cancele su registro de la "
+"lista estatal de Donate Life también. Cuando usted se registró a través "
+"ORGANIZE, nosotros creamos un registro para usted en nuestra base de datos, "
+"así como un duplicado de su registro en la base de datos del estado. Sin "
+"embargo, para cancelar su registro, ORGANIZE sólo tiene la capacidad de "
+"hacerlo en nuestro propio registro, no en los registros del estado Donate "
+"Life, así que usted tendrá que cancelar su registro estatal de manera "
+"separada, de lo contrario ellos tendrán su información de registro previo "
+"como su más reciente indicación de los deseos del donador."
+
+#: templates/registration/start.html:16
+#, fuzzy, python-format
+#| msgid "%(title)s"
+msgid "%(title)s"
+msgstr "%(title)s"
+
+#: templates/registration/start.html:39
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/registration/start.html:44
 msgid "Continue"
 msgstr "Continuar"
+
+#: templates/registration/start.html:49
+msgid "Update registration"
+msgstr "Actualización de registro"
 
 #: templates/registration/unsupported_state.html:9
 msgid "Whoops!!!"
@@ -178,26 +348,91 @@ msgstr ""
 "Parece que %(state_name)s no acepta los registros a través de ORGANIZE.Sin "
 "embargo, puedes declarar tu apoyo a las donaciones al:"
 
+#: templates/registration/update_choice.html:18
+msgid "Update Donor Wishes"
+msgstr "Actualización de los Deseos del Donador"
+
+#: templates/registration/update_choice.html:22
+msgid ""
+"To update your donor wishes, please fill out the update form in its "
+"entirety. All updated information you submit will automatically update your "
+"registration."
+msgstr ""
+"Para actualizar los deseo del donador, por favor llene la forma en su "
+"totalidad. La información más recientemente enviada actualizará "
+"automáticamente su registro."
+
+#: templates/registration/update_choice.html:33
+msgid "Revoke My Registration"
+msgstr "Revoque Mi Registro"
+
+#: templates/registration/update_choice.html:37
+msgid ""
+"If you no longer want to be an organ donor, use this form to submit your "
+"wishes."
+msgstr ""
+"Si usted ya no desea ser donador de órganos, utilice esta forma para "
+"actualizar sus deseos."
+
+#: templates/registration/update_done.html:19
+msgid ""
+"Thank you! Your donor wishes have been updated. ORGANIZE retains a copy of "
+"your entire registry history for record keeping purposes, but this, most "
+"recent decision will supersede any previous registration decisions you have "
+"made."
+msgstr ""
+"Gracias! Sus deseos de los donantes han sido actualizados. ORGANIZAR "
+"conserva una copia de su historial de registro con fines de mantenimiento de "
+"registros, pero esto, la decisión más reciente sustituirá a cualquier "
+"decisión de registro anteriores que ha realizado."
+
+#: templates/registration/update_done.html:24
+msgid "Be sure to tell the world you support organ donation on social"
+msgstr ""
+"Asegúrese de decirle al mundo que usted apoya la donación de órganos en "
+"medios sociales"
+
+#: widget/templates/widget/detail.html:11
+msgid ""
+"Select a button below to engage your audience and allow them to register as "
+"organ donors without leaving your site."
+msgstr ""
+
+msgid "You&rsquo;re Registered"
+msgstr "Ya estás registrado"
+
+msgid ""
+"You&rsquo;re all set. You are now a registered organ donor. We think "
+"that&rsquo;s pretty cool and worth shouting from the rooftops &ndash; or "
+"just use modern technology:"
+msgstr ""
+"Ya terminaste. Eres un donador de órganos registrado. Nosotros pensamos "
+"que es algo divertido y vale la pena compartirlo con todos por tus redes "
+"sociales."
+
+msgid ""
+"Thanks for making the decision to register as an organ and/or tissue "
+"donor. ORGANIZE is currently submitting your registration on your behalf "
+"to your state based registry. We will be in touch shortly with an update."
+msgstr ""
+"Gracias por tomar la decisión de registrarte como un donador de órganos y/"
+"o tejidos. ORGANIZE está actualmente sometiendo tu registro a tu nombre "
+"en el registro de tu estado. Estaremos en contacto contigo muy pronto con "
+"información actualizada."
+
+msgid "In the meantime tell the world you support organ donation on social:"
+msgstr ""
+"Mientras tanto dile al mundo a través de los medios sociales que apoyas "
+"la donación de órganos:"
+
 msgid "Invalid data."
 msgstr "Información inválida."
 
 msgid "What's your Full Name?"
 msgstr "¿Cuál es tu Nombre Completo?"
 
-msgid "First Name"
-msgstr "Primer Nombre"
-
-msgid "Middle Name"
-msgstr "Segundo Nombre"
-
-msgid "Last Name"
-msgstr "Apellido"
-
 msgid "Tell us the basics..."
 msgstr "Dinos lo básico..."
-
-msgid "Gender"
-msgstr "Género"
 
 msgid "Country of Birth"
 msgstr "País de origen"
@@ -393,147 +628,6 @@ msgstr ""
 
 msgid "Minors cannot register."
 msgstr "Los menores de edad no puede registrar."
-
-msgid "Bust!"
-msgstr "¡CAISTE!"
-
-msgid ""
-"Looks like you&rsquo;re underage, which means you can&rsquo;t legally "
-"register to be an organ donor. Argh."
-msgstr ""
-"Parece que eres menor de edad, lo que significa que no puedes registrarte "
-"legalmente para ser un donador de órganos. Grrrr."
-
-msgid ""
-"In the meantime, please email your family/besties to tell them you want to "
-"be an organ donor and scream it from the mountaintops (or just on social, "
-"you know the drill)."
-msgstr ""
-"Mientras tanto por favor envía un correo electrónico a tu familia/amigos "
-"para decirles que quieres ser un donador de órganos y grítalo desde lo alto "
-"de la montaña (o solo a través de los medios sociales, ya sabes que hacer)."
-
-msgid "Update registration"
-msgstr "Actualización de registro"
-
-msgid "Update Donor Wishes"
-msgstr "Actualización de los Deseos del Donador"
-
-msgid ""
-"To update your donor wishes, please fill out the update form in its entirety. "
-"All updated information you submit will automatically update your "
-"registration."
-msgstr ""
-"Para actualizar los deseo del donador, por favor llene la forma en su "
-"totalidad. La información más recientemente enviada actualizará "
-"automáticamente su registro."
-
-msgid "or"
-msgstr "o"
-
-msgid "Revoke My Registration"
-msgstr "Revoque Mi Registro"
-
-msgid ""
-"If you no longer want to be an organ donor, use this form to submit your "
-"wishes."
-msgstr ""
-"Si usted ya no desea ser donador de órganos, utilice esta forma para "
-"actualizar sus deseos."
-
-msgid "Be sure to tell the world you support organ donation on social"
-msgstr ""
-"Asegúrese de decirle al mundo que usted apoya la donación de órganos en "
-"medios sociales"
-
-msgid "Revoke my registration from the ORGANIZE Registry"
-msgstr "Revoque mi registro de la base de datos de ORGANIZE"
-
-msgid ""
-"Revoking your decision will de-register you only from the ORGANIZE registry, "
-"and it is important that you de-register yourself from the appropriate Donate "
-"Life state registry as well. When you registered through ORGANIZE, we created "
-"a registration for you in our database, as well as a duplicate registration "
-"in your state registry.  However, for a de-registration, ORGANIZE only has "
-"the ability to do that in our own registry, not in any Donate Life state "
-"registry, so you must also separately de-register in your state registry "
-"otherwise they may still have your previous donor registration as their "
-"most recent indication of your donor wishes."
-msgstr ""
-"Al revocar su decisión usted cancelará solamente su información de la base "
-"de datos de ORGANIZE, y es importante que usted cancele su registro de la "
-"lista estatal de Donate Life también. Cuando usted se registró a través "
-"ORGANIZE, nosotros creamos un registro para usted en nuestra base de datos, "
-"así como un duplicado de su registro en la base de datos del estado. Sin "
-"embargo, para cancelar su registro, ORGANIZE sólo tiene la capacidad de "
-"hacerlo en nuestro propio registro, no en los registros del estado Donate "
-"Life, así que usted tendrá que cancelar su registro estatal de manera "
-"separada, de lo contrario ellos tendrán su información de registro previo "
-"como su más reciente indicación de los deseos del donador."
-
-msgid ""
-"Revoking your decision will de-register you only from the ORGANIZE registry, "
-"and it is important that you de-register yourself from the <a href=\"%(url)s"
-"\">appropriate Donate Life state registry as well</a>. When you registered "
-"through ORGANIZE, we created a registration for you in our database, as well "
-"as a duplicate registration in your state registry. However, for a de-"
-"registration, ORGANIZE only has the ability to do that in our own registry, "
-"not in any Donate Life state registry, so you must also separately de-"
-"register in your state registry otherwise they may still have your previous "
-"donor registration as their most recent indication of your donor wishes."
-msgstr ""
-"Al revocar su decisión usted cancelará solamente su información de la base "
-"de datos de ORGANIZE, y es importante que usted cancele su registro de "
-"<a href=\"%(url)s\">la lista estatal de Donate Life también</a>. "
-"Cuando usted se registró a través "
-"ORGANIZE, nosotros creamos un registro para usted en nuestra base de datos, "
-"así como un duplicado de su registro en la base de datos del estado. Sin "
-"embargo, para cancelar su registro, ORGANIZE sólo tiene la capacidad de "
-"hacerlo en nuestro propio registro, no en los registros del estado Donate "
-"Life, así que usted tendrá que cancelar su registro estatal de manera "
-"separada, de lo contrario ellos tendrán su información de registro previo "
-"como su más reciente indicación de los deseos del donador."
-
-msgid "Cancel"
-msgstr "Cancelar"
-
-msgid "Birthdate"
-msgstr "Fecha de nacimiento"
-
-msgid ""
-"In order to revoke my organ and tissue donation status through Organize, "
-"I agree to ORGANIZE&rsquo;s <a href=\"http://register.organize.org/terms-"
-"of-service/\">Terms of Service</a> and <a href=\"http://register.organize"
-".org/privacy-policy/\">Privacy Policy</a>."
-msgstr ""
-"Con el fin de revocar mi estado donación de órganos y tejidos a través "
-"ORGANIZE, estoy de acuerdo de que <a href=\"http://register.organize."
-"org/terms-of-service/\">Términos de Servicio</a> y <a href=\"http://"
-"register.organize.org/privacy-policy/\">Política de Privacidad</a>"
-" de ORGANIZE."
-
-msgid "Revoke my registration"
-msgstr "Revocar el registro de mi"
-
-msgid ""
-"This does <b>not</b> revoke your registration from your state registry. "
-"To revoke your registration from your own state registry, you must do so "
-"directly through their online portal."
-msgstr ""
-"Esto <b>no revoca</b> su inscripción de su registro estatal. Para "
-"revocar su registro de su propio registro estatal, debe hacerlo directamente "
-"a través de su portal en línea."
-
-msgid ""
-"Thank you! Your donor wishes have been updated. ORGANIZE retains a copy of "
-"your entire registry history for record keeping purposes, but this, most "
-"recent decision will supersede any previous registration decisions you "
-"have made."
-msgstr ""
-"Gracias! Sus deseos de los donantes han sido actualizados. ORGANIZAR conserva "
-"una copia de su historial de registro con fines de mantenimiento de "
-"registros, pero esto, la decisión más reciente sustituirá a cualquier "
-"decisión de registro anteriores que ha realizado."
 
 msgid ""
 "Keep me updated on all things ORGANIZE. The most exciting thing to happen "

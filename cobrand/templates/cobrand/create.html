@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load i18n %}
 {% load bootstrap3 %}
 
 {% block script %}
@@ -13,32 +12,16 @@
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1>{% autoescape off %}{% blocktrans %}{{ page_title }}{% endblocktrans %}{% endautoescape %}</h1>
+        <h1>{{ page_title }}</h1>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
-        <p class="lead">
-            {% blocktrans trimmed %}
-                THANK YOU for helping with ORGANIZE save lives this Giving Tuesday!
-            {% endblocktrans %}
-        </p>
-        <p class="lead">
-            {% blocktrans trimmed %}
-                Complete the form to create a Branded Registration Site for your audience. ORGANIZE will give you a link to paste into your e-blast so we can track the number of registrations that come through your efforts.
-            {% endblocktrans %}
-        </p>
-        <p class="lead">
-            {% blocktrans trimmed %}
-                We&rsquo;re really excited, and hope you are too.
-            {% endblocktrans %}
-        </p>
-        <p class="lead">
-            {% blocktrans trimmed %}
-                Thanks again.
-            {% endblocktrans %}
-        </p>
+        <p class="lead">THANK YOU for helping with ORGANIZE save lives this Giving Tuesday!</p>
+        <p class="lead">Complete the form to create a Branded Registration Site for your audience. ORGANIZE will give you a link to paste into your e-blast so we can track the number of registrations that come through your efforts.</p>
+        <p class="lead">We&rsquo;re really excited, and hope you are too.</p>
+        <p class="lead">Thanks again.</p>
     </div>
 </div>
 
@@ -51,8 +34,7 @@
             <hr />
 
             {% buttons %}
-                <button type="submit" class="btn btn-primary btn-organize" disabled>
-                    {% blocktrans %}Submit{% endblocktrans %} &rsaquo;
+                <button type="submit" class="btn btn-primary btn-organize" disabled>Submit &rsaquo;
                 </button>
             {% endbuttons %}
         </form>

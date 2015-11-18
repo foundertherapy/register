@@ -16,19 +16,14 @@ import requests
 
 import models
 
-from django.utils.translation import ugettext_lazy as _
-
 
 logger = logging.getLogger(__name__)
-mark_safe_lazy = django.utils.functional.lazy(django.utils.safestring.mark_safe, django.utils.six.text_type)
-
-
-def get_tos_label():
-    return mark_safe_lazy(_('I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.'))
 
 
 class WidgetCreateForm(django.forms.ModelForm):
-    tos = django.forms.BooleanField(label=get_tos_label(), widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
+    tos = django.forms.BooleanField(
+        label='I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.',
+        widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
 
     class Meta:
         model = models.WidgetHost
@@ -50,4 +45,4 @@ class WidgetCreateForm(django.forms.ModelForm):
             if r.json()['is_valid']:
                 return contact_email
         logger.warning('Cannot validate email: {}'.format(r.text))
-        raise django.forms.ValidationError(_('Enter a valid email.'))
+        raise django.forms.ValidationError('Enter a valid email.')
