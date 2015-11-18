@@ -169,7 +169,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.admin',
     'djangosecure',
-    'django_coverage',
     'django_extensions',
     'waffle',
     'raven.contrib.django.raven_compat',
@@ -182,29 +181,6 @@ INSTALLED_APPS = (
     'cobrand',
     'widget',
 )
-
-
-COVERAGE_MODULE_EXCLUDES = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'djangosecure',
-    'django_coverage',
-    'django_extensions',
-    'raven.contrib.django.raven_compat',
-    'pipeline',
-    'storages',
-    'debug_toolbar',
-    'template_timings_panel',
-    'bootstrap3',
-    'form_utils',
-    'waffle',
-)
-COVERAGE_REPORT_HTML_OUTPUT_DIR = os.environ.get('CIRCLE_ARTIFACTS')
 
 RAVEN_CONFIG = {
     'dsn': os.environ.get('RAVEN_DSN'),

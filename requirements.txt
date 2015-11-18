@@ -1,5 +1,4 @@
 boto
-coverage
 django-bootstrap3
 django-debug-toolbar
 django-debug-toolbar-template-timings
@@ -12,7 +11,6 @@ django-secure
 django-sslify
 django-storages-redux
 Django==1.7.9
-django_coverage
 django-shortuuidfield
 dj-database-url
 flake8
