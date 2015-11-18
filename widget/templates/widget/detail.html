@@ -70,7 +70,7 @@
         var imgHeight = $(this).height();
         $("#widget-script").val("").delay(200).queue(function(setJSCode) {
               $("#widget-script").text(
-                  "<div style=\"height: " + imgHeight + ";\"><script id=\"organize_widget_script\">" +
+                  "<div style=\"height: " + imgHeight + "px;\"><script id=\"organize_widget_script\">" +
                   "var organizeWidgetId=\"{{ uuid }}\"; var organizeWidgetChoice=\"" + widgetChoice + "\"; " +
                   "!function(){var t=document.createElement(\"script\"); " +
                   "t.setAttribute(\"src\", \"{% static 'js/widget.js' %}\"); " +
