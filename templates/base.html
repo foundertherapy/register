@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="icon" href="/favicon.ico">
 
-        <title>ORGANIZE / {{ title|default:"Register to become an organ donor" }}</title>
+        <title>ORGANIZE / {% block title %}{{ title|default:"Register to become an organ donor" }}{% endblock title %}</title>
         {% if html_description %}
             <meta name="description" content="{{ html_description }}">
         {% endif %}
