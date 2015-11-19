@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
 import os
-import datetime
-import mock
 
 import django.test
 import django.test.utils
@@ -70,8 +68,9 @@ class CobrandCompanyCreateViewTestCase(django.test.TestCase):
             }
             r = self.client.post('/brand/', data=data)
             r = self.client.post('/brand/', data=data)
-        self.assertEqual(r.status_code, 200)
-        # make sure there's a form on this page with the right fields
-        self.assertTemplateUsed(r, 'cobrand/create.html')
-        self.assertIsInstance(r.context['form'], forms.CobrandCompanyCreateForm)
-        self.assertFormError(r, 'form', 'company_name', 'Cobrand Company with this Company name already exists.')
+        self.assertEqual(r.status_code, 302)
+
+        cobrand_company_uuid = r.url.split('/')[-2]
+        # make sure the object was properly redirected
+        cobrand_company = models.CobrandCompany.objects.get(uuid=cobrand_company_uuid)
+        self.assertEquals(cobrand_company.company_name, 'Test Company')
