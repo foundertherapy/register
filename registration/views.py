@@ -16,11 +16,9 @@ from django.conf import settings
 from django.contrib.formtools.wizard.forms import ManagementForm
 from django.contrib.formtools.wizard.storage import get_storage
 from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
-from django.utils.translation import (ugettext, activate, )
 from django.utils.translation import ugettext_lazy as _
 
 import dateutil.parser
-import urlparse
 
 import cobrand.models
 import widget.models
