@@ -16,6 +16,12 @@ function closeOrganizeIframe() {
 }
 
 (function() {
+    var isMobile = false;
+    // device detection
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || screen.width <= 480)
+    {
+        isMobile = true;
+    }
 
     var linkTag = document.createElement('link');
     linkTag.setAttribute('rel', 'stylesheet');
@@ -23,32 +29,39 @@ function closeOrganizeIframe() {
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 
+    if (isMobile == false)
+    {
+        var organizeModalDivTag = document.createElement('div');
+        organizeModalDivTag.setAttribute('id', 'organize_modal');
+        organizeModalDivTag.setAttribute('class', 'organize-modal');
 
-    var organizeModalDivTag = document.createElement('div');
-    organizeModalDivTag.setAttribute('id', 'organize_modal');
-    organizeModalDivTag.setAttribute('class', 'organize-modal');
 
+        var organizeModalContentDivTag = document.createElement('div');
+        organizeModalContentDivTag.setAttribute('class', 'organize-modal-content');
+        organizeModalContentDivTag.setAttribute('id', 'organize_modal_content');
 
-    var organizeModalContentDivTag = document.createElement('div');
-    organizeModalContentDivTag.setAttribute('class', 'organize-modal-content');
-    organizeModalContentDivTag.setAttribute('id', 'organize_modal_content');
+        var organizeModalCloseDivTag = document.createElement('div');
+        organizeModalCloseDivTag.setAttribute('onclick', 'javascript: closeOrganizeIframe()');
+        organizeModalCloseDivTag.setAttribute('class', 'organize-close');
+        organizeModalCloseDivTag.innerHTML = '&times;';
 
-    var organizeModalCloseDivTag = document.createElement('div');
-    organizeModalCloseDivTag.setAttribute('onclick', 'javascript: closeOrganizeIframe()');
-    organizeModalCloseDivTag.setAttribute('class', 'organize-close');
-    organizeModalCloseDivTag.innerHTML = '&times;';
+        organizeModalContentDivTag.appendChild(organizeModalCloseDivTag);
+        organizeModalDivTag.appendChild(organizeModalContentDivTag);
 
-    organizeModalContentDivTag.appendChild(organizeModalCloseDivTag);
-    organizeModalDivTag.appendChild(organizeModalContentDivTag);
-
-    document.getElementsByTagName('body')[0].appendChild(organizeModalDivTag);
-
-    //var organizeRegistrationDivTag = document.createElement('div');
-    //organizeRegistrationDivTag.setAttribute('id', 'organize_registration_div');
-    //organizeRegistrationDivTag.setAttribute('class', 'organize-registration-div');
+        document.getElementsByTagName('body')[0].appendChild(organizeModalDivTag);
+    }
 
     var organizeRegistrationBtnTag = document.createElement('div');
-    organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
+
+    if (isMobile == false)
+    {
+        organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
+    }
+    else
+    {
+        organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: window.open(\'https://register-dev.organize.org/?widget_id=' + organizeWidgetId + '\');');
+    }
+
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
     organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
     var widgetChoiceImagePath = "//d1qr8e9x47knhm.cloudfront.net/static/images/widget/" + organizeWidgetChoice + ".png";
