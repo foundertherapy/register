@@ -5,6 +5,7 @@ import logging
 import django.db.models
 import django.core.cache
 import django.core.urlresolvers
+import django.core.validators
 
 import shortuuidfield
 
@@ -19,7 +20,7 @@ class WidgetHost(django.db.models.Model):
     uuid = shortuuidfield.ShortUUIDField(auto=True, unique=True, db_index=True)
     contact_email = django.db.models.EmailField()
     contact_name = django.db.models.CharField(max_length=200)
-    host_url = django.db.models.URLField(max_length=255, unique=True)
+    host_url = django.db.models.CharField(validators=[django.core.validators.URLValidator()], max_length=255, unique=True)
 
     class Meta:
         verbose_name_plural = 'Widget Hosts'

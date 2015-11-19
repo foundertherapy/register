@@ -31,6 +31,16 @@ class CobrandCompanyCreateView(django.views.generic.edit.CreateView):
     template_name = 'cobrand/create.html'
     form_class = forms.CobrandCompanyCreateForm
 
+    def post(self, request, *args, **kwargs):
+        company_name = request.POST.get('company_name')
+        if company_name:
+            try:
+                cobrand_company = models.CobrandCompany.objects.get(company_name=company_name)
+                return django.shortcuts.redirect(cobrand_company.get_absolute_url())
+            except models.CobrandCompany.DoesNotExist:
+                pass
+        return super(CobrandCompanyCreateView, self).post(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(CobrandCompanyCreateView, self).get_context_data(**kwargs)
         context['title'] = 'Giving Tuesday Branded Registry'

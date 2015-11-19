@@ -11,6 +11,7 @@ import django.views.generic.edit
 
 import forms
 import emails
+import models
 
 
 logger = logging.getLogger(__name__)
@@ -19,6 +20,16 @@ logger = logging.getLogger(__name__)
 class WidgetCreateView(django.views.generic.edit.CreateView):
     template_name = 'widget/create.html'
     form_class = forms.WidgetCreateForm
+
+    def post(self, request, *args, **kwargs):
+        host_url = request.POST.get('host_url')
+        if host_url:
+            try:
+                widget_host = models.WidgetHost.objects.get(host_url=host_url)
+                return django.shortcuts.redirect(widget_host.get_absolute_url())
+            except models.WidgetHost.DoesNotExist:
+                pass
+        return super(WidgetCreateView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
         response = super(WidgetCreateView, self).form_valid(form)
