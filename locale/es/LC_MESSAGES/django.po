@@ -198,8 +198,8 @@ msgstr ""
 msgid ""
 "It&rsquo;s super important that your friends and fam know that you want to "
 "#DonateYourParts. Even though you registered with us, your next of kin will "
-"still be asked to support your decision. Letting them know what you’ve "
-"decided now makes it SO much easier for them."
+"still be asked to support your decision. Letting them know what "
+"you&rsquo;ve decided now makes it SO much easier for them."
 msgstr ""
 "Es muy importante que tus amigos y familiares sepan que tu deseas "
 "#DonateYourParts (seas un donador). Aunque ya te hayas registrado con "
@@ -215,17 +215,16 @@ msgstr "o"
 
 #: templates/registration/done.html:44
 #: templates/registration/register_minor.html:40
-#: templates/registration/update_done.html:40
+#: templates/registration/update_\done.html:40
 msgid "Start Your Own Campaign"
 msgstr "Inicia tu propia campaña"
 
 #: templates/registration/done.html:50
-#, fuzzy
-#| msgid ""
 msgid ""
-"Your donor wishes have been recorded. ORGANIZE retains a copy of your entire "
-"registry history for record keeping purposes, but this, most recent decision "
-"will supersede any previous registration decisions you have made with us."
+"Your donor wishes have been recorded. ORGANIZE retains a copy of your "
+"entire registry history for record keeping purposes, but this, most recent "
+"decision will supersede any previous registration decisions you have made "
+"with us."
 msgstr ""
 "Gracias! Sus deseos de los donantes han sido actualizados. ORGANIZAR "
 "conserva una copia de su historial de registro con fines de mantenimiento de "
@@ -394,14 +393,6 @@ msgid "Be sure to tell the world you support organ donation on social"
 msgstr ""
 "Asegúrese de decirle al mundo que usted apoya la donación de órganos en "
 "medios sociales"
-
-#: widget/templates/widget/detail.html:11
-msgid ""
-"Select a button below to engage your audience and allow them to register as "
-"organ donors without leaving your site."
-msgstr ""
-"Seleccione un botón de abajo para involucrar a tu audiencia y "
-"permitirles registrarse como donadores de órganos sin salir de tu página."
 
 msgid "You&rsquo;re Registered"
 msgstr "Ya estás registrado"
