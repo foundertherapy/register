@@ -115,15 +115,16 @@ msgstr "Empecemos..."
 
 #: registration/views.py:233
 msgid "Unknown state registration configuration"
-msgstr ""
+msgstr "Configuración de registro de estado desconocida."
 
 #: registration/views.py:458
 msgid "ManagementForm data is missing or has been tampered."
 msgstr ""
+"Los datos de la forma de administración no existen o han sido alterados."
 
 #: registration/views.py:632
 msgid "Donor Registration Revocation Complete"
-msgstr ""
+msgstr "Revocación Completa de Registro de Donador"
 
 #: settings/base.py:84 templates/base.html:66
 msgid "English"
@@ -168,14 +169,16 @@ msgstr "Seguir"
 #: templates/registration/coming_soon_campaign.html:10
 #: templates/registration/coming_soon_email.html:10
 msgid "Coming Soon"
-msgstr ""
+msgstr "Próximamente"
 
 #: templates/registration/coming_soon_campaign.html:22
 #: templates/registration/coming_soon_email.html:22
 msgid ""
-"We're building out this super rad feature, but it's just not quite done yet. "
+"We&rsquo;re building out this super rad feature, but it's just not quite done yet. "
 "We'll let you know as soon as it is!"
 msgstr ""
+"Estamos elaborando una característica súper rad, pero aún no está "
+"terminada. ¡Te avisaremos en cuánto esté lista!"
 
 #: templates/registration/done.html:10
 #: templates/registration/revoke_done.html:15
@@ -188,6 +191,8 @@ msgid ""
 "You&rsquo;re amazing and officially one of our favorite people on the internet, "
 "but you&rsquo;re not quite done&hellip;"
 msgstr ""
+"Tu eres increíble y oficialmente ya eres una de nuestras personas "
+"favoritas en el internet, pero aún no haz terminado&hellip;"
 
 #: templates/registration/done.html:27
 msgid ""
@@ -196,6 +201,10 @@ msgid ""
 "still be asked to support your decision. Letting them know what you’ve "
 "decided now makes it SO much easier for them."
 msgstr ""
+"Es muy importante que tus amigos y familiares sepan que tu deseas "
+"#DonateYourParts (seas un donador). Aunque ya te hayas registrado con "
+"nosotros, se a la gente más cercana a ti que apoye tu decisión. "
+"Informándoles sobre tu decisión, hace TODO mucho más fácil para ellos."
 
 #: templates/registration/done.html:39
 #: templates/registration/register_minor.html:35
@@ -207,8 +216,8 @@ msgstr "o"
 #: templates/registration/done.html:44
 #: templates/registration/register_minor.html:40
 #: templates/registration/update_done.html:40
-msgid "<a href=\"/coming-soon-campaign\">Start Your Own Campaign</a>"
-msgstr ""
+msgid "Start Your Own Campaign"
+msgstr "Inicia tu propia campaña"
 
 #: templates/registration/done.html:50
 #, fuzzy
@@ -225,7 +234,7 @@ msgstr ""
 
 #: templates/registration/legal_document.html:21
 msgid "Last modified"
-msgstr ""
+msgstr "Última modificación"
 
 #: templates/registration/register_minor.html:9
 msgid "Bust!"
@@ -391,6 +400,8 @@ msgid ""
 "Select a button below to engage your audience and allow them to register as "
 "organ donors without leaving your site."
 msgstr ""
+"Seleccione un botón de abajo para involucrar a tu audiencia y "
+"permitirles registrarse como donadores de órganos sin salir de tu página."
 
 msgid "You&rsquo;re Registered"
 msgstr "Ya estás registrado"
