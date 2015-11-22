@@ -96,6 +96,43 @@ def get_external_source_data(session):
     return external_source_data
 
 
+def setup_external_source_session(request):
+    cobrand_id = request.GET.get('cobrand_id')
+    widget_id = request.GET.get('widget_id')
+    reg_source = request.GET.get('reg_source')
+    variant_id = request.GET.get('variant_id')
+
+    if cobrand_id:
+        try:
+            clean_widget_session(request.session)
+            clean_email_source_session(request.session)
+            cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
+            request.session[SESSION_COBRAND_ACTIVE] = True
+            request.session[SESSION_COBRAND_ID] = cobrand_id
+            request.session[SESSION_COBRAND_COMPANY_LOGO] = '{}.png'.format(cobrand_company.uuid)
+            request.session[SESSION_COBRAND_COMPANY_NAME] = cobrand_company.company_name
+        except cobrand.models.CobrandCompany.DoesNotExist:
+            pass
+    elif widget_id:
+        try:
+            clean_cobrand_session(request.session)
+            clean_email_source_session(request.session)
+            widget_host = widget.models.WidgetHost.objects.get(uuid=widget_id)
+            request.session[SESSION_WIDGET_ID] = widget_id
+            request.session[SESSION_WIDGET_HOST_URL] = widget_host.host_url
+        except widget.models.WidgetHost.DoesNotExist:
+            pass
+    elif reg_source:
+        clean_cobrand_session(request.session)
+        clean_widget_session(request.session)
+        request.session[SESSION_REG_SOURCE] = reg_source
+        request.session[SESSION_VARIANT_ID] = variant_id
+    else:
+        # Clean widget session only if no external source params exist in the URL, because widget params are the only that we
+        # don't want to keep for returning users, unless widget_id is in the URL.
+        clean_widget_session(request.session)
+
+
 class UserCheckMixin(object):
     user_check_failure_path = ''  # can be path, url name or reverse_lazy
 
@@ -109,46 +146,6 @@ class UserCheckMixin(object):
         if not self.check_user(request, request.user):
             return self.user_check_failed(request, *args, **kwargs)
         return super(UserCheckMixin, self).dispatch(request, *args, **kwargs)
-
-
-class ExternalSourceCheckMixin(object):
-    def dispatch(self, request, *args, **kwargs):
-        cobrand_id = request.GET.get('cobrand_id')
-        widget_id = request.GET.get('widget_id')
-        reg_source = request.GET.get('reg_source')
-        variant_id = request.GET.get('variant_id')
-
-        if cobrand_id:
-            try:
-                clean_widget_session(request.session)
-                clean_email_source_session(request.session)
-                cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
-                request.session[SESSION_COBRAND_ACTIVE] = True
-                request.session[SESSION_COBRAND_ID] = cobrand_id
-                request.session[SESSION_COBRAND_COMPANY_LOGO] = '{}.png'.format(cobrand_company.uuid)
-                request.session[SESSION_COBRAND_COMPANY_NAME] = cobrand_company.company_name
-            except cobrand.models.CobrandCompany.DoesNotExist:
-                pass
-        elif widget_id:
-            try:
-                clean_cobrand_session(request.session)
-                clean_email_source_session(request.session)
-                widget_host = widget.models.WidgetHost.objects.get(uuid=widget_id)
-                request.session[SESSION_WIDGET_ID] = widget_id
-                request.session[SESSION_WIDGET_HOST_URL] = widget_host.host_url
-            except widget.models.WidgetHost.DoesNotExist:
-                pass
-        elif reg_source:
-            clean_cobrand_session(request.session)
-            clean_widget_session(request.session)
-            request.session[SESSION_REG_SOURCE] = reg_source
-            request.session[SESSION_VARIANT_ID] = variant_id
-        else:
-            # Clean widget session only if no external source params exist in the URL, because widget params are the only that we
-            # don't want to keep for returning users, unless widget_id is in the URL.
-            clean_widget_session(request.session)
-
-        return super(ExternalSourceCheckMixin, self).dispatch(request, *args, **kwargs)
 
 
 class MinorRestrictedMixin(UserCheckMixin):
@@ -172,13 +169,14 @@ class MinorRestrictedMixin(UserCheckMixin):
         return response
 
 
-class StateLookupView(MinorRestrictedMixin, ExternalSourceCheckMixin, django.views.generic.edit.FormView):
+class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     template_name = 'registration/start.html'
     form_class = forms.StateLookupForm
     accepts_registration = True
 
     def get(self, request, *args, **kwargs):
         clean_session(request.session)
+        setup_external_source_session(request)
         return super(StateLookupView, self).get(request, *args, **kwargs)
 
     def get_success_url(self):
