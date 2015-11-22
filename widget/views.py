@@ -24,11 +24,10 @@ class WidgetCreateView(django.views.generic.edit.CreateView):
     def post(self, request, *args, **kwargs):
         host_url = request.POST.get('host_url')
         if host_url:
-            try:
+            if models.WidgetHost.objects.filter(host_url=host_url).exists():
                 widget_host = models.WidgetHost.objects.get(host_url=host_url)
                 return django.shortcuts.redirect(widget_host.get_absolute_url())
-            except models.WidgetHost.DoesNotExist:
-                pass
+
         return super(WidgetCreateView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
