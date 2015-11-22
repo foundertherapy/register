@@ -82,19 +82,9 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def submit_email(self, email, postal_code, external_source_data):
+    def submit_email(self, **data):
         url = ''.join([self.scheme, self.endpoint, self.submit_email_path, ])
-        data = {
-            'email': email,
-            'postal_code': unicode(postal_code),
-            'source_url': self.source_url,
-            'cobrand_id': external_source_data.get('cobrand_id'),
-            'cobrand_company_name': external_source_data.get('cobrand_company_name'),
-            'widget_id': external_source_data.get('widget_id'),
-            'widget_host_url': external_source_data.get('widget_host_url'),
-            'reg_source': external_source_data.get('reg_source'),
-            'variant_id': external_source_data.get('variant_id'),
-        }
+
         try:
             r = requests.post(url, headers=self._headers, data=data)
         except requests.ConnectionError as e:
@@ -124,15 +114,10 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def register(self, external_source_data, **data):
+    def register(self, **data):
         url = ''.join([self.scheme, self.endpoint, self.register_path, ])
         data['source_url'] = self.source_url
-        data['cobrand_id'] = external_source_data.get('cobrand_id')
-        data['cobrand_company_name'] = external_source_data.get('cobrand_company_name')
-        data['widget_id'] = external_source_data.get('widget_id')
-        data['widget_host_url'] = external_source_data.get('widget_host_url')
-        data['reg_source'] = external_source_data.get('reg_source')
-        data['variant_id'] = external_source_data.get('variant_id')
+
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
@@ -161,15 +146,10 @@ class FiftyThreeClient(object):
             logger.info('Unknown status code: {}'.format(r.status_code))
             return False
 
-    def revoke(self, external_source_data, **data):
+    def revoke(self, **data):
         url = ''.join([self.scheme, self.endpoint, self.revoke_path, ])
         data['source_url'] = self.source_url
-        data['cobrand_id'] = external_source_data.get('cobrand_id')
-        data['cobrand_company_name'] = external_source_data.get('cobrand_company_name')
-        data['widget_id'] = external_source_data.get('widget_id')
-        data['widget_host_url'] = external_source_data.get('widget_host_url')
-        data['reg_source'] = external_source_data.get('reg_source')
-        data['variant_id'] = external_source_data.get('variant_id')
+
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:

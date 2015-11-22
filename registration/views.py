@@ -210,14 +210,16 @@ class StateLookupView(MinorRestrictedMixin, ExternalSourceCheckMixin, django.vie
     def is_update(self):
         return self.kwargs.get('update') is True
 
+    def submit_email(self, data):
+        data_copy = data.copy()
+        data_copy.update(get_external_source_data(self.request.session))
+        FIFTYTHREE_CLIENT.submit_email(**data_copy)
+
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        postal_code = form.cleaned_data['postal_code']
-        email = form.cleaned_data['email']
-
         try:
-            FIFTYTHREE_CLIENT.submit_email(email, postal_code, get_external_source_data(self.request.session))
+            self.submit_email(form.cleaned_data)
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
                 form.add_error('email', _(e.message))
@@ -229,6 +231,9 @@ class StateLookupView(MinorRestrictedMixin, ExternalSourceCheckMixin, django.vie
             logger.error(e.message)
             form.add_error(field=None, error=_(e.message))
             return super(StateLookupView, self).form_invalid(form)
+
+        postal_code = form.cleaned_data['postal_code']
+        email = form.cleaned_data['email']
 
         try:
             r = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
@@ -334,7 +339,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
     def submit_registration(self, data):
         try:
-            FIFTYTHREE_CLIENT.register(get_external_source_data(self.request.session), **data)
+            data_copy = data.copy()
+            data_copy.update(get_external_source_data(self.request.session))
+            FIFTYTHREE_CLIENT.register(**data_copy)
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
             return e.errors.items()
@@ -633,7 +640,9 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 
     def submit_deregistration(self, data):
         try:
-            FIFTYTHREE_CLIENT.revoke(get_external_source_data(self.request.session), **data)
+            data_copy = data.copy()
+            data_copy.update(get_external_source_data(self.request.session))
+            FIFTYTHREE_CLIENT.revoke(**data_copy)
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
             return e.errors.items()
