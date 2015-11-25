@@ -9,7 +9,7 @@
         <p class="lead">YOUR LINK:</p>
         <p class="lead">
             <form>
-                <input id="redirect_url" type="text" class="form-control input-lg" value="{{ company_redirect_url }}"></input>
+                <input id="redirect_url" type="text" class="form-control input-lg" value="{{ company_redirect_url }}"/>
             </form>
         </p>
         <p class="lead">We&rsquo;ll let you know how many registrations you helped collect.</p>
@@ -66,7 +66,7 @@
 <script src="{% static 'js/main.js' %}"></script>
 <script type="text/javascript">
     $(function(){
-        $(document).on('click', 'input[#redirect_url]', function(){ this.select(); });
+        $(document).on('click', 'input#redirect_url', function(){ this.select(); });
     });
 </script>
 {% endblock %}
