@@ -435,7 +435,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         if self.request.session[SESSION_REGISTRATION_UPDATE]:
             return django.shortcuts.redirect('update_done')
         else:
-            return django.shortcuts.redirect('done')
+            return django.shortcuts.redirect('email_nok')
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
@@ -671,3 +671,56 @@ class RevokeDoneView(django.views.generic.TemplateView):
                 logger.error(e.message)
 
         return self.render_to_response(context)
+
+
+class EmailNOKView(MinorRestrictedMixin, django.views.generic.edit.FormView):
+    template_name = 'registration/email_nok.html'
+    form_class = forms.EmailNOKForm
+    success_url = 'done'
+    initial = {
+        'subject': _('Just wanted to let you know, I\'m an official organ donor!'),
+        'body': _("""FYI: I just registered to be an organ donor on ORGANIZE because I dig the idea of saving someone else's life. I'm now legally registered, but my next of kin (which is YOU) will still be asked to uphold my decision. So, here you go: I WANT TO BE AN ORGAN DONOR.
+
+If you want to register too, it takes less than a minute on ORGANIZE.org.
+
+This email probably felt out of the blue and might have made you uncomfortable. Get over it! This is really important.
+
+Your hero,
+[insert name]
+"""),
+    }
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        # email = form.cleaned_data['email']
+        # postal_code = form.cleaned_data['postal_code']
+        # first_name = form.cleaned_data['first_name']
+        # middle_name = form.cleaned_data['middle_name']
+        # last_name = form.cleaned_data['last_name']
+        # birthdate = form.cleaned_data['birthdate']
+
+        # api_errors = self.submit_nok_email(form.cleaned_data)
+        #
+        # if api_errors:
+        #     api_errors = dict(api_errors)
+        #     # check to see if we have an error with a minor registering
+        #     if 'non_field_errors' in api_errors.keys():
+        #         non_field_errors = api_errors['non_field_errors']
+        #         if 'Minors cannot register.' in non_field_errors:
+        #             return self.render_restricted_minor_registration()
+        #
+        #     api_errors = {a: [django.utils.translation.ugettext(c) for c in b]
+        #                   for a, b in api_errors.items()}
+        #     logger.error(
+        #         'Received API errors for registration: {}'.format(api_errors))
+        #     error_field_names = set(form.fields.keys()).intersection(
+        #         set(api_errors.keys()))
+        #     if error_field_names:
+        #         form.add_error(field=None, error=api_errors)
+        #         return self.form_invalid(form)
+        #
+        # # if the form is valid, set the postal_code
+        # self.postal_code = form.cleaned_data['postal_code']
+
+        return super(EmailNOKView, self).form_valid(form)
