@@ -134,23 +134,14 @@ class StateLookupViewTestCase(django.test.TestCase):
         self.assertEquals(session[SESSION_VARIANT_ID], 'example-A')
 
     def test_session_cleaning_on_start(self):
-        data = {
-            'postal_code': '96003',
-            'email': 'test@example.com',
-        }
-        r = self.client.post('/', data=data)
+        self.client.get('/', follow=False)
         session = self.client.session
-        for key in (
-                SESSION_REG_SOURCE, SESSION_VARIANT_ID, SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO,
-                SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,):
-
-            self.assertNotIn(key, session, msg='{} exists in session, while it should not.'.format(key))
-
-        for key in (
-                SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-                SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE,):
-
-            self.assertIn(key, session, msg='{} does not exist in session, while it should be.'.format(key))
+        session[SESSION_EMAIL] = 'test@test.com'
+        session[SESSION_POSTAL_CODE] = '96003'
+        session[SESSION_STATE] = 'CA'
+        session[SESSION_STATE_NAME] = 'california'
+        session[SESSION_ACCEPTS_REGISTRATION] = True
+        session[SESSION_REGISTRATION_CONFIGURATION] = {}
 
         r = self.client.get('/', follow=False)
         session = self.client.session
