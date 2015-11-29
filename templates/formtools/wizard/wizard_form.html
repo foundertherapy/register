@@ -112,7 +112,7 @@
             {% endfor %}
         {% else %}
             {% if wizard.form.non_field_errors %}
-                {% bootstrap_form_errors wizard.form.non_field_errors %}
+                {% bootstrap_form_errors wizard.form type='non_fields' %}
             {% endif %}
 
             {% for fieldset in wizard.form.fieldsets %}

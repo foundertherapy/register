@@ -9,6 +9,7 @@ import django.forms
 import django.forms.utils
 import django.forms.widgets
 import django.core.validators
+import django.core.exceptions
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
@@ -16,6 +17,7 @@ from django.utils.safestring import mark_safe
 import form_utils.forms
 import requests
 import dateutil.parser
+import validate_email
 
 
 logger = logging.getLogger(__name__)
@@ -34,6 +36,30 @@ CHOICES_GENDER = (
     ('M', _('Male')),
     ('F', _('Female')),
 )
+
+
+class MultiEmailField(django.forms.CharField):
+    message = _('Enter valid email addresses.')
+    code = 'invalid'
+    widget = django.forms.widgets.TextInput
+
+    def to_python(self, value):
+        "Normalize data to a list of strings."
+        # Return None if no input was given.
+        if not value:
+            return []
+        return [v.strip() for v in re.findall(validate_email.ADDR_SPEC, value)]
+
+    def validate(self, value):
+        "Check if value consists only of valid emails."
+
+        # Use the parent's handling of required fields, etc.
+        super(MultiEmailField, self).validate(value)
+        try:
+            for email in value:
+                django.core.validators.validate_email(email)
+        except django.core.exceptions.ValidationError:
+            raise django.core.exceptions.ValidationError(self.message, code=self.code)
 
 
 class StateLookupForm(django.forms.Form):
@@ -292,29 +318,33 @@ class RevokeForm(django.forms.Form):
         raise django.forms.ValidationError(_('Enter a valid email.'))
 
 
-class EmailNOKForm(django.forms.Form):
-    to = django.forms.CharField(label=_('To'), max_length=250, help_text=_('separate emails with a comma'))
+class EmailNextOfKinForm(django.forms.Form):
+    to = MultiEmailField(label=_('To'), max_length=300, help_text=_('Enter one or more emails separated by commas.'))
     subject = django.forms.CharField(label=_('Subject'), max_length=250)
     body = django.forms.CharField(widget=django.forms.widgets.Textarea())
 
-    # def clean_email(self):
-    #     email = self.cleaned_data['email']
-    #     if settings.DISABLE_EMAIL_VALIDATION:
-    #         logger.warning('Email validation disabled: DISABLE_EMAIL_VALIDATION '
-    #                        'is set')
-    #         return email
-    #     # use mailgun email address validator to check this email
-    #     if not hasattr(settings, 'MAILGUN_PUBLIC_API_KEY'):
-    #         logger.warning(
-    #             'Cannot validate email: MAILGUN_PUBLIC_API_KEY not set')
-    #         return email
-    #     r = requests.get(
-    #         'https://api.mailgun.net/v2/address/validate',
-    #         data={'address': email, },
-    #         auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
-    #     if r.status_code == 200:
-    #         if r.json()['is_valid']:
-    #             return email
-    #     logger.warning('Cannot validate email: {}'.format(r.text))
-    #     raise django.forms.ValidationError(_('Enter a valid email.'))
-    #
+    def clean_to(self):
+        emails = self.cleaned_data['to']
+        if settings.DISABLE_EMAIL_VALIDATION:
+            logger.warning('Email validation disabled: DISABLE_EMAIL_VALIDATION is set')
+            return emails
+        # use mailgun email address validator to check this email
+        if not hasattr(settings, 'MAILGUN_PUBLIC_API_KEY'):
+            logger.warning('Cannot validate email: MAILGUN_PUBLIC_API_KEY not set')
+            return emails
+        valid_emails = []
+        invalid_emails = []
+        for email in emails:
+            r = requests.get('https://api.mailgun.net/v2/address/validate',
+                data={'address': email, },
+                auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
+            if r.status_code == 200 and r.json()['is_valid']:
+                valid_emails.append(email)
+            else:
+                logger.warning('Cannot validate email: {}'.format(r.text))
+                invalid_emails.append(email)
+        if invalid_emails:
+            raise django.forms.ValidationError(_('Enter valid email addresses.'))
+        else:
+            return valid_emails
+

@@ -408,3 +408,68 @@ legend {
     cursor: pointer;
     margin-top: 10px;
 }
+
+.panel.nok {
+    border-color: #000;
+    border-radius: 0;
+}
+
+.panel.nok .panel-heading {
+    background: #000;
+    border-radius: 0;
+}
+
+.panel.nok h3.panel-title {
+    color: #eee;
+    font-weight: normal;
+}
+
+body.register-done {
+    background: url('../images/thankyou-background.png') #000 no-repeat center top;
+    color: #eee;
+}
+
+body.email-nok {
+    background: url('../images/email-nok-background.png') #000 no-repeat center top;
+    color: #eee;
+}
+
+body.email-nok a,
+body.register-done a {
+    color: #eee;
+}
+
+body.email-nok a:hover,
+body.email-nok a:focus,
+body.register-done a:hover,
+body.register-done a:focus {
+    color: #fff;
+}
+
+body.register-done .btn-organize,
+body.register-done .btn-organize:hover,
+body.register-done .btn-organize:focus,
+body.register-done .btn-organize:active,
+body.register-done .btn-organize.active {
+    color: #fff;
+    font-family: "BebasNeue", sans-serif;
+    font-size: 24px;
+    line-height: 1;
+    background-color: #ed2224;
+    border-color: #ed2224;
+    border-radius: 0;
+    text-transform: none !important;
+    padding: 12px 20px;
+    letter-spacing: 2px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+div.black {
+    background: #000;
+}
+
+body.email-nok footer,
+body.register-done footer {
+    display: none;
+}

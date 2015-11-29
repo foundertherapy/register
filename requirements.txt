@@ -36,4 +36,4 @@ python-gettext
 psycopg2
 django-template-email
 django-waffle
-
+validate_email

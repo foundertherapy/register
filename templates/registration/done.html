@@ -3,66 +3,46 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
+{% block body_class %}register-done{% endblock %}
+
+
 {% block content %}
-
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1 class="text-center">{% blocktrans %}Thank you!{% endblocktrans %}</h1>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
-</div>
-
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
         <p class="lead text-center">
-            {% blocktrans trimmed %}
-            You&rsquo;re amazing and officially one of our favorite people on the internet, but you&rsquo;re not quite done&hellip;
-            {% endblocktrans %}
+            <span style="font-size: 200px;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
         </p>
+    </div>
+
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1 class="text-center">{% blocktrans %}Thank you!{% endblocktrans %}</h1>
+    </div>
+
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
         <p class="lead text-center">
             {% blocktrans trimmed %}
-            It&rsquo;s super important that your friends and fam know that you want to #DonateYourParts. Even though you registered with us, your next of kin will still be asked to support your decision. Letting them know what you&rsquo;ve decided now makes it SO much easier for them.
+            You have successfully registered as an organ donor and have made the list as one of our favorite people on the internet.
             {% endblocktrans %}
         </p>
-        <div class="social-icons">
-            <a href="/coming-soon-email" class="email-icon">&nbsp;</a>
-            <a href="https://twitter.com/intent/tweet?text=I+am+officially+a+registered+organ+donor.+%23DonateMyParts+%40organ_ize" class="twitter-icon">&nbsp;</a>
-            <a href="https://www.facebook.com/Organize?app_data=%7B%22organization_id%22%3A2200%2C%22referring_action_id%22%3A5270%2C%22fb_referrer_uid%22%3Anull%2C%22source%22%3Anull%7D&v=app_335652843138116" class="facebook-icon">&nbsp;</a>
-        </div>
-        <div class="start-campaign-section">
-            <p class="lead text-center">
-                {% blocktrans trimmed %}
-                or
-                {% endblocktrans %}
-            </p>
-            <p class="lead text-center">
-                <a href="/coming-soon-campaign">
-                    {% blocktrans trimmed %}Start Your Own Campaign{% endblocktrans %}
-                </a>
-            </p>
-        </div>
-        <p class="footer text-center">
-            {% blocktrans %}Your donor wishes have been recorded. ORGANIZE retains a copy of your entire registry history for record keeping purposes, but this, most recent decision will supersede any previous registration decisions you have made with us.{% endblocktrans %}
-        </p>
-
     </div>
-
-    <div class="visible-xs col-lg-3 col-md-4 col-sm-5 col-xs-12">&nbsp;</div>
-
 </div>
 
 <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
 </div>
-<div class="row">
+
+<div class="row black clearfix">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <p class="hashtag-large text-center">#DONATEMYPARTS</p>
+        <p>&nbsp;</p>
+        <p class="lead text-center">{% blocktrans %}Do more good:{% endblocktrans %}</p>
+    </div>
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center">
+        <a class="btn btn-default btn-organize" href="https://twitter.com/intent/tweet?text=I+am+officially+a+registered+organ+donor.+%23DonateMyParts+%40organ_ize" role="button">#DonateMyParts <img src="{% static 'images/twitter.png' %}" height="30" /></a>
+        <a href="https://www.facebook.com/Organize?app_data=%7B%22organization_id%22%3A2200%2C%22referring_action_id%22%3A5270%2C%22fb_referrer_uid%22%3Anull%2C%22source%22%3Anull%7D&v=app_335652843138116" class="btn btn-default btn-organize">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></a>
     </div>
 </div>
+
 
 {% endblock %}
 

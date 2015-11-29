@@ -9,9 +9,8 @@ urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(r'^update/$', views.StateLookupView.as_view(), kwargs={'update': True, }, name='update'),
-    django.conf.urls.url(r'^email-nok/$', views.EmailNOKView.as_view(), name='email_nok'),
-    django.conf.urls.url(r'^done/$', django.views.generic.TemplateView.as_view(
-        template_name='registration/done.html'), name='done'),
+    django.conf.urls.url(r'^email-nok/$', views.EmailNextOfKinView.as_view(), name='email_next_of_kin'),
+    django.conf.urls.url(r'^done/$', views.RegisterDoneView.as_view(), name='done'),
     django.conf.urls.url(r'^update-done/$', django.views.generic.TemplateView.as_view(
         template_name='registration/update_done.html'), name='update_done'),
     django.conf.urls.url(r'^restricted/$', django.views.generic.TemplateView.as_view(

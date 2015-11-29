@@ -45,6 +45,9 @@ SESSION_WIDGET_ID = 'widget_id'
 SESSION_WIDGET_HOST_URL = 'widget_host_url'
 SESSION_REG_SOURCE = 'reg_source'
 SESSION_VARIANT_ID = 'variant_id'
+SESSION_REGISTRATION_UUID = 'registration_uuid'
+SESSION_FIRST_NAME = 'first_name'
+
 
 COOKIE_MINOR = 'register_minor'
 
@@ -57,7 +60,7 @@ FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
 
 def clean_session(session):
     for key in (
-            SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
+            SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
             SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE, ):
         if key in session:
             del session[key]
@@ -86,13 +89,20 @@ def clean_widget_session(session):
     return session
 
 
+def clean_next_of_kin_email_session(session):
+    for key in (SESSION_REGISTRATION_UUID, SESSION_FIRST_NAME, SESSION_EMAIL, ):
+        if key in session:
+            del session[key]
+    return session
+
+
 def get_external_source_data(session):
     external_source_data = {}
-    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, SESSION_REG_SOURCE,
-                SESSION_VARIANT_ID, ):
+    for key in (
+            SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,
+            SESSION_REG_SOURCE, SESSION_VARIANT_ID, ):
         if key in session:
             external_source_data[key] = session[key]
-
     return external_source_data
 
 
@@ -176,6 +186,7 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 
     def get(self, request, *args, **kwargs):
         clean_session(request.session)
+        clean_next_of_kin_email_session(request.session)
         setup_external_source_session(request)
         return super(StateLookupView, self).get(request, *args, **kwargs)
 
@@ -339,7 +350,10 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         try:
             data_copy = data.copy()
             data_copy.update(get_external_source_data(self.request.session))
-            FIFTYTHREE_CLIENT.register(**data_copy)
+            uuid = FIFTYTHREE_CLIENT.register(**data_copy)
+            logger.info('Register successful: {}'.format(uuid))
+            self.request.session[SESSION_REGISTRATION_UUID] = uuid
+            self.request.session[SESSION_FIRST_NAME] = data_copy['first_name']
         except fiftythree.client.InvalidDataError as e:
             logger.error(e.message)
             return e.errors.items()
@@ -419,8 +433,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         # render the done view and reset the wizard before returning the
         # response. This is needed to prevent from rendering done with the
         # same data twice.
-        done_response = self.done(final_forms.values(),
-                                  form_dict=final_forms, **kwargs)
+        done_response = self.done(final_forms.values(), form_dict=final_forms, **kwargs)
         self.storage.reset()
         # also clean out the session
         clean_session(self.request.session)
@@ -435,7 +448,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         if self.request.session[SESSION_REGISTRATION_UPDATE]:
             return django.shortcuts.redirect('update_done')
         else:
-            return django.shortcuts.redirect('email_nok')
+            return django.shortcuts.redirect('email_next_of_kin')
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
@@ -673,12 +686,11 @@ class RevokeDoneView(django.views.generic.TemplateView):
         return self.render_to_response(context)
 
 
-class EmailNOKView(MinorRestrictedMixin, django.views.generic.edit.FormView):
-    template_name = 'registration/email_nok.html'
-    form_class = forms.EmailNOKForm
-    success_url = 'done'
+class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
+    template_name = 'registration/email_next_of_kin.html'
+    form_class = forms.EmailNextOfKinForm
     initial = {
-        'subject': _('Just wanted to let you know, I\'m an official organ donor!'),
+        'subject': _("Just wanted to let you know, I'm an official organ donor!"),
         'body': _("""FYI: I just registered to be an organ donor on ORGANIZE because I dig the idea of saving someone else's life. I'm now legally registered, but my next of kin (which is YOU) will still be asked to uphold my decision. So, here you go: I WANT TO BE AN ORGAN DONOR.
 
 If you want to register too, it takes less than a minute on ORGANIZE.org.
@@ -686,41 +698,72 @@ If you want to register too, it takes less than a minute on ORGANIZE.org.
 This email probably felt out of the blue and might have made you uncomfortable. Get over it! This is really important.
 
 Your hero,
-[insert name]
+
+{}
 """),
     }
 
+    def get(self, request, *args, **kwargs):
+        # make sure we have a registration_uuid
+        if SESSION_REGISTRATION_UUID not in self.request.session:
+            # there isn't enough information to offer a NOK email, so just redirect to done
+            return django.shortcuts.redirect('done')
+        self.initial['body'] = self.initial['body'].format(self.request.session.get(SESSION_FIRST_NAME, '[YOUR NAME HERE]'))
+        return super(EmailNextOfKinView, self).get(self, request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(EmailNextOfKinView, self).get_context_data(**kwargs)
+        context['inverse_logo'] = True
+        return context
+
+    def get_success_url(self):
+        return django.core.urlresolvers.reverse_lazy('done')
+
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        # email = form.cleaned_data['email']
-        # postal_code = form.cleaned_data['postal_code']
-        # first_name = form.cleaned_data['first_name']
-        # middle_name = form.cleaned_data['middle_name']
-        # last_name = form.cleaned_data['last_name']
-        # birthdate = form.cleaned_data['birthdate']
+        api_errors = self.submit_nok_email(form.cleaned_data)
 
-        # api_errors = self.submit_nok_email(form.cleaned_data)
-        #
-        # if api_errors:
-        #     api_errors = dict(api_errors)
-        #     # check to see if we have an error with a minor registering
-        #     if 'non_field_errors' in api_errors.keys():
-        #         non_field_errors = api_errors['non_field_errors']
-        #         if 'Minors cannot register.' in non_field_errors:
-        #             return self.render_restricted_minor_registration()
-        #
-        #     api_errors = {a: [django.utils.translation.ugettext(c) for c in b]
-        #                   for a, b in api_errors.items()}
-        #     logger.error(
-        #         'Received API errors for registration: {}'.format(api_errors))
-        #     error_field_names = set(form.fields.keys()).intersection(
-        #         set(api_errors.keys()))
-        #     if error_field_names:
-        #         form.add_error(field=None, error=api_errors)
-        #         return self.form_invalid(form)
-        #
-        # # if the form is valid, set the postal_code
-        # self.postal_code = form.cleaned_data['postal_code']
+        if api_errors:
+            api_errors = {a: [django.utils.translation.ugettext(c) for c in b] for a, b in dict(api_errors).items()}
+            logger.error('Received API errors for registration: {}'.format(api_errors))
+            error_non_field_names = []
+            for field_name, error in  api_errors.items():
+                if field_name in form.fields.keys():
+                    form.add_error(field=field_name, error=api_errors)
+                else:
+                    error_non_field_names.append(error)
+            if error_non_field_names:
+                form.add_error(field=None, error=error_non_field_names)
+            return self.form_invalid(form)
 
-        return super(EmailNOKView, self).form_valid(form)
+        return super(EmailNextOfKinView, self).form_valid(form)
+
+    def submit_nok_email(self, data):
+        try:
+            data_copy = data.copy()
+            print data_copy
+            data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
+            if SESSION_REGISTRATION_UUID in self.request.session:
+                data_copy['registration_uuid'] = self.request.session[SESSION_REGISTRATION_UUID]
+            else:
+                django.contrib.messages.add_message(self.request, django.contrib.messages.INFO, 'Registration required.')
+                return [[None, ['Registration ID required.']]]
+            FIFTYTHREE_CLIENT.email_next_of_kin(**data_copy)
+        except fiftythree.client.InvalidDataError as e:
+            logger.error(e.message)
+            return e.errors.items()
+        except fiftythree.client.ServiceError as e:
+            logger.error(e.message)
+            return [[None, e.message]]
+        except fiftythree.client.AuthenticationError as e:
+            logger.error(e.message)
+            return [[None, e.message]]
+
+
+class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):
+    template_name = 'registration/done.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RegisterDoneView, self).get_context_data(**kwargs)
+        context['inverse_logo'] = True
+        return context
+

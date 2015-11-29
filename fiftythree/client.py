@@ -40,6 +40,7 @@ class FiftyThreeClient(object):
         self.submit_email_path = '/api/{}/emails/'.format(api_version)
         self.register_path = '/api/{}/registrations/'.format(api_version)
         self.revoke_path = '/api/{}/revocations/'.format(api_version)
+        self.email_next_of_kin_path = '/api/{}/next-of-kin-emails/'.format(api_version)
 
     @property
     def _headers(self):
@@ -121,7 +122,7 @@ class FiftyThreeClient(object):
         r = requests.post(url, headers=self._headers, data=data)
 
         if r.status_code == httplib.OK:
-            return True
+            return None
 
         elif r.status_code in (httplib.METHOD_NOT_ALLOWED, ):
             raise AuthenticationError(r.json().get('detail'))
@@ -141,10 +142,12 @@ class FiftyThreeClient(object):
 
         elif r.status_code == httplib.CREATED:
             logger.info('Successfully submitted registration')
+            # get the uuid and return it
+            return r.json()['uuid']
 
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))
-            return False
+            return None
 
     def revoke(self, **data):
         url = ''.join([self.scheme, self.endpoint, self.revoke_path, ])
@@ -173,6 +176,38 @@ class FiftyThreeClient(object):
 
         elif r.status_code == httplib.CREATED:
             logger.info('Successfully submitted revocation')
+
+        else:
+            logger.info('Unknown status code: {}'.format(r.status_code))
+            return False
+
+    def email_next_of_kin(self, **data):
+        url = ''.join([self.scheme, self.endpoint, self.email_next_of_kin_path, ])
+
+        r = requests.post(url, headers=self._headers, data=data)
+
+        if r.status_code == httplib.OK:
+            return r.json()
+
+        elif r.status_code in (httplib.METHOD_NOT_ALLOWED, ):
+            raise AuthenticationError(r.json().get('detail'))
+
+        elif r.status_code in (httplib.UNAUTHORIZED, httplib.FORBIDDEN, ):
+            raise AuthenticationError(r.json().get('detail'))
+
+        elif r.status_code == httplib.UNPROCESSABLE_ENTITY:
+            raise InvalidDataError(r.json().get('detail'), {})
+
+        elif r.status_code == httplib.BAD_REQUEST:
+            raise InvalidDataError('Invalid data.', r.json())
+
+        elif r.status_code in (
+                httplib.SERVICE_UNAVAILABLE, httplib.INTERNAL_SERVER_ERROR):
+            raise ServiceError('Service unavailable.')
+
+        elif r.status_code == httplib.CREATED:
+            logger.info('Successfully submitted next of kin email')
+            return r.json()
 
         else:
             logger.info('Unknown status code: {}'.format(r.status_code))
