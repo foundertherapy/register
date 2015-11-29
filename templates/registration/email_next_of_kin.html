@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block body_class %}email-nok{% endblock %}
+
+{% block title %}{% blocktrans %}Email Your Next of Kin{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h1 class="text-left">{% blocktrans %}Last Step&hellip;{% endblocktrans %}</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <p class="lead text-left">
+            {% blocktrans trimmed %}
+                It&rsquo;s really important that your friends and family know your organ donor wishes. Even though you&rsquo;ve just registered, your next of kin will still be asked to support your decision at the appropriate time. It will be significantly easier on them if they&rsquo;ve heard it directly from you.
+            {% endblocktrans %}
+        </p>
+        <p class="lead text-left">
+            {% blocktrans trimmed %}
+                You&rsquo;ve already helped 8 strangers &ndash; here&rsquo;s your chance to help your loved ones.
+            {% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <div class="panel panel-default nok">
+            <div class="panel-heading">
+                <h3 class="panel-title">LET &rsquo;EM KNOW</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" action="." method="post">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        {% bootstrap_form_errors form type='non_fields' %}
+                    {% endif %}
+
+{#                    <div class="form-group">#}
+{#                        <label for="from" class="col-sm-3 control-label">From</label>#}
+{#                        <div class="col-sm-9">#}
+{#                            <input type="email" class="form-control" id="from" disabled value="{{ user.session.email }}">#}
+{#                        </div>#}
+{#                    </div>#}
+
+                    {% for field in form %}
+                        {% bootstrap_field layout='horizontal' field=field horizontal_label_class="col-md-2" horizontal_field_class="col-md-10" %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary btn-organize btn-block">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <p class="footer text-left">
+            {% blocktrans %}Your donor wishes have been recorded. ORGANIZE retains a copy of your entire registry history for record keeping purposes, but this, most recent decision will supersede any previous registration decisions you have made with us.{% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<!-- Google Code for Registration Conversion Page -->
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 911750952;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
+    var google_remarketing_only = false;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript>
+    <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
