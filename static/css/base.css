@@ -446,6 +446,16 @@ body.register-done a:focus {
     color: #fff;
 }
 
+body.email-nok a.skip {
+    color: #777;
+    padding: 12px 0 4px;
+}
+
+body.email-nok a.skip:hover,
+body.email-nok a.skip:focus {
+    color: #888;
+}
+
 body.register-done .btn-organize,
 body.register-done .btn-organize:hover,
 body.register-done .btn-organize:focus,

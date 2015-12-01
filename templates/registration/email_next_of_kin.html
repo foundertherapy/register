@@ -48,20 +48,14 @@
                         {% bootstrap_form_errors form type='non_fields' %}
                     {% endif %}
 
-{#                    <div class="form-group">#}
-{#                        <label for="from" class="col-sm-3 control-label">From</label>#}
-{#                        <div class="col-sm-9">#}
-{#                            <input type="email" class="form-control" id="from" disabled value="{{ user.session.email }}">#}
-{#                        </div>#}
-{#                    </div>#}
-
                     {% for field in form %}
                         {% bootstrap_field layout='horizontal' field=field horizontal_label_class="col-md-2" horizontal_field_class="col-md-10" %}
                     {% endfor %}
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary btn-organize btn-block">Send</button>
+                            <button type="submit" class="btn btn-primary btn-organize">Send</button>
+                            <a class="skip text-muted pull-right" href="{% url 'done' %}">skip this step</a>
                         </div>
                     </div>
                 </form>
