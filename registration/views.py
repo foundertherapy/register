@@ -708,8 +708,12 @@ Your hero,
         if SESSION_REGISTRATION_UUID not in self.request.session:
             # there isn't enough information to offer a NOK email, so just redirect to done
             return django.shortcuts.redirect('done')
-        self.initial['body'] = self.initial['body'].format(self.request.session.get(SESSION_FIRST_NAME, '[YOUR NAME HERE]'))
         return super(EmailNextOfKinView, self).get(self, request, *args, **kwargs)
+
+    def get_initial(self):
+        initial = super(EmailNextOfKinView, self).get_initial()
+        initial['body'] = initial['body'].format(self.request.session.get(SESSION_FIRST_NAME, '[YOUR NAME HERE]'))
+        return initial
 
     def get_context_data(self, **kwargs):
         context = super(EmailNextOfKinView, self).get_context_data(**kwargs)
@@ -740,7 +744,6 @@ Your hero,
     def submit_nok_email(self, data):
         try:
             data_copy = data.copy()
-            print data_copy
             data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
             if SESSION_REGISTRATION_UUID in self.request.session:
                 data_copy['registration_uuid'] = self.request.session[SESSION_REGISTRATION_UUID]
