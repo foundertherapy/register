@@ -25,4 +25,11 @@ FIFTYTHREE_CLIENT_USE_SECURE = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASE_URL = os.environ.get(u'DATABASE_URL', u'sqlite:///fiftythree.sqlite')
+DATABASES = {
+    u'default': dj_database_url.parse(DATABASE_URL),
+}
+
 print(u'Running with DEBUG={0}'.format(DEBUG))

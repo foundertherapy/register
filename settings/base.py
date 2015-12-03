@@ -309,7 +309,7 @@ DISABLE_EMAIL_VALIDATION = os.environ.get(
 BOOTSTRAP3 = {
     'set_placeholder': False,
     'include_jquery': True,
-    'jquery_url': '//code.jquery.com/jquery-2.1.3.min.js',
+    'jquery_url': '//code.jquery.com/jquery-2.1.4.min.js',
     'field_renderers': {
         'default': 'registration.bootstrap3_renderers.FiftyThreeFieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
