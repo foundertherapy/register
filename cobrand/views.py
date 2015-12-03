@@ -34,8 +34,8 @@ class CobrandCompanyCreateView(django.views.generic.edit.CreateView):
     def post(self, request, *args, **kwargs):
         company_name = request.POST.get('company_name')
         if company_name:
-            if models.CobrandCompany.objects.filter(company_name=company_name).exists():
-                cobrand_company = models.CobrandCompany.objects.get(company_name=company_name)
+            if models.CobrandCompany.objects.filter(company_name__iexact=company_name).exists():
+                cobrand_company = models.CobrandCompany.objects.get(company_name__iexact=company_name)
                 return django.shortcuts.redirect(cobrand_company.get_absolute_url())
 
         return super(CobrandCompanyCreateView, self).post(request, *args, **kwargs)

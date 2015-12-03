@@ -5,6 +5,7 @@ import logging
 import django.forms
 import django.forms.utils
 import django.forms.widgets
+import django.template.defaultfilters
 import django.conf
 import django.utils.six  # Python 3 compatibility
 import django.utils.safestring
@@ -27,6 +28,7 @@ class CobrandCompanyCreateForm(django.forms.ModelForm):
     tos = django.forms.BooleanField(
         label='I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.',
         widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
+    invalid_company_name = 'This Company Name is Already Exists'
 
     class Meta:
         model = models.CobrandCompany
@@ -50,3 +52,12 @@ class CobrandCompanyCreateForm(django.forms.ModelForm):
                 return email
         logger.warning('Cannot validate email: {}'.format(r.text))
         raise django.forms.ValidationError('Enter a valid email.')
+
+    def clean_company_name(self):
+        company_name = self.cleaned_data['company_name']
+        company_name_slug = django.template.defaultfilters.slugify(company_name)
+
+        if models.CobrandCompany.objects.filter(slug__iexact=company_name_slug).exists():
+            raise django.forms.ValidationError(self.invalid_company_name)
+
+        return company_name
