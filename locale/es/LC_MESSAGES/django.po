@@ -38,6 +38,10 @@ msgstr "Correo electrónico"
 msgid "Postal Code"
 msgstr "Código Postal"
 
+#: registration/forms.py:66
+msgid "Please Enter a Valid License ID"
+msgstr ""
+
 #: registration/forms.py:44
 msgid ""
 "Your zip will determine which series of state-based requirements will be "

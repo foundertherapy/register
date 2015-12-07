@@ -62,6 +62,26 @@ class MultiEmailField(django.forms.CharField):
             raise django.core.exceptions.ValidationError(self.message, code=self.code)
 
 
+class CharRegexField(django.forms.CharField):
+    message = _('Please Enter a Valid License ID')
+    code = 'invalid'
+    widget = django.forms.widgets.TextInput
+    regex = None
+
+    def __init__(self, *args, **kwargs):
+        self.regex = kwargs['regex']
+        del kwargs['regex']
+        super(CharRegexField, self).__init__(*args, **kwargs)
+
+    def validate(self, value):
+        "Check if value match regular expression."
+
+        # Use the parent's handling of required fields, etc.
+        super(CharRegexField, self).validate(value)
+        if not re.match(self.regex, value):
+            raise django.core.exceptions.ValidationError(self.message, code=self.code)
+
+
 class StateLookupForm(django.forms.Form):
     email = django.forms.EmailField(label=_('Email'))
     postal_code = django.forms.CharField(
@@ -172,6 +192,7 @@ def register_form_generator(conf):
             is_required = field_def.get('required', False)
             max_length = field_def.get('length')
             initial = field_def.get('default')
+            regex = field_def.get('regex')
             if field_def.get('help_text'):
                 help_text = _(field_def.get('help_text'))
             else:
@@ -200,6 +221,12 @@ def register_form_generator(conf):
                 d['initial'] = initial
                 d['help_text'] = help_text
                 field_class = django.forms.EmailField
+            elif field_type == 'string' and field_name == 'license_id':
+                d['required'] = is_required
+                d['regex'] = regex
+                d['initial'] = initial
+                d['help_text'] = help_text
+                field_class = CharRegexField
             elif field_type == 'string':
                 d['required'] = is_required
                 d['max_length'] = max_length
