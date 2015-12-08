@@ -38,52 +38,6 @@
     </div>
 </div>
 
-{% if cleaned_data %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        {% for page in configuration %}
-            {% if page.fieldsets.0.fields and page.step != 7 %}
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a class="pull-right" href="{% url 'register' step=page.step %}">{% trans "edit" %}</a>
-                        <h3 class="panel-title">{% trans page.title %}</h3>
-                    </div>
-                    <table class="table">
-                        {% for fieldset in page.fieldsets %}
-                            {% for field in fieldset.fields %}
-                                <tr>
-                                    {% if field.type == 'boolean' %}
-                                        <td colspan="2" class="">
-                                            {% if cleaned_data|key:field.field_name %}
-                                                <span class="organize-green">{% bootstrap_icon 'ok-circle' %}</span>
-                                            {% else %}
-                                                <span class="organize-red">{% bootstrap_icon 'ban-circle' %}</span>
-                                            {% endif %}
-                                            {% trans field.human_name %}
-                                        </td>
-                                    {% else %}
-                                        <td width="200" class="organize-gray">
-                                            {% trans field.human_name %}
-                                        </td>
-                                        {% if field.field_name == 'phone_number' %}
-                                            <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
-                                        {% else %}{% if field.field_name == 'gender' %}
-                                            <td width="*">{% if cleaned_data|key:field.field_name == 'M' %}{% trans 'Male' %}{% else %}{% trans 'Female' %}{% endif %}</td>
-                                        {% else %}
-                                            <td width="*">{{ cleaned_data|key:field.field_name }}</td>
-                                        {% endif %}{% endif %}
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
-
 {% if terms_of_service %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sm-offset-2 col-xs-12">
@@ -142,7 +96,7 @@
             {% endfor %}
         {% endif %}
 
-        <hr />
+        <br />
 
         {% buttons %}
             <a
@@ -162,6 +116,52 @@
             </button>
         {% endbuttons %}
     </form>
+    <br />
     </div>
 </div>
+{% if cleaned_data %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% for page in configuration %}
+            {% if page.fieldsets.0.fields and page.step != 7 %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="pull-right" href="{% url 'register' step=page.step %}">{% trans "edit" %}</a>
+                        <h3 class="panel-title">{% trans page.title %}</h3>
+                    </div>
+                    <table class="table">
+                        {% for fieldset in page.fieldsets %}
+                            {% for field in fieldset.fields %}
+                                <tr>
+                                    {% if field.type == 'boolean' %}
+                                        <td colspan="2" class="">
+                                            {% if cleaned_data|key:field.field_name %}
+                                                <span class="organize-green">{% bootstrap_icon 'ok-circle' %}</span>
+                                            {% else %}
+                                                <span class="organize-red">{% bootstrap_icon 'ban-circle' %}</span>
+                                            {% endif %}
+                                            {% trans field.human_name %}
+                                        </td>
+                                    {% else %}
+                                        <td width="200" class="organize-gray">
+                                            {% trans field.human_name %}
+                                        </td>
+                                        {% if field.field_name == 'phone_number' %}
+                                            <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
+                                        {% else %}{% if field.field_name == 'gender' %}
+                                            <td width="*">{% if cleaned_data|key:field.field_name == 'M' %}{% trans 'Male' %}{% else %}{% trans 'Female' %}{% endif %}</td>
+                                        {% else %}
+                                            <td width="*">{{ cleaned_data|key:field.field_name }}</td>
+                                        {% endif %}{% endif %}
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 {% endblock %}
