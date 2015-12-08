@@ -78,8 +78,9 @@ class CharRegexField(django.forms.CharField):
 
         # Use the parent's handling of required fields, etc.
         super(CharRegexField, self).validate(value)
-        if not re.match(self.regex, value):
-            raise django.core.exceptions.ValidationError(self.message, code=self.code)
+        if value:
+            if not re.match(self.regex, value):
+                raise django.core.exceptions.ValidationError(self.message, code=self.code)
 
 
 class StateLookupForm(django.forms.Form):
