@@ -15,8 +15,10 @@ $(function() {
 
         if (filledFieldsCount == requiredFieldCount) {
             $("form.register :submit").prop("disabled", false);
+            $("#disabled_text").hide();
         } else {
             $("form.register :submit").prop("disabled", true);
+            $("#disabled_text").show();
         }
     }
     requiredInputFields.bind("change keyup", validate);

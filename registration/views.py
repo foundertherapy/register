@@ -544,6 +544,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         d['state_name'] = self.request.session[SESSION_STATE_NAME]
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         d['email'] = self.request.session[SESSION_EMAIL]
+        d['disabled_text_message'] = _('Please Fill All the Required Fields')
 
         if self.steps.current == self.steps.last:
             d['cleaned_data'] = self.get_all_cleaned_data()
