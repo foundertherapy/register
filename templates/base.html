@@ -3,6 +3,7 @@
 {% load raven %}
 {% load i18n %}
 {% load waffle_tags %}
+{% load registration_extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -151,6 +152,31 @@
       ga('set', 'campaignMedium', 'email');
   }
   {% endswitch %}
+
+  var gender = '';
+  var birthdate = null;
+
+  {% if cleaned_data %}
+      {% if cleaned_data|key:'gender' == 'M' %}
+          gender = 'Male';
+      {% elif cleaned_data|key:'gender' == 'F' %}
+          gender = 'Female';
+      {% endif %}
+
+      {% if cleaned_data|key:'birthdate' %}
+          birthdate = new Date('{{ cleaned_data|key:'birthdate' }}');
+      {% endif %}
+  {% endif %}
+
+  if (gender != '') {
+      ga('set', 'dimension1', gender);
+  }
+  if (birthdate != null) {
+      var ageDifference = Date.now() - birthdate.getTime();
+      var ageDate = new Date(ageDifference); // miliseconds from epoch
+      var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+      ga('set', 'dimension2', age);
+  }
 
   ga('send', 'pageview');
 
