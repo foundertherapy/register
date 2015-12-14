@@ -730,9 +730,9 @@ Your hero,
             api_errors = {a: [django.utils.translation.ugettext(c) for c in b] for a, b in dict(api_errors).items()}
             logger.error('Received API errors for registration: {}'.format(api_errors))
             error_non_field_names = []
-            for field_name, error in  api_errors.items():
+            for field_name, error in api_errors.items():
                 if field_name in form.fields.keys():
-                    form.add_error(field=field_name, error=api_errors)
+                    form.add_error(field=field_name, error=error)
                 else:
                     error_non_field_names.append(error)
             if error_non_field_names:
