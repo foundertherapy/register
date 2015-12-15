@@ -124,7 +124,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-52343415-1', 'organize.org', {'allowLinker': true});
+  ga('create', 'UA-52343415-1', 'auto', 'organize.org', {'allowLinker': true});
   ga('require', 'linker');
   ga('linker:autoLink', ['organize.org'] );
 
@@ -155,7 +155,7 @@
 
   var gender = '';
   var birthdate = null;
-
+  var age = '';
   {% if cleaned_data %}
       {% if cleaned_data|key:'gender' == 'M' %}
           gender = 'Male';
@@ -174,11 +174,14 @@
   if (birthdate != null) {
       var ageDifference = Date.now() - birthdate.getTime();
       var ageDate = new Date(ageDifference); // miliseconds from epoch
-      var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+      age = Math.abs(ageDate.getUTCFullYear() - 1970);
       ga('set', 'dimension2', age);
   }
 
-  ga('send', 'pageview');
+  ga('send', 'pageview', {
+  'dimension1':  'Male',
+  'dimension2': '28'
+  });
 
 </script>
 
