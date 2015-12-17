@@ -10,10 +10,11 @@ django-redis-sessions
 django-secure
 django-sslify
 django-storages-redux
-Django==1.7.9
+Django==1.8.7
 django-shortuuidfield
 dj-database-url
 flake8
+django-formtools
 hiredis
 ipython
 mock

@@ -3,9 +3,6 @@ from __future__ import unicode_literals
 from .base import *
 
 
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-
 SSLIFY_DISABLE = True
 
 WSGI_APPLICATION = 'wsgi.heroku.application'

@@ -10,6 +10,8 @@ import dateutil.relativedelta
 from django.utils.translation import ugettext_lazy as _
 
 
+DEBUG = False
+
 def is_environ_true(name):
     return os.environ.get(name, '').lower() in ('true', 't', '1', )
 
@@ -115,19 +117,28 @@ MIDDLEWARE_CLASSES = [
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',
-    'django.core.context_processors.i18n',
-)
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            #'/home/cchilders/.local/virtualenv/new_bookmarks/lib/python2.7/site-packages/helpdesk/templates',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
+            ],
+            'debug': DEBUG,
+        }
+    },
+]
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
@@ -172,6 +183,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'djangosecure',
     'django_extensions',
+    'formtools',
     'waffle',
     'raven.contrib.django.raven_compat',
     'pipeline',
