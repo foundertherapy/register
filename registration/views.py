@@ -13,9 +13,9 @@ import django.views.generic.edit
 import django.forms
 import django.utils
 from django.conf import settings
-from django.contrib.formtools.wizard.forms import ManagementForm
-from django.contrib.formtools.wizard.storage import get_storage
-from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
+from formtools.wizard.forms import ManagementForm
+from formtools.wizard.storage import get_storage
+from formtools.wizard.views import NamedUrlSessionWizardView
 from django.utils.translation import ugettext_lazy as _
 
 import dateutil.parser
@@ -459,7 +459,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
         if request.session.get(SESSION_RESET_FORM):
             del request.session[SESSION_RESET_FORM]
-            prefix = self.get_prefix(*args, **kwargs)
+            prefix = self.get_prefix(request, *args, **kwargs)
             storage = get_storage(self.storage_name, prefix, request,
                                   getattr(self, 'file_storage', None))
             storage.reset()
@@ -467,7 +467,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             if self.check_configuration():
                 self.process_registration_configuration()
             else:
-                prefix = self.get_prefix(*args, **kwargs)
+                prefix = self.get_prefix(request, *args, **kwargs)
                 storage = get_storage(self.storage_name, prefix, request,
                                       getattr(self, 'file_storage', None))
                 storage.reset()
