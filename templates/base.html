@@ -129,13 +129,15 @@
   ga('linker:autoLink', ['organize.org'] );
 
   {% switch 'track-gt-campaign' %}
-  ga('set', 'campaignName', '2015-gt');
-  ga('set', 'campaignId', '2015-gt');
-
   var cobrand_id = '{{ request.session.cobrand_id }}';
   var widget_id = '{{ request.session.widget_id }}';
   var reg_source = '{{ request.session.reg_source }}';
   var variant_id = '{{ request.session.variant_id }}';
+
+  if (cobrand_id || widget_id || reg_source) {
+        ga('set', 'campaignName', '2015-gt');
+        ga('set', 'campaignId', '2015-gt');
+  }
   if (cobrand_id != '') {
       ga('set', 'campaignContent', cobrand_id);
       ga('set', 'campaignSource', '{{ request.session.cobrand_company_name }}');
