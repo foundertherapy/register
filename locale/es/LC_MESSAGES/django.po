@@ -632,3 +632,6 @@ msgstr ""
 "Manténganme informado sobre todo lo que sucede en ORGANIZE. Es lo más "
 "excitante que le puede pasar a tu correo desde aquel famoso \"¡Tienes un "
 "correo electrónico!\""
+
+msgid "Please Fill All the Required Fields"
+msgstr ""
