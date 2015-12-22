@@ -483,9 +483,3 @@ body.email-nok footer,
 body.register-done footer {
     display: none;
 }
-
-.intro_message{
-    font-size: 17px;
-    margin-bottom: -24px;
-    font-weight: bold;
-}
