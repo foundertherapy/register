@@ -316,6 +316,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
     form_list = [forms.StateLookupForm, ]
     page_titles = collections.OrderedDict()
     page_fieldsets = collections.OrderedDict()
+    page_explanatory_texts = collections.OrderedDict()
     page_count = 0
     configuration = None
     api_error_key = 'api_error'
@@ -337,11 +338,13 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         for page_conf in self.configuration:
             step = unicode(page_conf['step'])
             title = _(page_conf['title'])
+            explanatory_text = page_conf['explanatory_text']
             fieldsets = page_conf['fieldsets']
             if fieldsets and \
                     any([fieldset['fields'] for fieldset in fieldsets]):
                 logging.debug('Processing step {}: {}'.format(step, title))
                 self.page_titles[step] = title
+                self.page_explanatory_texts[step] = explanatory_text
                 self.page_fieldsets[step] = fieldsets
                 self.form_list[unicode(step)] = forms.register_form_generator(
                     conf=page_conf)
@@ -540,6 +543,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         # we should put the configuration data here...
         d = super(RegistrationWizardView, self).get_context_data(form, **kwargs)
         d['title'] = self.page_titles[self.steps.current]
+        d['explanatory_text'] = self.page_explanatory_texts[self.steps.current]
         d['state'] = self.request.session[SESSION_STATE]
         d['state_name'] = self.request.session[SESSION_STATE_NAME]
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]

@@ -351,6 +351,13 @@ legend {
     border-color: #aaa;
 }
 
+.checkbox input[type=checkbox] + label::before {
+    top: 5px;
+    left: 2px;
+    width: 13px;
+    height: 14px;
+}
+
 .checkbox input[type=checkbox]:checked + label::before,
 .radio input[type=radio]:checked + label::before {
     background-color: #ed2224;
@@ -482,4 +489,23 @@ div.black {
 body.email-nok footer,
 body.register-done footer {
     display: none;
+}
+
+.intro-message{
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: -24px;
+}
+.explanatory-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.ssn {
+    width: 14%;
+}
+
+.register .checkboxes .form-group .checkbox {
+    margin-top: 20px;
 }

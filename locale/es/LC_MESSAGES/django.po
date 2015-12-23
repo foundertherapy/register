@@ -632,3 +632,47 @@ msgstr ""
 "Manténganme informado sobre todo lo que sucede en ORGANIZE. Es lo más "
 "excitante que le puede pasar a tu correo desde aquel famoso \"¡Tienes un "
 "correo electrónico!\""
+
+
+#: templates/registration/start.html:27
+msgid ""
+"Welcome to ORGANIZE, the quickest and easiest way to register as an organ "
+"donor."
+msgstr ""
+"Bienvenidos a ORGANIZE, la manera más fácil y rápida para registrarse como donador de órganos."
+
+#: templates/registration/start.html:32
+msgid ""
+"As an official registry, ORGANIZE keeps all of your information encrypted "
+"and secure. Any information you enter is only used for the purposes of "
+"facilitating your wishes regarding organ donation (you can read our Terms of "
+"Service <a href=\"/terms-of-service/\">Terms of Service</a>."
+msgstr ""
+"Como registro oficial, ORGANIZE mantiene toda su información encriptada"
+"y segura. Cualquier información que proporcione será utilizada exclusivamente con el propósito de"
+"facilitar sus deseos con respecto a la donación de órganos (véanse los Términos del Servicio)."
+"<a href=\"/terms-of-service/\">Términos del Servicio</a>."
+
+#: templates/registration/start.html:39
+msgid ""
+"To begin, please enter your email and zip code so we can customize your "
+"registration for your state."
+msgstr ""
+"Para iniciar, por favor proporcione su correo electrónico y código postal para poder modificar su"
+"registro de acuerdo al estado de su residencia."
+
+msgid "Last 4 of SSN"
+msgstr "Últimos 4 de su SSN"
+
+msgid ""
+"Your state requires the below information to confirm your identity. "
+"All data is secure and encrypted. "
+"You can read our <a href=\"/terms-of-service/\">Terms of Service</a>"
+msgstr ""
+"Su estado requiere la información que aparece abajo para poder confirmar su identidad. "
+"Todos los datos están seguros y encriptados. "
+"Puede leer nuestros Términos de Servicio. <a href=\"/terms-of-service/\">Términos del Servicio</a>"
+
+
+msgid "Submit Your Registration"
+msgstr "Enviar su Forma de Registro"

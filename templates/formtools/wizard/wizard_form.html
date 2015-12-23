@@ -15,28 +15,30 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1>{% blocktrans %}{{ title }}{% endblocktrans %}</h1>
+{% if wizard.steps.current != wizard.steps.last %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <h1>{% blocktrans %}{{ title }}{% endblocktrans %}</h1>
+        </div>
     </div>
-</div>
 
-<div class="row status-bar">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-    {% spaceless %}
-        {% for step in wizard.steps.all %}
-            <div class="step step-{{ step }}
-                {% if step <= wizard.steps.current %}
-                    organize-red-background
-                {% else %}
-                    organize-gray-background
-                {% endif %}
-            ">&nbsp;</div>
-        {% endfor %}
-        <div class="step-counter">{{ wizard.steps.step1|add:1 }} / {{ wizard.steps.count|add:1 }}</div>
-    {% endspaceless %}
+    <div class="row status-bar">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% spaceless %}
+            {% for step in wizard.steps.all %}
+                <div class="step step-{{ step }}
+                    {% if step <= wizard.steps.current %}
+                        organize-red-background
+                    {% else %}
+                        organize-gray-background
+                    {% endif %}
+                ">&nbsp;</div>
+            {% endfor %}
+            <div class="step-counter">{{ wizard.steps.step1|add:1 }} / {{ wizard.steps.count|add:1 }}</div>
+        {% endspaceless %}
+        </div>
     </div>
-</div>
+{% endif %}
 
 {% if terms_of_service %}
 <div class="row">
@@ -57,6 +59,12 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
     <form class="register" role="form" action="." method="post">
         {% csrf_token %}
+
+        {% if explanatory_text %}
+           <div class ="explanatory-text">
+               {% trans explanatory_text %}
+           </div>
+        {% endif %}
 
         {{ wizard.management_form }}
         {% if wizard.form.forms %}
@@ -99,17 +107,20 @@
         <br />
 
         {% buttons %}
-            <a
-                {% if wizard.steps.prev %}
-                 href="{% url 'register' step=wizard.steps.prev %}"
-                {% else %}
-                 href="{% url 'start' %}"
-                {% endif %}
-             class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; {% blocktrans %}Back{% endblocktrans %}</a>
+            {% if wizard.steps.current != wizard.steps.last %}
+                <a
+                    {% if wizard.steps.prev %}
+                     href="{% url 'register' step=wizard.steps.prev %}"
+                    {% else %}
+                     href="{% url 'start' %}"
+                    {% endif %}
+                 class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; {% blocktrans %}Back{% endblocktrans %}</a
+                    >
+            {% endif %}
 
             <button type="submit" class="btn btn-primary btn-organize" tabindex="99" disabled>
                 {% if wizard.steps.current == wizard.steps.last %}
-                    {% blocktrans %}Register{% endblocktrans %} &rsaquo;
+                    {% blocktrans %}Submit Your Registration{% endblocktrans %} &rsaquo;
                 {% else %}
                     {% blocktrans %}Next{% endblocktrans %} &rsaquo;
                 {% endif %}
