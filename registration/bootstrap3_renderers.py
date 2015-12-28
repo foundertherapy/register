@@ -3,7 +3,7 @@ import re
 from django.forms import (
     CheckboxInput, ClearableFileInput, RadioSelect, CheckboxSelectMultiple
 )
-from django.forms.extras import SelectDateWidget
+from django.forms.widgets import SelectDateWidget
 from django.utils.html import strip_tags
 
 import bootstrap3.renderers

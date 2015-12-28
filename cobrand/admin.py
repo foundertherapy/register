@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import django.contrib.admin
 import django.contrib.sites.models
+import django.utils.safestring
 from django.conf import settings
 
 import models
@@ -28,15 +29,14 @@ class CobrandCompanyAdmin(django.contrib.admin.ModelAdmin):
     actions = ['send_cobrand_register_success_email', ]
 
     def cobrand_url(self, obj):
-        return '<a href="{}">{}</a>'.format(obj.get_redirect_url(), obj.get_redirect_url())
+        return django.utils.safestring.mark_safe('<a href="{}">{}</a>'.format(obj.get_redirect_url(), obj.get_redirect_url()))
     cobrand_url.short_description = 'Cobrand URL'
-    cobrand_url.allow_tags = True
     cobrand_url.admin_order_field = 'slug'
 
     def logo(self, obj):
-        return '<img src="{}cobrand/{}">'.format(settings.MEDIA_URL, obj.get_logo_filename())
+        return django.utils.safestring.mark_safe('<img src="{}cobrand/{}">'.format(settings.MEDIA_URL, obj.get_logo_filename()))
     logo.short_description = 'Cobrand Logo'
-    logo.allow_tags = True
+
     logo.admin_order_field = 'uuid'
 
     def send_cobrand_register_success_email(self, request, queryset):

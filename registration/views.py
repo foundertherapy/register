@@ -312,7 +312,6 @@ class UnsupportedStateView(django.views.generic.TemplateView):
 
 
 class StateRedirectView(django.views.generic.RedirectView):
-    permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
         # if we have a redirect_url defined, get it and redirect

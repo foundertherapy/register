@@ -3,14 +3,14 @@ django-bootstrap3
 django-debug-toolbar
 django-debug-toolbar-template-timings
 django-extensions
-django-pipeline==1.5.4
+django-pipeline
 django-form-utils
 django-redis-cache
 django-redis-sessions
 django-secure
 django-sslify
 django-storages-redux
-Django==1.8.7
+Django==1.9
 django-shortuuidfield
 dj-database-url
 flake8
@@ -35,6 +35,6 @@ uwsgi
 yolk
 python-gettext
 psycopg2
-django-template-email
+git+https://github.com/waseem-omar/django-template-email.git@master
 django-waffle
 validate_email

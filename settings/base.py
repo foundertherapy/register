@@ -75,9 +75,11 @@ GZIP_CONTENT_TYPES = (
     'application/x-javascript',
 )
 
-PIPELINE_ENABLED = True
-PIPELINE_CSS_COMPRESSOR = None
-PIPELINE_JS_COMPRESSOR = None
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'CSS_COMPRESSOR': None,
+    'JS_COMPRESSOR': None,
+}
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -158,7 +160,7 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.sql.SQLPanel',
     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
     'debug_toolbar.panels.templates.TemplatesPanel',
-    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+    # 'template_timings_panel.panels.TemplateTimings.TemplateTimings',
     'debug_toolbar.panels.cache.CachePanel',
     # 'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
@@ -182,7 +184,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.admin',
     'djangosecure',
-    'django_extensions',
     'formtools',
     'waffle',
     'raven.contrib.django.raven_compat',

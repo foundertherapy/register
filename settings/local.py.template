@@ -6,7 +6,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 WSGI_APPLICATION = u'wsgi.local.application'
 
 DEFAULT_FILE_STORAGE = u'storages.backends.overwrite.OverwriteStorage'
-PIPELINE_ENABLED = False
+PIPELINE['PIPELINE_ENABLED'] = False
 
 SESSION_COOKIE_AGE = 60
 
