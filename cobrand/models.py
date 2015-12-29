@@ -21,7 +21,7 @@ class CobrandCompany(django.db.models.Model):
     contact_email = django.db.models.EmailField()
     contact_name = django.db.models.CharField(max_length=200)
     uuid = shortuuidfield.ShortUUIDField(auto=True, unique=True, db_index=True)
-    slug = django.db.models.SlugField(unique=True, db_index=True, editable=False)
+    slug = django.db.models.SlugField(unique=True, db_index=True, editable=False, allow_unicode=True)
 
     class Meta:
         verbose_name_plural = 'Cobrand Companies'

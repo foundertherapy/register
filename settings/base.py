@@ -119,6 +119,8 @@ MIDDLEWARE_CLASSES = [
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SECURE_BROWSER_XSS_FILTER = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
