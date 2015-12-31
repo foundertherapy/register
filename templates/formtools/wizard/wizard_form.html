@@ -97,8 +97,8 @@
                         {% if field.is_hidden %}
                             {{ field }}
                         {% else %}
-                            {% if field.name == 'subscribe_to_email_list'  and wizard.steps.current == wizard.steps.last  %}
-                                    {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='subscribe_to_email_list_wrapper'%}
+                            {% if field.name == 'subscribe_to_email_list' and wizard.steps.current == wizard.steps.last  %}
+                                {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='subscribe_to_email_list_wrapper' %}
                             {% else %}
                                 {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg'%}
                             {% endif %}

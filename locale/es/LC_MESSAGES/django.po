@@ -667,11 +667,11 @@ msgstr "Últimos 4 de su SSN"
 msgid ""
 "Your state requires the below information to confirm your identity. "
 "All data is secure and encrypted. "
-"You can read our <a href=\"/terms-of-service/\">Terms of Service</a>"
+"You can read our <a href=\"/terms-of-service/\">Terms of Service</a>."
 msgstr ""
 "Su estado requiere la información que aparece abajo para poder confirmar su identidad. "
 "Todos los datos están seguros y encriptados. "
-"Puede leer nuestros Términos de Servicio. <a href=\"/terms-of-service/\">Términos del Servicio</a>"
+"Puede leer nuestros Términos de Servicio. <a href=\"/terms-of-service/\">Términos del Servicio</a>."
 
 
 msgid "Submit Your Registration"

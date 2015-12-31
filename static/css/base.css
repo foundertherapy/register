@@ -157,7 +157,9 @@ button.btn-organize:last-of-type {
 }
 
 .btn-organize.disabled,
-.btn-organize[disabled] {
+.btn-organize[disabled],
+.btn-organize.disabled:hover,
+.btn-organize[disabled]:hover {
     color: #fff;
     background-color: #222;
     *background-color:#222;
@@ -351,13 +353,6 @@ legend {
     border-color: #aaa;
 }
 
-.checkbox input[type=checkbox] + label::before {
-    top: 5px;
-    left: 2px;
-    width: 13px;
-    height: 14px;
-}
-
 .checkbox input[type=checkbox]:checked + label::before,
 .radio input[type=radio]:checked + label::before {
     background-color: #ed2224;
@@ -493,12 +488,10 @@ body.register-done footer {
 
 .intro-message{
     font-size: 17px;
-    font-weight: bold;
     margin-bottom: -24px;
 }
 .explanatory-text {
     font-size: 18px;
-    font-weight: bold;
     margin-bottom: 14px;
 }
 
@@ -506,6 +499,6 @@ body.register-done footer {
     width: 14%;
 }
 
-.subscribe_to_email_list_wrapper{
+.subscribe_to_email_list_wrapper {
     margin-top: 20px;
 }
