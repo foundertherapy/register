@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.core.exceptions import ValidationError
 
-from forms import CharRegexField
+from ..forms import CharRegexField
 
 
 class StateLicenseIdRegexTest(SimpleTestCase):
