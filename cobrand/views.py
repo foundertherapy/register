@@ -42,7 +42,7 @@ class CobrandCompanyCreateView(django.views.generic.edit.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CobrandCompanyCreateView, self).get_context_data(**kwargs)
-        context['title'] = 'Giving Tuesday Branded Registry'
+        context['title'] = 'Configure your Branded Registry'
         return context
 
     def get_success_url(self):
