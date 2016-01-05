@@ -52,7 +52,7 @@ function closeOrganizeIframe() {
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
     organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
     var widgetChoiceImagePath = "//127.0.0.1:8888/static/images/widget/" + organizeWidgetChoice + ".png";
-    organizeRegistrationBtnTag.innerHTML = '<img style="height: 100%;" src="' + widgetChoiceImagePath + '"/>';
+    organizeRegistrationBtnTag.innerHTML = '<img style="height: 100%;border:1px solid #021a40;" src="' + widgetChoiceImagePath + '"/>';
 
     organizeScriptNode = document.getElementById('organize_widget_script');
     parentNode = organizeScriptNode.parentNode;
