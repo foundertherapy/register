@@ -96,7 +96,7 @@ class StateLookupForm(django.forms.Form):
 def register_form_clean(self):
     cleaned_data = super(self.__class__, self).clean()
     organ_choicese = [value for key, value in cleaned_data.items()
-                      if key.startswith('include') or key.startswith('allow')]
+                      if key.startswith('include')]
     if organ_choicese:
         if not any(organ_choicese):
             raise django.forms.ValidationError("At least one organ/tissue need to be selected")
