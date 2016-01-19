@@ -99,7 +99,7 @@ def register_form_clean(self):
                       if key.startswith('include') or key.startswith('allow')]
     if organ_choicese:
         if not any(organ_choicese):
-            raise django.forms.ValidationError("Please select  at least  one option to proceed ")
+            raise django.forms.ValidationError("At least one organ/tissue need to be selected")
     if self.api_errors and not self.skip_api_error_validation:
         # api_errors is a dict of field_name: [error text] that should be added
         # to each field if it is present
