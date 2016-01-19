@@ -95,6 +95,11 @@ class StateLookupForm(django.forms.Form):
 
 def register_form_clean(self):
     cleaned_data = super(self.__class__, self).clean()
+    organ_choicese = [value for key, value in cleaned_data.items()
+                      if key.startswith('include') or key.startswith('allow')]
+    if organ_choicese:
+        if not any(organ_choicese):
+            raise django.forms.ValidationError("Please select  at least  one option to proceed ")
     if self.api_errors and not self.skip_api_error_validation:
         # api_errors is a dict of field_name: [error text] that should be added
         # to each field if it is present
