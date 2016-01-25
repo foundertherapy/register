@@ -111,7 +111,6 @@ class StateLookupViewTestCase(django.test.TestCase):
 
             self.assertNotIn(key, session, msg='{} exists in session, while it should not.'.format(key))
 
-
         self.assertEquals(session[SESSION_WIDGET_ID], widget_host_uuid)
         self.assertEquals(session[SESSION_WIDGET_HOST_URL], widget_host.host_url)
 
@@ -123,10 +122,10 @@ class StateLookupViewTestCase(django.test.TestCase):
         session = self.client.session
 
         for key in (
-                SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-                SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE, SESSION_COBRAND_COMPANY_NAME,
-                SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL,
-                SESSION_WIDGET_ID,):
+            SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
+            SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE, SESSION_COBRAND_COMPANY_NAME,
+            SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID,
+                SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,):
 
             self.assertNotIn(key, session, msg='{} exists in session, while it should not.'.format(key))
 
@@ -143,12 +142,12 @@ class StateLookupViewTestCase(django.test.TestCase):
         session[SESSION_ACCEPTS_REGISTRATION] = True
         session[SESSION_REGISTRATION_CONFIGURATION] = {}
 
-        r = self.client.get('/', follow=False)
+        self.client.get('/', follow=False)
         session = self.client.session
         for key in (
             SESSION_EMAIL, SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
             SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE, SESSION_REG_SOURCE, SESSION_VARIANT_ID,
             SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID,
-            SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,):
+                SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,):
 
             self.assertNotIn(key, session, msg='{} exists in session, while it should not.'.format(key))
