@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import logging
 import collections
 import datetime
+import json
 
 import dateutil.parser
 import django.contrib.messages
@@ -47,6 +48,8 @@ SESSION_REG_SOURCE = 'reg_source'
 SESSION_VARIANT_ID = 'variant_id'
 SESSION_REGISTRATION_UUID = 'registration_uuid'
 SESSION_FIRST_NAME = 'first_name'
+SESSION_LICENSE_ID_FORMATS = 'license_id_formats'
+SESSION_LICENSE_ID_REGEXES = 'license_id_regexes'
 
 
 COOKIE_MINOR = 'register_minor'
@@ -57,11 +60,14 @@ FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     source_url=settings.FIFTYTHREE_CLIENT_SOURCE_URL,
     use_secure=settings.FIFTYTHREE_CLIENT_USE_SECURE)
 
+FIFTYTHREE_CLIENT.lookup_zipcode_api_path(api_version='v3')
+
 
 def clean_session(session):
     for key in (
             SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
-            SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE, ):
+            SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE,
+            SESSION_LICENSE_ID_FORMATS, ):
         if key in session:
             del session[key]
     session[SESSION_RESET_FORM] = True
@@ -269,6 +275,9 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         self.request.session[SESSION_POSTAL_CODE] = postal_code
         self.request.session[SESSION_REGISTRATION_UPDATE] = self.is_update
 
+        if 'license_id_formats' in r:
+            self.request.session[SESSION_LICENSE_ID_FORMATS] = r['license_id_formats']
+
         if r['accepts_registration']:
             self.accepts_registration = True
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = True
@@ -329,6 +338,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
     def process_registration_configuration(self):
         self.configuration = self.request.session[SESSION_REGISTRATION_CONFIGURATION]
+        license_id_formats = None
+        if SESSION_LICENSE_ID_FORMATS in self.request.session:
+            license_id_formats = self.request.session[SESSION_LICENSE_ID_FORMATS]
 
         self.page_count = len(self.configuration)
         logger.debug('process_registration_configuration: {}'.format(self.page_count))
@@ -347,7 +359,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                 self.page_explanatory_texts[step] = explanatory_text
                 self.page_fieldsets[step] = fieldsets
                 self.form_list[unicode(step)] = forms.register_form_generator(
-                    conf=page_conf)
+                    conf=page_conf, license_id_formats=license_id_formats)
 
     def submit_registration(self, data):
         try:
@@ -548,6 +560,20 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         d['state_name'] = self.request.session[SESSION_STATE_NAME]
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         d['email'] = self.request.session[SESSION_EMAIL]
+
+        form_test = self.form_list[unicode(self.steps.current)]
+        if 'license_id' in form_test.base_fields:
+            if SESSION_LICENSE_ID_FORMATS in self.request.session:
+                license_id_formats = [str(license_id_format) for license_id_format in
+                                      self.request.session[SESSION_LICENSE_ID_FORMATS]]
+                d['license_id_formats'] = json.dumps(license_id_formats)
+                warning_model_data_dict = {'title': _('Warning'),
+                                           'body': _('The License Id you entered is not valid , '
+                                                     'if you press Proceed button your registration'
+                                                     ' may not completed successfully'),
+                                           'ok': _('Proceed'),
+                                           'cancel': _('Cancel'), }
+                d['warning_model_data'] = warning_model_data_dict
 
         if self.steps.current == self.steps.last:
             d['cleaned_data'] = self.get_all_cleaned_data()

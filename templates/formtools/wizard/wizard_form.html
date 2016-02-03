@@ -179,4 +179,27 @@
     </div>
 </div>
 {% endif %}
+{% if license_id_formats %}
+    <div id = "license-id-formats" style="display: none;">
+    {{ license_id_formats| safe }}
+    </div>
+
+  <div id="warningModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header organize-modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title organize-modal-title">{{ warning_model_data.title }}</h4>
+          </div>
+          <div class="modal-body organize-modal-body">
+            <p>{{ warning_model_data.body }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id ="cancel" class="btn btn-default btn-cancel-modal-organize">{{ warning_model_data.cancel }}</button>
+            <button type="button" id ="proceed" class="btn btn-primary btn-ok-modal-organize" >{{ warning_model_data.ok }}</button>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endif %}
 {% endblock %}

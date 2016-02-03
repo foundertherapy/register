@@ -503,3 +503,30 @@ body.register-done footer {
 .subscribe_to_email_list_wrapper {
     margin-top: 20px;
 }
+
+.organize-modal-header {
+    background-color: #ed2224;
+    border-color: #ed2224;
+}
+
+.organize-modal-title {
+    color: white;
+}
+.btn-ok-modal-organize {
+    background-color: #ed2224;
+    border-color: #ed2224;
+}
+
+.btn-cancel-modal-organize {
+    background-color: #aaa;
+    border-color: #aaa;
+}
+.organize-modal-body {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.btn-ok-modal-organize:hover {
+    background-color: #aaa;
+    border-color: #aaa;
+}

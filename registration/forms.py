@@ -61,6 +61,49 @@ class MultiEmailField(django.forms.CharField):
         except django.core.exceptions.ValidationError:
             raise django.core.exceptions.ValidationError(self.message, code=self.code)
 
+# This class was built to validate License ID format in server-side
+
+# class CharRegexField(django.forms.CharField):
+#     message = _('Please Enter a Valid License ID')
+#     code = 'invalid'
+#     widget = django.forms.widgets.TextInput
+#     license_id_formats = None
+#
+#     def __init__(self, *args, **kwargs):
+#         self.license_id_formats = kwargs['license_id_formats']
+#         del kwargs['license_id_formats']
+#         super(CharRegexField, self).__init__(*args, **kwargs)
+#
+#     def validate_license_id_formats(self, license_id):
+#         valid_license_id = False
+#         self.license_id_formats
+#         regex_letter = '^[a-zA-Z]$'
+#         regex_number = '^[0-9]$'
+#         for license_id_format in self.license_id_formats:
+#             if len(license_id_format) == len(license_id):
+#                 alpha_numeric_match = True
+#                 for index, alpha_num in enumerate(license_id_format):
+#                     if (not((re.match(regex_letter, alpha_num) and re.match(
+#                             regex_letter, license_id[index])) or(
+#                                 re.match(regex_number, alpha_num) and
+#                                 re.match(regex_number, license_id[index])))):
+#                         alpha_numeric_match = False
+#                         break
+#                 if alpha_numeric_match:
+#                     valid_license_id = True
+#                     break
+#             else:
+#                 continue
+#         return valid_license_id
+#
+#     def validate(self, value):
+#         "Check if value match regular expression."
+#         # Use the parent's handling of required fields, etc.
+#         super(CharRegexField, self).validate(value)
+#         if value:
+#             if not self.validate_license_id_formats(value):
+#                 raise django.core.exceptions.ValidationError(self.message, code=self.code)
+
 
 class StateLookupForm(django.forms.Form):
     email = django.forms.EmailField(label=_('Email'))
@@ -157,7 +200,7 @@ def validate_date_generator(min_value):
     return validate_date
 
 
-def register_form_generator(conf):
+def register_form_generator(conf, license_id_formats=None):
     fieldsets = []
     fields = collections.OrderedDict()
     for index, fieldset_def in enumerate(conf['fieldsets']):
@@ -249,6 +292,8 @@ def register_form_generator(conf):
             if field_name == 'ssn':
                 widget.attrs['placeholder'] = '____'
                 widget.attrs['class'] = 'ssn'
+            if field_name == 'license_id':
+                widget.attrs['placeholder'] = ','.join(map(str, license_id_formats))
 
         if has_booleans:
             fieldset[1]['classes'] = ['checkboxes', ]
@@ -341,8 +386,8 @@ class EmailNextOfKinForm(django.forms.Form):
         invalid_emails = []
         for email in emails:
             r = requests.get('https://api.mailgun.net/v2/address/validate',
-                data={'address': email, },
-                auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
+                             data={'address': email, },
+                             auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
             if r.status_code == 200 and r.json()['is_valid']:
                 valid_emails.append(email)
             else:
@@ -352,4 +397,3 @@ class EmailNextOfKinForm(django.forms.Form):
             raise django.forms.ValidationError(_('Enter valid email addresses.'))
         else:
             return valid_emails
-

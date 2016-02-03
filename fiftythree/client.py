@@ -28,9 +28,8 @@ class FiftyThreeClient(object):
             use_secure=True):
         self.api_key = api_key
         self.endpoint = endpoint or 'fiftythree.organize.org'
-        self.api_version = api_version
-        self.source_url = source_url or \
-                          'https://register.organize.org/'
+        # self.api_version = api_version
+        self.source_url = source_url or 'https://register.organize.org/'
         self.use_secure = use_secure
         if use_secure:
             self.scheme = 'https://'
@@ -47,6 +46,21 @@ class FiftyThreeClient(object):
         return {
             'Authorization': 'Token {}'.format(self.api_key),
         }
+
+    def lookup_zipcode_api_path(self, api_version):
+        self.lookup_zipcode_path = '/api/{}/postal-codes/'.format(api_version)
+
+    def submit_email_api_path(self, api_version):
+        self.submit_email_path = '/api/{}/emails/'.format(api_version)
+
+    def register_api_path(self, api_version):
+        self.register_path = '/api/{}/registrations/'.format(api_version)
+
+    def revoke_api_path(self, api_version):
+        self.revoke_path = '/api/{}/revocations/'.format(api_version)
+
+    def email_next_of_kin_api_path(self, api_version):
+        self.email_next_of_kin_path = '/api/{}/next-of-kin-emails/'.format(api_version)
 
     def lookup_postal_code(self, postal_code):
         url = ''.join(

@@ -4,6 +4,33 @@ $(function() {
     var requiredRadioFields = $("form.register input[type='radio'][required='required']");
     var requiredFieldCount = requiredInputFields.length + requiredCheckboxFields.length + requiredRadioFields.length;
 
+
+    function validateLicenseId(jsonLicenseIdFormats, licenseId){
+        var validLicenseId = false;
+        var regexLetter = /^[a-zA-Z]$/;
+        var regexNumber = /^[0-9]$/;
+        for (var i = 0; i < jsonLicenseIdFormats.length; i++) {
+               if (jsonLicenseIdFormats[i].length == licenseId.length){
+                   var alphaNumericMatch = true;
+                    for (var j = 0;j < jsonLicenseIdFormats[i].length; j++ ){
+                         if (!((regexLetter.test(jsonLicenseIdFormats[i][j]) && regexLetter.test(licenseId[j]))
+                             || (regexNumber.test(jsonLicenseIdFormats[i][j]) && regexNumber.test(licenseId[j])))){
+                                 alphaNumericMatch = false;
+                                 break;
+                         }
+                    }
+               if (alphaNumericMatch){
+                   validLicenseId = true;
+                   break;
+               }
+
+               }else{
+                   continue;
+               }
+        }
+        return validLicenseId;
+    }
+
     function validate() {
         var filledFieldsCount =
                 requiredInputFields.filter(
@@ -50,4 +77,45 @@ $(function() {
     //        window.parent.document.getElementById('organize_registration_btn').innerHTML = 'Donate Again?';
     //    }
     //}
+ if( $('#license-id-formats').length ) {
+     var divFromatConetnt = $('#license-id-formats').text();
+     var jsonLicenseIdFormats = JSON.parse(divFromatConetnt);
+     $("#proceed").click(function(event){
+       $( ".register" ).submit();
+    });
+     $(".register").submit({
+         jsonLicenseIdFormats: jsonLicenseIdFormats
+     }, submitOnLicenseIdValidation);
+ }
+
+  function submitOnLicenseIdValidation(event) {
+      var licenseIdValue = getLicenseIdField().val();
+      var jsonLicenseIdFormats = event.data.jsonLicenseIdFormats;
+      var isLicenseIdRequired = checkRequiredLicenseId();
+      var isWarningModalShow = $('#warningModal').hasClass('in');
+      if (isLicenseIdRequired || (licenseIdValue && !isLicenseIdRequired)){
+          var isLicenseIdValid = validateLicenseId(jsonLicenseIdFormats, licenseIdValue);
+          if (!(isLicenseIdValid || isWarningModalShow)){
+              event.preventDefault();
+              $('#warningModal').modal('show');
+
+               $("#cancel").click(function(event){
+                $('#warningModal').modal('hide');
+              });
+
+          } else if (!isLicenseIdValid && isWarningModalShow){
+              $('#warningModal').modal('hide');
+          }
+      }
+  }
+
+  function checkRequiredLicenseId(){
+      var licenseIdField = getLicenseIdField();
+      return licenseIdField.attr('required') !== undefined ? true : false;
+  }
+
+  function getLicenseIdField(){
+      var licenseIdField = $( "input[id$='license_id']");
+      return licenseIdField;
+  }
 });
