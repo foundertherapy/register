@@ -12,6 +12,7 @@ django-sslify
 django-storages-redux
 Django==1.7.9
 django-shortuuidfield
+django-s3-folder-storage
 dj-database-url
 flake8
 hiredis
