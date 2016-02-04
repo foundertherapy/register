@@ -49,7 +49,6 @@ SESSION_VARIANT_ID = 'variant_id'
 SESSION_REGISTRATION_UUID = 'registration_uuid'
 SESSION_FIRST_NAME = 'first_name'
 SESSION_LICENSE_ID_FORMATS = 'license_id_formats'
-SESSION_LICENSE_ID_REGEXES = 'license_id_regexes'
 
 
 COOKIE_MINOR = 'register_minor'
@@ -147,6 +146,11 @@ def setup_external_source_session(request):
         # Clean widget session only if no external source params exist in the URL, because widget params are the only that we
         # don't want to keep for returning users, unless widget_id is in the URL.
         clean_widget_session(request.session)
+
+
+def strip_unicode_from_list(unicode_list):
+    stripped_list = [str(unicode_item) for unicode_item in unicode_list]
+    return stripped_list
 
 
 class UserCheckMixin(object):
@@ -352,6 +356,8 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             title = _(page_conf['title'])
             explanatory_text = page_conf['explanatory_text']
             fieldsets = page_conf['fieldsets']
+            if license_id_formats:
+                page_conf['license_id_formats'] = license_id_formats
             if fieldsets and \
                     any([fieldset['fields'] for fieldset in fieldsets]):
                 logging.debug('Processing step {}: {}'.format(step, title))
@@ -359,7 +365,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                 self.page_explanatory_texts[step] = explanatory_text
                 self.page_fieldsets[step] = fieldsets
                 self.form_list[unicode(step)] = forms.register_form_generator(
-                    conf=page_conf, license_id_formats=license_id_formats)
+                    conf=page_conf)
 
     def submit_registration(self, data):
         try:
@@ -561,19 +567,19 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         d['email'] = self.request.session[SESSION_EMAIL]
 
-        form_test = self.form_list[unicode(self.steps.current)]
-        if 'license_id' in form_test.base_fields:
+        current_form = self.form_list[unicode(self.steps.current)]
+        if 'license_id' in current_form.base_fields:
             if SESSION_LICENSE_ID_FORMATS in self.request.session:
-                license_id_formats = [str(license_id_format) for license_id_format in
-                                      self.request.session[SESSION_LICENSE_ID_FORMATS]]
+                license_id_formats = strip_unicode_from_list(
+                    self.request.session[SESSION_LICENSE_ID_FORMATS])
                 d['license_id_formats'] = json.dumps(license_id_formats)
-                warning_model_data_dict = {'title': _('Warning'),
-                                           'body': _('The License Id you entered is not valid , '
-                                                     'if you press Proceed button your registration'
-                                                     ' may not completed successfully'),
-                                           'ok': _('Proceed'),
-                                           'cancel': _('Cancel'), }
-                d['warning_model_data'] = warning_model_data_dict
+                invalid_license_model_data_dict = {'title': _('Warning'),
+                                                   'body': _('The License Id you entered is not valid , '
+                                                             'if you press Proceed button your registration'
+                                                             ' may not completed successfully'),
+                                                   'ok': _('Proceed'),
+                                                   'cancel': _('Cancel'), }
+                d['invalid_license_model_data'] = invalid_license_model_data_dict
 
         if self.steps.current == self.steps.last:
             d['cleaned_data'] = self.get_all_cleaned_data()

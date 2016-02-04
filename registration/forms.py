@@ -200,7 +200,7 @@ def validate_date_generator(min_value):
     return validate_date
 
 
-def register_form_generator(conf, license_id_formats=None):
+def register_form_generator(conf):
     fieldsets = []
     fields = collections.OrderedDict()
     for index, fieldset_def in enumerate(conf['fieldsets']):
@@ -292,8 +292,8 @@ def register_form_generator(conf, license_id_formats=None):
             if field_name == 'ssn':
                 widget.attrs['placeholder'] = '____'
                 widget.attrs['class'] = 'ssn'
-            if field_name == 'license_id':
-                widget.attrs['placeholder'] = ','.join(map(str, license_id_formats))
+            if field_name == 'license_id' and 'license_id_formats' in conf:
+                widget.attrs['placeholder'] = ','.join(map(str, conf['license_id_formats']))
 
         if has_booleans:
             fieldset[1]['classes'] = ['checkboxes', ]

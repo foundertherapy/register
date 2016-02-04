@@ -12,7 +12,7 @@ $(function() {
         for (var i = 0; i < jsonLicenseIdFormats.length; i++) {
                if (jsonLicenseIdFormats[i].length == licenseId.length){
                    var alphaNumericMatch = true;
-                    for (var j = 0;j < jsonLicenseIdFormats[i].length; j++ ){
+                    for (var j = 0; j < jsonLicenseIdFormats[i].length; j++ ){
                          if (!((regexLetter.test(jsonLicenseIdFormats[i][j]) && regexLetter.test(licenseId[j]))
                              || (regexNumber.test(jsonLicenseIdFormats[i][j]) && regexNumber.test(licenseId[j])))){
                                  alphaNumericMatch = false;
@@ -78,8 +78,8 @@ $(function() {
     //    }
     //}
  if( $('#license-id-formats').length ) {
-     var divFromatConetnt = $('#license-id-formats').text();
-     var jsonLicenseIdFormats = JSON.parse(divFromatConetnt);
+     var licenseIdFormatsDivContent = $('#license-id-formats').text();
+     var jsonLicenseIdFormats = JSON.parse(licenseIdFormatsDivContent);
      $("#proceed").click(function(event){
        $( ".register" ).submit();
     });
