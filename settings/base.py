@@ -39,7 +39,7 @@ STATICFILES_DIRS = (
 )
 
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
-MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
+MEDIA_URL = '/media/'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -51,7 +51,7 @@ STATICFILES_FINDERS = (
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
-AWS_S3_CUSTOM_DOMAIN = urlparse.urlparse(STATIC_URL).hostname
+AWS_S3_CUSTOM_DOMAIN = urlparse.urlparse(STATIC_URL).netloc
 AWS_S3_SECURE_URLS = True
 AWS_REDUCED_REDUNDANCY = False
 AWS_PRELOAD_METADATA = True
