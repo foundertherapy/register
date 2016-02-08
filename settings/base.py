@@ -73,11 +73,9 @@ GZIP_CONTENT_TYPES = (
     'application/x-javascript',
 )
 
-PIPELINE = {
-    'PIPELINE_ENABLED': True,
-    'CSS_COMPRESSOR': None,
-    'JS_COMPRESSOR': None,
-}
+PIPELINE_ENABLED = True
+PIPELINE_CSS_COMPRESSOR = None
+PIPELINE_JS_COMPRESSOR = None
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
