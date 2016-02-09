@@ -293,7 +293,7 @@ def register_form_generator(conf):
                 widget.attrs['placeholder'] = '____'
                 widget.attrs['class'] = 'ssn'
             if field_name == 'license_id' and 'license_id_formats' in conf:
-                widget.attrs['placeholder'] = ','.join(map(str, conf['license_id_formats']))
+                widget.attrs['placeholder'] = ', '.join(map(str, conf['license_id_formats']))
 
         if has_booleans:
             fieldset[1]['classes'] = ['checkboxes', ]
