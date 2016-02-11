@@ -34,7 +34,7 @@
                     {% endif %}
                 ">&nbsp;</div>
             {% endfor %}
-            <div class="step-counter">{{ wizard.steps.step1|add:1 }} / {{ wizard.steps.count|add:1 }}</div>
+            <div class="step-counter">{{ wizard.steps.step1 }} / {{ wizard.steps.count }}</div>
         {% endspaceless %}
         </div>
     </div>
