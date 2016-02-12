@@ -573,14 +573,14 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                 license_id_formats = strip_unicode_from_list(
                     self.request.session[SESSION_LICENSE_ID_FORMATS])
                 d['license_id_formats'] = json.dumps(license_id_formats)
-                invalid_license_model_data = {
+                invalid_license_modal_content = {
                     'title': _('Please check your license ID'),
                     'body': _('The license ID you entered doesn&rsquo;t seem to match the format of license IDs '
                               'for this State. Please double-check it, and if you&rsquo;re sure its right, '
                               'please choose to continue.'),
                     'ok': _('Continue to Next Page'),
                     'cancel': _('Re-check License ID'), }
-                d['invalid_license_model_data'] = invalid_license_model_data
+                d['invalid_license_modal_content'] = invalid_license_modal_content
 
         if self.steps.current == self.steps.last:
             d['cleaned_data'] = self.get_all_cleaned_data()
