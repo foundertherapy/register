@@ -189,10 +189,10 @@
         <div class="modal-content">
           <div class="modal-header organize-modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title organize-modal-title">{{ invalid_license_modal_content.title }}</h4>
+            <h4 class="modal-title organize-modal-title">{% autoescape off %}{{ invalid_license_modal_content.title }}{% endautoescape %}</h4>
           </div>
           <div class="modal-body organize-modal-body">
-            <p>{{ invalid_license_modal_content.body }}</p>
+            <p>{% autoescape off %}{{ invalid_license_modal_content.body }}{% endautoescape %}</p>
           </div>
           <div class="modal-footer">
             <button type="button" id="cancel" class="btn btn-default btn-cancel-modal-organize">{{ invalid_license_modal_content.cancel }}</button>
