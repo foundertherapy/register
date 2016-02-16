@@ -530,3 +530,7 @@ body.register-done footer {
     background-color: #aaa;
     border-color: #aaa;
 }
+
+.modal-content {
+    overflow: hidden;
+}
