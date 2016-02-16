@@ -678,16 +678,18 @@ msgid "Submit Your Registration"
 msgstr "Enviar su Forma de Registro"
 
 msgid "Please check your license ID"
-msgstr ""
+msgstr "Por favor revise la información de su licencia de manejo"
 
 msgid ""
 "The license ID you entered doesn&rsquo;t seem to match the format of license IDs "
 "for this State. Please double-check it, and if you&rsquo;re sure its right, "
 "please choose to continue."
-msgstr ""
+msgstr "La información proporcionada no coincide con el formato de licencias de ese estado."
+"Por favor asegúrese que la información esté correcta; si usted está seguro que la información está bien,"
+ "por favor seleccione continuar."
 
 msgid "Continue to Next Page"
-msgstr ""
+msgstr "Continúe en la siguiente página"
 
 msgid "Re-check License ID"
-msgstr ""
+msgstr "Revisar la información de la licencia"
