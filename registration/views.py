@@ -234,6 +234,9 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         data_copy.update(get_external_source_data(self.request.session))
         FIFTYTHREE_CLIENT.submit_email(**data_copy)
 
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
@@ -245,11 +248,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             else:
                 form.add_error('postal_code', _(e.message))
             django.contrib.messages.error(self.request, _(e.message))
-            return super(StateLookupView, self).form_invalid(form)
+            return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
             form.add_error(field=None, error=_(e.message))
-            return super(StateLookupView, self).form_invalid(form)
+            return self.form_invalid(form)
 
         postal_code = form.cleaned_data['postal_code']
         email = form.cleaned_data['email']
@@ -261,17 +264,17 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             for field, errors in e.errors.items():
                 for error in errors:
                     form.add_error(field, _(error))
-            return super(StateLookupView, self).form_invalid(form)
+            return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
             form.add_error(field=None, error=_(e.message))
-            return super(StateLookupView, self).form_invalid(form)
+            return self.form_invalid(form)
 
         if 'registration_configuration' not in r:
             logger.error(
                 'Unknown state registration configuration: {}'.format(r))
             form.add_error(
                 field=None, error=_('Unknown state registration configuration'))
-            return super(StateLookupView, self).form_invalid(form)
+            return self.form_invalid(form)
 
         self.request.session[SESSION_EMAIL] = email
         self.request.session[SESSION_STATE] = r['state']
@@ -406,10 +409,10 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         map(data.update, [form.cleaned_data for form in final_forms.values()])
         api_errors = self.submit_registration(data)
         if api_errors:
-            api_errors = dict(api_errors)
+            api_errors_dict = dict(api_errors)
             # check to see if we have an error with a minor registering
-            if 'non_field_errors' in api_errors.keys():
-                non_field_errors = api_errors['non_field_errors']
+            if 'non_field_errors' in api_errors_dict.keys():
+                non_field_errors = api_errors_dict['non_field_errors']
                 if 'Minors cannot register.' in non_field_errors:
                     self.storage.reset()
                     return self.render_restricted_minor_registration()
@@ -417,38 +420,32 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             # there is an error submitting the data, so pull the error data and
             # set the appropriate error on the form
             # call ugettext on the list of errors for each
-            api_errors = {a: [django.utils.translation.ugettext(c) for c in b]
-                          for a, b in api_errors.items()}
+            api_errors_dict = {a: [django.utils.translation.ugettext(c) for c in b]
+                          for a, b in api_errors_dict.items()}
             logger.error('Received API errors for postal_code {}: {}'.format(
-                data['postal_code'], api_errors))
-            self.storage.data[self.api_error_key] = api_errors
+                data['postal_code'], api_errors_dict))
+            self.storage.data[self.api_error_key] = api_errors_dict
             for form_key in self.get_form_list():
                 form_obj = self.get_form(
                     step=form_key,
                     data=self.storage.get_step_data(form_key),
                     files=self.storage.get_step_files(form_key))
+                last_form_key = form_key
+                last_form_obj = form_obj
                 error_field_names = set(form_obj.fields.keys()).intersection(
-                    set(api_errors.keys()))
+                    set(api_errors_dict.keys()))
                 if error_field_names:
-                    # process the date error as a special case for translation
-                    # because it has a variable
-                    # for k, v in api_errors.items():
-                    #     print v
-                    #     if v.startswith('Date must be later than'):
-                    #         v_start, v_end = v.split('than ')
-                    #         v_end = v_end.replace('.')
-                    #         date_error = dateutil.parser.parse(v_end)
-                    #         api_errors[k] = _(''.join([v_start, '%(date)s'])) \
-                    #                         % {'date': date_error, }
-                    #         break
+                    form_obj.add_error(field=None, error=api_errors_dict)
+                    return self.render_revalidation_failure(form_key, form_obj, **kwargs)
 
-                    form_obj.add_error(
-                        field=None, error=api_errors)
-                    return self.render_revalidation_failure(
-                        form_key, form_obj, **kwargs)
+            if api_errors[0][0] is None:
+                last_form_obj.add_error(field=None, error=[api_errors[0][1]])
+                #return self.render_revalidation_failure(last_form_key, last_form_obj, **kwargs)
+                return self.render_to_response(self.get_context_data(form=form, errors=api_errors[0][1]))
+
             logger.critical(
-                'API errors not properly handled by forms for postal_code {}: '
-                '{}'.format(data['postal_code'], api_errors))
+                    'API errors not properly handled by forms for postal_code {}: {}'.format(data['postal_code'], api_errors))
+
 
         # render the done view and reset the wizard before returning the
         # response. This is needed to prevent from rendering done with the
@@ -585,6 +582,8 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             d['cleaned_data'] = self.get_all_cleaned_data()
             d['configuration'] = self.configuration
 
+        d['non_field_errors'] = kwargs.get('errors')
+
         return d
 
 
@@ -643,6 +642,9 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     postal_code = ''
     form_class = forms.RevokeForm
 
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
@@ -667,8 +669,7 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                           for a, b in api_errors.items()}
             logger.error(
                 'Received API errors for registration: {}'.format(api_errors))
-            error_field_names = set(form.fields.keys()).intersection(
-                set(api_errors.keys()))
+            error_field_names = set(form.fields.keys()).intersection(set(api_errors.keys()))
             if error_field_names:
                 form.add_error(field=None, error=api_errors)
                 return self.form_invalid(form)
@@ -758,6 +759,9 @@ Your hero,
 
     def get_success_url(self):
         return django.core.urlresolvers.reverse_lazy('done')
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
     def form_valid(self, form):
         api_errors = self.submit_nok_email(form.cleaned_data)
