@@ -686,7 +686,7 @@ msgid ""
 "please choose to continue."
 msgstr "La información proporcionada no coincide con el formato de licencias de ese estado."
 "Por favor asegúrese que la información esté correcta; si usted está seguro que la información está bien,"
- "por favor seleccione continuar."
+"por favor seleccione continuar."
 
 msgid "Continue to Next Page"
 msgstr "Continúe en la siguiente página"
