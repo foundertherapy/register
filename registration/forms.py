@@ -267,6 +267,7 @@ def register_form_generator(conf):
                 # this must be false otherwise checkbox must be checked
                 if field_name == 'agree_to_tos':
                     d['help_text'] = mark_safe(help_text)
+                    d['label'] = mark_safe(label)
                 else:
                     d['required'] = False
                     d['help_text'] = help_text
