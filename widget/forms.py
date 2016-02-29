@@ -22,13 +22,14 @@ logger = logging.getLogger(__name__)
 
 class WidgetCreateForm(django.forms.ModelForm):
     tos = django.forms.BooleanField(
-        label='I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.',
+        label=django.utils.safestring.mark_safe(
+            'I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.'
+        ),
         widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
 
     class Meta:
         model = models.WidgetHost
         fields = ['contact_name', 'contact_email', 'host_url', ]
-
 
     def clean_email(self):
         contact_email = self.cleaned_data['contact_email']
