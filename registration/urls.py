@@ -8,6 +8,7 @@ import views
 urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(r'^$', views.StateLookupView.as_view(), name='start'),
+    django.conf.urls.url(r'^upenn-donate/$', views.UPENNStateLookupView.as_view(), name='upenn_donate_start'),
     django.conf.urls.url(r'^update/$', views.StateLookupView.as_view(), kwargs={'update': True, }, name='update'),
     django.conf.urls.url(r'^email-nok/$', views.EmailNextOfKinView.as_view(), name='email_next_of_kin'),
     django.conf.urls.url(r'^done/$', views.RegisterDoneView.as_view(), name='done'),

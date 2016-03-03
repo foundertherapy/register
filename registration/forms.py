@@ -136,6 +136,17 @@ class StateLookupForm(django.forms.Form):
         raise django.forms.ValidationError(_('Enter a valid email.'))
 
 
+class UPENNStateLookupForm(StateLookupForm):
+    email = django.forms.EmailField(label='')
+    postal_code = django.forms.CharField(label='', max_length=5, min_length=5, validators=[validate_postal_code])
+
+    email.widget.attrs['placeholder'] = 'EMAIL'
+    email.widget.attrs['class'] = 'upenn-text-field'
+
+    postal_code.widget.attrs['placeholder'] = 'POSTAL CODE'
+    postal_code.widget.attrs['class'] = 'upenn-text-field'
+
+
 def register_form_clean(self):
     cleaned_data = super(self.__class__, self).clean()
     organ_choicese = [value for key, value in cleaned_data.items()
