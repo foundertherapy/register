@@ -101,8 +101,9 @@
 
 
         <div class="container footer-spacer"></div>
-
-        <footer></footer>
+        {% block footer %}
+            <footer></footer>
+        {% endblock %}
 
         {# JQuery 2.x not supported by <= IE8, so we are loading JQuery 1.x for it #}
         <!--[if lt IE 9]>

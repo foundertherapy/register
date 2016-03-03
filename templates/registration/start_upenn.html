@@ -36,13 +36,13 @@
 {% block content %}
 <div class="row">
     <div class="col-lg-7 col-md-8 col-sm-10 col-xs-12">
-        <img id="upenn-heart" src="{% static 'images/heart.jpg' %}" class="img-responsive">
+        <img id="upenn-heart" src="{% static 'images/heart.jpg' %}" class="upenn-heart-image">
     </div>
 
     <div class="upenn-clearfix"></div>
 
     <div id="upenn-form-div" class="col-lg-5 col-md-8 col-sm-10 col-xs-12">
-        <div id="upenn-form-message-div" style="background: #cd0000; min-height: 540px;" class="upenn-form-message-div">
+        <div id="upenn-form-message-div" style="background: #cd0000; min-height: 610px;" class="upenn-form-message-div">
             <div class="upenn-intro-message">
                 <p style="padding-top: 85px; font-family: BebasNeueLight;" class="upenn-intro-message-1">
                     {% blocktrans trimmed %}
@@ -75,6 +75,9 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
 
 {% block body_footer %}

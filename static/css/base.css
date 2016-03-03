@@ -530,18 +530,45 @@ body.register-done footer {
     }
 }
 
-@media (min-width: 1450px) {
+@media (min-width: 1625px) {
     .upenn-form-message-div {
         margin-left: -30px;
     }
 }
-@media (max-width: 1450px) {
+@media (min-width: 1200px) and (max-width: 1625px) {
+    .upenn-form-message-div {
+        margin-left: 0px;
+        width: 650px;
+    }
+}
+@media (max-width: 1200px) {
     .upenn-form-message-div {
         margin-left: 0px;
     }
 }
 
-@media (max-width: 1450px) {
+@media (min-width: 1625px) {
+    .upenn-heart-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1625px) {
+    .upenn-heart-image {
+        max-height: 100%;
+        width: 650px;
+    }
+}
+@media (max-width: 1200px) {
+    .upenn-heart-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 1625px) {
     .upenn-clearfix {
         display: block;
         clear: both;
