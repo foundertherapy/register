@@ -25,7 +25,9 @@
 
 {% block language_selector %}{% endblock %}
 
-{% block upenn_ga_tracking %}
+{% block ga_tracking %}
+    ga('set', 'campaignName', 'upenn');
+    ga('set', 'campaignId', 'upenn');
     ga('set', 'campaignContent', 'upenn-register');
     ga('set', 'campaignSource', 'upenn-marketing');
     ga('set', 'campaignMedium', 'partner');
@@ -34,11 +36,13 @@
 {% block content %}
 <div class="row">
     <div class="col-lg-7 col-md-8 col-sm-10 col-xs-12">
-        <img src="{% static 'images/heart.jpg' %}" class="img-responsive">
+        <img id="upenn-heart" src="{% static 'images/heart.jpg' %}" class="img-responsive">
     </div>
 
-    <div class="col-lg-5 col-md-8 col-sm-10 col-xs-12">
-        <div style="background: #cd0000;" class="upenn-form-message-div">
+    <div class="upenn-clearfix"></div>
+
+    <div id="upenn-form-div" class="col-lg-5 col-md-8 col-sm-10 col-xs-12">
+        <div id="upenn-form-message-div" style="background: #cd0000; min-height: 540px;" class="upenn-form-message-div">
             <div class="upenn-intro-message">
                 <p style="padding-top: 85px;" class="upenn-intro-message-1">
                     {% blocktrans trimmed %}
@@ -81,4 +85,15 @@
             <label style="color: inherit; margin-right: 4px; float: left; margin-top: 2px;">powered by</label> <a href="http://organize.org"><img class="img-responsive" width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-white.svg' %}"/></a>
         </div>
     </div>
+{% endblock %}
+
+{% block base_script %}
+$(function(){
+    var $heart_img = $('#upenn-heart');
+    var $form_message_div = $('#upenn-form-message-div');
+    var $window = $(window).on('resize', function(){
+       var height = $heart_img.height();
+       $form_message_div.height(height);
+    }).trigger('resize');
+});
 {% endblock %}

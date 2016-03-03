@@ -523,16 +523,21 @@ body.register-done footer {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1450px) {
     .upenn-form-message-div {
         margin-left: -30px;
-        height: 978px;
     }
 }
-@media (max-width: 1200px) {
+@media (max-width: 1450px) {
     .upenn-form-message-div {
         margin-left: 0px;
-        height: 978px;
+    }
+}
+
+@media (max-width: 1450px) {
+    .upenn-clearfix {
+        display: block;
+        clear: both;
     }
 }
 

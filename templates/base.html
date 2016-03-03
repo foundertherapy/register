@@ -157,7 +157,7 @@
   }
   {% endswitch %}
 
-  {% block upenn_ga_tracking %}
+  {% block ga_tracking %}
   {% endblock %}
 
   var gender = '';
@@ -186,6 +186,9 @@
   }
 
   ga('send', 'pageview');
+
+  {% block base_script %}
+  {% endblock %}
 
 </script>
 
