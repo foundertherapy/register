@@ -44,30 +44,30 @@
     <div id="upenn-form-div" class="col-lg-5 col-md-8 col-sm-10 col-xs-12">
         <div id="upenn-form-message-div" style="background: #cd0000; min-height: 540px;" class="upenn-form-message-div">
             <div class="upenn-intro-message">
-                <p style="padding-top: 85px;" class="upenn-intro-message-1">
+                <p style="padding-top: 85px; font-family: BebasNeueLight;" class="upenn-intro-message-1">
                     {% blocktrans trimmed %}
                     SAY <label style="font-weight: bold; color: inherit">YES</label> TO
                     {% endblocktrans %}
                 </p>
-                <p class="upenn-intro-message-1">
+                <p style="font-family: BebasNeueLight;" class="upenn-intro-message-1">
                     {% blocktrans trimmed %}
                     ORGAN DONATION
                     {% endblocktrans %}
                 </p>
-                <p class="upenn-intro-message-2">
+                <p style="font-family: BebasNeueLight;" class="upenn-intro-message-2">
                     {% blocktrans trimmed %}
                     BECOME AN ORGAN DONOR
                     {% endblocktrans %}
                 </p>
             </div>
 
-            <form class="register" role="form" action="{% url 'upenn_donate_start' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px;">
+            <form class="register" role="form" action="{% url 'upenn_donate_start' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px; font-family: BebasNeueLight; font-size: 26px;">
                 {% csrf_token %}
                 {% bootstrap_form form size='lg' %}
 
 
                 {% buttons %}
-                    <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 20px; height: 64px; border-radius: 3px; font-size: 24px;" disabled>
+                    <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 20px; height: 64px; border-radius: 3px; font-size: 24px; font-family: BebasNeueLight; font-size: 30px;" disabled>
                         {% blocktrans %}REGISTER{% endblocktrans %}
                     </button>
                 {% endbuttons %}
