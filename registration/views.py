@@ -299,6 +299,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         return super(StateLookupView, self).form_valid(form)
 
 
+class UPENNStateLookupView(StateLookupView):
+    template_name = 'registration/upenn_start.html'
+    form_class = forms.UPENNStateLookupForm
+
+
 class UnsupportedStateView(django.views.generic.TemplateView):
     template_name = 'registration/unsupported_state.html'
 

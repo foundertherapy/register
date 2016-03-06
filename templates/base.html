@@ -45,17 +45,17 @@
     <body class="{% block body_class %}{% endblock %}">
         <div class="container">
             <div class="row header">
-                <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8">
-                    {% block navbar_brand %}
-                        <p>
-                            {% if request.session.cobrand_active %}
-                                <img alt="{{ request.session.cobrand_company_name }} Logo" src="{{ MEDIA_URL }}cobrand/{{ request.session.cobrand_company_logo }}"/>
-                            {% else %}
-                                <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% if inverse_logo %}{% static 'images/logo-white.svg' %}{% else %}{% static 'images/logo.svg' %}{% endif %}"/></a>
-                            {% endif %}
-                        </p>
-                    {% endblock %}
-                </div>
+                {% block navbar_brand %}
+                    <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8">
+                            <p>
+                                {% if request.session.cobrand_active %}
+                                    <img alt="{{ request.session.cobrand_company_name }} Logo" src="{{ MEDIA_URL }}cobrand/{{ request.session.cobrand_company_logo }}"/>
+                                {% else %}
+                                    <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% if inverse_logo %}{% static 'images/logo-white.svg' %}{% else %}{% static 'images/logo.svg' %}{% endif %}"/></a>
+                                {% endif %}
+                            </p>
+                    </div>
+                {% endblock %}
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-right">
                     {% block language_selector %}
                         {% if LANGUAGE_CODE == 'en' %}
@@ -85,16 +85,18 @@
                 {{ content }}
             {% endblock %}
 
-            {% if request.session.cobrand_active %}
-                <br/>
-                <br/>
-                <div class="row">
-                    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center">
-                        powered by<br/>
-                        <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a>
-                </div>
-            </div>
-            {% endif %}
+            {% block body_footer %}
+                {% if request.session.cobrand_active %}
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center">
+                            powered by<br/>
+                            <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}"/></a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endblock %}
         </div><!-- /.container -->
 
 

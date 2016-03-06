@@ -5,6 +5,20 @@
   src: url('../fonts/BebasNeueRegular.otf') format('opentype');
 }
 
+@font-face {
+    font-family: 'BebasNeueLight';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/BebasNeueLight.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'BebasNeueBold';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/BebasNeueBold.otf') format('opentype');
+}
+
 body {
     background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC") no-repeat top center;
     background-size: 100% 10px;
@@ -485,6 +499,33 @@ div.black {
 body.email-nok footer,
 body.register-done footer {
     display: none;
+}
+
+body.upenn-start {
+    background: #000;
+}
+
+.upenn-intro-message {
+    font-size: 17px;
+    color: white;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.upenn-intro-message-1 {
+    font-family: "BebasNeueLight";
+    font-size: 106px;
+}
+
+.upenn-intro-message-2 {
+    font-family: "BebasNeueLight";
+    font-size: 68px;
+}
+
+.upenn-text-field {
+    font-size: 26px;
+    height: 57px;
+    border-radius: 3px;
 }
 
 .intro-message{
