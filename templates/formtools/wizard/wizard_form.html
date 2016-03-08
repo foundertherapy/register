@@ -159,16 +159,27 @@
                         {% for fieldset in page.fieldsets %}
                             {% for field in fieldset.fields %}
                                 <tr>
-                                    <td width="200" class="organize-gray">
-                                        {% trans field.human_name %}
-                                    </td>
-                                    {% if field.field_name == 'phone_number' %}
-                                        <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
-                                    {% else %}{% if field.field_name == 'gender' %}
-                                        <td width="*">{% if cleaned_data|key:field.field_name == 'M' %}{% trans 'Male' %}{% else %}{% trans 'Female' %}{% endif %}</td>
+                                    {% if field.type == 'boolean' %}
+                                        <td colspan="2" class="">
+                                            {% if cleaned_data|key:field.field_name %}
+                                                <span class="organize-green">{% bootstrap_icon 'ok-circle' %}</span>
+                                            {% else %}
+                                                <span class="organize-red">{% bootstrap_icon 'ban-circle' %}</span>
+                                            {% endif %}
+                                            {% autoescape off %}{% trans field.human_name %}{% endautoescape %}
+                                        </td>
                                     {% else %}
-                                        <td width="*">{{ cleaned_data|key:field.field_name }}</td>
-                                    {% endif %}{% endif %}
+                                        <td width="200" class="organize-gray">
+                                            {% trans field.human_name %}
+                                        </td>
+                                        {% if field.field_name == 'phone_number' %}
+                                            <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
+                                        {% else %}{% if field.field_name == 'gender' %}
+                                            <td width="*">{% if cleaned_data|key:field.field_name == 'M' %}{% trans 'Male' %}{% else %}{% trans 'Female' %}{% endif %}</td>
+                                        {% else %}
+                                            <td width="*">{{ cleaned_data|key:field.field_name }}</td>
+                                        {% endif %}{% endif %}
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         {% endfor %}
