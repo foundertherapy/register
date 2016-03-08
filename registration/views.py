@@ -580,6 +580,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
         if self.steps.current == self.steps.last:
             d['cleaned_data'] = self.get_all_cleaned_data()
+            self.configuration = filter(lambda item: item['title'] != 'Confirm your information',
+                                        self.configuration)
+
             d['configuration'] = self.configuration
 
         d['non_field_errors'] = kwargs.get('errors')
