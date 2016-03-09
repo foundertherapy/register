@@ -133,13 +133,15 @@
                     >
             {% endif %}
 
-            <button type="submit" class="btn btn-primary btn-organize" tabindex="99" disabled>
                 {% if wizard.steps.current == wizard.steps.last %}
-                    {% blocktrans %}Submit Your Registration{% endblocktrans %} &rsaquo;
+                    <button type="submit" class="btn btn-primary btn-organize btn-submit-reg" tabindex="99" disabled>
+                        {% blocktrans %}Submit Your Registration{% endblocktrans %} &rsaquo;
+                    </button>
                 {% else %}
-                    {% blocktrans %}Next{% endblocktrans %} &rsaquo;
+                    <button type="submit" class="btn btn-primary btn-organize" tabindex="99" disabled>
+                        {% blocktrans %}Next{% endblocktrans %} &rsaquo;
+                    </button>
                 {% endif %}
-            </button>
         {% endbuttons %}
     </form>
     <br />

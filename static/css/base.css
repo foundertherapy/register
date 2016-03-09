@@ -478,6 +478,19 @@ body.register-done .btn-organize.active {
     margin-bottom: 10px;
 }
 
+@media (max-width: 768px) {
+    .btn-submit-reg, .btn-submit-reg:hover {
+        width: 100%;
+        font-size: 20px;
+    }
+}
+@media (min-width: 769px) {
+    .btn-submit-reg {
+        width: 100%;
+        font-size: 34px;
+    }
+}
+
 div.black {
     background: #000;
 }
