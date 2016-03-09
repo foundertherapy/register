@@ -130,34 +130,32 @@
   ga('require', 'linker');
   ga('linker:autoLink', ['organize.org'] );
 
-  {% block ga_tracking %}
-      {% switch 'track-gt-campaign' %}
-      var cobrand_id = '{{ request.session.cobrand_id }}';
-      var widget_id = '{{ request.session.widget_id }}';
-      var reg_source = '{{ request.session.reg_source }}';
-      var variant_id = '{{ request.session.variant_id }}';
+  {% switch 'track-gt-campaign' %}
+  var cobrand_id = '{{ request.session.cobrand_id }}';
+  var widget_id = '{{ request.session.widget_id }}';
+  var reg_source = '{{ request.session.reg_source }}';
+  var variant_id = '{{ request.session.variant_id }}';
 
-      if (cobrand_id || widget_id || reg_source) {
-            ga('set', 'campaignName', '2015-gt');
-            ga('set', 'campaignId', '2015-gt');
-      }
-      if (cobrand_id != '') {
-          ga('set', 'campaignContent', cobrand_id);
-          ga('set', 'campaignSource', '{{ request.session.cobrand_company_name }}');
-          ga('set', 'campaignMedium', 'cobrand');
-      }
-      else if (widget_id != '') {
-          ga('set', 'campaignContent', widget_id);
-          ga('set', 'campaignSource', '{{ request.session.widget_host_url }}');
-          ga('set', 'campaignMedium', 'widget');
-      }
-      else if (reg_source != '') {
-          ga('set', 'campaignContent', variant_id);
-          ga('set', 'campaignSource', reg_source);
-          ga('set', 'campaignMedium', 'email');
-      }
-      {% endswitch %}
-  {% endblock %}
+  if (cobrand_id || widget_id || reg_source) {
+        ga('set', 'campaignName', '2015-gt');
+        ga('set', 'campaignId', '2015-gt');
+  }
+  if (cobrand_id != '') {
+      ga('set', 'campaignContent', cobrand_id);
+      ga('set', 'campaignSource', '{{ request.session.cobrand_company_name }}');
+      ga('set', 'campaignMedium', 'cobrand');
+  }
+  else if (widget_id != '') {
+      ga('set', 'campaignContent', widget_id);
+      ga('set', 'campaignSource', '{{ request.session.widget_host_url }}');
+      ga('set', 'campaignMedium', 'widget');
+  }
+  else if (reg_source != '') {
+      ga('set', 'campaignContent', variant_id);
+      ga('set', 'campaignSource', reg_source);
+      ga('set', 'campaignMedium', 'email');
+  }
+  {% endswitch %}
 
   var gender = '';
   var birthdate = null;
@@ -182,6 +180,27 @@
       var ageDate = new Date(ageDifference); // miliseconds from epoch
       age = Math.abs(ageDate.getUTCFullYear() - 1970);
       ga('set', 'dimension2', age);
+  }
+
+  var upenn_registration = '{{ request.session.is_upenn_registration }}';
+  if (upenn_registration == '1') {
+      ga('set', 'campaignName', 'upenn-donate');
+      ga('set', 'campaignId', 'upenn-donate');
+      ga('set', 'campaignContent', 'upenn-register');
+      ga('set', 'campaignSource', 'upenn-marketing');
+      ga('set', 'campaignMedium', 'partner');
+
+      function getParameterByName(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+          return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      var pmlMessage = getParameterByName('pml_message');
+      var pmlCreative = getParameterByName('pml_creative');
+      if (pmlMessage) {
+          ga('set', 'dimension3', pmlMessage);
+          ga('set', 'dimension4', pmlCreative);
+      }
   }
 
   ga('send', 'pageview');

@@ -49,6 +49,7 @@ SESSION_VARIANT_ID = 'variant_id'
 SESSION_REGISTRATION_UUID = 'registration_uuid'
 SESSION_FIRST_NAME = 'first_name'
 SESSION_LICENSE_ID_FORMATS = 'license_id_formats'
+SESSION_UPENN_REGISTRATION = 'is_upenn_registration'
 
 
 COOKIE_MINOR = 'register_minor'
@@ -302,6 +303,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 class UPENNStateLookupView(StateLookupView):
     template_name = 'registration/upenn_start.html'
     form_class = forms.UPENNStateLookupForm
+
+    def get(self, request, *args, **kwargs):
+        res = super(UPENNStateLookupView, self).get(request, *args, **kwargs)
+        request.session[SESSION_UPENN_REGISTRATION] = '1'
+        return res
 
 
 class UnsupportedStateView(django.views.generic.TemplateView):
