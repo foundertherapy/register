@@ -55,7 +55,12 @@ function closeOrganizeIframe() {
 
     if (isMobile == false)
     {
-        organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
+        if (organizeAlwaysOpenInPage == true) {
+            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
+        }
+        else {
+            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: window.open(\'https://register.organize.org/?widget_id=' + organizeWidgetId + '\');');
+        }
     }
     else
     {

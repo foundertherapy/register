@@ -68,7 +68,7 @@
         $("#widget-script").val("").delay(200).queue(function(setJSCode) {
               $("#widget-script").text(
                   "<div style=\"height: " + imgHeight + "px;\"><script id=\"organize_widget_script\">" +
-                  "var organizeWidgetId=\"{{ uuid }}\"; var organizeWidgetChoice=\"" + widgetChoice + "\"; " +
+                  "var organizeAlwaysOpenInPage=true; var organizeWidgetId=\"{{ uuid }}\"; var organizeWidgetChoice=\"" + widgetChoice + "\"; " +
                   "!function(){var t=document.createElement(\"script\"); " +
                   "t.setAttribute(\"src\", \"{% get_static_prefix %}js/widget.js\"); " +
                   "var e=document.getElementById(\"organize_widget_script\"); " +
