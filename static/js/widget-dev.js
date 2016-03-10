@@ -55,7 +55,7 @@ function closeOrganizeIframe() {
 
     if (isMobile == false)
     {
-        if (organizeAlwaysOpenInPage == true) {
+        if (typeof organizeAlwaysOpenInPage === 'undefined' || organizeAlwaysOpenInPage == true) {
             organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
         }
         else {
