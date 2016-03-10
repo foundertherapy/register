@@ -20,8 +20,8 @@ function popupWindow() {
     title = 'ORGANIZE / Register to become an organ donor'
     h = screen.height - screen.height * 0.3;
     w = screen.width - screen.width * 0.3;
-    wLeft = ((window.screenLeft ? window.screenLeft : window.screenX) + (screen.width - w)) / 2;
-    wTop = ((window.screenTop ? window.screenTop : window.screenY) + (screen.height - h)) / 2;
+    wLeft = (window.screenLeft ? window.screenLeft : window.screenX) + (screen.width - w) / 2;
+    wTop = (window.screenTop ? window.screenTop : window.screenY) + (screen.height - h) / 2;
 
     //var left = wLeft + (window.innerWidth / 2) - (w / 2);
     //var top = wTop + (window.innerHeight / 2) - (h / 2);
