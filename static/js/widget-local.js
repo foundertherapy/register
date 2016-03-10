@@ -18,14 +18,14 @@ function closeOrganizeIframe() {
 function popupWindow() {
     url = 'http://127.0.0.1:8888/?widget_id=' + organizeWidgetId;
     title = 'ORGANIZE / Register to become an organ donor'
-    h = screen.height - screen.height * 0.1;
-    w = screen.width - screen.width * 0.1;
-    wLeft = (window.screenLeft ? window.screenLeft : window.screenX) + (screen.width - w) / 2;
-    wTop = (window.screenTop ? window.screenTop : window.screenY) + (screen.height - h) / 2;
+    h = screen.height - screen.height * 0.3;
+    w = screen.width - screen.width * 0.3;
+    wLeft = ((window.screenLeft ? window.screenLeft : window.screenX) + (screen.width - w)) / 2;
+    wTop = ((window.screenTop ? window.screenTop : window.screenY) + (screen.height - h)) / 2;
 
-    var left = wLeft + (window.innerWidth / 2) - (w / 2);
-    var top = wTop + (window.innerHeight / 2) - (h / 2);
-    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + (w - w * 0.2) + ', height=' + (h - h * 0.2) + ', top=' + (top) + ', left=' + left);
+    //var left = wLeft + (window.innerWidth / 2) - (w / 2);
+    //var top = wTop + (window.innerHeight / 2) - (h / 2);
+    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + wTop + ', left=' + wLeft);
 }
 
 (function() {
@@ -42,34 +42,40 @@ function popupWindow() {
     linkTag.setAttribute('type', 'text/css');
     document.getElementsByTagName('head')[0].appendChild(linkTag);
 
-    if (isMobile == false)
-    {
-        var organizeModalDivTag = document.createElement('div');
-        organizeModalDivTag.setAttribute('id', 'organize_modal');
-        organizeModalDivTag.setAttribute('class', 'organize-modal');
-
-
-        var organizeModalContentDivTag = document.createElement('div');
-        organizeModalContentDivTag.setAttribute('class', 'organize-modal-content');
-        organizeModalContentDivTag.setAttribute('id', 'organize_modal_content');
-
-        var organizeModalCloseDivTag = document.createElement('div');
-        organizeModalCloseDivTag.setAttribute('onclick', 'javascript: closeOrganizeIframe()');
-        organizeModalCloseDivTag.setAttribute('class', 'organize-close');
-        organizeModalCloseDivTag.innerHTML = '&times;';
-
-        organizeModalContentDivTag.appendChild(organizeModalCloseDivTag);
-        organizeModalDivTag.appendChild(organizeModalContentDivTag);
-
-        document.getElementsByTagName('body')[0].appendChild(organizeModalDivTag);
-    }
 
     var organizeRegistrationBtnTag = document.createElement('div');
 
     if (isMobile == false)
     {
         if (typeof organizeAlwaysOpenInPage === 'undefined' || organizeAlwaysOpenInPage == true) {
-            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
+            if (window != window.top) {
+                organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: popupWindow();');
+            }
+            else if (window.location.protocol != 'https') {
+                organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: popupWindow();');
+            }
+            else {
+                var organizeModalDivTag = document.createElement('div');
+                organizeModalDivTag.setAttribute('id', 'organize_modal');
+                organizeModalDivTag.setAttribute('class', 'organize-modal');
+
+
+                var organizeModalContentDivTag = document.createElement('div');
+                organizeModalContentDivTag.setAttribute('class', 'organize-modal-content');
+                organizeModalContentDivTag.setAttribute('id', 'organize_modal_content');
+
+                var organizeModalCloseDivTag = document.createElement('div');
+                organizeModalCloseDivTag.setAttribute('onclick', 'javascript: closeOrganizeIframe()');
+                organizeModalCloseDivTag.setAttribute('class', 'organize-close');
+                organizeModalCloseDivTag.innerHTML = '&times;';
+
+                organizeModalContentDivTag.appendChild(organizeModalCloseDivTag);
+                organizeModalDivTag.appendChild(organizeModalContentDivTag);
+
+                document.getElementsByTagName('body')[0].appendChild(organizeModalDivTag);
+
+                organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
+            }
         }
         else {
             organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: popupWindow();');
