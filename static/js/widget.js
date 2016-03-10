@@ -15,6 +15,19 @@ function closeOrganizeIframe() {
     document.getElementById('organize_modal_content').removeChild(document.getElementById('organize_iframe'));
 }
 
+function popupWindow() {
+    url = 'https://register.organize.org/?widget_id=' + organizeWidgetId;
+    title = 'ORGANIZE / Register to become an organ donor'
+    h = screen.height - screen.height * 0.1;
+    w = screen.width - screen.width * 0.1;
+    wLeft = (window.screenLeft ? window.screenLeft : window.screenX) + (screen.width - w) / 2;
+    wTop = (window.screenTop ? window.screenTop : window.screenY) + (screen.height - h) / 2;
+
+    var left = wLeft + (window.innerWidth / 2) - (w / 2);
+    var top = wTop + (window.innerHeight / 2) - (h / 2);
+    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + (w - w * 0.2) + ', height=' + (h - h * 0.2) + ', top=' + (top) + ', left=' + left);
+}
+
 (function() {
     var isMobile = false;
     // device detection
@@ -59,7 +72,7 @@ function closeOrganizeIframe() {
             organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: loadOrganizeIframe();');
         }
         else {
-            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: window.open(\'https://register.organize.org/?widget_id=' + organizeWidgetId + '\');');
+            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: popupWindow();');
         }
     }
     else
