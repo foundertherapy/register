@@ -50,7 +50,7 @@ function popupWindow() {
             if (window != window.top) {
                 organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: popupWindow();');
             }
-            else if (window.location.protocol != 'https') {
+            else if (window.location.protocol != 'https:') {
                 organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: popupWindow();');
             }
             else {
