@@ -26,7 +26,7 @@ class CobrandCompanyCreateForm(django.forms.ModelForm):
         label='Company Logo',
         help_text='Upload a logo for your company in either JPEG or PNG format.')
     tos = django.forms.BooleanField(
-        label='I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.',
+        label=django.utils.safestring.mark_safe('I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.'),
         widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
     invalid_company_name = 'This Company Name is Already Exists'
 
