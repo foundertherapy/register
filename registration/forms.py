@@ -199,6 +199,16 @@ def register_form_clean_ssn(self):
     return ssn
 
 
+def register_form_clean_city_of_birth(self):
+    city_of_birth = self.cleaned_data['city_of_birth']
+    if not city_of_birth:
+        return city_of_birth
+    is_contain_digit = any(char.isdigit() for char in city_of_birth)
+    if is_contain_digit:
+        raise django.forms.ValidationError(
+            _('Only Characters A-Z and periods (.) are valid values'))
+
+
 def validate_date_generator(min_value):
     min_value = dateutil.parser.parse(min_value).date()
 
@@ -325,6 +335,7 @@ def register_form_generator(conf):
             'clean_birthdate': register_form_clean_birthdate,
             'clean_phone_number': register_form_clean_phone_number,
             'clean_ssn': register_form_clean_ssn,
+            'clean_city_of_birth': register_form_clean_city_of_birth,
             'api_errors': {},
             'skip_api_error_validation': False,
         })
