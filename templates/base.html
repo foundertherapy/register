@@ -50,11 +50,11 @@
                     <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8">
                             <p>
                                 {% if request.session.cobrand_active %}
-                                    {% cache 60 * 60 * 24 cobrand_header_logo request.session.cobrand_company_logo %}
+                                    {% cache 86400 cobrand_header_logo request.session.cobrand_company_logo %}
                                         <img alt="{{ request.session.cobrand_company_name }} Logo" src="{{ MEDIA_URL }}cobrand/{{ request.session.cobrand_company_logo }}"/>
                                     {% endcache %}
                                 {% else %}
-                                    {% cache 60 * 60 * 24 header_logo inverse_logo %}
+                                    {% cache 86400 header_logo inverse_logo %}
                                         <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% if inverse_logo %}{% static 'images/logo-white.svg' %}{% else %}{% static 'images/logo.svg' %}{% endif %}"/></a>
                                     {% endcache %}
                                 {% endif %}
@@ -63,7 +63,7 @@
                 {% endblock %}
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-right">
                     {% block language_selector %}
-                        {% cache 60 * 60 * 24 language_anchor LANGUAGE_CODE %}
+                        {% cache 86400 language_anchor LANGUAGE_CODE %}
                             {% if LANGUAGE_CODE == 'en' %}
                                 {% language 'es' %}
                                     <a id="language-spanish" href="#">{% trans 'Spanish' %}</a>
