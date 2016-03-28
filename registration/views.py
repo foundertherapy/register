@@ -13,6 +13,7 @@ import django.shortcuts
 import django.views.generic.edit
 import django.forms
 import django.utils
+from django.core.cache import cache
 from django.conf import settings
 from formtools.wizard.forms import ManagementForm
 from formtools.wizard.storage import get_storage
@@ -122,11 +123,17 @@ def setup_external_source_session(request):
         try:
             clean_widget_session(request.session)
             clean_email_source_session(request.session)
-            cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
+
+            company_name = cache.get(cobrand_id)
+            if not company_name:
+                cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
+                company_name = cobrand_company.company_name
+                cache.set(cobrand_id, company_name, 60 * 60 * 24)
+
             request.session[SESSION_COBRAND_ACTIVE] = True
             request.session[SESSION_COBRAND_ID] = cobrand_id
-            request.session[SESSION_COBRAND_COMPANY_LOGO] = '{}.png'.format(cobrand_company.uuid)
-            request.session[SESSION_COBRAND_COMPANY_NAME] = cobrand_company.company_name
+            request.session[SESSION_COBRAND_COMPANY_LOGO] = '{}.png'.format(cobrand_id)
+            request.session[SESSION_COBRAND_COMPANY_NAME] = company_name
         except cobrand.models.CobrandCompany.DoesNotExist:
             pass
     elif widget_id:
@@ -259,7 +266,10 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         email = form.cleaned_data['email']
 
         try:
-            r = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
+            postal_code_response = cache.get(postal_code)
+            if not postal_code_response:
+                postal_code_response = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
+                cache.set(postal_code, postal_code_response, 60 * 60 * 24)
         except fiftythree.client.InvalidDataError as e:
             django.contrib.messages.error(self.request, _(e.message))
             for field, errors in e.errors.items():
@@ -270,32 +280,32 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             form.add_error(field=None, error=_(e.message))
             return self.form_invalid(form)
 
-        if 'registration_configuration' not in r:
+        if 'registration_configuration' not in postal_code_response:
             logger.error(
-                'Unknown state registration configuration: {}'.format(r))
+                'Unknown state registration configuration: {}'.format(postal_code_response))
             form.add_error(
                 field=None, error=_('Unknown state registration configuration'))
             return self.form_invalid(form)
 
         self.request.session[SESSION_EMAIL] = email
-        self.request.session[SESSION_STATE] = r['state']
-        self.request.session[SESSION_STATE_NAME] = r['state_name']
+        self.request.session[SESSION_STATE] = postal_code_response['state']
+        self.request.session[SESSION_STATE_NAME] = postal_code_response['state_name']
         self.request.session[SESSION_POSTAL_CODE] = postal_code
         self.request.session[SESSION_REGISTRATION_UPDATE] = self.is_update
 
-        if 'license_id_formats' in r:
-            self.request.session[SESSION_LICENSE_ID_FORMATS] = r['license_id_formats']
+        if 'license_id_formats' in postal_code_response:
+            self.request.session[SESSION_LICENSE_ID_FORMATS] = postal_code_response['license_id_formats']
 
-        if r['accepts_registration']:
+        if postal_code_response['accepts_registration']:
             self.accepts_registration = True
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = True
             self.request.session[SESSION_REDIRECT_URL] = ''
             self.request.session[SESSION_REGISTRATION_CONFIGURATION] = \
-                r['registration_configuration']
+                postal_code_response['registration_configuration']
         else:
             self.accepts_registration = False
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = False
-            self.request.session[SESSION_REDIRECT_URL] = r['redirect_url']
+            self.request.session[SESSION_REDIRECT_URL] = postal_code_response['redirect_url']
 
         return super(StateLookupView, self).form_valid(form)
 
