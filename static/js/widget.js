@@ -1,7 +1,13 @@
 function loadOrganizeIframe() {
     var iframeTag = document.createElement('iframe');
     iframeTag.setAttribute('id', 'organize_iframe');
-    iframeTag.setAttribute('src', 'https://register.organize.org/?widget_id=' + organizeWidgetId);
+    // Support for cobranding over widget
+    if (typeof organizeBrandId !== 'undefined' && organizeBrandId !== '') {
+        iframeTag.setAttribute('src', 'https://register.organize.org/?cobrand_id=' + organizeBrandId);
+    }
+    else {
+        iframeTag.setAttribute('src', 'https://register.organize.org/?widget_id=' + organizeWidgetId);
+    }
     iframeTag.setAttribute('class', 'organize-iframe');
     iframeTag.setAttribute('width', '100%');
     iframeTag.setAttribute('height', '100%');
@@ -17,6 +23,10 @@ function closeOrganizeIframe() {
 
 function popupWindow() {
     url = 'https://register.organize.org/?widget_id=' + organizeWidgetId;
+    // Support for cobranding over widget
+    if (typeof organizeBrandId !== 'undefined' && organizeBrandId !== '') {
+        url = 'https://register.organize.org/?cobrand_id=' + organizeBrandId;
+    }
     title = 'ORGANIZE / Register to become an organ donor'
     h = screen.height - screen.height * 0.3;
     w = screen.width - screen.width * 0.3;
@@ -82,7 +92,13 @@ function popupWindow() {
     }
     else
     {
-        organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: window.open(\'https://register.organize.org/?widget_id=' + organizeWidgetId + '\');');
+        // Support for cobranding over widget
+        if (typeof organizeBrandId !== 'undefined' && organizeBrandId !== '') {
+            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: window.open(\'https://register.organize.org/?cobrand_id=' + organizeBrandId + '\');');
+        }
+        else {
+            organizeRegistrationBtnTag.setAttribute('onclick', 'javascript: window.open(\'https://register.organize.org/?widget_id=' + organizeWidgetId + '\');');
+        }
     }
 
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
