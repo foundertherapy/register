@@ -2,7 +2,6 @@
 {% load bootstrap3 %}
 {% load raven %}
 {% load i18n %}
-{% load cache %}
 {% load waffle_tags %}
 {% load registration_extras %}
 
@@ -50,30 +49,24 @@
                     <div class="col-lg-4 col-lg-offset-3 col-md-5 col-md-offset-2 col-sm-7 col-sm-offset-1 col-xs-8">
                             <p>
                                 {% if request.session.cobrand_active %}
-                                    {% cache 86400 cobrand_header_logo request.session.cobrand_company_logo %}
-                                        <img alt="{{ request.session.cobrand_company_name }} Logo" src="{{ MEDIA_URL }}cobrand/{{ request.session.cobrand_company_logo }}"/>
-                                    {% endcache %}
+                                    <img alt="{{ request.session.cobrand_company_name }} Logo" src="{{ MEDIA_URL }}cobrand/{{ request.session.cobrand_company_logo }}"/>
                                 {% else %}
-                                    {% cache 86400 header_logo inverse_logo %}
-                                        <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% if inverse_logo %}{% static 'images/logo-white.svg' %}{% else %}{% static 'images/logo.svg' %}{% endif %}"/></a>
-                                    {% endcache %}
+                                    <a href="http://organize.org"><img width="160" height="24" alt="ORGANIZE Logo" src="{% if inverse_logo %}{% static 'images/logo-white.svg' %}{% else %}{% static 'images/logo.svg' %}{% endif %}"/></a>
                                 {% endif %}
                             </p>
                     </div>
                 {% endblock %}
                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 text-right">
                     {% block language_selector %}
-                        {% cache 86400 language_anchor LANGUAGE_CODE %}
-                            {% if LANGUAGE_CODE == 'en' %}
-                                {% language 'es' %}
-                                    <a id="language-spanish" href="#">{% trans 'Spanish' %}</a>
-                                {% endlanguage %}
-                            {% else %}
-                                {% language 'en' %}
-                                    <a id="language-english" href="#">{% trans 'English' %}</a>
-                                {% endlanguage %}
-                            {% endif %}
-                        {% endcache %}
+                        {% if LANGUAGE_CODE == 'en' %}
+                            {% language 'es' %}
+                                <a id="language-spanish" href="#">{% trans 'Spanish' %}</a>
+                            {% endlanguage %}
+                        {% else %}
+                            {% language 'en' %}
+                                <a id="language-english" href="#">{% trans 'English' %}</a>
+                            {% endlanguage %}
+                        {% endif %}
                         <form id="language-selector" role="form" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" id="language" name="language" value="">

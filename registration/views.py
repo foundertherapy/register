@@ -124,11 +124,11 @@ def setup_external_source_session(request):
             clean_widget_session(request.session)
             clean_email_source_session(request.session)
 
-            company_name = cache.get(cobrand_id)
+            company_name = cache.get('cobrand:{}'.format(cobrand_id))
             if not company_name:
                 cobrand_company = cobrand.models.CobrandCompany.objects.get(uuid=cobrand_id)
                 company_name = cobrand_company.company_name
-                cache.set(cobrand_id, company_name)
+                cache.set('cobrand:{}'.format(cobrand_id), company_name, 60 * 60 * 24)
 
             request.session[SESSION_COBRAND_ACTIVE] = True
             request.session[SESSION_COBRAND_ID] = cobrand_id
@@ -266,10 +266,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         email = form.cleaned_data['email']
 
         try:
-            postal_code_response = cache.get(postal_code)
+            postal_code_response = cache.get('postal_code_data:{}'.format(postal_code))
             if not postal_code_response:
                 postal_code_response = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
-                cache.set(postal_code, postal_code_response, settings.POSTAL_CODE_RESPONSE_CACHE_TIMEOUT)
+                cache.set('postal_code_data:{}'.format(postal_code),
+                          postal_code_response, settings.POSTAL_CODE_RESPONSE_CACHE_TIMEOUT)
         except fiftythree.client.InvalidDataError as e:
             django.contrib.messages.error(self.request, _(e.message))
             for field, errors in e.errors.items():
