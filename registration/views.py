@@ -433,7 +433,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             # call ugettext on the list of errors for each
             api_errors_dict = {a: [django.utils.translation.ugettext(c) for c in b]
                           for a, b in api_errors_dict.items()}
-            logger.error('Received API errors for postal_code {}: {}'.format(
+            logger.warning('Received API errors for postal_code {}: {}'.format(
                 data['postal_code'], api_errors_dict))
             self.storage.data[self.api_error_key] = api_errors_dict
             for form_key in self.get_form_list():
