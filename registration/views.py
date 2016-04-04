@@ -255,6 +255,8 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                 form.add_error('email', _(e.message))
             else:
                 form.add_error('postal_code', _(e.message))
+            logger.error('{} While trying to call EmailSubmit API '
+                         'with error response {}'.format(e.message, unicode(e.errors)))
             django.contrib.messages.error(self.request, _(e.message))
             return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
@@ -276,6 +278,8 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             for field, errors in e.errors.items():
                 for error in errors:
                     form.add_error(field, _(error))
+            logger.error('{} While trying to call PostalCode lookup API '
+                         'with error response {}'.format(e.message, unicode(e.errors)))
             return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
             form.add_error(field=None, error=_(e.message))
@@ -399,7 +403,8 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             self.request.session[SESSION_REGISTRATION_UUID] = uuid
             self.request.session[SESSION_FIRST_NAME] = data_copy['first_name']
         except fiftythree.client.InvalidDataError as e:
-            logger.error(e.message)
+            logger.error('{} While trying to call Register API '
+                         'with error response {}'.format(e.message, unicode(e.errors)))
             return e.errors.items()
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
@@ -639,7 +644,8 @@ class LegalDocument(django.views.generic.TemplateView):
             context['hash'] = r['hash']
             context['active_on'] = dateutil.parser.parse(r['active_on'])
         except fiftythree.client.InvalidDataError as e:
-            logger.error(e.message)
+            logger.error('{} While trying to call Document API '
+                         'with error response {}'.format(e.message, unicode(e.errors)))
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
 
@@ -716,7 +722,8 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             data_copy.update(get_external_source_data(self.request.session))
             FIFTYTHREE_CLIENT.revoke(**data_copy)
         except fiftythree.client.InvalidDataError as e:
-            logger.error(e.message)
+            logger.error('{} While trying to call Revoke '
+                         'API with error response {}'.format(e.message, unicode(e.errors)))
             return e.errors.items()
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
@@ -740,7 +747,8 @@ class RevokeDoneView(django.views.generic.TemplateView):
                     self.kwargs['postal_code'])
                 context['registry_url'] = r.get('registry_url')
             except fiftythree.client.InvalidDataError as e:
-                logger.error(e.message)
+                logger.error('{} While trying to call PostalCode '
+                             'API for revocation complete with error response {}'.format(e.message, unicode(e.errors)))
             except fiftythree.client.ServiceError as e:
                 logger.error(e.message)
 
@@ -816,7 +824,8 @@ Your hero,
                 return [[None, ['Registration ID required.']]]
             FIFTYTHREE_CLIENT.email_next_of_kin(**data_copy)
         except fiftythree.client.InvalidDataError as e:
-            logger.error(e.message)
+            logger.error('{} While trying to call EmailNextOfKin API '
+                         'with error response {}'.format(e.message, unicode(e.errors)))
             return e.errors.items()
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
