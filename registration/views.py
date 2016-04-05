@@ -315,7 +315,6 @@ class UPENNStateLookupView(StateLookupView):
     form_class = forms.UPENNStateLookupForm
 
     def get(self, request, *args, **kwargs):
-        self.template_name = kwargs['template_name']
         res = super(UPENNStateLookupView, self).get(request, *args, **kwargs)
         request.session[SESSION_UPENN_REGISTRATION] = '1'
         return res
