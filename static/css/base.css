@@ -756,3 +756,8 @@ body.upenn-start {
 .modal-content {
     overflow: hidden;
 }
+
+.invalid-data-error .help-block {
+    font-size: larger;
+    color: #ffffff;
+}

@@ -137,6 +137,7 @@ class StateLookupForm(django.forms.Form):
 
 
 class UPENNStateLookupForm(StateLookupForm):
+    error_css_class = 'invalid-data-error'
     email = django.forms.EmailField(label='')
     postal_code = django.forms.CharField(label='', max_length=5, min_length=5, validators=[validate_postal_code])
 
