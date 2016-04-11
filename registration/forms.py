@@ -247,25 +247,32 @@ def register_form_generator(conf):
                 'label': label,
             }
 
-            if field_type == 'string' and choices and is_editable:
+            if field_type == 'string':
                 d['required'] = is_required
                 d['initial'] = initial
-                d['help_text'] = help_text
-                d['choices'] = choices
-                d['widget'] = django.forms.RadioSelect
-                field_class = django.forms.ChoiceField
-            elif field_type == 'string' and field_name == 'email':
-                d['required'] = is_required
-                d['max_length'] = max_length
-                d['initial'] = initial
-                d['help_text'] = help_text
-                field_class = django.forms.EmailField
-            elif field_type == 'string':
-                d['required'] = is_required
-                d['max_length'] = max_length
-                d['initial'] = initial
-                d['help_text'] = help_text
-                field_class = django.forms.CharField
+                if choices and is_editable:
+                    d['help_text'] = help_text
+                    d['choices'] = choices
+                    d['widget'] = django.forms.RadioSelect
+                    field_class = django.forms.ChoiceField
+                elif field_name == 'email':
+                    d['max_length'] = max_length
+                    d['help_text'] = help_text
+                    field_class = django.forms.EmailField
+                elif field_name == 'license_id'\
+                        and 'license_id_formats' in conf:
+                    d['max_length'] = max_length
+                    license_id_formats = '<p class=\'hint-license-id-format\'>' \
+                                         'Valid Formats: ' \
+                                         + ', '.join(map(str, conf['license_id_formats'])) + '</p>'
+                    help_text = '<p>' + unicode(help_text) + '</p>'
+                    license_id_formats += help_text
+                    d['help_text'] = mark_safe(license_id_formats)
+                    field_class = django.forms.CharField
+                else:
+                    d['max_length'] = max_length
+                    d['help_text'] = help_text
+                    field_class = django.forms.CharField
             elif field_type == 'date':
                 d['required'] = is_required
                 d['initial'] = initial
@@ -305,8 +312,6 @@ def register_form_generator(conf):
             if field_name == 'ssn':
                 widget.attrs['placeholder'] = '____'
                 widget.attrs['class'] = 'ssn'
-            if field_name == 'license_id' and 'license_id_formats' in conf:
-                widget.attrs['placeholder'] = ', '.join(map(str, conf['license_id_formats']))
 
         if has_booleans:
             fieldset[1]['classes'] = ['checkboxes', ]

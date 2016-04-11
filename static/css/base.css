@@ -761,3 +761,8 @@ body.upenn-start {
     font-size: larger;
     color: #ffffff;
 }
+
+.help-block .hint-license-id-format {
+    font-size: medium;
+    font-weight: bolder;
+}
