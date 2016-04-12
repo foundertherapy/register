@@ -264,7 +264,7 @@ def register_form_generator(conf):
                     d['max_length'] = max_length
                     license_id_formats = '{}{}{}'.format(
                         '<p class=\'hint-license-id-format\'>'
-                        'Valid License IDs look like any of ',
+                        'Valid state License IDs should look like : ',
                         ', '.join(map(unicode, conf['license_id_formats'])), '</p>')
                     help_text = '{}{}{}'.format('<p> ', unicode(help_text), '</p>')
                     license_id_formats = '{}{}'.format(license_id_formats, help_text)
