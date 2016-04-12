@@ -248,15 +248,23 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
+
+        # Since we need to include postal_code in error message
+        # we had to move the line below to this location
+        # Moreover accessing form.cleaned_data['postal_code'] directly inside
+        # Exception catch statement raised a KeyError exception
+        postal_code = form.cleaned_data['postal_code']
         try:
             self.submit_email(form.cleaned_data)
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
                 form.add_error('email', _(e.message))
+                error_message_log = e.message
             else:
                 form.add_error('postal_code', _(e.message))
+                error_message_log = '{}{}'.format('Invalid postal code:', postal_code)
             logger.error('{} While trying to call EmailSubmit API '
-                         'with error response {}'.format(e.message, unicode(e.errors)))
+                         'with error response {}'.format(error_message_log, unicode(e.errors)))
             django.contrib.messages.error(self.request, _(e.message))
             return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
@@ -264,7 +272,6 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             form.add_error(field=None, error=_(e.message))
             return self.form_invalid(form)
 
-        postal_code = form.cleaned_data['postal_code']
         email = form.cleaned_data['email']
 
         try:
