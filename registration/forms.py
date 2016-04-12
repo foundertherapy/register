@@ -262,11 +262,12 @@ def register_form_generator(conf):
                 elif field_name == 'license_id'\
                         and 'license_id_formats' in conf:
                     d['max_length'] = max_length
-                    license_id_formats = '<p class=\'hint-license-id-format\'>' \
-                                         'Valid Formats: ' \
-                                         + ', '.join(map(str, conf['license_id_formats'])) + '</p>'
-                    help_text = '<p>' + unicode(help_text) + '</p>'
-                    license_id_formats += help_text
+                    license_id_formats = '{}{}{}'.format(
+                        '<p class=\'hint-license-id-format\'>'
+                        'Valid License IDs look like any of ',
+                        ', '.join(map(unicode, conf['license_id_formats'])), '</p>')
+                    help_text = '{}{}{}'.format('<p> ', unicode(help_text), '</p>')
+                    license_id_formats = '{}{}'.format(license_id_formats, help_text)
                     d['help_text'] = mark_safe(license_id_formats)
                     field_class = django.forms.CharField
                 else:
