@@ -254,12 +254,13 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         # Moreover accessing form.cleaned_data['postal_code'] directly inside
         # Exception catch statement raised a KeyError exception
         postal_code = form.cleaned_data['postal_code']
+        email = form.cleaned_data['email']
         try:
             self.submit_email(form.cleaned_data)
         except fiftythree.client.InvalidDataError as e:
             if e.message == 'Invalid email.':
                 form.add_error('email', _(e.message))
-                error_message_log = e.message
+                error_message_log = '{}{}'.format('Invalid email: ', email)
             else:
                 form.add_error('postal_code', _(e.message))
                 error_message_log = '{}{}'.format('Invalid postal code:', postal_code)
@@ -271,8 +272,6 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             logger.error(e.message)
             form.add_error(field=None, error=_(e.message))
             return self.form_invalid(form)
-
-        email = form.cleaned_data['email']
 
         try:
             postal_code_response = cache.get('postal_code_data:{}'.format(postal_code))
