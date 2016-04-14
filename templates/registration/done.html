@@ -12,15 +12,21 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1618879448349576";
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=260566877615772";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     <script>
         fb_share = function () {
             FB.ui({
-                method: 'share',
-                href: 'https://register.organize.org',
-            }, function(response){});
+              method: 'share_open_graph',
+              action_type: 'og.likes',
+              action_properties: JSON.stringify({
+                  object: 'https://register-dev.organize.org/',
+              })
+            }, function(response){
+              // Debug response (optional)
+              console.log(response);
+            });
         }
     </script>
 {% endblock %}
