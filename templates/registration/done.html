@@ -15,6 +15,14 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1618879448349576";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
+    <script>
+        fb_share = function () {
+            FB.ui({
+                method: 'share',
+                href: 'https://register.organize.org',
+            }, function(response){});
+        }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -49,11 +57,13 @@
         <p class="lead text-center">{% blocktrans %}Do more good:{% endblocktrans %}</p>
     </div>
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center">
+
+
+{#        <div class="fb-share-button btn btn-default btn-organize" data-href="https://register.organize.org" data-layout="link" data-mobile-iframe="true">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></div>#}
+
+        <a href="" onclick="fb_share();" class="btn btn-default btn-organize">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></a>
+
         <a class="btn btn-default btn-organize" href="https://twitter.com/intent/tweet?text=I+am+officially+a+registered+organ+donor.+%23GiveWithYourHeart+%40organ_ize" role="button">#GiveWithYourHeart <img src="{% static 'images/twitter.png' %}" height="30" /></a>
-
-        <div class="fb-share-button btn btn-default btn-organize" data-href="https://register.organize.org" data-layout="link" data-mobile-iframe="true">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></div>
-
-        <a href="https://www.facebook.com/organize" class="btn btn-default btn-organize">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></a>
     </div>
 </div>
 
