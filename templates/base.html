@@ -18,6 +18,13 @@
             <meta name="description" content="{{ html_description }}">
         {% endif %}
 
+
+        <meta property="og:url" content="https://register.organize.org" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="ORGANIZE Organ Donor Registration" />
+        <meta property="og:description" content="WE MAKE IT EASY TO BE AN ORGAN DONOR. Register and tell the world you support organ donation by posting #DonateMyParts on one of your social media platforms." />
+        <meta property="og:image" content="{% static 'images/logo-large.png' %}" />
+
         {# protocol must be included because IE 8 doesn't seem to handle this properly #}
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="all" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -43,6 +50,7 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+        {% block body_javascript %}{% endblock %}
         <div class="container {% block container_class %}{% endblock %}">
             <div class="row header">
                 {% block navbar_brand %}
