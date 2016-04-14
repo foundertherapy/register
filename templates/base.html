@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <link rel="icon" href="/favicon.ico">
+        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png" />
 
         <title>ORGANIZE / {% block title %}{{ title|default:"Register to become an organ donor" }}{% endblock title %}</title>
         {% if html_description %}
@@ -23,9 +23,10 @@
         <meta property="og:type" content="website" />
         <meta property="og:title" content="ORGANIZE Organ Donor Registration" />
         <meta property="og:description" content="WE MAKE IT EASY TO BE AN ORGAN DONOR. Register and tell the world you support organ donation by posting #DonateMyParts on one of your social media platforms." />
-        <meta property="og:image" content="{% static 'images/logo-large.png' %}" />
+        <meta property="og:image" content="{% static 'images/logo-1024.png' %}" />
         <meta property="og:image:width" content="300" />
         <meta property="og:image:width" content="44" />
+        <meta property="og:app_id" content="260566877615772" />
 
 
         {# protocol must be included because IE 8 doesn't seem to handle this properly #}
