@@ -20,16 +20,10 @@
     <script>
         fb_share = function () {
             FB.ui({
-              method: 'share_open_graph',
-              action_type: 'og.likes',
-              action_properties: JSON.stringify({
-                  object: location.protocol + '//{{ request.site }}',
-                  hashtag: 'EndTheWaitList'
-              })
-            }, function(response){
-              // Debug response (optional)
-              console.log(response);
-            });
+                method: 'share',
+                mobile_iframe: true,
+                href: location.protocol + '//{{ request.site }}'
+            }, function(response){});
         }
     </script>
     {% endif %}
