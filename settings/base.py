@@ -107,6 +107,7 @@ DATETIME_INPUT_FORMATS = (
 
 MIDDLEWARE_CLASSES = [
     'sslify.middleware.SSLifyMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'registration.middleware.RequestLocaleMiddleware',
@@ -114,6 +115,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'waffle.middleware.WaffleMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -126,7 +128,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            #'/home/cchilders/.local/virtualenv/new_bookmarks/lib/python2.7/site-packages/helpdesk/templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,6 +139,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.request',
+                'registration.context_processors.settings'
             ],
             'debug': DEBUG,
         }
@@ -339,3 +341,5 @@ EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 25)
 EMAIL_USE_TLS = is_environ_true('EMAIL_USE_TLS')
 
 POSTAL_CODE_RESPONSE_CACHE_TIMEOUT = os.environ.get('POSTAL_CODE_RESPONSE_CACHE_TIMEOUT', 60 * 5)
+
+FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID', '')

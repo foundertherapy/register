@@ -6,13 +6,15 @@
 {% block body_class %}register-done{% endblock %}
 
 {% block body_javascript %}
+    {# ONLY INCLUDE FACEBOOK SHARE IF WE HAVE A FACEBOOK APP CONFIGURED #}
+    {% if FACEBOOK_APP_ID %}
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=260566877615772";
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId={{ FACEBOOK_APP_ID }}";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     <script>
@@ -21,8 +23,8 @@
               method: 'share_open_graph',
               action_type: 'og.likes',
               action_properties: JSON.stringify({
-                  object: 'https://register-dev.organize.org/',
-                  hashtag: 'GiveWithYourHeart'
+                  object: location.protocol + '//{{ request.site }}',
+                  hashtag: 'EndTheWaitList'
               })
             }, function(response){
               // Debug response (optional)
@@ -30,6 +32,7 @@
             });
         }
     </script>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -65,10 +68,9 @@
     </div>
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center">
 
-
-{#        <div class="fb-share-button btn btn-default btn-organize" data-href="https://register.organize.org" data-layout="link" data-mobile-iframe="true">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></div>#}
-
+        {% if FACEBOOK_APP_ID %}
         <a href="" onclick="fb_share();" class="btn btn-default btn-organize">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></a>
+        {% endif %}
 
         <a class="btn btn-default btn-organize" href="https://twitter.com/intent/tweet?text=I+am+officially+a+registered+organ+donor.+%23GiveWithYourHeart+%40organ_ize" role="button">#GiveWithYourHeart <img src="{% static 'images/twitter.png' %}" height="30" /></a>
     </div>
