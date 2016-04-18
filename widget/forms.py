@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
 class WidgetCreateForm(django.forms.ModelForm):
     tos = django.forms.BooleanField(
         label=django.utils.safestring.mark_safe(
-            'I agree to ORGANIZE&rsquo;s <a href="tos">Terms of Service</a>.'
+            'I agree to ORGANIZE&rsquo;s <a href="#" '
+            'onClick="window.open(\'tos/\', \'_blank\',\'width=900,height=900\')">Terms of Service</a>'
         ),
         widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required'}))
 
