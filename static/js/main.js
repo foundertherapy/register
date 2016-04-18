@@ -119,3 +119,10 @@ $(function() {
       return licenseIdField;
   }
 });
+
+function showUpennAboutModal() {
+    var isAboutModalVisible = $('#upennAboutModal').hasClass('in');
+    if (!isAboutModalVisible){
+        $('#upennAboutModal').modal('show');
+    }
+}

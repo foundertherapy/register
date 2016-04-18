@@ -52,19 +52,55 @@
             </div>
 
             {% block upenn_donate_form %}
-            <form class="register" role="form" action="{% url 'upenn_donate' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px;">
+            <form class="register" role="form" action="{% block upenn_donate_form_action_url %}{% url 'upenn_donate' %}{% endblock %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 24px;">
                 {% csrf_token %}
                 {% bootstrap_form form size='lg' %}
 
                 {% buttons %}
-                    <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 20px; height: 64px; border-radius: 3px; font-size: 30px; font-family: BebasNeueLight;" disabled>
+                    <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 5px; height: 64px; border-radius: 3px; font-size: 30px; font-family: BebasNeueLight;" disabled>
                         {% blocktrans %}REGISTER{% endblocktrans %}
                     </button>
                 {% endbuttons %}
             </form>
             {% endblock %}
+
+            <div class="upenn-about-message">
+                <p>
+                    {% blocktrans trimmed %}
+                        As an official registry, ORGANIZE keeps all of your information encrypted and secure. Any information you enter is only used for the purposes of facilitating your wishes regarding organ donation (you can read our Terms of Service).
+                    {% endblocktrans %}
+                </p>
+                <p>
+                    <button type="button" class="upenn-about-button" data-toggle="modal" data-target=".upenn-organize-modal-lg">About</button>
+                </p>
+            </div>
         </div>
     </div>
+</div>
+<div id="upennAboutModal" class="modal fade upenn-organize-modal-lg" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header upenn-organize-modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title upenn-organize-modal-title">{% autoescape off %}About{% endautoescape %}</h4>
+      </div>
+      <div class="modal-body upenn-organize-modal-body">
+        <p>
+            {% autoescape off %}
+            Organ Donation Saves Lives! We are inviting you to register as an organ donor. University of Pennsylvania researcher, Peter Reese, MD, in collaboration with the non-profit Organize.org is collecting information to determine which messages for organ donation result in higher registration rates. Your privacy is important. The data the research team collects will contain no personally identifiable information.
+            {% endautoescape %}
+        </p>
+        <p>
+            {% autoescape off %}
+            Peter Reese, MD, MSCE is a transplant doctor and researcher. His research focuses on effective strategies to increase access to kidney transplantation. Learn more at http://www.med.upenn.edu/reeselab/.
+            {% endautoescape %}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btn-default btn-cancel-upenn-modal-organize" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 

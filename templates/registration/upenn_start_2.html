@@ -3,15 +3,4 @@
 {% load i18n %}
 {% load bootstrap3 %}
 
-{% block upenn_donate_form %}
-<form class="register" role="form" action="{% url 'upenn_donate_2' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px;">
-    {% csrf_token %}
-    {% bootstrap_form form size='lg' %}
-
-    {% buttons %}
-        <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 20px; height: 64px; border-radius: 3px; font-size: 30px; font-family: BebasNeueLight;" disabled>
-            {% blocktrans %}REGISTER{% endblocktrans %}
-        </button>
-    {% endbuttons %}
-</form>
-{% endblock %}
+{% block upenn_donate_form_action_url %}{% url 'upenn_donate_2' %}{% endblock %}
