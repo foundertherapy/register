@@ -1,82 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'registration/upenn_start.html' %}
 {% load staticfiles %}
 {% load i18n %}
 {% load bootstrap3 %}
 
-{% block script %}
-<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
+{% block upenn_donate_form %}
+<form class="register" role="form" action="{% url 'upenn_donate_2' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px;">
+    {% csrf_token %}
+    {% bootstrap_form form size='lg' %}
 
-<img src="https://secure.fastclick.net/w/roitrack.cgi?aid=1000050676" width=1 height=1 border=0>
-<img src="https://secure.fastclick.net/w/tre?ad_id=60292;evt=29230;cat1=39656;cat2=39657;rand={% now "U" %}" width="1" height="1" border="0">
+    {% buttons %}
+        <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 20px; height: 64px; border-radius: 3px; font-size: 30px; font-family: BebasNeueLight;" disabled>
+            {% blocktrans %}REGISTER{% endblocktrans %}
+        </button>
+    {% endbuttons %}
+</form>
 {% endblock %}
-
-{% block container_class %}upenn-container{% endblock %}
-{% block body_class %}upenn-start{% endblock %}
-
-{% block navbar_brand %}
-    <div class="col-lg-4 col-md-5 col-sm-7 col-xs-8">
-        <p>
-            <img class="img-responsive" alt="UPENN Logo" src="{% static 'images/penn_logo.png' %}"/>
-        </p>
-    </div>
-{% endblock %}
-
-{% block language_selector %}{% endblock %}
-
-{% block content %}
-<div class="row">
-    <div class="col-lg-7 col-md-8 col-sm-10 col-xs-12">
-        <img src="{% static 'images/heart.jpg' %}" class="upenn-heart-img">
-    </div>
-
-    <div class="col-lg-5 col-md-8 col-sm-10 col-xs-12">
-        <div style="background: #cd0000;" class="upenn-form-message-div">
-            <div class="upenn-intro-message">
-                <p class="upenn-intro-message-1">
-                    {% blocktrans trimmed %}
-                    SAY <label style="font-family: BebasNeueBold; color: inherit">YES</label> TO
-                    {% endblocktrans %}
-                </p>
-                <p class="upenn-intro-message-1">
-                    {% blocktrans trimmed %}
-                    ORGAN DONATION
-                    {% endblocktrans %}
-                </p>
-                <p class="upenn-intro-message-2">
-                    {% blocktrans trimmed %}
-                    BECOME AN ORGAN DONOR
-                    {% endblocktrans %}
-                </p>
-            </div>
-
-            <form class="register" role="form" action="{% url 'upenn_donate_2' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px;">
-                {% csrf_token %}
-                {% bootstrap_form form size='lg' %}
-
-                {% buttons %}
-                    <button type="submit" style="background: #000000; color: #ffffff; width: 100%; padding: 14px; border: black; margin-top: 20px; height: 64px; border-radius: 3px; font-size: 30px; font-family: BebasNeueLight;" disabled>
-                        {% blocktrans %}REGISTER{% endblocktrans %}
-                    </button>
-                {% endbuttons %}
-            </form>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block body_footer %}
-    <br/>
-    <br/>
-    <div class="row" style="color: white;">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" style="color: white;">
-            <label style="color: inherit; margin-right: 4px; font-family: BebasNeueLight; font-size: 23px;">powered by</label>
-            <a href="http://organize.org">
-                <img style="vertical-align: top;" width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-white.svg' %}"/>
-            </a>
-        </div>
-    </div>
-{% endblock %}
-
-{% block footer %}{% endblock %}

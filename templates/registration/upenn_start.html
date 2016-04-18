@@ -51,6 +51,7 @@
                 </p>
             </div>
 
+            {% block upenn_donate_form %}
             <form class="register" role="form" action="{% url 'upenn_donate' %}" method="post" style="width: 80%; margin: 0 auto; margin-top: 55px;">
                 {% csrf_token %}
                 {% bootstrap_form form size='lg' %}
@@ -61,6 +62,7 @@
                     </button>
                 {% endbuttons %}
             </form>
+            {% endblock %}
         </div>
     </div>
 </div>
@@ -72,9 +74,7 @@
     <div class="row" style="color: white;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" style="color: white;">
             <label style="color: inherit; margin-right: 4px; font-family: BebasNeueLight; font-size: 23px;">powered by</label>
-            <a href="http://organize.org">
-                <img style="vertical-align: top;" width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-white.svg' %}"/>
-            </a>
+            <img style="vertical-align: top;" width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-white.svg' %}"/>
         </div>
     </div>
 {% endblock %}
