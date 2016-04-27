@@ -880,3 +880,7 @@ body.upenn-start {
     font-size: 20px;
     letter-spacing: 0.5px;
 }
+
+.penn-logo {
+    float: right;
+}

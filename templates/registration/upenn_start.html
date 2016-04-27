@@ -16,7 +16,14 @@
 {% block body_class %}upenn-start{% endblock %}
 
 {% block navbar_brand %}
-    <div class="col-lg-4 col-md-5 col-sm-7 col-xs-8">
+
+    <div class="col-lg-4 col-md-3 col-sm-5 col-xs-5" style="vertical-align: bottom; padding-top: 7px;">
+        <p>
+            <img class="img-responsive" style="vertical-align: top; position: relative;top: -3px;" width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-white.svg' %}"/>
+        </p>
+    </div>
+
+    <div class="col-lg-4 col-md-3 col-sm-5 col-xs-7 penn-logo">
         <p>
             <img class="img-responsive" alt="UPENN Logo" src="{% static 'images/penn_logo.png' %}"/>
         </p>
@@ -107,12 +114,6 @@
 {% block body_footer %}
     <br/>
     <br/>
-    <div class="row" style="color: white;">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" style="color: white;">
-            <label style="color: inherit; margin-right: 4px; font-family: BebasNeueLight; font-size: 23px;">powered by</label>
-            <img style="vertical-align: top;" width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-white.svg' %}"/>
-        </div>
-    </div>
 {% endblock %}
 
 {% block footer %}{% endblock %}
