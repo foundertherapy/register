@@ -188,6 +188,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.admin',
     'djangosecure',
+    'django_extensions',
     'formtools',
     'waffle',
     'raven.contrib.django.raven_compat',
