@@ -38,3 +38,4 @@ psycopg2
 git+https://github.com/waseem-omar/django-template-email.git@master
 django-waffle
 validate_email
+fiftythree-client
