@@ -149,3 +149,12 @@ class StateLookupViewTestCase(django.test.TestCase):
                     SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,):
 
             self.assertNotIn(key, session, msg='{} exists in session, while it should not.'.format(key))
+
+
+class FBRedirectViewTestCase(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+
+    def test_session_cleaning_on_start(self):
+        r = self.client.get('/fb/', follow=False)
+        self.assertRedirects(r, '/?reg_source=fb')
