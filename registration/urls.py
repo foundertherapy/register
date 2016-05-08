@@ -39,4 +39,5 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(r'^revoke-done/$', views.RevokeDoneView.as_view(), name='revoke_done'),
     django.conf.urls.url(r'^not-supported/$', views.UnsupportedStateView.as_view(), name='unsupported_state'),
     django.conf.urls.url(r'^redirect/$', views.StateRedirectView.as_view(), name='redirect_state'),
+    django.conf.urls.url(r'^fb/$', views.FBRedirectView.as_view(), name='fb_redirect'),
 )

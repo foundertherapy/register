@@ -330,6 +330,11 @@ class UPENNStateLookupView(StateLookupView):
         return res
 
 
+class FBRedirectView(django.views.generic.RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return '/?reg_source=fb'
+
+
 class UnsupportedStateView(django.views.generic.TemplateView):
     template_name = 'registration/unsupported_state.html'
 
