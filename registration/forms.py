@@ -166,18 +166,16 @@ def register_form_clean(self):
 
 def register_form_clean_license_id(self):
     license_id = self.cleaned_data['license_id']
-    if self.fields['license_id'].required\
-            and is_license_id_not_applicable(license_id):
+    if self.fields['license_id'].required and is_license_id_not_applicable(license_id):
         raise django.forms.ValidationError(_('License ID is required.'))
     return license_id
 
 
 def is_license_id_not_applicable(license_id):
-    is_not_applicable = False
     not_applicable_list = ['na', 'n/a', ]
     if license_id.lower() in not_applicable_list:
-        is_not_applicable = True
-    return is_not_applicable
+        return True
+    return False
 
 
 def register_form_clean_birthdate(self):
