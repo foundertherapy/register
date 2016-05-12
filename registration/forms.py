@@ -164,6 +164,22 @@ def register_form_clean(self):
     return cleaned_data
 
 
+def register_form_clean_license_id(self):
+    license_id = self.cleaned_data['license_id']
+    if self.fields['license_id'].required\
+            and is_license_id_not_applicable(license_id):
+        raise django.forms.ValidationError(_('License ID is required.'))
+    return license_id
+
+
+def is_license_id_not_applicable(license_id):
+    is_not_applicable = False
+    not_applicable_list = ['na', 'n/a', ]
+    if license_id.lower() in not_applicable_list:
+        is_not_applicable = True
+    return is_not_applicable
+
+
 def register_form_clean_birthdate(self):
     date = self.cleaned_data['birthdate']
     if not date:
@@ -332,6 +348,7 @@ def register_form_generator(conf):
             'clean_birthdate': register_form_clean_birthdate,
             'clean_phone_number': register_form_clean_phone_number,
             'clean_ssn': register_form_clean_ssn,
+            'clean_license_id': register_form_clean_license_id,
             'api_errors': {},
             'skip_api_error_validation': False,
         })
