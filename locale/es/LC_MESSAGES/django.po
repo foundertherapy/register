@@ -642,15 +642,15 @@ msgstr ""
 
 #: templates/registration/start.html:32
 msgid ""
-"As an official registry, ORGANIZE keeps all of your information encrypted "
-"and secure. Any information you enter is only used for the purposes of "
-"facilitating your wishes regarding organ donation (you can read our "
-"<a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')\">Terms of Service</a>)."
+"95% of Americans support organ donation, but 100% of Americans"
+"hate the DMV. That’s why ORGANIZE created the first ever Central"
+"Donor Registry. Our simple online registration tool takes less than a"
+"minute, and registers you nationwide (the DMV just covers your state)."
 msgstr ""
-"Como registro oficial, ORGANIZE mantiene toda su información encriptada"
-"y segura. Cualquier información que proporcione será utilizada exclusivamente con el propósito de"
-"facilitar sus deseos con respecto a la donación de órganos (véanse los "
-"<a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Términos del Servicio</a>)."
+"95% of Americans support organ donation, but 100% of Americans"
+"hate the DMV. That’s why ORGANIZE created the first ever Central"
+"Donor Registry. Our simple online registration tool takes less than a"
+"minute, and registers you nationwide (the DMV just covers your state)."
 
 #: templates/registration/start.html:39
 msgid ""

@@ -4,18 +4,32 @@
 {% load bootstrap3 %}
 
 {% block script %}
-<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 
-<img src="https://secure.fastclick.net/w/roitrack.cgi?aid=1000050676" width=1 height=1 border=0>
-<img src="https://secure.fastclick.net/w/tre?ad_id=60292;evt=29230;cat1=39656;cat2=39657;rand={% now "U" %}" width="1" height="1" border="0">
+    <img src="https://secure.fastclick.net/w/roitrack.cgi?aid=1000050676" width=1 height=1 border=0>
+    <img src="https://secure.fastclick.net/w/tre?ad_id=60292;evt=29230;cat1=39656;cat2=39657;rand={% now "U" %}" width="1"
+         height="1" border="0">
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1>{% autoescape off %}{% blocktrans %}{{ page_title }}{% endblocktrans %}{% endautoescape %}</h1>
+        <span class="land-title land-title-left">1968</span>
+        <span class="land-title land-title-right">2016</span>
+        <img src="{% static "images/country_graphic-10.svg" %}" alt="My image"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h3 class="home-headline">
+            {% autoescape off %}
+            {% blocktrans %}
+                The next 47 seconds could save 8 lives.
+            {% endblocktrans %}
+            {% endautoescape %}
+        </h3>
     </div>
 </div>
 
@@ -25,19 +39,16 @@
         <div class="intro-message">
             <p>
                 {% blocktrans trimmed %}
-                Welcome to ORGANIZE, the quickest and easiest way to register as an organ donor.
+                    95% of Americans support organ donation, but 100% of Americans
+                    hate the DMV. That’s why ORGANIZE created the first ever Central
+                    Donor Registry. Our simple online registration tool takes less than a
+                    minute, and registers you nationwide (the DMV just covers your state).
                 {% endblocktrans %}
             </p>
             <p>
                 {% blocktrans trimmed %}
-                As an official registry, ORGANIZE keeps all of your information encrypted and secure.
-                Any information you enter is only used for the purposes of facilitating your wishes regarding organ donation
-                (you can read our <a href="#" onClick="window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')">Terms of Service</a>).
-                {% endblocktrans %}
-            </p>
-            <p>
-                {% blocktrans trimmed %}
-                To begin, please enter your email and zip code so we can customize your registration for your state.
+                    120,000 Americans are waiting for life-saving donations right now.
+                    Help us #EndTheWaitlist by registering now, then sharing with friends.
                 {% endblocktrans %}
             </p>
         </div>
@@ -56,13 +67,18 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <form class="register" role="form" action="{% url 'start' %}" method="post">
             {% csrf_token %}
-            {% bootstrap_form form size='lg' %}
 
-            <hr />
+            {% bootstrap_label "Email" label_for="id_email" label_class="pull-left" %}
+            <span class="help-block pull-left">so we can send you confirmation of your registration</span>
+            {% bootstrap_field form.email show_label=False show_help=False %}
+
+            {% bootstrap_label "Postal Code" label_for="id_postal_code" label_class="pull-left" %}
+            <span class="help-block pull-left">to determine which series of state-based questions we will ask next</span>
+            {% bootstrap_field form.postal_code show_label=False show_help=False %}
 
             {% buttons %}
                 {% if update %}
-                    <a href="{% url 'start' %}" class="btn btn-secondary btn-organize" tabindex="100">
+                    <a href="{% url 'start' %}" class="btn btn-secondary btn-organize home-form-button" tabindex="100">
                         &lsaquo; {% blocktrans %}Cancel{% endblocktrans %}
                     </a>
                 {% endif %}
@@ -70,14 +86,27 @@
                 <button type="submit" class="btn btn-primary btn-organize" disabled>
                     {% blocktrans %}Continue{% endblocktrans %} &rsaquo;
                 </button>
-
-                {% if not update %}
-                    <a href="{% url 'update_choice' %}" class="btn btn-link" tabindex="100">
-                        {% blocktrans %}Update registration{% endblocktrans %}
-                    </a>
-                {% endif %}
             {% endbuttons %}
         </form>
+    </div>
+</div>
+
+<div class="row update-reg-button">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% if not update %}
+            <a href="{% url 'update_choice' %}" tabindex="100">
+                {% blocktrans %}Update existing registration{% endblocktrans %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row home-footer">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 home-footer-content">
+        As an official registry, ORGANIZE keeps all of your information encrypted and secure.
+        Any information you enter is only used for the purposes of facilitating your wishes
+        regarding organ donation. You can read our Terms of Service <a href="#"
+                                                                       onClick="window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')">here</a>.
     </div>
 </div>
 {% endblock %}
