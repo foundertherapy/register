@@ -61,7 +61,7 @@ FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     source_url=settings.FIFTYTHREE_CLIENT_SOURCE_URL,
     use_secure=settings.FIFTYTHREE_CLIENT_USE_SECURE)
 
-FIFTYTHREE_CLIENT.lookup_zipcode_api_path(api_version='v3')
+FIFTYTHREE_CLIENT.lookup_zipcode_api_path(api_version='v4')
 
 
 def clean_session(session):
@@ -607,20 +607,13 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                     self.request.session[SESSION_LICENSE_ID_FORMATS])
                 d['license_id_formats'] = json.dumps(license_id_formats)
                 invalid_license_modal_content = {
-                    'title': _('Please check your license ID'),
-                    'body': _('The license ID you entered doesn&rsquo;t seem to match the format of license IDs '
-                              'for this State. Please double-check it, and if you&rsquo;re sure its right, '
-                              'please choose to continue.'),
-                    'ok': _('Continue to Next Page'),
-                    'cancel': _('Re-check License ID'), }
+                    'title': _('Please check your Driver&rsquo;s License / State ID'),
+                    'body': _('The ID number you entered doesn&rsquo;t match the format '
+                              'for your state. Please double-check it, and if you&rsquo;re '
+                              'sure it&rsquo;s right, click continue.'),
+                    'ok': _('Continue &#8250;'),
+                    'cancel': _('&#8249; Check ID'), }
                 d['invalid_license_modal_content'] = invalid_license_modal_content
-
-        if self.steps.current == self.steps.last:
-            d['cleaned_data'] = self.get_all_cleaned_data()
-            self.configuration = filter(lambda item: item['title'] != 'Confirm your information',
-                                        self.configuration)
-
-            d['configuration'] = self.configuration
 
         d['non_field_errors'] = kwargs.get('errors')
 

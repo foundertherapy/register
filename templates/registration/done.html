@@ -3,95 +3,103 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
-{% block body_class %}register-done{% endblock %}
-
 {% block body_javascript %}
     {# ONLY INCLUDE FACEBOOK SHARE IF WE HAVE A FACEBOOK APP CONFIGURED #}
     {% if FACEBOOK_APP_ID %}
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId={{ FACEBOOK_APP_ID }}";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <script>
-        fb_share = function () {
-            FB.ui({
-                method: 'share',
-                mobile_iframe: true,
-                href: location.protocol + '//{{ request.site }}'
-            }, function(response){});
-        }
-    </script>
+        <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId={{ FACEBOOK_APP_ID }}";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <script>
+            fb_share = function () {
+                FB.ui({
+                    method: 'share',
+                    mobile_iframe: true,
+                    href: location.protocol + '//{{ request.site }}'
+                }, function (response) {
+                });
+            }
+        </script>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
-        <p class="lead text-center">
-            <span style="font-size: 200px;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        </p>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <h1 class="title-bold-red">#ENDTHEWAITLIST</h1>
+        </div>
+
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
+            <p class="done-text-bold margin-none">
+                {% blocktrans trimmed %}
+                    Each registered donor can save up to 8 lives.
+                {% endblocktrans %}
+            </p>
+            <p class="done-text-regular margin-none">
+                {% blocktrans trimmed %}
+                    Telling your friends to register at ORGANIZE is just another way you can help us #EndTheWaitlist
+                {% endblocktrans %}
+            </p>
+        </div>
     </div>
 
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1 class="text-center">{% blocktrans %}Thank you!{% endblocktrans %}</h1>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
     </div>
 
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
-        <p class="lead text-center">
-            {% blocktrans trimmed %}
-            You have successfully registered as an organ donor and have made the list as one of our favorite people on the internet.
-            {% endblocktrans %}
-        </p>
+    <div class="row" style="margin-bottom: 60px;">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            {#            {% if FACEBOOK_APP_ID %}#}
+            <img src="{% static 'images/fb-icon.png' %}" class="done-social-icon done-fb-icon"/>
+            <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">Share</a>
+            {#            {% endif %}#}
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
-</div>
-
-<div class="row black clearfix">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <p>&nbsp;</p>
-        <p class="lead text-center">{% blocktrans %}Do more good:{% endblocktrans %}</p>
+    <div class="row" style="margin-bottom: 80px;">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <img src="{% static 'images/twitter-icon.png' %}" class="done-social-icon done-fb-icon"/>
+            <a class="btn btn-default btn-organize done-btn-social done-btn-tweet"
+               href="https://twitter.com/intent/tweet?text=I%E2%80%99m%20an%20organ%20donor%2C%20are%20you%3F%20It%20literally%20takes%2047%20seconds%20to%20register%20at%20ORGANIZE.org%20Register%20and%20RT%20to%20help%20%23EndTheWaitlist"
+               role="button">Tweet</a>
+        </div>
     </div>
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center">
 
-        {% if FACEBOOK_APP_ID %}
-        <a href="" onclick="fb_share();" class="btn btn-default btn-organize">I am an Organ Donor <img src="{% static 'images/facebook.png' %}" height="30" /></a>
-        {% endif %}
-
-        <a class="btn btn-default btn-organize" href="https://twitter.com/intent/tweet?text=I+am+officially+a+registered+organ+donor.+%23GiveWithYourHeart+%40organ_ize" role="button">#GiveWithYourHeart <img src="{% static 'images/twitter.png' %}" height="30" /></a>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <img src="{% static 'images/twitter_pic.svg' %}" class="done-twitter-pic"/>
+        </div>
     </div>
-</div>
-
 
 {% endblock %}
 
 {% block script %}
-<!-- Google Code for Registration Conversion Page -->
-<script type="text/javascript">
-    /* <![CDATA[ */
-    var google_conversion_id = 911750952;
-    var google_conversion_language = "en";
-    var google_conversion_format = "3";
-    var google_conversion_color = "ffffff";
-    var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
-    var google_remarketing_only = false;
-    /* ]]> */
-</script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
-<noscript>
-    <div style="display:inline;">
-    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
-    </div>
-</noscript>
-<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
+    <!-- Google Code for Registration Conversion Page -->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 911750952;
+        var google_conversion_language = "en";
+        var google_conversion_format = "3";
+        var google_conversion_color = "ffffff";
+        var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
+        var google_remarketing_only = false;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt=""
+                 src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
+    <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}

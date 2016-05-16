@@ -5,13 +5,13 @@
 {% load registration_extras %}
 
 {% block head %}
-{{ wizard.form.media }}
+    {{ wizard.form.media }}
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,195 +24,156 @@
 
     <div class="row status-bar">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        {% spaceless %}
-            {% for step in wizard.steps.all %}
-                <div class="step step-{{ step }}
+            {% spaceless %}
+                {% for step in wizard.steps.all %}
+                    <div class="step step-{{ step }}
                     {% if step <= wizard.steps.current %}
                         organize-red-background
                     {% else %}
                         organize-gray-background
                     {% endif %}
                 ">&nbsp;</div>
-            {% endfor %}
-            <div class="step-counter">{{ wizard.steps.step1 }} / {{ wizard.steps.count }}</div>
-        {% endspaceless %}
+                {% endfor %}
+                <div class="step-counter">{{ wizard.steps.step1 }} / {{ wizard.steps.count }}</div>
+            {% endspaceless %}
         </div>
     </div>
 {% endif %}
 
 {% if non_field_errors %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sm-offset-2 col-xs-12">
-        <div class="alert alert-danger alert-dismissable alert-link">
-            <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ non_field_errors }}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sm-offset-2 col-xs-12">
+            <div class="alert alert-danger alert-dismissable alert-link">
+                <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+                {{ non_field_errors }}
+            </div>
         </div>
     </div>
-</div>
 {% endif %}
 
 {% if terms_of_service %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sm-offset-2 col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Terms of Service</h3>
-            </div>
-            <div class="panel-body" style="max-height: 315px; overflow-y: auto;">
-                {{ terms_of_service }}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-sm-offset-2 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Terms of Service</h3>
+                </div>
+                <div class="panel-body" style="max-height: 315px; overflow-y: auto;">
+                    {{ terms_of_service }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endif %}
 
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-    <form class="register" role="form" action="." method="post">
-        {% csrf_token %}
+        <form class="register" role="form" action="." method="post">
+            {% csrf_token %}
 
-        {% if explanatory_text %}
-           <div class ="explanatory-text">
-              {% autoescape off %} {% trans explanatory_text %} {% endautoescape %}
-           </div>
-        {% endif %}
-
-        {{ wizard.management_form }}
-        {% if wizard.form.forms %}
-            {{ wizard.form.management_form }}
-            {% for form in wizard.form.forms %}
-                {% bootstrap_form form %}
-            {% endfor %}
-        {% else %}
-            {% if wizard.form.non_field_errors %}
-                {% bootstrap_form_errors wizard.form type='non_fields' %}
+            {% if explanatory_text %}
+            <div class="explanatory-text">
+                {% autoescape off %} {% trans explanatory_text %} {% endautoescape %}
+            </div>
             {% endif %}
 
-            {% for fieldset in wizard.form.fieldsets %}
-                {% if not forloop.first %}<hr />{% endif %}
+            {{ wizard.management_form }}
+            {% if wizard.form.forms %}
+                {{ wizard.form.management_form }}
+                {% for form in wizard.form.forms %}
+                    {% bootstrap_form form %}
+                {% endfor %}
+            {% else %}
+                {% if wizard.form.non_field_errors %}
+                    {% bootstrap_form_errors wizard.form type='non_fields' %}
+                {% endif %}
 
-                <fieldset class="{{ fieldset.classes }}">
+                {% for fieldset in wizard.form.fieldsets %}
+                    {% if not forloop.first %}
+                        <hr/>{% endif %}
 
-                    {% if wizard.form.fieldsets|length > 1 %}
-                        {% if fieldset.legend %}
-                            <legend>{% blocktrans with legend=fieldset.legend %}{{ legend }}{% endblocktrans %}</legend>
-                        {% endif %}
-                        {% if fieldset.description %}
-                            <p class="description">
-                                {% blocktrans with description=fieldset.description %}{{ description }}{% endblocktrans %}
-                            </p>
-                        {% endif %}
-                    {% endif %}
+                    <fieldset class="{{ fieldset.classes }}">
 
-                    {% for field in fieldset %}
-                        {% if field.is_hidden %}
-                            {{ field }}
-                        {% else %}
-                            {% if field.name == 'subscribe_to_email_list' and wizard.steps.current == wizard.steps.last  %}
-                                {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='subscribe_to_email_list_wrapper' %}
-                            {% else %}
-                                {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg'%}
+                        {% if wizard.form.fieldsets|length > 1 %}
+                            {% if fieldset.legend %}
+                                <legend>{% blocktrans with legend=fieldset.legend %}{{ legend }}{% endblocktrans %}</legend>
+                            {% endif %}
+                            {% if fieldset.description %}
+                                <p class="description">
+                                    {% blocktrans with description=fieldset.description %}{{ description }}{% endblocktrans %}
+                                </p>
                             {% endif %}
                         {% endif %}
-                    {% endfor %}
-                </fieldset>
-            {% endfor %}
-        {% endif %}
 
-        <br />
-
-        {% buttons %}
-            {% if wizard.steps.current != wizard.steps.last %}
-                <a
-                    {% if wizard.steps.prev %}
-                     href="{% url 'register' step=wizard.steps.prev %}"
-                    {% else %}
-                     href="{% url 'start' %}"
-                    {% endif %}
-                 class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; {% blocktrans %}Back{% endblocktrans %}</a
-                    >
+                        {% for field in fieldset %}
+                            {% if field.is_hidden %}
+                                {{ field }}
+                            {% else %}
+                                {% if field.name == 'subscribe_to_email_list' and wizard.steps.current == wizard.steps.last %}
+                                    {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='subscribe_to_email_list_wrapper' %}
+                                {% else %}
+                                    {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                {% endfor %}
             {% endif %}
+
+            <br/>
+
+            {% buttons %}
+
+                <a
+                        {% if wizard.steps.prev %}
+                            href="{% url 'register' step=wizard.steps.prev %}"
+                        {% else %}
+                            href="{% url 'start' %}"
+                        {% endif %}
+                            class="btn btn-secondary btn-organize" tabindex="100">&lsaquo; {% blocktrans %}
+                    Back{% endblocktrans %}</a
+                >
+
 
                 {% if wizard.steps.current == wizard.steps.last %}
                     <button type="submit" class="btn btn-primary btn-organize btn-submit-reg" tabindex="99" disabled>
-                        {% blocktrans %}Submit Your Registration{% endblocktrans %} &rsaquo;
+                        {% blocktrans %}Submit{% endblocktrans %} &rsaquo;
                     </button>
                 {% else %}
                     <button type="submit" class="btn btn-primary btn-organize" tabindex="99" disabled>
                         {% blocktrans %}Next{% endblocktrans %} &rsaquo;
                     </button>
                 {% endif %}
-        {% endbuttons %}
-    </form>
-    <br />
+            {% endbuttons %}
+        </form>
+        <br/>
     </div>
 </div>
-{% if cleaned_data %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        {% for page in configuration %}
-            {% if page.fieldsets.0.fields and page.step != 6 %}
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a class="pull-right" href="{% url 'register' step=page.step %}">{% trans "edit" %}</a>
-                        <h3 class="panel-title">{% trans page.title %}</h3>
-                    </div>
-                    <table class="table">
-                        {% for fieldset in page.fieldsets %}
-                            {% for field in fieldset.fields %}
-                                <tr>
-                                    {% if field.type == 'boolean' %}
-                                        <td colspan="2" class="">
-                                            {% if cleaned_data|key:field.field_name %}
-                                                <span class="organize-green">{% bootstrap_icon 'ok-circle' %}</span>
-                                            {% else %}
-                                                <span class="organize-red">{% bootstrap_icon 'ban-circle' %}</span>
-                                            {% endif %}
-                                            {% autoescape off %}{% trans field.human_name %}{% endautoescape %}
-                                        </td>
-                                    {% else %}
-                                        <td width="200" class="organize-gray">
-                                            {% trans field.human_name %}
-                                        </td>
-                                        {% if field.field_name == 'phone_number' %}
-                                            <td width="*">{{ cleaned_data|key:field.field_name|phonenumber }}</td>
-                                        {% else %}{% if field.field_name == 'gender' %}
-                                            <td width="*">{% if cleaned_data|key:field.field_name == 'M' %}{% trans 'Male' %}{% else %}{% trans 'Female' %}{% endif %}</td>
-                                        {% else %}
-                                            <td width="*">{{ cleaned_data|key:field.field_name }}</td>
-                                        {% endif %}{% endif %}
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
 {% if license_id_formats %}
-    <div id = "license-id-formats" style="display: none;">
+<div id="license-id-formats" style="display: none;">
     {{ license_id_formats| safe }}
-    </div>
+</div>
 
-  <div id="warningModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
+<div id="warningModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header organize-modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title organize-modal-title">{% autoescape off %}{{ invalid_license_modal_content.title }}{% endautoescape %}</h4>
-          </div>
-          <div class="modal-body organize-modal-body">
-            <p>{% autoescape off %}{{ invalid_license_modal_content.body }}{% endautoescape %}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="cancel" class="btn btn-default btn-cancel-modal-organize">{{ invalid_license_modal_content.cancel }}</button>
-            <button type="button" id="proceed" class="btn btn-primary btn-ok-modal-organize" >{{ invalid_license_modal_content.ok }}</button>
-          </div>
+            <div class="modal-header organize-modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title organize-modal-title">
+                    {% autoescape off %}{{ invalid_license_modal_content.title }}{% endautoescape %}</h4>
+            </div>
+            <div class="modal-body organize-modal-body">
+                <p>{% autoescape off %}{{ invalid_license_modal_content.body }}{% endautoescape %}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancel" class="btn btn-default btn-cancel-modal-organize">
+                    {% autoescape off %}{{ invalid_license_modal_content.cancel }}{% endautoescape %}</button>
+                <button type="button" id="proceed" class="btn btn-primary btn-ok-modal-organize">
+                    {% autoescape off %}{{ invalid_license_modal_content.ok }}{% endautoescape %}</button>
+            </div>
         </div>
-      </div>
-  </div>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

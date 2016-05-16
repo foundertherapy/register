@@ -70,11 +70,11 @@
 
             {% bootstrap_label "Email" label_for="id_email" label_class="pull-left" %}
             <span class="help-block pull-left">so we can send you confirmation of your registration</span>
-            {% bootstrap_field form.email show_label=False show_help=False %}
+            {% bootstrap_field form.email show_label=False show_help=False size="large" %}
 
             {% bootstrap_label "Postal Code" label_for="id_postal_code" label_class="pull-left" %}
             <span class="help-block pull-left">to determine which series of state-based questions we will ask next</span>
-            {% bootstrap_field form.postal_code show_label=False show_help=False %}
+            {% bootstrap_field form.postal_code show_label=False show_help=False size="large" %}
 
             {% buttons %}
                 {% if update %}

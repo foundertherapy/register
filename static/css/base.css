@@ -185,17 +185,17 @@ h1, h2, h3, h4, h5 {
     width: 60px;
 }
 
-.btn-organize{
+.btn-organize {
     -webkit-box-shadow: 3px 3px 12px #ccc;
     -moz-box-shadow: 3px 3px 12px #ccc;
     box-shadow: 3px 3px 12px #ccc;
 }
 
-.btn-primary:active{
+.btn-primary:active {
     transform: translate(2px, 2px);
 }
 
-.btn-secondary:active{
+.btn-secondary:active {
     transform: translate(-2px, 2px);
 }
 
@@ -255,7 +255,9 @@ label {
 
 input[type="checkbox"] + label,
 input[type="radio"] + label {
-    text-transform: none;
+    text-transform: uppercase;
+    font-family: CeraCY-Regular;
+    font-weight: 100;
 }
 
 .help-block {
@@ -316,6 +318,7 @@ legend {
     text-transform: uppercase;
     border-bottom: none;
     margin-bottom: 5px;
+    font-family: CeraCY-Bold;
 }
 
 hr {
@@ -488,21 +491,6 @@ legend {
     margin-top: 10px;
 }
 
-.panel.nok {
-    border-color: #000;
-    border-radius: 0;
-}
-
-.panel.nok .panel-heading {
-    background: #000;
-    border-radius: 0;
-}
-
-.panel.nok h3.panel-title {
-    color: #eee;
-    font-weight: normal;
-}
-
 body.register-done {
     background: url('../images/thankyou-background.png') #000 no-repeat center top;
     color: #eee;
@@ -552,20 +540,6 @@ body.register-done .btn-organize.active {
     letter-spacing: 2px;
     margin-right: 10px;
     margin-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-    .btn-submit-reg, .btn-submit-reg:hover {
-        width: 100%;
-        font-size: 20px;
-    }
-}
-
-@media (min-width: 769px) {
-    .btn-submit-reg {
-        width: 100%;
-        font-size: 34px;
-    }
 }
 
 div.black {
@@ -899,21 +873,30 @@ body.upenn-start {
 
 .organize-modal-title {
     color: white;
+    font-family: CeraCY-Bold;
+    font-size: 18px;
 }
 
 .btn-ok-modal-organize {
     background-color: #ed2224;
     border-color: #ed2224;
+    font-family: CeraCY-Bold;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
 .btn-cancel-modal-organize {
     background-color: #aaa;
     border-color: #aaa;
+    font-family: CeraCY-Bold;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
 .organize-modal-body {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 17px;
+    font-family: CeraCY-Regular;
+    color: #e5001d;
 }
 
 .btn-ok-modal-organize:hover {
@@ -974,6 +957,17 @@ body.upenn-start {
 
 .penn-logo {
     float: right;
+}
+
+/*** Common style ***/
+
+.title-bold-red {
+    font-family: CeraCY-Bold;
+    color: #e5001d;
+}
+
+.margin-none {
+    margin: 0;
 }
 
 /**** Home Page Style ****/
@@ -1044,4 +1038,109 @@ body.upenn-start {
     .home-footer {
         width: 1170px;
     }
+}
+
+/*** licence ID and SSN modal Style ***/
+
+#warningModal {
+    top: 20%;
+}
+
+@media (max-width: 475px) {
+
+    #warningModal .btn-cancel-modal-organize {
+        float: left;
+        font-size: 12px;
+    }
+
+    #warningModal .btn-ok-modal-organize {
+        margin-left: 0;
+        font-size: 12px;
+    }
+}
+
+/*** Next of kin style ***/
+
+.nok-text-bold {
+    font-family: CeraCY-Bold;
+    font-size: 20px;
+}
+
+.nok-text-regular {
+    font-family: CeraCY-Regular;
+    font-size: 20px;
+}
+
+.panel.nok {
+    border-color: #eeeeee;
+    background-color: #eeeeee;
+    border-radius: 0;
+    padding: 10px;
+}
+
+.panel.nok .panel-heading {
+    background: #000;
+    border-radius: 0;
+}
+
+.panel.nok h3.panel-title {
+    color: #eee;
+    font-weight: normal;
+}
+
+.nok .form-control {
+    background-color: #ffffff;
+}
+
+.nok label {
+    color: #707070;
+    font-family: CeraCY-Regular;
+    font-size: 15px;
+    text-align: left !important;
+}
+
+.nok .form-control {
+    font-family: CeraCY-Regular;
+    font-size: 12px;
+    color: #000000;
+}
+
+.nok-skip-link {
+    text-decoration: underline;
+    margin-left: 30px;
+}
+
+.nok-btn-send {
+    width: 25%;
+}
+
+/*** Done page style ***/
+
+.done-text-bold {
+    font-family: CeraCY-Bold;
+    font-size: 20px;
+}
+
+.done-text-regular {
+    font-family: CeraCY-Regular;
+    font-size: 20px;
+}
+
+.done-btn-share,
+.done-btn-tweet,
+.done-btn-social:hover,
+.done-btn-social:active,
+.done-btn-social:focus {
+    width: 50%;
+    height: 45px;
+    padding: 5px;
+}
+
+.done-social-icon {
+    margin-right: 40px;
+    width: 10%;
+}
+
+.done-twitter-pic{
+    border: 1px solid #000000;
 }
