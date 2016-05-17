@@ -16,25 +16,25 @@
 
 {% block content %}
 
-    <div class="row register-progress-space-below">
-        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            {% spaceless %}
-                <div class="register-progress-container">
-                    {% if wizard.steps.current == "1" %}
-                        <div class="register-progressbar" style="width: 33%"></div>
-                    {% elif wizard.steps.current == "2" %}
-                        <div class="register-progressbar" style="width: 66%"></div>
-                    {% else %}
-                        <div class="register-progressbar" style="width: 100%"></div>
-                    {% endif %}
-                </div>
-            {% endspaceless %}
-        </div>
+<div class="row register-progress-space-below">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% spaceless %}
+            <div class="register-progress-container">
+                {% if wizard.steps.current == "1" %}
+                    <div class="register-progressbar" style="width: 33%"></div>
+                {% elif wizard.steps.current == "2" %}
+                    <div class="register-progressbar" style="width: 66%"></div>
+                {% else %}
+                    <div class="register-progressbar" style="width: 100%"></div>
+                {% endif %}
+            </div>
+        {% endspaceless %}
     </div>
+</div>
 {% if wizard.steps.current != wizard.steps.last %}
-    <div class="row">
+    <div class="row" style="margin-bottom: 30px;">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            <h1>{% blocktrans %}{{ title }}{% endblocktrans %}</h1>
+            <h3 class="title-bold-red">{% blocktrans %}{{ title }}{% endblocktrans %}</h3>
         </div>
     </div>
 {% endif %}
@@ -110,6 +110,20 @@
                             {% else %}
                                 {% if field.name == 'subscribe_to_email_list' and wizard.steps.current == wizard.steps.last %}
                                     {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='subscribe_to_email_list_wrapper' %}
+                                {% elif field.name == 'gender' %}
+                                    {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='personal-info-gender' %}
+                                {% elif field.name == 'city' %}
+                                    <div class="col-md-6 col-sm-12 col-xs-12 personal-info-city">
+                                        {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}
+                                    </div>
+                                {% elif field.name == 'state' %}
+                                    <div class="col-md-3 col-sm-12 col-xs-12 personal-info-state">
+                                        {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}
+                                    </div>
+                                {% elif field.name == 'postal_code' %}
+                                    <div class="col-md-3 col-sm-12 col-xs-12 personal-info-zip-code">
+                                        {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}
+                                    </div>
                                 {% else %}
                                     {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}
                                 {% endif %}
@@ -140,7 +154,7 @@
                     </button>
                 {% else %}
                     <button type="submit" class="btn btn-primary btn-organize" tabindex="99" disabled>
-                        {% blocktrans %}Next{% endblocktrans %} &rsaquo;
+                        {% blocktrans %}Continue{% endblocktrans %} &rsaquo;
                     </button>
                 {% endif %}
             {% endbuttons %}

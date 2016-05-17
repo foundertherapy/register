@@ -438,8 +438,16 @@ legend {
     padding-top: 5px;
 }
 
+.radio label {
+    padding-top: 7px;
+    padding-left: 15px;
+}
+
 .radio label::before {
     border-radius: 0;
+    width: 27px;
+    height: 27px;
+    border: 2px solid;
 }
 
 .radio label::after {
@@ -987,8 +995,8 @@ body.upenn-start {
     height: 13px;
 }
 
-.register-progress-space-below{
-    margin-bottom: 50px;
+.register-progress-space-below {
+    margin-bottom: 30px;
 }
 
 /**** Home Page Style ****/
@@ -1164,4 +1172,47 @@ body.upenn-start {
 
 .done-twitter-pic {
     border: 1px solid #000000;
+}
+
+/*Personal info style ***/
+
+.personal-info-gender {
+    margin-bottom: 50px;
+}
+
+.personal-info-gender .radio {
+    float: left;
+}
+
+.personal-info-gender .radio:first-child {
+    margin-right: 20px;
+}
+
+.personal-info-city {
+    padding-left: 0;
+}
+
+.personal-info-state {
+    padding-left: 0;
+}
+
+.personal-info-zip-code {
+    padding-right: 0;
+    margin-bottom: 30px;
+}
+
+/*** Small screen devices ***/
+
+@media (max-width: 991px) {
+    .personal-info-city,
+    .personal-info-state,
+    .personal-info-zip-code {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .personal-info-state,
+    .personal-info-zip-code {
+       margin-top: 20px;
+    }
 }
