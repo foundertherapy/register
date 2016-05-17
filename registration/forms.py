@@ -19,9 +19,7 @@ import requests
 import dateutil.parser
 import validate_email
 
-
 logger = logging.getLogger(__name__)
-
 
 REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
 
@@ -30,7 +28,6 @@ RE_NON_ALPHA = re.compile('[\W]+')
 RE_POSTAL_CODE = re.compile(r'^[0-9]{5}$')
 validate_postal_code = django.core.validators.RegexValidator(
     RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."), 'invalid')
-
 
 CHOICES_GENDER = (
     ('M', _('Male')),
@@ -60,6 +57,7 @@ class MultiEmailField(django.forms.CharField):
                 django.core.validators.validate_email(email)
         except django.core.exceptions.ValidationError:
             raise django.core.exceptions.ValidationError(self.message, code=self.code)
+
 
 # This class was built to validate License ID format in server-side
 
@@ -127,7 +125,7 @@ class StateLookupForm(django.forms.Form):
             return email
         r = requests.get(
             'https://api.mailgun.net/v2/address/validate',
-            data={'address': email, },
+            data={'address': email,},
             auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
         if r.status_code == 200:
             if r.json()['is_valid']:
@@ -221,8 +219,9 @@ def validate_date_generator(min_value):
         if date < min_value:
             raise django.forms.ValidationError(
                 _('Date must be later than %(date)s.') %
-                {'date': min_value.strftime('%m/%d/%Y'), },
+                {'date': min_value.strftime('%m/%d/%Y'),},
                 code='minimum')
+
     return validate_date
 
 
@@ -235,7 +234,7 @@ def register_form_generator(conf):
 
         if not fieldset_fields:
             continue
-        fieldset = (unicode(index), {'legend': fieldset_title, 'fields': []}, )
+        fieldset = (unicode(index), {'legend': fieldset_title, 'fields': []},)
 
         has_booleans = False
 
@@ -273,7 +272,7 @@ def register_form_generator(conf):
                     d['max_length'] = max_length
                     d['help_text'] = help_text
                     field_class = django.forms.EmailField
-                elif field_name == 'license_id'\
+                elif field_name == 'license_id' \
                         and 'license_id_formats' in conf:
                     d['max_length'] = max_length
                     license_id_formats = '{}{}{}'.format(
@@ -338,7 +337,7 @@ def register_form_generator(conf):
 
     cls = type(
         cls_name,
-        (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ), {
+        (form_utils.forms.BetterBaseForm, django.forms.BaseForm,), {
             'base_fieldsets': fieldsets,
             'base_fields': fields,
             'base_row_attrs': {},
@@ -370,13 +369,13 @@ class RevokeForm(django.forms.Form):
     birthdate = django.forms.DateField(
         label=_('Birthdate'),
         widget=django.forms.DateInput(
-            attrs={'placeholder': '__/__/____', 'class': 'date', }))
+            attrs={'placeholder': '__/__/____', 'class': 'date',}))
     agree_to_tos = django.forms.BooleanField(
-        label=_('In order to revoke my organ and tissue donation status '
-                'through Organize, I agree to ORGANIZE&rsquo;s <a href="'
-                'http://register.organize.org/terms-of-service/">Terms of '
-                'Service</a> and <a href="http://register.organize.org/privacy-'
-                'policy/">Privacy Policy</a>.'),
+        label=mark_safe(_('In order to revoke my organ and tissue donation status '
+                          'through Organize, I agree to ORGANIZE&rsquo;s <a href="'
+                          'http://register.organize.org/terms-of-service/">Terms of '
+                          'Service</a> and <a href="http://register.organize.org/privacy-'
+                          'policy/">Privacy Policy</a>.')),
         widget=django.forms.widgets.CheckboxInput(
             attrs={'required': 'required'}))
 
@@ -393,7 +392,7 @@ class RevokeForm(django.forms.Form):
             return email
         r = requests.get(
             'https://api.mailgun.net/v2/address/validate',
-            data={'address': email, },
+            data={'address': email,},
             auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
         if r.status_code == 200:
             if r.json()['is_valid']:
@@ -420,7 +419,7 @@ class EmailNextOfKinForm(django.forms.Form):
         invalid_emails = []
         for email in emails:
             r = requests.get('https://api.mailgun.net/v2/address/validate',
-                             data={'address': email, },
+                             data={'address': email,},
                              auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
             if r.status_code == 200 and r.json()['is_valid']:
                 valid_emails.append(email)
