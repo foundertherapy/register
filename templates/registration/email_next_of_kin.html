@@ -6,7 +6,7 @@
 {% block title %}{% blocktrans %}Email Your Next of Kin{% endblocktrans %}{% endblock %}
 
 {% block content %}
-     <div class="row register-progress-space-below">
+    <div class="row register-progress-space-below">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
             <div class="register-progress-container">
                 <div class="register-progressbar" style="width: 100%"></div>
@@ -24,7 +24,7 @@
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <span class="lead text-left nok-text-regular">
             {% blocktrans trimmed %}
@@ -44,9 +44,9 @@
 
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            <div class="panel panel-default nok">
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" action="." method="post">
+            <form class="form-horizontal" role="form" action="." method="post">
+                <div class="panel panel-default nok">
+                    <div class="panel-body">
                         {% csrf_token %}
 
                         {% if form.non_field_errors %}
@@ -56,13 +56,14 @@
                         {% for field in form %}
                             {% bootstrap_field layout='horizontal' field=field horizontal_label_class="col-md-2" horizontal_field_class="col-md-10" %}
                         {% endfor %}
-                    </form>
+
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-organize nok-btn-send">Send</button>
-                <a class="skip text-muted nok-skip-link" href="{% url 'done' %}">skip this step</a>
-            </div>
+                <div class="form-group" style="margin-left: 0; margin-right: 0; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary btn-organize nok-btn-send">Send</button>
+                    <a class="skip text-muted nok-skip-link" href="{% url 'done' %}">skip this step</a>
+                </div>
+            </form>
         </div>
     </div>
 

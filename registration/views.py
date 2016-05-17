@@ -19,6 +19,7 @@ from formtools.wizard.forms import ManagementForm
 from formtools.wizard.storage import get_storage
 from formtools.wizard.views import NamedUrlSessionWizardView
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
 import dateutil.parser
 
@@ -762,19 +763,13 @@ class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
     template_name = 'registration/email_next_of_kin.html'
     form_class = forms.EmailNextOfKinForm
     initial = {
-        'subject': _("Just wanted to let you know, I'm an official organ donor!"),
-        'body': _("""FYI: I just registered to be an organ donor on ORGANIZE because I dig the idea of saving someone else's
-        life. I'm now legally registered, but my next of kin (which is YOU) will still be asked to uphold my decision. So,
-        here you go: I WANT TO BE AN ORGAN DONOR.
+        'subject': mark_safe(_("Important: I&rsquo;m an organ donor.")),
+        'body': mark_safe(_("""I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else&rsquo;s life. I&rsquo;m now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision.
 
-If you want to register too, it takes less than a minute on ORGANIZE.org.
+So to remove all doubt: I want to be an organ donor.
 
-This email probably felt out of the blue and might have made you uncomfortable. Get over it! This is really important.
-
-Your hero,
-
-{}
-"""),
+If you want to register too, it only takes 47 seconds
+at ORGANIZE.org.""")),
     }
 
     def get(self, request, *args, **kwargs):

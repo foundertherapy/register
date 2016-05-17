@@ -68,6 +68,10 @@
         <form class="register" role="form" action="{% url 'start' %}" method="post">
             {% csrf_token %}
 
+            {% if form.non_field_errors %}
+                {% bootstrap_form_errors form type='non_fields' %}
+            {% endif %}
+
             {% bootstrap_label "Email" label_for="id_email" label_class="pull-left" %}
             <span class="help-block pull-left">so we can send you confirmation of your registration</span>
             {% bootstrap_field form.email show_label=False show_help=False size="large" %}
