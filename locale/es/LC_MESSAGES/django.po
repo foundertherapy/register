@@ -640,18 +640,6 @@ msgid ""
 msgstr ""
 "Bienvenidos a ORGANIZE, la manera más fácil y rápida para registrarse como donador de órganos."
 
-#: templates/registration/start.html:32
-msgid ""
-"95% of Americans support organ donation, but 100% of Americans"
-"hate the DMV. That’s why ORGANIZE created the first ever Central"
-"Donor Registry. Our simple online registration tool takes less than a"
-"minute, and registers you nationwide (the DMV just covers your state)."
-msgstr ""
-"95% of Americans support organ donation, but 100% of Americans"
-"hate the DMV. That’s why ORGANIZE created the first ever Central"
-"Donor Registry. Our simple online registration tool takes less than a"
-"minute, and registers you nationwide (the DMV just covers your state)."
-
 #: templates/registration/start.html:39
 msgid ""
 "To begin, please enter your email and zip code so we can customize your "
@@ -693,3 +681,98 @@ msgstr "Continúe en la siguiente página"
 
 msgid "Re-check License ID"
 msgstr "Revisar la información de la licencia"
+
+msgid "The next 47 seconds could save 8 lives."
+msgstr "test"
+
+msgid "95&#37; of Americans support organ donation, but 100&#37; of Americans hate the DMV. That&rsquo;s why ORGANIZE created the first ever Central Donor Registry. Our simple online registration tool takes less than a minute, and registers you nationwide (the DMV just covers your state)."
+msgstr "test"
+
+msgid "120,000 Americans are waiting for life-saving donations right now. Help us #EndTheWaitlist by registering now, then sharing with friends."
+msgstr "test"
+
+msgid "so we can send you confirmation of your registration"
+msgstr "test"
+
+msgid "to determine which series of state-based questions we will ask next"
+msgstr "test"
+
+msgid ""
+"As an official registry, ORGANIZE keeps all of your information encrypted and secure. Any information you enter is only used for the purposes of facilitating your wishes regarding organ donation. You can read our Terms of Service <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')\">here</a>."
+msgstr ""
+"test"
+
+msgid "Welcome to the most important form field on the Internet."
+msgstr "test"
+
+msgid "Please specify your donation preferences."
+msgstr "test"
+
+msgid "SELECT THE PARTS OF THE EYE YOU WISH TO DONATE"
+msgstr "test"
+
+msgid "requires that we verify your identity with the following numbers."
+msgstr "test"
+
+msgid "Your information is encrypted and secure."
+msgstr "test"
+
+msgid "LAST 4 DIGITS OF SOCIAL SECURITY NUMBER"
+msgstr "test"
+
+msgid "DRIVER’S LICENSE / STATE ID NUMBER"
+msgstr "test"
+
+msgid "I AGREE TO THE TERMS AND CONDITIONS"
+msgstr "test"
+
+msgid "Please check your Driver’s License / State ID"
+msgstr "test"
+
+msgid "The ID number you entered doesn’t match the format for your state. Please double-check it, and if you’re sure it’s right, click continue."
+msgstr "test"
+
+msgid "CHECK ID"
+msgstr "test"
+
+msgid "ONE LAST STEP..."
+msgstr "test"
+
+msgid "Even though you’ve just registered, your next of kin will still be asked to support your decision at the appropriate time. It will be easier for them if they’ve heard directly from you."
+msgstr "test"
+
+msgid "You’ve already helped 8 strangers, here’s your chance to help your loved ones."
+msgstr "test"
+
+msgid "enter one or more emails separated by commas"
+msgstr "test"
+
+msgid "TO"
+msgstr "test"
+
+msgid "SUBJECT"
+msgstr "test"
+
+msgid "BODY"
+msgstr "test"
+
+msgid "I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else’s life. I’m now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision."
+msgstr "test"
+
+msgid "So to remove all doubt: I want to be an organ donor."
+msgstr "test"
+
+msgid "If you want to register too, it only takes 47 seconds at ORGANIZE.org."
+msgstr "test"
+
+msgid "Important: I’m an organ donor."
+msgstr "test"
+
+msgid "Each registered donor can save up to 8 lives."
+msgstr "test"
+
+msgid "Telling your friends to register at ORGANIZE is just another way you can help us #EndTheWaitlist"
+msgstr "test"
+
+msgid "Update existing registration"
+msgstr "test"

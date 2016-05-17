@@ -25,9 +25,9 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <h3 class="home-headline">
             {% autoescape off %}
-            {% blocktrans %}
-                The next 47 seconds could save 8 lives.
-            {% endblocktrans %}
+                {% blocktrans trimmed %}
+                    The next 47 seconds could save 8 lives.
+                {% endblocktrans %}
             {% endautoescape %}
         </h3>
     </div>
@@ -39,10 +39,7 @@
         <div class="intro-message">
             <p>
                 {% blocktrans trimmed %}
-                    95% of Americans support organ donation, but 100% of Americans
-                    hate the DMV. That’s why ORGANIZE created the first ever Central
-                    Donor Registry. Our simple online registration tool takes less than a
-                    minute, and registers you nationwide (the DMV just covers your state).
+                    95&#37; of Americans support organ donation, but 100&#37; of Americans hate the DMV. That&rsquo;s why ORGANIZE created the first ever Central Donor Registry. Our simple online registration tool takes less than a minute, and registers you nationwide (the DMV just covers your state).
                 {% endblocktrans %}
             </p>
             <p>
@@ -99,7 +96,7 @@
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         {% if not update %}
             <a href="{% url 'update_choice' %}" tabindex="100">
-                {% blocktrans %}Update existing registration{% endblocktrans %}
+                {% blocktrans trimmed %}Update existing registration{% endblocktrans %}
             </a>
         {% endif %}
     </div>
@@ -107,10 +104,9 @@
 
 <div class="row home-footer">
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 home-footer-content">
-        As an official registry, ORGANIZE keeps all of your information encrypted and secure.
-        Any information you enter is only used for the purposes of facilitating your wishes
-        regarding organ donation. You can read our Terms of Service <a href="#"
-                                                                       onClick="window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')">here</a>.
+        {% blocktrans trimmed %}
+            As an official registry, ORGANIZE keeps all of your information encrypted and secure. Any information you enter is only used for the purposes of facilitating your wishes regarding organ donation. You can read our Terms of Service <a href="#" onClick="window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')">here</a>.
+        {% endblocktrans %}
     </div>
 </div>
 {% endblock %}
