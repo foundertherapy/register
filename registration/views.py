@@ -790,7 +790,6 @@ Your hero,
 
     def get_context_data(self, **kwargs):
         context = super(EmailNextOfKinView, self).get_context_data(**kwargs)
-        context['inverse_logo'] = True
         return context
 
     def get_success_url(self):
@@ -844,6 +843,5 @@ class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RegisterDoneView, self).get_context_data(**kwargs)
-        context['inverse_logo'] = True
         return context
 

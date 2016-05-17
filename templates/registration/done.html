@@ -56,10 +56,10 @@
 
     <div class="row" style="margin-bottom: 60px;">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            {#            {% if FACEBOOK_APP_ID %}#}
-            <img src="{% static 'images/fb-icon.png' %}" class="done-social-icon done-fb-icon"/>
-            <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">Share</a>
-            {#            {% endif %}#}
+            {% if FACEBOOK_APP_ID %}
+                <img src="{% static 'images/fb-icon.png' %}" class="done-social-icon done-fb-icon"/>
+                <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">Share</a>
+            {% endif %}
         </div>
     </div>
 
