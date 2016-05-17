@@ -436,14 +436,21 @@ legend {
 .checkbox label::after {
     color: #fff;
     padding-top: 5px;
+    padding-left: 5px;
 }
 
-.radio label {
+.checkbox input[type=checkbox]:checked+label::after {
+    font-size: 18px;
+}
+
+.radio label,
+.checkbox label {
     padding-top: 7px;
     padding-left: 15px;
 }
 
-.radio label::before {
+.radio label::before,
+.checkbox label::before {
     border-radius: 0;
     width: 27px;
     height: 27px;
@@ -1213,6 +1220,38 @@ body.upenn-start {
 
     .personal-info-state,
     .personal-info-zip-code {
-       margin-top: 20px;
+        margin-top: 20px;
     }
+}
+
+/*** Identity page style ***/
+
+p.identity-info-text a {
+    font-family: CeraCY-Regular;
+    font-size: 15px;
+    color: #555;
+    text-decoration: underline;
+}
+
+.identity-agree-to-tos {
+    margin-bottom: 20px;
+}
+
+.identity-agree-to-tos b {
+    color: #000;
+    font-family: CeraCY-Bold;
+}
+
+.identity-agree-to-tos p {
+    text-transform: initial;
+    color: #555;
+    font-family: CeraCY-Regular;
+}
+
+.identity-form .form-group {
+    margin-bottom: 50px;
+}
+
+.form-group.identity-agree-to-tos label {
+    padding-top: 0;
 }
