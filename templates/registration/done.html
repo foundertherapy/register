@@ -30,6 +30,14 @@
 {% endblock %}
 
 {% block content %}
+    <div class="row register-progress-space-below">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <div class="register-progress-container">
+                <div class="register-progressbar" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
             <h1 class="title-bold-red">#ENDTHEWAITLIST</h1>
@@ -54,14 +62,16 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
     </div>
 
-    <div class="row" style="margin-bottom: 60px;">
-        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            {% if FACEBOOK_APP_ID %}
+    {% if FACEBOOK_APP_ID %}
+        <div class="row" style="margin-bottom: 60px;">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+
                 <img src="{% static 'images/fb-icon.png' %}" class="done-social-icon done-fb-icon"/>
                 <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">Share</a>
-            {% endif %}
+
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="row" style="margin-bottom: 80px;">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">

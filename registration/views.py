@@ -27,7 +27,6 @@ import widget.models
 import fiftythree.client
 import forms
 
-
 logger = logging.getLogger(__name__)
 
 SESSION_REGISTRATION_CONFIGURATION = 'registration_configuration'
@@ -52,7 +51,6 @@ SESSION_FIRST_NAME = 'first_name'
 SESSION_LICENSE_ID_FORMATS = 'license_id_formats'
 SESSION_UPENN_REGISTRATION = 'is_upenn_registration'
 
-
 COOKIE_MINOR = 'register_minor'
 
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
@@ -68,7 +66,7 @@ def clean_session(session):
     for key in (
             SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
             SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE,
-            SESSION_LICENSE_ID_FORMATS, SESSION_UPENN_REGISTRATION, ):
+            SESSION_LICENSE_ID_FORMATS, SESSION_UPENN_REGISTRATION,):
         if key in session:
             del session[key]
     session[SESSION_RESET_FORM] = True
@@ -76,28 +74,28 @@ def clean_session(session):
 
 
 def clean_email_source_session(session):
-    for key in (SESSION_REG_SOURCE, SESSION_VARIANT_ID, ):
+    for key in (SESSION_REG_SOURCE, SESSION_VARIANT_ID,):
         if key in session:
             del session[key]
     return session
 
 
 def clean_cobrand_session(session):
-    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID, ):
+    for key in (SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_COMPANY_LOGO, SESSION_COBRAND_ACTIVE, SESSION_COBRAND_ID,):
         if key in session:
             del session[key]
     return session
 
 
 def clean_widget_session(session):
-    for key in (SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID, ):
+    for key in (SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,):
         if key in session:
             del session[key]
     return session
 
 
 def clean_next_of_kin_email_session(session):
-    for key in (SESSION_REGISTRATION_UUID, SESSION_FIRST_NAME, SESSION_EMAIL, ):
+    for key in (SESSION_REGISTRATION_UUID, SESSION_FIRST_NAME, SESSION_EMAIL,):
         if key in session:
             del session[key]
     return session
@@ -107,7 +105,7 @@ def get_external_source_data(session):
     external_source_data = {}
     for key in (
             SESSION_COBRAND_COMPANY_NAME, SESSION_COBRAND_ID, SESSION_WIDGET_HOST_URL, SESSION_WIDGET_ID,
-            SESSION_REG_SOURCE, SESSION_VARIANT_ID, ):
+            SESSION_REG_SOURCE, SESSION_VARIANT_ID,):
         if key in session:
             external_source_data[key] = session[key]
     return external_source_data
@@ -211,7 +209,7 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     def get_success_url(self):
         if self.accepts_registration:
             return django.core.urlresolvers.reverse(
-                'register', kwargs={'step': '1', })
+                'register', kwargs={'step': '1',})
         else:
             return django.core.urlresolvers.reverse('unsupported_state')
 
@@ -351,7 +349,6 @@ class UnsupportedStateView(django.views.generic.TemplateView):
 
 
 class StateRedirectView(django.views.generic.RedirectView):
-
     def get_redirect_url(self, *args, **kwargs):
         # if we have a redirect_url defined, get it and redirect
         redirect_url = self.request.session.get(SESSION_REDIRECT_URL)
@@ -458,7 +455,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             # set the appropriate error on the form
             # call ugettext on the list of errors for each
             api_errors_dict = {a: [django.utils.translation.ugettext(c) for c in b]
-                          for a, b in api_errors_dict.items()}
+                               for a, b in api_errors_dict.items()}
             logger.warning('Received API errors for postal_code {}: {}'.format(
                 data['postal_code'], api_errors_dict))
             self.storage.data[self.api_error_key] = api_errors_dict
@@ -477,12 +474,11 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
             if api_errors[0][0] is None:
                 last_form_obj.add_error(field=None, error=[api_errors[0][1]])
-                #return self.render_revalidation_failure(last_form_key, last_form_obj, **kwargs)
+                # return self.render_revalidation_failure(last_form_key, last_form_obj, **kwargs)
                 return self.render_to_response(self.get_context_data(form=form, errors=api_errors[0][1]))
 
             logger.critical(
-                    'API errors not properly handled by forms for postal_code {}: {}'.format(data['postal_code'], api_errors))
-
+                'API errors not properly handled by forms for postal_code {}: {}'.format(data['postal_code'], api_errors))
 
         # render the done view and reset the wizard before returning the
         # response. This is needed to prevent from rendering done with the
@@ -551,7 +547,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
 
         form_current_step = management_form.cleaned_data['current_step']
         if (form_current_step != self.steps.current and
-                self.storage.current_step is not None):
+                    self.storage.current_step is not None):
             # form refreshed, change current step
             self.storage.current_step = form_current_step
 
@@ -600,6 +596,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         d['email'] = self.request.session[SESSION_EMAIL]
 
+        if d['title'] == 'Confirm your identity':
+            d['explanatory_text'] = '{}{}{}'.format(d['state_name'], ' ', d['explanatory_text'])
+
         current_form = self.form_list[unicode(self.steps.current)]
         if 'license_id' in current_form.base_fields:
             if SESSION_LICENSE_ID_FORMATS in self.request.session:
@@ -612,7 +611,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                               'for your state. Please double-check it, and if you&rsquo;re '
                               'sure it&rsquo;s right, click continue.'),
                     'ok': _('Continue &#8250;'),
-                    'cancel': _('&#8249; Check ID'), }
+                    'cancel': _('&#8249; Check ID'),}
                 d['invalid_license_modal_content'] = invalid_license_modal_content
 
         d['non_field_errors'] = kwargs.get('errors')
@@ -716,7 +715,7 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     def get_success_url(self):
         if self.postal_code:
             return django.core.urlresolvers.reverse_lazy(
-                'revoke_done', kwargs={'postal_code': self.postal_code, })
+                'revoke_done', kwargs={'postal_code': self.postal_code,})
         else:
             return django.core.urlresolvers.reverse_lazy('revoke-done')
 
@@ -764,7 +763,9 @@ class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
     form_class = forms.EmailNextOfKinForm
     initial = {
         'subject': _("Just wanted to let you know, I'm an official organ donor!"),
-        'body': _("""FYI: I just registered to be an organ donor on ORGANIZE because I dig the idea of saving someone else's life. I'm now legally registered, but my next of kin (which is YOU) will still be asked to uphold my decision. So, here you go: I WANT TO BE AN ORGAN DONOR.
+        'body': _("""FYI: I just registered to be an organ donor on ORGANIZE because I dig the idea of saving someone else's
+        life. I'm now legally registered, but my next of kin (which is YOU) will still be asked to uphold my decision. So,
+        here you go: I WANT TO BE AN ORGAN DONOR.
 
 If you want to register too, it takes less than a minute on ORGANIZE.org.
 
@@ -844,4 +845,3 @@ class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(RegisterDoneView, self).get_context_data(**kwargs)
         return context
-

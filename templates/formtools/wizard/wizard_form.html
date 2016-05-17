@@ -15,27 +15,26 @@
 {% endblock %}
 
 {% block content %}
+
+    <div class="row register-progress-space-below">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            {% spaceless %}
+                <div class="register-progress-container">
+                    {% if wizard.steps.current == "1" %}
+                        <div class="register-progressbar" style="width: 33%"></div>
+                    {% elif wizard.steps.current == "2" %}
+                        <div class="register-progressbar" style="width: 66%"></div>
+                    {% else %}
+                        <div class="register-progressbar" style="width: 100%"></div>
+                    {% endif %}
+                </div>
+            {% endspaceless %}
+        </div>
+    </div>
 {% if wizard.steps.current != wizard.steps.last %}
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
             <h1>{% blocktrans %}{{ title }}{% endblocktrans %}</h1>
-        </div>
-    </div>
-
-    <div class="row status-bar">
-        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            {% spaceless %}
-                {% for step in wizard.steps.all %}
-                    <div class="step step-{{ step }}
-                    {% if step <= wizard.steps.current %}
-                        organize-red-background
-                    {% else %}
-                        organize-gray-background
-                    {% endif %}
-                ">&nbsp;</div>
-                {% endfor %}
-                <div class="step-counter">{{ wizard.steps.step1 }} / {{ wizard.steps.count }}</div>
-            {% endspaceless %}
         </div>
     </div>
 {% endif %}

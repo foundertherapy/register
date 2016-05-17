@@ -970,6 +970,27 @@ body.upenn-start {
     margin: 0;
 }
 
+.register-progress-container {
+    width: 100%;
+    background-color: #eaeaea;
+    position: relative;
+}
+
+.register-progressbar {
+    background-color: #e5001d;
+    position: absolute;
+}
+
+.register-progress-container,
+.register-progressbar {
+    border-radius: 25px;
+    height: 13px;
+}
+
+.register-progress-space-below{
+    margin-bottom: 50px;
+}
+
 /**** Home Page Style ****/
 
 .land-title {
@@ -1141,6 +1162,6 @@ body.upenn-start {
     width: 10%;
 }
 
-.done-twitter-pic{
+.done-twitter-pic {
     border: 1px solid #000000;
 }
