@@ -983,6 +983,16 @@ body.upenn-start {
     color: #e5001d;
 }
 
+@media (max-width: 340px) {
+    h1.title-bold-red {
+        font-size: 30px;
+    }
+
+    .nok-btn-send {
+        width: 40%!important;
+    }
+}
+
 .margin-none {
     margin: 0;
 }
@@ -1019,6 +1029,12 @@ body.upenn-start {
     top: 10%;
     font-family: CeraCY-Bold;
     font-size: 20px;
+}
+
+@media (max-width: 360px) {
+    .land-title {
+        top: 5%;
+    }
 }
 
 .land-title-left {
@@ -1262,6 +1278,14 @@ p.identity-info-text a {
 
 .form-group.identity-agree-to-tos label {
     padding-top: 0;
+}
+
+.donation-pref-form legend {
+    margin-bottom: 15px;
+}
+
+.donation-pref-form .form-group {
+    margin-bottom: 18px;
 }
 
 /*** Revoke style ***/

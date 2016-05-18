@@ -81,7 +81,12 @@
 </div>
 {% endif %}
 
-<div class="row identity-form">
+{% if title == 'Please specify your donation preferences' %}
+    <div class="row donation-pref-form">
+{% else %}
+    <div class="row identity-form">
+{% endif %}
+
     <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
         <form class="register" role="form" action="." method="post">
             {% csrf_token %}
