@@ -212,8 +212,8 @@ h1, h2, h3, h4, h5 {
     border-radius: 0;
     text-transform: uppercase;
     padding: 0 20px;
-    line-height: 50px;
-    height:55px;
+    line-height: 55px;
+    height: 55px;
     margin-right: 10px;
 }
 
@@ -237,7 +237,7 @@ button.btn-organize:last-of-type {
 .btn-secondary.active {
     background-color: #5d5d5d;
     border-color: #5d5d5d;
-    padding: 12px 20px 4px 20px;
+    padding: 0 20px;
     margin-right: 10px;
 }
 
@@ -1008,6 +1008,10 @@ body.upenn-start {
     margin-bottom: 30px;
 }
 
+.register-regular-font {
+    font-family: CeraCY-Regular;
+}
+
 /**** Home Page Style ****/
 
 .land-title {
@@ -1054,10 +1058,6 @@ body.upenn-start {
 .home-headline {
     font-family: CeraCY-Bold;
     font-size: 24px;
-}
-
-.home-form-button {
-    margin-top: 10px;
 }
 
 @media (min-width: 768px) {
@@ -1176,6 +1176,7 @@ body.upenn-start {
     width: 50%;
     height: 45px;
     padding: 5px;
+    line-height: inherit;
 }
 
 .done-social-icon {
@@ -1249,7 +1250,7 @@ p.identity-info-text a {
 }
 
 .identity-agree-to-tos p {
-    text-transform: initial;
+    text-transform: none;
     color: #555;
     font-family: CeraCY-Regular;
 }
@@ -1260,4 +1261,33 @@ p.identity-info-text a {
 
 .form-group.identity-agree-to-tos label {
     padding-top: 0;
+}
+
+/*** Revoke style ***/
+
+.revoke-form .form-group {
+    margin-bottom: 50px;
+}
+
+.revoke-gender {
+    margin-bottom: 77px !important;
+}
+
+.revoke-submit-container .form-group {
+    margin: 0;
+}
+
+.revoke-agree-to-tos label {
+    padding-top: 0;
+    text-transform: none !important;
+    color: #555;
+    font-family: CeraCY-Regular;
+}
+
+.revoke-note {
+    font-family: CeraCY-Regular;
+}
+
+.revoke-note b {
+    font-family: CeraCY-Bold;
 }

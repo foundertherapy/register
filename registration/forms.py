@@ -104,13 +104,11 @@ class MultiEmailField(django.forms.CharField):
 
 
 class StateLookupForm(django.forms.Form):
-    email = django.forms.EmailField(label=_('Email'))
+    email = django.forms.EmailField(label=_('Email'), help_text=_('so we can send you confirmation of your registration'))
     postal_code = django.forms.CharField(
         label=_('Postal Code'),
         max_length=5, min_length=5, validators=[validate_postal_code],
-        help_text=_('Your zip will determine which series of state-based '
-                    'requirements will be provided in the next series '
-                    'of steps.'))
+        help_text=_('to determine which series of state-based questions we will ask next'))
 
     def clean_email(self):
         email = self.cleaned_data['email']

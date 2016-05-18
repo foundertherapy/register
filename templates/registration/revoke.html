@@ -4,42 +4,52 @@
 {% load bootstrap3 %}
 
 {% block script %}
-<script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <h1>{% blocktrans %}Revoke my registration from the ORGANIZE Registry{% endblocktrans %}</h1>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <h3 class="title-bold-red" style="margin-bottom: 30px;">{% blocktrans %}Revoke my registration from the ORGANIZE
+                Registry{% endblocktrans %}</h3>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <form class="register" role="form" action="{% url 'revoke' %}" method="post">
-            {% csrf_token %}
-            {% bootstrap_form form size='lg' %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <form class="register revoke-form" role="form" action="{% url 'revoke' %}" method="post">
+                {% csrf_token %}
 
-            <hr />
+                {% for field in form %}
+                    {% if field.name == "gender" %}
+                        {% bootstrap_field field show_help=False size="large" field_class="personal-info-gender" form_group_class="form-group revoke-gender" %}
+                    {% elif field.name == "agree_to_tos" %}
+                        {% bootstrap_field field show_help=False size="large" field_class="revoke-agree-to-tos" %}
+                    {% else %}
+                        {% bootstrap_field field show_help=False size="large" %}
+                    {% endif %}
+                {% endfor %}
+                <hr/>
 
-            {% buttons %}
-                <p>
-                    <button type="submit" class="btn btn-primary btn-organize" disabled>
-                        {% blocktrans %}Revoke my registration{% endblocktrans %} &rsaquo;
-                    </button>
+                <div class="revoke-submit-container">
+                    {% buttons %}
+                        <p>
+                            <button type="submit" class="btn btn-primary btn-organize" disabled>
+                                {% blocktrans %}Revoke my registration{% endblocktrans %} &rsaquo;
+                            </button>
+                        </p>
+                    {% endbuttons %}
+                </div>
+                <p class="revoke-note">
+                    {% blocktrans trimmed %}
+                        This does <b>not</b> revoke your registration from your state registry. To revoke your registration from
+                        your own state registry, you must do so directly through their online portal.
+                    {% endblocktrans %}
                 </p>
-            {% endbuttons %}
 
-
-            <p>
-                {% blocktrans trimmed %}
-                This does <b>not</b> revoke your registration from your state registry. To revoke your registration from your own state registry, you must do so directly through their online portal.
-                {% endblocktrans %}
-            </p>
-
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

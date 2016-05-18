@@ -121,7 +121,7 @@
                                 {% if field.name == 'subscribe_to_email_list' and wizard.steps.current == wizard.steps.last %}
                                     {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='subscribe_to_email_list_wrapper' %}
                                 {% elif field.name == 'gender' %}
-                                    {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='personal-info-gender' %}
+                                    {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' field_class='personal-info-gender' form_group_class='form-group revoke-gender' %}
                                 {% elif field.name == 'city' %}
                                     <div class="col-md-6 col-sm-12 col-xs-12 personal-info-city">
                                         {% bootstrap_field field=field|tabindex:forloop.parentloop.counter size='lg' %}

@@ -64,35 +64,35 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-        <form class="register" role="form" action="{% url 'start' %}" method="post">
-            {% csrf_token %}
+   <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+       <form class="register" role="form" action="{% url 'start' %}" method="post">
+           {% csrf_token %}
 
-            {% if form.non_field_errors %}
-                {% bootstrap_form_errors form type='non_fields' %}
-            {% endif %}
+           {% if form.non_field_errors %}
+               {% bootstrap_form_errors form type='non_fields' %}
+           {% endif %}
 
-            {% bootstrap_label "Email" label_for="id_email" label_class="pull-left" %}
-            <span class="help-block pull-left">so we can send you confirmation of your registration</span>
-            {% bootstrap_field form.email show_label=False show_help=False size="large" %}
+           {% for field in form %}
+               <label for="{{ field.id }}" class="pull-left">{{ field.label }}</label>
+               <span class="help-block pull-left">
+                   {{ field.help_text }}
+               </span>
+               {% bootstrap_field field show_label=False show_help=False size="large" %}
+           {% endfor %}
 
-            {% bootstrap_label "Postal Code" label_for="id_postal_code" label_class="pull-left" %}
-            <span class="help-block pull-left">to determine which series of state-based questions we will ask next</span>
-            {% bootstrap_field form.postal_code show_label=False show_help=False size="large" %}
+           {% buttons %}
+               {% if update %}
+                   <a href="{% url 'start' %}" class="btn btn-secondary btn-organize" tabindex="100">
+                       &lsaquo; {% blocktrans %}Cancel{% endblocktrans %}
+                   </a>
+               {% endif %}
 
-            {% buttons %}
-                {% if update %}
-                    <a href="{% url 'start' %}" class="btn btn-secondary btn-organize home-form-button" tabindex="100">
-                        &lsaquo; {% blocktrans %}Cancel{% endblocktrans %}
-                    </a>
-                {% endif %}
-
-                <button type="submit" class="btn btn-primary btn-organize" disabled>
-                    {% blocktrans %}Continue{% endblocktrans %} &rsaquo;
-                </button>
-            {% endbuttons %}
-        </form>
-    </div>
+               <button type="submit" class="btn btn-primary btn-organize" disabled>
+                   {% blocktrans %}Continue{% endblocktrans %} &rsaquo;
+               </button>
+           {% endbuttons %}
+       </form>
+   </div>
 </div>
 
 <div class="row update-reg-button">
