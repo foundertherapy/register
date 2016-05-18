@@ -987,9 +987,11 @@ body.upenn-start {
     h1.title-bold-red {
         font-size: 30px;
     }
+}
 
+@media (max-width: 490px) {
     .nok-btn-send {
-        width: 40%!important;
+        width: 40% !important;
     }
 }
 
