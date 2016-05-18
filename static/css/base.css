@@ -1118,6 +1118,7 @@ body.upenn-start {
 
 .panel.nok textarea {
     height: 350px;
+    resize: none;
 }
 
 .panel.nok .panel-heading {
