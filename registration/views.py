@@ -763,13 +763,11 @@ class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
     template_name = 'registration/email_next_of_kin.html'
     form_class = forms.EmailNextOfKinForm
     initial = {
-        'subject': mark_safe(_("Important: I&rsquo;m an organ donor.")),
-        'body': mark_safe(_("""I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else&rsquo;s life. I&rsquo;m now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision.
-
-So to remove all doubt: I want to be an organ donor.
-
-If you want to register too, it only takes 47 seconds
-at ORGANIZE.org.""")),
+        'subject': mark_safe(_("Important: I\'m an organ donor.")),
+        'body': mark_safe(_('I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone '
+        'else\'s life. I\'m now legally registered but my next of kin (which is YOU) will still be asked to uphold my '
+        'decision.\n\nSo to remove all doubt: I want to be an organ donor.\n\nIf you want to register too, it only takes 47 '
+        'seconds at ORGANIZE.org.')),
     }
 
     def get(self, request, *args, **kwargs):
