@@ -1231,6 +1231,7 @@ body.upenn-start {
 
 .personal-info-zip-code {
     padding-right: 0;
+    padding-left: 0;
     margin-bottom: 30px;
 }
 
@@ -1301,7 +1302,7 @@ p.identity-info-text a {
 }
 
 .revoke-submit-container .form-group {
-    margin: 0;
+    margin: 130px 0 0 0;
 }
 
 .revoke-agree-to-tos label {
@@ -1317,4 +1318,24 @@ p.identity-info-text a {
 
 .revoke-note b {
     font-family: CeraCY-Bold;
+}
+
+.revoke-agree-to-tos-text {
+    padding: 0;
+}
+
+.revoke-agree-to-tos-checkbox {
+    padding: 0;
+}
+
+@media (max-width: 430px) {
+    .revoke-agree-to-tos-text {
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 390px) {
+    .revoke-submit-container button {
+        font-size: 16px;
+    }
 }

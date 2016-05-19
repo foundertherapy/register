@@ -12,7 +12,8 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-            <h3 class="title-bold-red" style="margin-bottom: 30px;">{% trans 'Revoke my registration from the ORGANIZE Registry' %}</h3>
+            <h3 class="title-bold-red"
+                style="margin-bottom: 30px;">{% trans 'Revoke my registration from the ORGANIZE Registry' %}</h3>
         </div>
     </div>
 
@@ -25,18 +26,20 @@
                     {% if field.name == "gender" %}
                         {% bootstrap_field field show_help=False size="large" field_class="personal-info-gender" form_group_class="form-group revoke-gender" %}
                     {% elif field.name == "agree_to_tos" %}
-                        <label for="{{ field.id }}">
-                            {% blocktrans trimmed %}
-                                In order to revoke my organ and tissue donation status through Organize, I agree to ORGANIZE&rsquo;s <a href="#" onClick="window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')">Terms of Service</a> and <a href="#" onClick="window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')">Privacy Policy</a>.
-                            {% endblocktrans %}
-                        </label>
-                        {% bootstrap_field field show_label=False show_help=False size="large" field_class="revoke-agree-to-tos" %}
+                        <div>
+                            {% bootstrap_field field show_label=False show_help=False size="large" field_class="revoke-agree-to-tos" form_group_class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-1 revoke-agree-to-tos-checkbox" %}
+                            <div class="col-lg-11 col-md-11 col-sm-9 col-xs-11 revoke-agree-to-tos-text">
+                                <label for="{{ field.id }}">
+                                    {% blocktrans trimmed %}
+                                        In order to revoke my organ and tissue donation status through Organize, I agree to ORGANIZE&rsquo;s <a href="#" onClick="window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')">Terms of Service</a> and <a href="#" onClick="window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')">Privacy Policy</a>.
+                                    {% endblocktrans %}
+                                </label>
+                            </div>
+                        </div>
                     {% else %}
                         {% bootstrap_field field show_help=False size="large" %}
                     {% endif %}
                 {% endfor %}
-
-                {% bootstrap_form form size='lg' %}
 
                 <hr/>
 
