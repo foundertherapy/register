@@ -991,7 +991,7 @@ body.upenn-start {
 
 @media (max-width: 490px) {
     .nok-btn-send {
-        width: 40% !important;
+        width: 50% !important;
     }
 }
 
@@ -1117,7 +1117,7 @@ body.upenn-start {
 
 @media (max-width: 407px) {
     .btn-cancel-modal-organize-es {
-        float: none!important;
+        float: none !important;
         margin-bottom: 10px;
     }
 
@@ -1353,7 +1353,13 @@ p.identity-info-text a {
 
 @media (max-width: 416px) {
     .wizard-buttons-container a,
-    .wizard-buttons-container button {
+    .wizard-buttons-container button,
+    .wizard-buttons-container button:hover,
+    .wizard-buttons-container button:focus,
+    .wizard-buttons-container button:active,
+    .wizard-buttons-container a:hover,
+    .wizard-buttons-container a:focus,
+    .wizard-buttons-container a:active{
         font-size: 16px;
     }
 }
