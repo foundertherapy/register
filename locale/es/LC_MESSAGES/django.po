@@ -762,8 +762,8 @@ msgstr "MENSAJE"
 msgid "Send"
 msgstr "ENVIARTE"
 
-msgid "I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else's life. I'm now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision.\n\nSo to remove all doubt: I want to be an organ donor.\n\nIf you want to register too, it only takes 47 seconds\nat ORGANIZE.org."
-msgstr "Me acabo de registrar en ORGANIZE.org para ser un donador de órganos porque me encanta la idea de ayudar a salvar la vida de alguien más. Ya estoy legalmente registrado, pero a mi familia (que eres TÚ) se le podría pedir que honre my decisión.\n\nAsí que para eliminar toda duda: Yo deseo ser un donador de organos.\n\nSi tu también deseas registrarte lo podrás hacer en sólo 47 segundos\nen ORGANIZE.org"
+msgid "I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else's life. I'm now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision.\n\nSo to remove all doubt: I want to be an organ donor.\n\nIf you want to register too, it only takes 47 seconds at ORGANIZE.org."
+msgstr "Me acabo de registrar en ORGANIZE.org para ser un donador de órganos porque me encanta la idea de ayudar a salvar la vida de alguien más. Ya estoy legalmente registrado, pero a mi familia (que eres TÚ) se le podría pedir que honre my decisión.\n\nAsí que para eliminar toda duda: Yo deseo ser un donador de organos.\n\nSi tu también deseas registrarte lo podrás hacer en sólo 47 segundos en ORGANIZE.org"
 
 msgid "Important: I'm an organ donor."
 msgstr "Importante: Soy un donador de órganos."
