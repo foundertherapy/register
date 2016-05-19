@@ -30,8 +30,12 @@
             {% blocktrans trimmed %}
                 Even though you&rsquo;ve just registered, your next of kin will still be asked to support your decision at the
                 appropriate time.
-                <span class="nok-text-bold">It will be easier for them if they&rsquo;ve heard directly from you.</span>
             {% endblocktrans %}
+            <span class="nok-text-bold">
+                {% blocktrans trimmed %}
+                    It will be easier for them if they&rsquo;ve heard directly from you.
+                {% endblocktrans %}
+            </span>
         </p>
         <p class="lead text-left nok-text-bold">
             {% blocktrans trimmed %}
@@ -60,7 +64,11 @@
                     </div>
                 </div>
                 <div class="form-group" style="margin-left: 0; margin-right: 0; margin-top: 30px;">
-                    <button type="submit" class="btn btn-primary btn-organize nok-btn-send">Send</button>
+                    <button type="submit" class="btn btn-primary btn-organize nok-btn-send">
+                        {% blocktrans trimmed %}
+                            Send
+                        {% endblocktrans %}
+                    </button>
                     <a class="skip text-muted nok-skip-link" href="{% url 'done' %}">skip this step</a>
                 </div>
             </form>

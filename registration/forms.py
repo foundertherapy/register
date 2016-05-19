@@ -274,9 +274,8 @@ def register_form_generator(conf):
                         and 'license_id_formats' in conf:
                     d['max_length'] = max_length
                     license_id_formats = '{}{}{}'.format(
-                        '<p class=\'hint-license-id-format\'>'
-                        'Valid state License IDs should look like : ',
-                        ', '.join(map(unicode, conf['license_id_formats'])), '</p>')
+                            _('<p class=\'hint-license-id-format\'>Valid state License IDs should look like: '),
+                            ', '.join(map(unicode, conf['license_id_formats'])), '</p>')
                     help_text = '{}{}{}'.format('<p> ', unicode(help_text), '</p>')
                     license_id_formats = '{}{}'.format(license_id_formats, help_text)
                     d['help_text'] = mark_safe(license_id_formats)
@@ -402,7 +401,7 @@ class RevokeForm(django.forms.Form):
 class EmailNextOfKinForm(django.forms.Form):
     to = MultiEmailField(label=_('To'), max_length=300, help_text=_('Enter one or more emails separated by commas.'))
     subject = django.forms.CharField(label=_('Subject'), max_length=250)
-    body = django.forms.CharField(widget=django.forms.widgets.Textarea())
+    body = django.forms.CharField(label=_('Body'), widget=django.forms.widgets.Textarea())
 
     def clean_to(self):
         emails = self.cleaned_data['to']

@@ -683,96 +683,99 @@ msgid "Re-check License ID"
 msgstr "Revisar la información de la licencia"
 
 msgid "The next 47 seconds could save 8 lives."
-msgstr "test"
+msgstr "En los siguientes 47 segundos puedes salvar 8 vidas."
 
 msgid "95&#37; of Americans support organ donation, but 100&#37; of Americans hate the DMV. That&rsquo;s why ORGANIZE created the first ever Central Donor Registry. Our simple online registration tool takes less than a minute, and registers you nationwide (the DMV just covers your state)."
-msgstr "test"
+msgstr "El 95&#37; de los norteamericanos apoyan la donación de órganos, pero el 100&#37; de ellos odia el DMV. Es por ello que ORGANIZE creó el primer Registo Central de Donadores. Nuestra forma de registro en línea require de menos de un minuto para ser llenada y puede hacerse en todo el país (El DMV sólo cubre tu estado)."
 
 msgid "120,000 Americans are waiting for life-saving donations right now. Help us #EndTheWaitlist by registering now, then sharing with friends."
-msgstr "test"
+msgstr "En este momento, 120,000 norteamericanos están en espera de un donador de órganos que salvaría su vida. Ayúdanos a acabar con la lista de espera, #EndTheWaitlist, registrándote ahora mismo y compartiéndolo con tus amistades."
 
 msgid "so we can send you confirmation of your registration"
-msgstr "test"
+msgstr "para poder enviarte la confirmación de tu registro"
 
 msgid "to determine which series of state-based questions we will ask next"
-msgstr "test"
+msgstr "para determinar el tipo de preguntas que de acuerdo a tu estado tendríamos que hacerte enseguida"
 
 msgid ""
 "As an official registry, ORGANIZE keeps all of your information encrypted and secure. Any information you enter is only used for the purposes of facilitating your wishes regarding organ donation. You can read our Terms of Service <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')\">here</a>."
 msgstr ""
-"test"
+"Como registro official, ORGANIZE mantiene toda tu información encriptada y segura. Cualquier información que nos proporciones será utilizada exclusivamente para propósitos de facilitar tus deseos con respecto a la donación de órganos. Puedes leer los Terminso del Servico <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')\">aquí</a>."
 
 msgid "Welcome to the most important form field on the Internet."
-msgstr "test"
+msgstr "Bienvendo a la forma más importante del internet."
 
 msgid "Please specify your donation preferences."
-msgstr "test"
+msgstr "Por favor especifíqua tu preferencia de donación."
 
-msgid "SELECT THE PARTS OF THE EYE YOU WISH TO DONATE"
-msgstr "test"
+msgid "Select the parts of the eye you wish to donate"
+msgstr "SELECCIONA LAS PARTES DEL OJO QUE DESEES DONAR"
 
-msgid "requires that we verify your identity with the following numbers."
-msgstr "test"
+msgid "requires that we verify your identity with the following numbers.<p class='identity-info-text'> <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Your information is encrypted and secure.</a></p>"
+msgstr "require que verifiquemos tu identidad a través de los siguientes números.<p class='identity-info-text'> <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Tu información se mantendrá encriptada y segura.</a></p>"
 
 msgid "Your information is encrypted and secure."
-msgstr "test"
+msgstr "Tu información se mantendrá encriptada y segura."
 
-msgid "LAST 4 DIGITS OF SOCIAL SECURITY NUMBER"
-msgstr "test"
+msgid "Last 4 Digits Of Social Security Number"
+msgstr "LOS ÚLTIMOS 4 DÍGITOS DE TU SEGURO SOCIAL"
 
-msgid "DRIVER’S LICENSE / STATE ID NUMBER"
-msgstr "test"
+msgid "DRIVER&rsquo;S LICENSE / STATE ID NUMBER"
+msgstr "LICENCA DE MANEJO / NÚMERO ESTATAL DE IDENTIFICACIÓN"
 
-msgid "I AGREE TO THE TERMS AND CONDITIONS"
-msgstr "test"
+msgid "<b>I AGREE TO THE TERMS AND CONDITIONS</b><p>In order to submit my registration information to the applicable state-operated organ and tissue donor registry and otherwise declare my organ and tissue donation status through ORGANIZE, I agree to ORGANIZE&rsquo;s <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Terms of Service</a> and <a href=\"#\" onClick=\"window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')\">Privacy Policy</a> and those of the <a href=\"#\" onClick=\"window.open('&#047;terms-of-service-by-state&#047;', '_blank', 'width=900,height=900')\">applicable registry</a>.</p>"
+msgstr "<b>ESTOY DE ACUERDO EN LOS TÉRMINOS Y CONDICIONES</b><p>Para enviar la información de mí registro a los registros aplicables de donadores de órganos y tejidos operados por el estado y declarar mi estatus de donador de órganos y tejidos a través de Organize, y estoy de acuerdo en <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">los Términos de Servicio</a> y <a href=\"#\" onClick=\"window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')\">Políticas de Privacidad</a> de ORGANIZE así como la de (<a href=\"#\" onClick=\"window.open('&#047;terms-of-service-by-state&#047;', '_blank', 'width=900,height=900')\">los aplicables a los registros estatales</a>.</p>"
 
-msgid "Please check your Driver’s License / State ID"
-msgstr "test"
+msgid "Please check your Driver&rsquo;s License / State ID"
+msgstr "Por favor revisa tu Licencia de Manejo / Identificación Estatal"
 
 msgid "The ID number you entered doesn’t match the format for your state. Please double-check it, and if you’re sure it’s right, click continue."
-msgstr "test"
+msgstr "El número de identificación que nos proporcionaste no coincide con el formato utlizado por tu estado. Por favor revísarlo, y si estás convencido que está correcto, presiona continuar."
 
 msgid "CHECK ID"
-msgstr "test"
+msgstr "REVISA TU FORMA DE IDENTIFICACIÓN"
 
-msgid "ONE LAST STEP..."
-msgstr "test"
+msgid "ONE LAST STEP&hellip;"
+msgstr "UN ÚLTIMO PASO&hellip;"
 
-msgid "Even though you’ve just registered, your next of kin will still be asked to support your decision at the appropriate time. It will be easier for them if they’ve heard directly from you."
-msgstr "test"
+msgid "Even though you&rsquo;ve just registered, your next of kin will still be asked to support your decision at the appropriate time."
+msgstr "Aún cuando te acabas de registrar, se les puede pedir a tus familiares que apoyen tu decisión en el momento apropiado."
 
-msgid "You’ve already helped 8 strangers, here’s your chance to help your loved ones."
-msgstr "test"
+msgid "It will be easier for them if they&rsquo;ve heard directly from you."
+msgstr "Sería más fácil para ellos escucharlo directamente de ti."
 
-msgid "enter one or more emails separated by commas"
-msgstr "test"
+msgid "You&rsquo;ve already helped 8 strangers &comma; here&rsquo;s your chance to help your loved ones."
+msgstr "Acabas de ayudar a 8 extraños, ésta es tu oportunidad de ayudar a las personas que amas."
 
-msgid "TO"
-msgstr "test"
+msgid "Enter one or more emails separated by commas."
+msgstr "incluye uno o más correos electrónicos separados por un coma."
 
-msgid "SUBJECT"
-msgstr "test"
+msgid "To"
+msgstr "PARA"
 
-msgid "BODY"
-msgstr "test"
+msgid "Subject"
+msgstr "ASUNTO"
 
-msgid "I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else’s life. I’m now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision."
-msgstr "test"
+msgid "Body"
+msgstr "MENSAJE"
 
-msgid "So to remove all doubt: I want to be an organ donor."
-msgstr "test"
+msgid "Send"
+msgstr "ENVIARTE"
 
-msgid "If you want to register too, it only takes 47 seconds at ORGANIZE.org."
-msgstr "test"
+msgid "I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else's life. I'm now legally registered but my next of kin (which is YOU) will still be asked to uphold my decision.\n\nSo to remove all doubt: I want to be an organ donor.\n\nIf you want to register too, it only takes 47 seconds\nat ORGANIZE.org."
+msgstr "Me acabo de registrar en ORGANIZE.org para ser un donador de órganos porque me encanta la idea de ayudar a salvar la vida de alguien más. Ya estoy legalmente registrado, pero a mi familia (que eres TÚ) se le podría pedir que honre my decisión.\n\nAsí que para eliminar toda duda: Yo deseo ser un donador de organos.\n\nSi tu también deseas registrarte lo podrás hacer en sólo 47 segundos\nen ORGANIZE.org"
 
-msgid "Important: I’m an organ donor."
-msgstr "test"
+msgid "Important: I'm an organ donor."
+msgstr "Importante: Soy un donador de órganos."
 
 msgid "Each registered donor can save up to 8 lives."
-msgstr "test"
+msgstr "Cada donador registrado puede salvar hasta 8 vidas."
 
 msgid "Telling your friends to register at ORGANIZE is just another way you can help us #EndTheWaitlist"
-msgstr "test"
+msgstr "Pedirle a tus amigos que se registren en ORGANIZE es otra manera en la que puedes ayudarnos."
 
 msgid "Update existing registration"
-msgstr "test"
+msgstr "Actualiza tu registro vigente"
+
+msgid "<p class='hint-license-id-format'>Valid state License IDs should look like: "
+msgstr "<p class='hint-license-id-format'>Valid state License IDs should look like: "
