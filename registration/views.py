@@ -601,9 +601,6 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         d['postal_code'] = self.request.session[SESSION_POSTAL_CODE]
         d['email'] = self.request.session[SESSION_EMAIL]
 
-        if d['title'] == 'Confirm your identity':
-            d['explanatory_text'] = '{}{}{}'.format(d['state_name'], ' ', d['explanatory_text'])
-
         current_form = self.form_list[unicode(self.steps.current)]
         if 'license_id' in current_form.base_fields:
             if SESSION_LICENSE_ID_FORMATS in self.request.session:
