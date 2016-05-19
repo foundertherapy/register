@@ -385,11 +385,13 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         self.page_count = len(self.configuration)
         logger.debug('process_registration_configuration: {}'.format(self.page_count))
         self.page_titles = collections.OrderedDict()
+        self.page_names = collections.OrderedDict()
         self.page_fieldsets = collections.OrderedDict()
         self.form_list = collections.OrderedDict()
         for page_conf in self.configuration:
             step = unicode(page_conf['step'])
             title = _(page_conf['title'])
+            page_name = page_conf.get('page_name')
             explanatory_text = page_conf['explanatory_text']
             fieldsets = page_conf['fieldsets']
             if license_id_formats:
@@ -398,6 +400,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                     any([fieldset['fields'] for fieldset in fieldsets]):
                 logging.debug('Processing step {}: {}'.format(step, title))
                 self.page_titles[step] = title
+                self.page_names[step] = page_name
                 self.page_explanatory_texts[step] = explanatory_text
                 self.page_fieldsets[step] = fieldsets
                 self.form_list[unicode(step)] = forms.register_form_generator(
@@ -591,6 +594,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         # we should put the configuration data here...
         d = super(RegistrationWizardView, self).get_context_data(form, **kwargs)
         d['title'] = self.page_titles[self.steps.current]
+        d['page_name'] = self.page_names[self.steps.current]
         d['explanatory_text'] = self.page_explanatory_texts[self.steps.current]
         d['state'] = self.request.session[SESSION_STATE]
         d['state_name'] = self.request.session[SESSION_STATE_NAME]
