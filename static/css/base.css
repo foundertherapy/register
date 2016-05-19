@@ -1115,6 +1115,14 @@ body.upenn-start {
     }
 }
 
+@media (max-width: 407px) {
+    .btn-cancel-modal-organize-es {
+        float: none!important;
+        margin-bottom: 10px;
+    }
+
+}
+
 /*** Next of kin style ***/
 
 .nok-text-bold {
@@ -1205,6 +1213,7 @@ body.upenn-start {
 
 .done-twitter-pic {
     border: 1px solid #000000;
+    width: 100%;
 }
 
 /*Personal info style ***/
@@ -1336,6 +1345,15 @@ p.identity-info-text a {
 
 @media (max-width: 390px) {
     .revoke-submit-container button {
+        font-size: 16px;
+    }
+}
+
+/*** Wizard style ***/
+
+@media (max-width: 416px) {
+    .wizard-buttons-container a,
+    .wizard-buttons-container button {
         font-size: 16px;
     }
 }

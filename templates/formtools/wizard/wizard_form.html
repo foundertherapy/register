@@ -161,6 +161,7 @@
 
             <br/>
 
+        <div class="wizard-buttons-container">
             {% buttons %}
 
                 <a
@@ -182,6 +183,7 @@
                     </button>
                 {% endif %}
             {% endbuttons %}
+        </div>
         </form>
         <br/>
     </div>
@@ -204,7 +206,7 @@
                 <p>{% autoescape off %}{{ invalid_license_modal_content.body }}{% endautoescape %}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" id="cancel" class="btn btn-default btn-cancel-modal-organize">
+                <button type="button" id="cancel" class="btn btn-default btn-cancel-modal-organize btn-cancel-modal-organize-{{ LANGUAGE_CODE }}">
                     {% autoescape off %}{{ invalid_license_modal_content.cancel }}{% endautoescape %}</button>
                 <button type="button" id="proceed" class="btn btn-primary btn-ok-modal-organize">
                     {% autoescape off %}{{ invalid_license_modal_content.ok }}{% endautoescape %}</button>
