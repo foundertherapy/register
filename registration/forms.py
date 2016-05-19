@@ -367,14 +367,14 @@ class RevokeForm(django.forms.Form):
         label=_('Birthdate'),
         widget=django.forms.DateInput(
             attrs={'placeholder': '__/__/____', 'class': 'date',}))
-    agree_to_tos = django.forms.BooleanField(
-        label=mark_safe(_('In order to revoke my organ and tissue donation status '
-                          'through Organize, I agree to ORGANIZE&rsquo;s <a href="'
-                          'http://register.organize.org/terms-of-service/">Terms of '
-                          'Service</a> and <a href="http://register.organize.org/privacy-'
-                          'policy/">Privacy Policy</a>.')),
-        widget=django.forms.widgets.CheckboxInput(
-            attrs={'required': 'required'}))
+    # agree_to_tos = django.forms.BooleanField(
+    #     label=mark_safe(_('In order to revoke my organ and tissue donation status through Organize, I agree to ORGANIZE\'s '
+    #                       '<a href="#" onClick="window.open(\'/terms-of-service/\', \'_blank\', \'width=900,height=900\')'
+    #                       '">Terms of Service</a> and <a href="#" onClick="window.open(\'/privacy-policy/\', \'_blank\', '
+    #                       '\'width=900,height=900\')">Privacy Policy</a>.')),
+    #     widget=django.forms.widgets.CheckboxInput(
+    #         attrs={'required': 'required', }))
+    agree_to_tos = django.forms.BooleanField(label='', widget=django.forms.widgets.CheckboxInput(attrs={'required': 'required', }))
 
     def clean_email(self):
         email = self.cleaned_data['email']

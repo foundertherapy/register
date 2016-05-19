@@ -92,16 +92,8 @@ msgid "Birthdate"
 msgstr "Fecha de nacimiento"
 
 #: registration/forms.py:265
-msgid ""
-"In order to revoke my organ and tissue donation status through Organize, I "
-"agree to ORGANIZE&rsquo;s <a href=\"http://register.organize.org/terms-of-"
-"service/\">Terms of Service</a> and <a href=\"http://register.organize.org/"
-"privacy-policy/\">Privacy Policy</a>."
-msgstr ""
-"Con el fin de revocar mi estado donación de órganos y tejidos a través "
-"ORGANIZE, estoy de acuerdo de que <a href=\"http://register.organize.org/"
-"terms-of-service/\">Términos de Servicio</a> y <a href=\"http://register."
-"organize.org/privacy-policy/\">Política de Privacidad</a> de ORGANIZE."
+msgid "In order to revoke my organ and tissue donation status through Organize, I agree to ORGANIZE&rsquo;s <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Terms of Service</a> and <a href=\"#\" onClick=\"window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')\">Privacy Policy</a>."
+msgstr "Con el fin de revocar mi estado donación de órganos y tejidos a través ORGANIZE, estoy de acuerdo de que <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Términos de Servicio</a> y <a href=\"#\" onClick=\"window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')\">Política de Privacidad</a> de ORGANIZE."
 
 #: registration/views.py:187
 #, fuzzy
