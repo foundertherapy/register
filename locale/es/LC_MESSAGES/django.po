@@ -332,6 +332,9 @@ msgstr "Cancelar"
 msgid "Continue"
 msgstr "Continuar"
 
+msgid "Continue &#8250;"
+msgstr "Continuar &#8250;"
+
 #: templates/registration/start.html:49
 msgid "Update registration"
 msgstr "Actualización de registro"
@@ -729,11 +732,11 @@ msgstr "<b>ESTOY DE ACUERDO EN LOS TÉRMINOS Y CONDICIONES</b><p>Para enviar la 
 msgid "Please check your Driver&rsquo;s License / State ID"
 msgstr "Por favor revisa tu Licencia de Manejo / Identificación Estatal"
 
-msgid "The ID number you entered doesn’t match the format for your state. Please double-check it, and if you’re sure it’s right, click continue."
+msgid "The ID number you entered doesn&rsquo;t match the format for your state. Please double-check it, and if you&rsquo;re sure it&rsquo;s right, click continue."
 msgstr "El número de identificación que nos proporcionaste no coincide con el formato utlizado por tu estado. Por favor revísarlo, y si estás convencido que está correcto, presiona continuar."
 
-msgid "CHECK ID"
-msgstr "REVISA TU FORMA DE IDENTIFICACIÓN"
+msgid "&#8249; Check ID"
+msgstr "&#8249; REVISA TU FORMA DE IDENTIFICACIÓN"
 
 msgid "ONE LAST STEP&hellip;"
 msgstr "UN ÚLTIMO PASO&hellip;"
