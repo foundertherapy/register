@@ -257,12 +257,13 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         try:
             self.submit_email(form.cleaned_data)
         except fiftythree.client.InvalidDataError as e:
-            if e.message == 'Invalid email.':
-                form.add_error('email', _(e.message))
-                error_message_log = '{}{}'.format('Invalid email: ', email)
-            else:
-                form.add_error('postal_code', _(e.message))
-                error_message_log = '{}{}'.format('Invalid postal code:', postal_code)
+            if e.errors:
+                if 'email' in e.errors:
+                    form.add_error('email', _(e.message))
+                    error_message_log = '{}{}'.format('Invalid email: ', email)
+                if 'postal_code' in e.errors:
+                    form.add_error('postal_code', _(e.errors['postal_code'][0]))
+                    error_message_log = '{}{}'.format('Invalid postal code:', postal_code)
             logger.error('{} While trying to call EmailSubmit API '
                          'with error response {}'.format(error_message_log, unicode(e.errors)))
             django.contrib.messages.error(self.request, _(e.message))
