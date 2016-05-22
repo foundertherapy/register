@@ -199,11 +199,7 @@ h1, h2, h3, h4, h5 {
     transform: translate(-2px, 2px);
 }
 
-.btn-organize,
-.btn-organize:hover,
-.btn-organize:focus,
-.btn-organize:active,
-.btn-organize.active {
+.btn-organize {
     color: #fff;
     font-family: CeraCY-Bold;
     font-size: 24px;
@@ -467,23 +463,22 @@ legend {
 }
 
 .hashtag-large {
-    font-family: "BebasNeue", sans-serif;
     font-weight: bold;
-    font-size: 70px;
+    font-size: 50px;
     color: #ed2224;
     letter-spacing: 10px;
 }
 
 @media (max-width: 767px) {
     .hashtag-large {
-        font-size: 55px;
+        font-size: 35px;
         letter-spacing: 5px;
     }
 }
 
 @media (max-width: 480px) {
     .hashtag-large {
-        font-size: 40px;
+        font-size: 21px;
         letter-spacing: 5px;
     }
 }
@@ -1096,6 +1091,12 @@ body.upenn-start {
     }
 }
 
+@media (max-width: 768px) {
+    .btn-organize {
+        font-size: 3vw;
+    }
+}
+
 /*** licence ID and SSN modal Style ***/
 
 #warningModal {
@@ -1345,21 +1346,6 @@ p.identity-info-text a {
 
 @media (max-width: 390px) {
     .revoke-submit-container button {
-        font-size: 16px;
-    }
-}
-
-/*** Wizard style ***/
-
-@media (max-width: 416px) {
-    .wizard-buttons-container a,
-    .wizard-buttons-container button,
-    .wizard-buttons-container button:hover,
-    .wizard-buttons-container button:focus,
-    .wizard-buttons-container button:active,
-    .wizard-buttons-container a:hover,
-    .wizard-buttons-container a:focus,
-    .wizard-buttons-container a:active{
         font-size: 16px;
     }
 }
