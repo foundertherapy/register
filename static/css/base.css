@@ -200,9 +200,16 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn-organize {
+    font-size: 24px;
+}
+
+.btn-organize,
+.btn-organize:hover,
+.btn-organize:focus,
+.btn-organize:active,
+.btn-organize.active {
     color: #fff;
     font-family: CeraCY-Bold;
-    font-size: 24px;
     background-color: #ed2224;
     border-color: #ed2224;
     border-radius: 0;
