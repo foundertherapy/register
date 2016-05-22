@@ -263,7 +263,7 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                     error_message_log = '{}{}'.format('Invalid email: ', email)
                 if 'postal_code' in e.errors:
                     form.add_error('postal_code', _(e.errors['postal_code'][0]))
-                    error_message_log = '{}{}'.format('Invalid postal code:', postal_code)
+                    error_message_log = '{}{}'.format('Invalid postal code: ', postal_code)
             logger.error('{} While trying to call EmailSubmit API '
                          'with error response {}'.format(error_message_log, unicode(e.errors)))
             django.contrib.messages.error(self.request, _(e.message))
