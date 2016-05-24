@@ -10,7 +10,7 @@ django-redis-sessions
 django-secure
 django-sslify
 django-storages-redux
-Django==1.9.7
+Django==1.9.6
 django-shortuuidfield
 dj-database-url
 flake8
