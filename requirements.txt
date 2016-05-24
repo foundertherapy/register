@@ -1,4 +1,5 @@
 boto
+cffi
 django-bootstrap3
 django-debug-toolbar
 django-debug-toolbar-template-timings
