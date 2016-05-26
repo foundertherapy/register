@@ -35,27 +35,35 @@
 }
 
 @font-face {
-    font-family: 'CeraCY-Bold';
-    src: url('../fonts/webfonts/31060F_0_0.eot');
-    src: url('../fonts/webfonts/31060F_0_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/31060F_0_0.woff2') format('woff2'), url('../fonts/webfonts/31060F_0_0.woff') format('woff'), url('../fonts/webfonts/31060F_0_0.ttf') format('truetype');
+    font-family: 'CeraCY-BoldItalic';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../fonts/webfonts/3132D1_0_0.eot');
+    src: url('../fonts/webfonts/3132D1_0_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/3132D1_0_0.woff2') format('woff2'), url('../fonts/webfonts/3132D1_0_0.woff') format('woff'), url('../fonts/webfonts/3132D1_0_0.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'CeraCY-BoldItalic';
-    src: url('../fonts/webfonts/31060F_1_0.eot');
-    src: url('../fonts/webfonts/31060F_1_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/31060F_1_0.woff2') format('woff2'), url('../fonts/webfonts/31060F_1_0.woff') format('woff'), url('../fonts/webfonts/31060F_1_0.ttf') format('truetype');
+    font-family: 'CeraCY-Bold';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../fonts/webfonts/3132D1_1_0.eot');
+    src: url('../fonts/webfonts/3132D1_1_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/3132D1_1_0.woff2') format('woff2'), url('../fonts/webfonts/3132D1_1_0.woff') format('woff'), url('../fonts/webfonts/3132D1_1_0.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'CeraCY-RegularItalic';
-    src: url('../fonts/webfonts/31060F_2_0.eot');
-    src: url('../fonts/webfonts/31060F_2_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/31060F_2_0.woff2') format('woff2'), url('../fonts/webfonts/31060F_2_0.woff') format('woff'), url('../fonts/webfonts/31060F_2_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    src: url('../fonts/webfonts/3132D1_2_0.eot');
+    src: url('../fonts/webfonts/3132D1_2_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/3132D1_2_0.woff2') format('woff2'), url('../fonts/webfonts/3132D1_2_0.woff') format('woff'), url('../fonts/webfonts/3132D1_2_0.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'CeraCY-Regular';
-    src: url('../fonts/webfonts/31060F_3_0.eot');
-    src: url('../fonts/webfonts/31060F_3_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/31060F_3_0.woff2') format('woff2'), url('../fonts/webfonts/31060F_3_0.woff') format('woff'), url('../fonts/webfonts/31060F_3_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/webfonts/3132D1_3_0.eot');
+    src: url('../fonts/webfonts/3132D1_3_0.eot?#iefix') format('embedded-opentype'), url('../fonts/webfonts/3132D1_3_0.woff2') format('woff2'), url('../fonts/webfonts/3132D1_3_0.woff') format('woff'), url('../fonts/webfonts/3132D1_3_0.ttf') format('truetype');
 }
 
 body {
