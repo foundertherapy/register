@@ -1073,6 +1073,7 @@ body.upenn-start {
     position: absolute;
     bottom: 50px;
     height: 60px;
+    width: 100%;
 }
 
 .home-footer-content {
