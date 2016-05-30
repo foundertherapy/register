@@ -19,7 +19,9 @@ import requests
 import dateutil.parser
 import validate_email
 
+
 logger = logging.getLogger(__name__)
+
 
 REGISTRATION_CONFIGURATION_NAME = 'registration_configuration'
 
@@ -28,6 +30,7 @@ RE_NON_ALPHA = re.compile('[\W]+')
 RE_POSTAL_CODE = re.compile(r'^[0-9]{5}$')
 validate_postal_code = django.core.validators.RegexValidator(
     RE_POSTAL_CODE, _("Enter a valid postal code consisting 5 numbers."), 'invalid')
+
 
 CHOICES_GENDER = (
     ('M', _('Male')),
@@ -123,7 +126,7 @@ class StateLookupForm(django.forms.Form):
             return email
         r = requests.get(
             'https://api.mailgun.net/v2/address/validate',
-            data={'address': email,},
+            data={'address': email, },
             auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
         if r.status_code == 200:
             if r.json()['is_valid']:
@@ -146,11 +149,14 @@ class UPENNStateLookupForm(StateLookupForm):
 
 def register_form_clean(self):
     cleaned_data = super(self.__class__, self).clean()
-    organ_choicese = [value for key, value in cleaned_data.items()
+    organ_choices = [value for key, value in cleaned_data.items()
                       if key.startswith('include')]
-    if organ_choicese:
-        if not any(organ_choicese):
-            raise django.forms.ValidationError(_("At least one organ/tissue needs to be selected"))
+    if organ_choices:
+        # For states like Arkansas, registrants will be asked to donate one organ/tissue only, without the ability to choose
+        # the donation wishes for the other organs/tissues, deselecting that organ/tissue doesn't mean that they will not donate
+        # any other parts.
+        if not any(organ_choices) and len(organ_choices) > 1:
+            raise django.forms.ValidationError(_('At least one organ/tissue needs to be selected'))
     if self.api_errors and not self.skip_api_error_validation:
         # api_errors is a dict of field_name: [error text] that should be added
         # to each field if it is present
@@ -217,7 +223,7 @@ def validate_date_generator(min_value):
         if date < min_value:
             raise django.forms.ValidationError(
                 _('Date must be later than %(date)s.') %
-                {'date': min_value.strftime('%m/%d/%Y'),},
+                {'date': min_value.strftime('%m/%d/%Y'), },
                 code='minimum')
 
     return validate_date
@@ -232,7 +238,7 @@ def register_form_generator(conf):
 
         if not fieldset_fields:
             continue
-        fieldset = (unicode(index), {'legend': fieldset_title, 'fields': []},)
+        fieldset = (unicode(index), {'legend': fieldset_title, 'fields': []}, )
 
         has_booleans = False
 
@@ -334,7 +340,7 @@ def register_form_generator(conf):
 
     cls = type(
         cls_name,
-        (form_utils.forms.BetterBaseForm, django.forms.BaseForm,), {
+        (form_utils.forms.BetterBaseForm, django.forms.BaseForm, ), {
             'base_fieldsets': fieldsets,
             'base_fields': fields,
             'base_row_attrs': {},
@@ -389,7 +395,7 @@ class RevokeForm(django.forms.Form):
             return email
         r = requests.get(
             'https://api.mailgun.net/v2/address/validate',
-            data={'address': email,},
+            data={'address': email, },
             auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
         if r.status_code == 200:
             if r.json()['is_valid']:
@@ -416,7 +422,7 @@ class EmailNextOfKinForm(django.forms.Form):
         invalid_emails = []
         for email in emails:
             r = requests.get('https://api.mailgun.net/v2/address/validate',
-                             data={'address': email,},
+                             data={'address': email, },
                              auth=('api', settings.MAILGUN_PUBLIC_API_KEY))
             if r.status_code == 200 and r.json()['is_valid']:
                 valid_emails.append(email)
