@@ -1362,6 +1362,9 @@ p.identity-info-text a {
     .revoke-agree-to-tos-text {
         padding-left: 15px;
     }
+    .done-social-icon{
+        width: 15%;
+    }
 }
 
 @media (max-width: 390px) {
