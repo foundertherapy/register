@@ -67,7 +67,11 @@
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
 
                 <img src="{% static 'images/fb-icon.svg' %}" class="done-social-icon done-fb-icon"/>
-                <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">Share</a>
+                <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">
+                    {% blocktrans trimmed %}
+                        Share
+                    {% endblocktrans %}
+                </a>
 
             </div>
         </div>

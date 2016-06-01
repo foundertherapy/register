@@ -1001,7 +1001,7 @@ body.upenn-start {
 
 @media (max-width: 490px) {
     .nok-btn-send {
-        width: 50% !important;
+        width: 35% !important;
     }
 }
 
