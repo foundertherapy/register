@@ -239,11 +239,7 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     def submit_email(self, data):
         data_copy = data.copy()
         data_copy.update(get_external_source_data(self.request.session))
-        try:
-            FIFTYTHREE_CLIENT.submit_email(**data_copy)
-        except fiftythree.client.AuthenticationError as ex:
-             logger.error('AuthenticationError while submitting email', exc_info=True)
-             raise fiftythree.client.ServiceError('Service Unavailable')
+        FIFTYTHREE_CLIENT.submit_email(**data_copy)
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
@@ -276,6 +272,10 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             logger.error(e.message)
             form.add_error(field=None, error=_(e.message))
             return self.form_invalid(form)
+        except fiftythree.client.AuthenticationError:
+             logger.error('AuthenticationError while submitting email', exc_info=True)
+             form.add_error(field=None, error=_('Service unavailable.'))
+             return self.form_invalid(form)
 
         try:
             postal_code_response = cache.get('postal_code_data:{}'.format(postal_code))
@@ -293,6 +293,10 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
             form.add_error(field=None, error=_(e.message))
+            return self.form_invalid(form)
+        except fiftythree.client.AuthenticationError:
+            logger.error('AuthenticationError during postal code lookup', exc_info=True)
+            form.add_error(field=None, error=_('Service unavailable.'))
             return self.form_invalid(form)
 
         if 'registration_configuration' not in postal_code_response:
@@ -428,7 +432,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             return [[None, e.message]]
         except fiftythree.client.AuthenticationError as e:
             logger.error(e.message)
-            return [[None, e.message]]
+            return [[None, _('Service unavailable.')]]
 
     def render_done(self, form, **kwargs):
         final_forms = collections.OrderedDict()
