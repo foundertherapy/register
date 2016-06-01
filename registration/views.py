@@ -239,7 +239,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
     def submit_email(self, data):
         data_copy = data.copy()
         data_copy.update(get_external_source_data(self.request.session))
-        FIFTYTHREE_CLIENT.submit_email(**data_copy)
+        try:
+            FIFTYTHREE_CLIENT.submit_email(**data_copy)
+        except fiftythree.client.AuthenticationError as ex:
+             logger.error('AuthenticationError while submitting email', exc_info=True)
+             raise fiftythree.client.ServiceError('Service Unavailable')
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
