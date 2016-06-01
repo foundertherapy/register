@@ -781,8 +781,8 @@ msgstr "no es necesario este paso"
 msgid "Share"
 msgstr "comparte"
 
-msgid "Postal code must be valid"
-msgstr "El código postal debe ser válido"
+msgid "Postal code must be valid."
+msgstr "El código postal debe ser válido."
 
 msgid "At least one organ/tissue needs to be selected"
 msgstr "debes seleccionar el menos un órgano o tejido"
