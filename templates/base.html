@@ -133,9 +133,9 @@
         <!--[if lt IE 11]>
             <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
         <![endif]-->
-        <script src="//cdn.ravenjs.com/1.1.19/jquery,native/raven.min.js"></script>
-        <script>Raven.config('{% sentry_public_dsn %}').install()</script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="//cdn.ravenjs.com/3.0.4/raven.min.js"></script>
+        <script>Raven.config('{% sentry_public_dsn %}').install()</script>
         {% block script %}{% endblock %}
 
 <script>
