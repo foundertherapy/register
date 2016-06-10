@@ -158,3 +158,16 @@ class FBRedirectViewTestCase(django.test.TestCase):
     def test_session_cleaning_on_start(self):
         r = self.client.get('/fb/', follow=False)
         self.assertRedirects(r, '/?reg_source=fb')
+
+
+class InstagramRedirectViewTestCase(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+
+    def test_instagram(self):
+        r = self.client.get('/instagram/', follow=False)
+        self.assertRedirects(r, '/?reg_source=instagram')
+
+    def test_insta(self):
+        r = self.client.get('/insta/', follow=False)
+        self.assertRedirects(r, '/?reg_source=instagram')
