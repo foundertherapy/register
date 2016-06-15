@@ -57,10 +57,19 @@ $(function () {
     requiredCheckboxFields.bind("change keyup", validate);
     requiredRadioFields.bind("change keyup", validate);
     validate();
+    
+    var phoneSelector = document.querySelector(".phonenumber");
+    if(phoneSelector)
+        VMasker(phoneSelector).maskPattern("(999) 999-9999");
 
-    $('.phonenumber').mask("(999) 999-9999");
-    $('.ssn').mask("9999");
-    $('.date').mask("99/99/9999");
+    var ssnSelector = document.querySelector(".ssn");
+    if(ssnSelector)
+        VMasker(ssnSelector).maskPattern("9999");
+
+    var dateSelector = document.querySelector(".date");
+    if(dateSelector)
+        VMasker(dateSelector).maskPattern("99/99/9999");
+
 
     $('[data-toggle="popover"]').popover();
 
