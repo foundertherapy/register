@@ -29,7 +29,7 @@ pycrypto
 pyflakes
 python-dateutil
 pytz
-raven
+raven==5.20.0
 requests
 setuptools
 uwsgi
