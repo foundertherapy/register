@@ -6,12 +6,12 @@ deployment:
     security-testing:
         branch: security-testing
         commands:
-            - git push git@heroku.com:security-testing.git $CIRCLE_SHA1:refs/heads/master -f :
+            - git push git@heroku.com:register-sec-testing.git $CIRCLE_SHA1:refs/heads/master -f :
                 timeout: 400
-            - heroku maintenance:on --app security-testing
-            - heroku run ./manage.py migrate --noinput --app security-testing :
+            - heroku maintenance:on --app register-sec-testing
+            - heroku run ./manage.py migrate --noinput --app register-sec-testing :
                 timeout: 400
-            - heroku maintenance:off --app security-testing
+            - heroku maintenance:off --app register-sec-testing
     development:
         branch: development
         commands:
