@@ -118,6 +118,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'waffle.middleware.WaffleMiddleware',
+    'accounts.middleware.TimezoneMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -197,6 +198,7 @@ INSTALLED_APPS = (
     'storages',
     'bootstrap3',
     'form_utils',
+    'accounts',
     'registration',
     'cobrand',
     'widget',
@@ -344,3 +346,5 @@ EMAIL_USE_TLS = is_environ_true('EMAIL_USE_TLS')
 POSTAL_CODE_RESPONSE_CACHE_TIMEOUT = os.environ.get('POSTAL_CODE_RESPONSE_CACHE_TIMEOUT', 60 * 5)
 
 FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID', '')
+
+AUTH_USER_MODEL = 'accounts.User'
