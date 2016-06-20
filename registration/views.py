@@ -559,7 +559,15 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         if self.request.session[SESSION_REGISTRATION_UPDATE]:
             return django.shortcuts.redirect('update_done')
         else:
-            return django.shortcuts.redirect('email_next_of_kin')
+            try:
+                count = cache.incr('done_registration_count')
+            except ValueError:
+                count = 0
+                cache.set('done_registration_count', 0)
+            if count % 2:
+                return django.shortcuts.redirect('email_next_of_kin_1')
+            else:
+                return django.shortcuts.redirect('email_next_of_kin_2')
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
@@ -819,8 +827,7 @@ class RevokeDoneView(django.views.generic.TemplateView):
         return self.render_to_response(context)
 
 
-class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
-    template_name = 'registration/email_next_of_kin.html'
+class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView):
     form_class = forms.EmailNextOfKinForm
     initial = {
         'subject': _("Important: I\'m an organ donor."),
@@ -837,15 +844,15 @@ class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
         if SESSION_REGISTRATION_UUID not in self.request.session:
             # there isn't enough information to offer a NOK email, so just redirect to done
             return django.shortcuts.redirect('done')
-        return super(EmailNextOfKinView, self).get(self, request, *args, **kwargs)
+        return super(EmailNextOfKinBaseView, self).get(self, request, *args, **kwargs)
 
     def get_initial(self):
-        initial = super(EmailNextOfKinView, self).get_initial()
+        initial = super(EmailNextOfKinBaseView, self).get_initial()
         initial['body'] = initial['body'].format(self.request.session.get(SESSION_FIRST_NAME, '[YOUR NAME HERE]'))
         return initial
 
     def get_context_data(self, **kwargs):
-        context = super(EmailNextOfKinView, self).get_context_data(**kwargs)
+        context = super(EmailNextOfKinBaseView, self).get_context_data(**kwargs)
         return context
 
     def get_success_url(self):
@@ -870,12 +877,16 @@ class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
                 form.add_error(field=None, error=error_non_field_names)
             return self.form_invalid(form)
 
-        return super(EmailNextOfKinView, self).form_valid(form)
+        return super(EmailNextOfKinBaseView, self).form_valid(form)
 
     def submit_nok_email(self, data):
         try:
             data_copy = data.copy()
+            data_copy['variant'] = self.variant
             data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
+            data_copy['body'] += _(
+                '\n\nYou can register as an organ donor at <a href="https://register.organize.org?reg_source=email-nok'
+                '&variant={variant}">https://register.organize.org</a>.\n').format(**{'variant': self.variant})
             if SESSION_REGISTRATION_UUID in self.request.session:
                 data_copy['registration_uuid'] = self.request.session[SESSION_REGISTRATION_UUID]
             else:
@@ -892,6 +903,16 @@ class EmailNextOfKinView(MinorRestrictedMixin, django.views.generic.FormView):
         except fiftythree.client.AuthenticationError as e:
             logger.error(e.message)
             return [[None, e.message]]
+
+
+class EmailNextOfKinView1(EmailNextOfKinBaseView):
+    template_name = 'registration/email_next_of_kin.html'
+    variant = 'a'
+
+
+class EmailNextOfKinView2(EmailNextOfKinBaseView):
+    template_name = 'registration/email_next_of_kin_2.html'
+    variant = 'b'
 
 
 class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):

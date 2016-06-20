@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title %}{% blocktrans %}Email Your Next of Kin{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    <div class="row register-progress-space-below">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <div class="register-progress-container">
+                <div class="register-progressbar" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <h1 class="text-left title-bold-red">{% blocktrans %}ONE LAST STEP&hellip;{% endblocktrans %}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">&nbsp;</div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <p class="lead text-left nok-text-regular">
+                {% blocktrans trimmed %}
+                    Even though you&rsquo;ve just registered, your next of kin will still be asked to support your decision at the
+                    appropriate time.
+                {% endblocktrans %}
+                <span class="nok-text-bold">
+                {% blocktrans trimmed %}
+                    It will be easier for them if they&rsquo;ve heard directly from you.
+                {% endblocktrans %}
+            </span>
+            </p>
+            <p class="lead text-left nok-text-bold">
+                {% blocktrans trimmed %}
+                    You&rsquo;ve already helped 8 strangers &comma; here&rsquo;s your chance to help your loved ones
+                    by telling them you&rsquo;ve joined the 100 million Americans registered as organ donors.
+                {% endblocktrans %}
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <form class="form-horizontal" role="form" action="." method="post">
+                <div class="panel panel-default nok">
+                    <div class="panel-body">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            {% bootstrap_form_errors form type='non_fields' %}
+                        {% endif %}
+
+                        {% for field in form %}
+                            {% bootstrap_field layout='horizontal' field=field horizontal_label_class="col-md-2" horizontal_field_class="col-md-10" %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left: 0; margin-right: 0; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary btn-organize nok-btn-send">
+                        {% blocktrans trimmed %}
+                            Send
+                        {% endblocktrans %}
+                    </button>
+                    <a class="skip text-muted nok-skip-link" href="{% url 'done' %}">
+                        {% blocktrans trimmed %}
+                            skip this step
+                        {% endblocktrans %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+    <!-- Google Code for Registration Conversion Page -->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 911750952;
+        var google_conversion_language = "en";
+        var google_conversion_format = "3";
+        var google_conversion_color = "ffffff";
+        var google_conversion_label = "Wyk4CPG8q1kQqO7gsgM";
+        var google_remarketing_only = false;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt=""
+                 src="//www.googleadservices.com/pagead/conversion/911750952/?label=Wyk4CPG8q1kQqO7gsgM&amp;guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
+    <script src="{% static 'js/jquery.maskedinput.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
