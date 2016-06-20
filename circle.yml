@@ -3,6 +3,15 @@ machine:
         DJANGO_SETTINGS_MODULE: "settings.testing"
 
 deployment:
+    security-testing:
+        branch: security-testing
+        commands:
+            - git push git@heroku.com:security-testing.git $CIRCLE_SHA1:refs/heads/master -f :
+                timeout: 400
+            - heroku maintenance:on --app security-testing
+            - heroku run ./manage.py migrate --noinput --app security-testing :
+                timeout: 400
+            - heroku maintenance:off --app security-testing
     development:
         branch: development
         commands:
