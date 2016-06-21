@@ -10,6 +10,7 @@ import django.conf
 from cobrand.models import CobrandCompany
 from widget.models import WidgetHost
 
+from .. import views
 
 SESSION_REGISTRATION_CONFIGURATION = 'registration_configuration'
 SESSION_STATE = 'register_state'
@@ -171,3 +172,12 @@ class InstagramRedirectViewTestCase(django.test.TestCase):
     def test_insta(self):
         r = self.client.get('/insta/', follow=False)
         self.assertRedirects(r, '/?reg_source=instagram')
+
+
+class NOKRedirectTestCase(django.test.TestCase):
+    def test_ab_testing(self):
+        view = views.RegistrationWizardView()
+        redirect1 = view.get_next_of_kin_page()
+        redirect2 = view.get_next_of_kin_page()
+        self.assertNotEquals(redirect1.url, redirect2.url)
+        self.assertItemsEqual((redirect1.url, redirect2.url, ), ('/email-nok/', '/email-nok-2/'))

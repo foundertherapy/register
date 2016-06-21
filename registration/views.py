@@ -559,15 +559,18 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         if self.request.session[SESSION_REGISTRATION_UPDATE]:
             return django.shortcuts.redirect('update_done')
         else:
-            try:
-                count = cache.incr('done_registration_count')
-            except ValueError:
-                count = 0
-                cache.set('done_registration_count', 0)
-            if count % 2:
-                return django.shortcuts.redirect('email_next_of_kin_1')
-            else:
-                return django.shortcuts.redirect('email_next_of_kin_2')
+            return self.get_next_of_kin_page()
+
+    def get_next_of_kin_page(self):
+        try:
+            count = cache.incr('done_registration_count')
+        except ValueError:
+            count = 0
+            cache.set('done_registration_count', 0)
+        if count % 2:
+            return django.shortcuts.redirect('email_next_of_kin_1')
+        else:
+            return django.shortcuts.redirect('email_next_of_kin_2')
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
