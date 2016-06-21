@@ -1,1 +1,1 @@
-web: uwsgi --ini uwsgi.ini --enable-threads
+web: bin/start-stunnel uwsgi --ini uwsgi.ini --enable-threads
