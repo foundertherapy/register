@@ -276,7 +276,6 @@ input[type="radio"] + label {
 .help-block {
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 10px;
     font-family: CeraCY-Regular;
     font-size: 12px;
     padding-top: 2px;
@@ -1035,6 +1034,9 @@ body.upenn-start {
 }
 
 /**** Home Page Style ****/
+.land-label{
+    margin-right: 10px;
+}
 
 .land-title {
     position: absolute;
