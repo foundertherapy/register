@@ -786,3 +786,6 @@ msgstr "El código postal debe ser válido."
 
 msgid "At least one organ/tissue needs to be selected"
 msgstr "debes seleccionar el menos un órgano o tejido"
+
+msgid "Only Characters A-Z and periods (.) are valid values"
+msgstr "Sólo son válidos los caracteres de la A a la Z y los puntos(.)"
