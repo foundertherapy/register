@@ -887,9 +887,9 @@ class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView
             data_copy = data.copy()
             data_copy['variant'] = self.variant
             data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
-            body = data_copy['body'] + _(
+            body = "{}{}".format(data_copy['body'], _(
                 '\n\nYou can register as an organ donor at <a href="https://register.organize.org?reg_source=email-nok'
-                '&variant={variant}">https://register.organize.org</a>.\n').format(**{'variant': self.variant})
+                '&variant={}">https://register.organize.org</a>.\n').format(self.variant))
             # Replace new lines with html breaks before submission since user might add new lines
             body = body.replace('\n', '<br>')
             data_copy['body'] = body
