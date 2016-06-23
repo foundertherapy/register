@@ -54,6 +54,16 @@ SESSION_UPENN_REGISTRATION = 'is_upenn_registration'
 
 COOKIE_MINOR = 'register_minor'
 
+ORGANS_FIELDS = set(['include_organ_heart', 'include_organ_kidney', 'include_organ_liver', 'include_organ_lung',
+                     'include_organ_pancreas', 'include_organ_pancreas_islet', 'include_organ_intestine',
+                     'include_tissue_vessel_liver_pancreas', 'include_tissue_bone', 'include_tissue_heart_valves',
+                     'include_tissue_pericardium', 'include_tissue_skin', 'include_tissue_soft',
+                     'include_tissue_radius_ulna', 'include_tissue_vertebral_bodies', 'include_tissue_tendon',
+                     'include_tissue_vein', 'include_tissue_artery', 'include_tissue_cartilage', 'include_tissue_eye'
+                     ]
+                    )
+
+
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     api_key=settings.FIFTYTHREE_CLIENT_KEY,
     endpoint=settings.FIFTYTHREE_CLIENT_ENDPOINT,
@@ -462,6 +472,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         api_errors = self.submit_registration(data)
         if api_errors:
             api_errors_dict = dict(api_errors)
+            self.storage.data[self.api_error_key] = api_errors_dict
             # check to see if we have an error with a minor registering
             if 'non_field_errors' in api_errors_dict.keys():
                 non_field_errors = api_errors_dict['non_field_errors']
@@ -469,6 +480,19 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                     self.storage.reset()
                     return self.render_restricted_minor_registration()
 
+                if 'At least one organ/tissue should be selected.' in non_field_errors:
+                     api_errors_dict = {a: [django.utils.translation.ugettext(c) for c in b]
+                               for a, b in api_errors_dict.items()}
+                     self.storage.data[self.api_error_key] = api_errors_dict
+                     for form_key in self.get_form_list():
+                        form_obj = self.get_form(
+                            step=form_key,
+                            data=self.storage.get_step_data(form_key),
+                            files=self.storage.get_step_files(form_key))
+                        error_field_names = set(form_obj.fields.keys()).intersection(ORGANS_FIELDS)
+                        if error_field_names and len(error_field_names) > 0:
+                            form_obj.add_error(field=None, error=api_errors)
+                            return self.render_revalidation_failure(form_key, form_obj, **kwargs)
             # there is an error submitting the data, so pull the error data and
             # set the appropriate error on the form
             # call ugettext on the list of errors for each
@@ -482,19 +506,16 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                     step=form_key,
                     data=self.storage.get_step_data(form_key),
                     files=self.storage.get_step_files(form_key))
-                last_form_key = form_key
                 last_form_obj = form_obj
                 error_field_names = set(form_obj.fields.keys()).intersection(
                     set(api_errors_dict.keys()))
                 if error_field_names:
                     form_obj.add_error(field=None, error=api_errors_dict)
                     return self.render_revalidation_failure(form_key, form_obj, **kwargs)
-
             if api_errors[0][0] is None:
                 last_form_obj.add_error(field=None, error=[api_errors[0][1]])
                 # return self.render_revalidation_failure(last_form_key, last_form_obj, **kwargs)
                 return self.render_to_response(self.get_context_data(form=form, errors=api_errors[0][1]))
-
             logger.critical(
                 'API errors not properly handled by forms for postal_code {}: {}'.format(data['postal_code'], api_errors))
 
@@ -629,8 +650,10 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                     'ok': _('Continue &#8250;'),
                     'cancel': _('&#8249; Check ID'),}
                 d['invalid_license_modal_content'] = invalid_license_modal_content
-
-        d['non_field_errors'] = kwargs.get('errors')
+        if form.api_errors and form.api_errors.get('non_field_errors'):
+            d['non_field_errors'] = form.api_errors.get('non_field_errors')[0]
+        else:
+            d['non_field_errors'] = kwargs.get('errors')
 
         return d
 
