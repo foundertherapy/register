@@ -885,11 +885,11 @@ class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView
     def submit_nok_email(self, data):
         try:
             data_copy = data.copy()
-            data_copy['variant'] = self.variant
+            data_copy['variant_id'] = self.variant_id
             data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
             body = "{}{}".format(data_copy['body'], _(
                 '\n\nYou can register as an organ donor at <a href="https://register.organize.org?reg_source=email-nok'
-                '&variant={}">https://register.organize.org</a>.\n').format(self.variant))
+                '&variant_id={}">https://register.organize.org</a>.\n').format(self.variant))
             # Replace new lines with html breaks before submission since user might add new lines
             body = body.replace('\n', '<br>')
             data_copy['body'] = body
@@ -913,12 +913,12 @@ class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView
 
 class EmailNextOfKinView1(EmailNextOfKinBaseView):
     template_name = 'registration/email_next_of_kin.html'
-    variant = 'a'
+    variant_id = 'a'
 
 
 class EmailNextOfKinView2(EmailNextOfKinBaseView):
     template_name = 'registration/email_next_of_kin_2.html'
-    variant = 'b'
+    variant_id = 'b'
 
 
 class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):
