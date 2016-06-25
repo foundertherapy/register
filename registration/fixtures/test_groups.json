@@ -1,0 +1,10 @@
+[
+{
+    "fields": {
+        "name": "Masquerade",
+        "permissions": []
+    },
+    "model": "auth.group",
+    "pk": 1
+}
+]

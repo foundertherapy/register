@@ -1,0 +1,59 @@
+[
+{
+    "pk": 1,
+    "model": "accounts.user",
+    "fields": {
+        "email": "superuser@example.com",
+        "password": "bcrypt$$2a$12$rZs/vhz/Dt7oppZa3SQvHumgrW4tZSV6k1Gwc31CF4olkkw65nJF6",
+        "first_name": "Super",
+        "last_name": "User",
+        "company": 1,
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "groups": [],
+        "user_permissions": [],
+        "created_on": "2013-05-24T18:16:08.571Z",
+        "last_login": "2013-06-14T16:50:05.766Z",
+        "updated_on": "2013-05-24T18:16:08.575Z"
+    }
+},
+{
+    "pk": 2,
+    "model": "accounts.user",
+    "fields": {
+        "email": "staffuser@example.com",
+        "password": "bcrypt$$2a$12$rZs/vhz/Dt7oppZa3SQvHumgrW4tZSV6k1Gwc31CF4olkkw65nJF6",
+        "first_name": "Staff",
+        "last_name": "User",
+        "company": 1,
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": true,
+        "groups": [],
+        "user_permissions": [],
+        "created_on": "2013-05-24T18:16:08.571Z",
+        "last_login": "2013-06-14T16:50:05.766Z",
+        "updated_on": "2013-05-24T18:16:08.575Z"
+    }
+},
+{
+    "pk": 3,
+    "model": "accounts.user",
+    "fields": {
+        "email": "regularuser@example.com",
+        "password": "bcrypt$$2a$12$rZs/vhz/Dt7oppZa3SQvHumgrW4tZSV6k1Gwc31CF4olkkw65nJF6",
+        "first_name": "Regular",
+        "last_name": "User",
+        "company": 1,
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": [],
+        "created_on": "2013-05-24T18:16:08.571Z",
+        "last_login": "2013-06-14T16:50:05.766Z",
+        "updated_on": "2013-05-24T18:16:08.575Z"
+    }
+}
+]

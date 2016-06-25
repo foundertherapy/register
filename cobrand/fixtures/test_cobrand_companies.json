@@ -1,0 +1,28 @@
+[
+{
+    "model": "cobrand.cobrandcompany",
+    "pk": 1,
+    "fields": {
+        "created_on": "2015-11-13T04:03:39.280Z",
+        "updated_on": "2015-11-13T04:03:39.281Z",
+        "company_name": "a",
+        "contact_email": "a@a.com",
+        "contact_name": "a",
+        "uuid": "ShzW2sv5GAr3qTZSTBLjSB",
+        "slug": "a"
+    }
+},
+{
+    "model": "cobrand.cobrandcompany",
+    "pk": 2,
+    "fields": {
+        "created_on": "2015-11-13T05:54:51.805Z",
+        "updated_on": "2015-11-13T05:54:51.805Z",
+        "company_name": "Long Company Name Slug",
+        "contact_email": "bob@longcompanynameslug.com",
+        "contact_name": "Bob Ross",
+        "uuid": "9Ws7vqzsw4wnLc6WpgDUY5",
+        "slug": "long-company-name-slug"
+    }
+}
+]
