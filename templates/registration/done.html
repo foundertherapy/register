@@ -46,42 +46,33 @@
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-24">
             <p class="done-text-bold margin-none">
                 {% blocktrans trimmed %}
-                    Each registered donor can save up to 8 lives.
+                    Spread the word…
                 {% endblocktrans %}
             </p>
             <p class="done-text-regular margin-none">
                 {% blocktrans trimmed %}
-                    Telling your friends to register at ORGANIZE is just another way you can help us #EndTheWaitlist
+                    It's important that your friends and family know your donor wishes, so spread the word by tweeting "I am an
+                    #OrganDonor" today.
                 {% endblocktrans %}
             </p>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&nbsp;</div>
-    </div>
-
-    {% if FACEBOOK_APP_ID %}
-        <div class="row" style="margin-bottom: 60px;">
-            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-
-                <img src="{% static 'images/fb-icon.svg' %}" class="done-social-icon done-fb-icon"/>
-                <a href="" onclick="fb_share();" class="btn btn-default btn-organize done-btn-social done-btn-share">
-                    {% blocktrans trimmed %}
-                        Share
-                    {% endblocktrans %}
-                </a>
-
-            </div>
+    <div class="row" style="margin: 40px 0;">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <video id="organizeVideo" width="320" height="176" controls="controls">
+                <source src="{% static 'videos/social-declaration-30s.mp4' %}" type="video/mp4">
+                <source src="{% static 'videos/social-declaration-30s.mkv' %}" type="video/webm">
+                Your browser does not support HTML5 video.
+            </video>
         </div>
-    {% endif %}
+    </div>
 
     <div class="row" style="margin-bottom: 80px;">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
             <img src="{% static 'images/twitter-icon.svg' %}" class="done-social-icon done-fb-icon"/>
             <a class="btn btn-default btn-organize done-btn-social done-btn-tweet"
-               href="https://twitter.com/intent/tweet?text=I%E2%80%99m%20an%20organ%20donor%2C%20are%20you%3F%20It%20literally%20takes%2047%20seconds%20to%20register%20at%20ORGANIZE.org%20Register%20and%20RT%20to%20help%20%23EndTheWaitlist"
+               href="https://twitter.com/intent/tweet?text=I%20am%20an%20%23OrganDonor"
                role="button">Tweet</a>
         </div>
     </div>
@@ -107,6 +98,16 @@
         /* ]]> */
     </script>
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+    <script type="text/javascript">
+        var vid = document.getElementById("organizeVideo");
+
+        $( document ).ready(function() {
+            setTimeout(function() {
+                 vid.autoplay = true;
+                 vid.load();
+            }, 5000);
+        });
+    </script>
     <noscript>
         <div style="display:inline;">
             <img height="1" width="1" style="border-style:none;" alt=""
