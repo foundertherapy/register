@@ -286,37 +286,31 @@ REDIS_EXPIRE_TIME = int(os.getenv('REDIS_EXPIRE_TIME', 60 * 60 * 24 * 30))
 REDIS_DB = 0
 REDIS = urlparse.urlparse(REDIS_URL)
 
-# TODO: update to match 53 session configuration
-SESSION_ENGINE = 'redis_sessions.session'
-SESSION_REDIS_HOST = REDIS.hostname
-SESSION_REDIS_PORT = REDIS.port
-SESSION_REDIS_DB = REDIS_DB
-SESSION_REDIS_PASSWORD = REDIS.password
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_REDIS_PREFIX = 'session:register'
-SESSION_COOKIE_NAME = 'sessionid-register'
 SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length
+SESSION_COOKIE_NAME = 'sessionid-register'
+
 
 CACHES = {
     'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': ':'.join([unicode(REDIS.hostname), unicode(REDIS.port)]),
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': REDIS_URL,
         'OPTIONS': {
+            # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': REDIS_DB,
-            'PASSWORD': REDIS.password,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
-           'PICKLE_VERSION': 2,
         },
-        'KEY_PREFIX': 'register',
+        'KEY_PREFIX': '53',
         'TIMEOUT': 60 * 60 * 24,  # 1 day
     },
     'staticfiles': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': ':'.join([unicode(REDIS.hostname), unicode(REDIS.port)]),
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': REDIS_URL,
         'OPTIONS': {
+            # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': REDIS_DB,
-            'PASSWORD': REDIS.password,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'PICKLE_VERSION': 2,
         },
         'KEY_PREFIX': 'sf',
         'TIMEOUT': 60 * 60 * 24 * 180,  # 180 days
