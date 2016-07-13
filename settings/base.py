@@ -301,7 +301,7 @@ CACHES = {
             'DB': REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
-        'KEY_PREFIX': '53',
+        'KEY_PREFIX': 'register',
         'TIMEOUT': 60 * 60 * 24,  # 1 day
     },
     'staticfiles': {
