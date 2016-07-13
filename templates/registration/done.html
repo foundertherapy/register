@@ -39,7 +39,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12" style="margin-bottom: 25px;">
             <h1 class="title-bold-red">Spread the word&hellip;</h1>
         </div>
 
@@ -67,7 +67,7 @@
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
             <img src="{% static 'images/twitter-icon.svg' %}" class="done-social-icon done-fb-icon"/>
             <a class="btn btn-default btn-organize done-btn-social done-btn-tweet"
-               href="https://twitter.com/intent/tweet?text=I%20am%20an%20%23OrganDonor"
+               href="https://twitter.com/intent/tweet?text=I+am+an+%23OrganDonor%2C+are+you%3F"
                role="button">Tweet</a>
         </div>
     </div>
@@ -75,6 +75,7 @@
 {% endblock %}
 
 {% block script %}
+    <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
     <!-- Google Code for Registration Conversion Page -->
     <script type="text/javascript">
         /* <![CDATA[ */
