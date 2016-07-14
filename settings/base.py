@@ -284,6 +284,7 @@ FIFTYTHREE_CLIENT_USE_SECURE = os.environ.get(
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 REDIS_EXPIRE_TIME = int(os.getenv('REDIS_EXPIRE_TIME', 60 * 60 * 24 * 30))
 REDIS_DB = 0
+STATIC_FILES_REDIS_DB = 1
 REDIS = urlparse.urlparse(REDIS_URL)
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
@@ -309,7 +310,7 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': REDIS_DB,
+            'DB': STATIC_FILES_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
         'KEY_PREFIX': 'sf',
