@@ -302,7 +302,7 @@ CACHES = {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'REDIS_SECRET_KEY': 'kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY=',
+            'REDIS_SECRET_KEY': os.getenv('REDIS_SECRET_KEY', 'kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY='),
             'CLIENT_CLASS': 'secure_redis.client.SecureDjangoRedisClient',
             'DATA_RECOVERY': {
                 'OLD_KEY_PREFIX': 'register',
