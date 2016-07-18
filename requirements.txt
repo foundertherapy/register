@@ -36,6 +36,7 @@ yolk
 python-gettext
 psycopg2
 git+https://github.com/waseem-omar/django-template-email.git@master
+git+https://github.com/foundertherapy/django-redis-secure.git@760_secure_redis
 django-waffle
 validate_email
 fiftythree-client

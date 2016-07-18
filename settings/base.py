@@ -202,6 +202,7 @@ INSTALLED_APPS = (
     'registration',
     'cobrand',
     'widget',
+    'secure_redis',
 )
 
 RAVEN_CONFIG = {
@@ -295,6 +296,25 @@ SESSION_COOKIE_NAME = 'sessionid-register'
 
 CACHES = {
     'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': REDIS_URL,
+        'OPTIONS': {
+            # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+            'DB': REDIS_DB,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'REDIS_SECRET_KEY': 'kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY=',
+            'CLIENT_CLASS': 'secure_redis.client.SecureDjangoRedisClient',
+            'DATA_RECOVERY': {
+                'OLD_KEY_PREFIX': 'register',
+                'OLD_CACHE_NAME': 'unsafe_redis',
+                'CLEAR_OLD_ENTRIES': False,
+            }
+
+        },
+        'KEY_PREFIX': 'register:secure',
+        'TIMEOUT': 60 * 60 * 24,  # 1 day
+    },
+    'unsafe_redis': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_URL,
         'OPTIONS': {
