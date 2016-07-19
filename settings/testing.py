@@ -13,6 +13,8 @@ DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
 }
 
+SECRET_KEY = '23lq&zoojn6df5e7z#n8n$%cv9!f89c)r9!m7o8uigf2tampnf'
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
