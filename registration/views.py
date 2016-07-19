@@ -50,18 +50,31 @@ SESSION_VARIANT_ID = 'variant_id'
 SESSION_REGISTRATION_UUID = 'registration_uuid'
 SESSION_FIRST_NAME = 'first_name'
 SESSION_LICENSE_ID_FORMATS = 'license_id_formats'
+SESSION_VALIDATE_ORGAN_TISSUE_SELECTION = 'validate_organ_tissue_selection'
 SESSION_UPENN_REGISTRATION = 'is_upenn_registration'
 
 COOKIE_MINOR = 'register_minor'
 
-ORGANS_FIELDS = set(['include_organ_heart', 'include_organ_kidney', 'include_organ_liver', 'include_organ_lung',
-                     'include_organ_pancreas', 'include_organ_pancreas_islet', 'include_organ_intestine',
-                     'include_tissue_vessel_liver_pancreas', 'include_tissue_bone', 'include_tissue_heart_valves',
-                     'include_tissue_pericardium', 'include_tissue_skin', 'include_tissue_soft',
-                     'include_tissue_radius_ulna', 'include_tissue_vertebral_bodies', 'include_tissue_tendon',
-                     'include_tissue_vein', 'include_tissue_artery', 'include_tissue_cartilage', 'include_tissue_eye'
-                     ]
-                    )
+ORGANS_FIELDS = set(['include_organ_heart',
+                     'include_organ_kidney',
+                     'include_organ_liver',
+                     'include_organ_lung',
+                     'include_organ_pancreas',
+                     'include_organ_pancreas_islet',
+                     'include_organ_intestine',
+                     'include_tissue_vessel_liver_pancreas',
+                     'include_tissue_bone',
+                     'include_tissue_heart_valves',
+                     'include_tissue_pericardium',
+                     'include_tissue_skin',
+                     'include_tissue_soft',
+                     'include_tissue_radius_ulna',
+                     'include_tissue_vertebral_bodies',
+                     'include_tissue_tendon',
+                     'include_tissue_vein',
+                     'include_tissue_artery',
+                     'include_tissue_cartilage',
+                     'include_tissue_eye', ])
 
 
 FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
@@ -77,7 +90,7 @@ def clean_session(session):
     for key in (
             SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
             SESSION_ACCEPTS_REGISTRATION, SESSION_REDIRECT_URL, SESSION_REGISTRATION_UPDATE,
-            SESSION_LICENSE_ID_FORMATS, SESSION_UPENN_REGISTRATION,):
+            SESSION_LICENSE_ID_FORMATS, SESSION_VALIDATE_ORGAN_TISSUE_SELECTION, SESSION_UPENN_REGISTRATION,):
         if key in session:
             del session[key]
     session[SESSION_RESET_FORM] = True
@@ -325,6 +338,9 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         if 'license_id_formats' in postal_code_response:
             self.request.session[SESSION_LICENSE_ID_FORMATS] = postal_code_response['license_id_formats']
 
+        if 'validate_organ_tissue_selection' in postal_code_response:
+            self.request.session[SESSION_VALIDATE_ORGAN_TISSUE_SELECTION] = postal_code_response['validate_organ_tissue_selection']
+
         if postal_code_response['accepts_registration']:
             self.accepts_registration = True
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = True
@@ -406,6 +422,10 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         if SESSION_LICENSE_ID_FORMATS in self.request.session:
             license_id_formats = self.request.session[SESSION_LICENSE_ID_FORMATS]
 
+        validate_organ_tissue_selection = False
+        if SESSION_VALIDATE_ORGAN_TISSUE_SELECTION in self.request.session:
+            validate_organ_tissue_selection = self.request.session[SESSION_VALIDATE_ORGAN_TISSUE_SELECTION]
+
         self.page_count = len(self.configuration)
         logger.debug('process_registration_configuration: {}'.format(self.page_count))
         self.page_titles = collections.OrderedDict()
@@ -420,6 +440,8 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             fieldsets = page_conf['fieldsets']
             if license_id_formats:
                 page_conf['license_id_formats'] = license_id_formats
+            if validate_organ_tissue_selection:
+                page_conf['validate_organ_tissue_selection'] = validate_organ_tissue_selection
             if fieldsets and \
                     any([fieldset['fields'] for fieldset in fieldsets]):
                 logging.debug('Processing step {}: {}'.format(step, title))

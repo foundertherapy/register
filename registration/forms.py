@@ -149,20 +149,23 @@ class UPENNStateLookupForm(StateLookupForm):
 
 def register_form_clean(self):
     cleaned_data = super(self.__class__, self).clean()
-    organ_choices = [value for key, value in cleaned_data.items()
-                      if key.startswith('include')]
-    if organ_choices:
-        # For states like Arkansas, registrants will be asked to donate one organ/tissue only, without the ability to choose
-        # the donation wishes for the other organs/tissues, deselecting that organ/tissue doesn't mean that they will not donate
-        # any other parts.
-        if not any(organ_choices) and len(organ_choices) > 1:
-            raise django.forms.ValidationError(_('At least one organ/tissue needs to be selected'))
+
+    if self.validate_organ_tissue_selection:
+        organ_choices = [value for key, value in cleaned_data.items() if key.startswith('include')]
+        if organ_choices:
+            # For states like Arkansas, registrants will be asked to donate one organ/tissue only, without the ability to choose
+            # the donation wishes for the other organs/tissues, deselecting that organ/tissue doesn't mean that they will not donate
+            # any other parts.
+            if not any(organ_choices):
+                raise django.forms.ValidationError(_('At least one organ/tissue needs to be selected'))
+
     if self.api_errors and not self.skip_api_error_validation:
         # api_errors is a dict of field_name: [error text] that should be added
         # to each field if it is present
         for k, v in self.api_errors.items():
             if k in self.fields:
                 self.add_error(k, v)
+
     return cleaned_data
 
 
@@ -351,6 +354,7 @@ def register_form_generator(conf):
             'clean_license_id': register_form_clean_license_id,
             'api_errors': {},
             'skip_api_error_validation': False,
+            'validate_organ_tissue_selection': conf.get('validate_organ_tissue_selection', None),
         })
     return cls
 
