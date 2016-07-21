@@ -15,8 +15,8 @@ urlpatterns = django.conf.urls.patterns(
                          views.UPENNStateLookupView.as_view(
                                  template_name='registration/upenn_start_2.html'), name='upenn_donate_2'),
     django.conf.urls.url(r'^update/$', views.StateLookupView.as_view(), kwargs={'update': True, }, name='update'),
-    django.conf.urls.url(r'^email-nok/$', views.EmailNextOfKinView1.as_view(), name='email_next_of_kin_1'),
-    django.conf.urls.url(r'^email-nok-2/$', views.EmailNextOfKinView2.as_view(), name='email_next_of_kin_2'),
+    django.conf.urls.url(r'^email-nok/a/$', views.EmailNextOfKinView1.as_view(), name='email_next_of_kin_a'),
+    django.conf.urls.url(r'^email-nok/b/$', views.EmailNextOfKinView2.as_view(), name='email_next_of_kin_b'),
     django.conf.urls.url(r'^done/$', views.RegisterDoneView.as_view(), name='done'),
     django.conf.urls.url(r'^update-done/$', django.views.generic.TemplateView.as_view(
         template_name='registration/update_done.html'), name='update_done'),

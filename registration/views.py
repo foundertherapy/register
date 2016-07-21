@@ -4,6 +4,7 @@ import logging
 import collections
 import datetime
 import json
+import random
 
 import dateutil.parser
 import django.contrib.messages
@@ -84,6 +85,8 @@ FIFTYTHREE_CLIENT = fiftythree.client.FiftyThreeClient(
     use_secure=settings.FIFTYTHREE_CLIENT_USE_SECURE)
 
 FIFTYTHREE_CLIENT.lookup_zipcode_api_path(api_version='v4')
+
+NOK_PAGE_NAME_CHOICES = ['email_next_of_kin_a', 'email_next_of_kin_b', ]
 
 
 def clean_session(session):
@@ -562,15 +565,7 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
             return self.get_next_of_kin_page()
 
     def get_next_of_kin_page(self):
-        try:
-            count = cache.incr('done_registration_count')
-        except ValueError:
-            count = 0
-            cache.set('done_registration_count', 0)
-        if count % 2:
-            return django.shortcuts.redirect('email_next_of_kin_1')
-        else:
-            return django.shortcuts.redirect('email_next_of_kin_2')
+        return django.shortcuts.redirect(random.choice(NOK_PAGE_NAME_CHOICES))
 
     def dispatch(self, request, *args, **kwargs):
         if request.COOKIES.get(COOKIE_MINOR) == 'true':
@@ -887,12 +882,6 @@ class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView
             data_copy = data.copy()
             data_copy['variant_id'] = self.variant_id
             data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
-            body = "{}{}".format(data_copy['body'], _(
-                '\n\nYou can register as an organ donor at <a href="https://register.organize.org?reg_source=email-nok'
-                '&variant_id={}">https://register.organize.org</a>.\n').format(self.variant_id))
-            # Replace new lines with html breaks before submission since user might add new lines
-            body = body.replace('\n', '<br>')
-            data_copy['body'] = body
             if SESSION_REGISTRATION_UUID in self.request.session:
                 data_copy['registration_uuid'] = self.request.session[SESSION_REGISTRATION_UUID]
             else:
