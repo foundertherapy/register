@@ -718,8 +718,14 @@ msgstr "LOS ÚLTIMOS 4 DÍGITOS DE TU SEGURO SOCIAL"
 msgid "DRIVER&rsquo;S LICENSE / STATE ID NUMBER"
 msgstr "LICENCA DE MANEJO / NÚMERO ESTATAL DE IDENTIFICACIÓN"
 
-msgid "<b>I AGREE TO THE TERMS AND CONDITIONS</b><p>In order to submit my registration information to any applicable state-operated organ and tissue donor registry and otherwise declare my organ and tissue donation status through ORGANIZE, I agree to ORGANIZE&rsquo;s <a href=\"#\" onClick=\"window.open('https&#58;&#047;&#047;register.organize.org&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Terms of Service</a> and <a href=\"#\" onClick=\"window.open('https&#58;&#047;&#047;register.organize.org&#047;privacy-policy&#047;' ,'_blank', 'width=900,height=900')\">Privacy Policy</a> and those of any <a href=\"#\" onClick=\"window.open('https&#58;&#047;&#047;register.organize.org&#047;terms-of-service-by-state&#047;', '_blank', 'width=900,height=900')\">applicable state registry</a>.</p>"
-msgstr ""
+msgid "<b>I AGREE TO THE TERMS AND CONDITIONS</b><p>In order to submit my registration information to the applicable state-operated organ and tissue donor registry and otherwise declare my organ and tissue donation status through ORGANIZE, I agree to ORGANIZE&rsquo;s <a href=\"#\" onClick=\"window.open('&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">Terms of Service</a> and <a href=\"#\" onClick=\"window.open('&#047;privacy-policy&#047;', '_blank', 'width=900,height=900')\">Privacy Policy</a> and those of the <a href=\"#\" onClick=\"window.open('&#047;terms-of-service-by-state&#047;', '_blank', 'width=900,height=900')\">applicable registry</a>.</p>"
+msgstr "<b>ESTOY DE ACUERDO EN LOS TÉRMINOS Y CONDICIONES</b><p>Para poder enviar mi información de inscripción a cualquier registro de órganos y tejidos aplicable, operado por el estado, y declarar mi estatus de donador de órganos y tejidos a través de ORGANIZE, estoy de acuerdo en <a href=\"#\" onClick=\"window.open('https&#58;&#047;&#047;register.organize.org&#047;terms-of-service&#047;', '_blank', 'width=900,height=900')\">los Términos de Servicio</a> y <a href=\"#\" onClick=\"window.open('https&#58;&#047;&#047;register.organize.org&#047;privacy-policy&#047;' ,'_blank', 'width=900,height=900')\">Políticas de Privacidad</a> de ORGANIZE así como de cualquier otro <a href=\"#\" onClick=\"window.open('https&#58;&#047;&#047;register.organize.org&#047;terms-of-service-by-state&#047;', '_blank', 'width=900,height=900')\">registro estatal aplicable</a>.</p>"
+
+msgid "Spread the word&hellip;"
+msgstr "Corre la voz&hellip;"
+
+msgid "It&rsquo;s important that your friends and family know your donor wishes, so spread the word by tweeting &quot;I am an #OrganDonor&quot; today."
+msgstr "Es importante que tus amigos y familiares sepan de tus deseos de donar tus órganos, así que corre la voz enviando el siguiente tweet &quot;Soy un donador de órganos #OrganDonor&quot;"
 
 msgid "Please check your Driver&rsquo;s License / State ID"
 msgstr "Por favor revisa tu Licencia de Manejo / Identificación Estatal"
@@ -741,6 +747,9 @@ msgstr "Sería más fácil para ellos escucharlo directamente de ti."
 
 msgid "You&rsquo;ve already helped 8 strangers &comma; here&rsquo;s your chance to help your loved ones."
 msgstr "Acabas de ayudar a 8 extraños, ésta es tu oportunidad de ayudar a las personas que amas."
+
+msgid "You&rsquo;ve already helped 8 strangers &comma; here&rsquo;s your chance to help your loved ones by telling them you&rsquo;ve joined the 100 million Americans registered as organ donors."
+msgstr "Ya has ayudado a 8 extraños, esta es tu oportunidad de ayudar a tus seres queridos diciéndoles que te has unido a los 100 millones de estadounidenses registrados como donadores de órganos."
 
 msgid "Enter one or more emails separated by commas."
 msgstr "incluye uno o más correos electrónicos separados por un coma."
