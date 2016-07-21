@@ -882,6 +882,7 @@ class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView
             data_copy = data.copy()
             data_copy['variant_id'] = self.variant_id
             data_copy['from_email'] = self.request.session.get(SESSION_EMAIL, settings.DEFAULT_FROM_EMAIL)
+            data_copy['body'] = "{}\n{}".format(data_copy['body'], _('You can register as an organ donor at'))
             if SESSION_REGISTRATION_UUID in self.request.session:
                 data_copy['registration_uuid'] = self.request.session[SESSION_REGISTRATION_UUID]
             else:

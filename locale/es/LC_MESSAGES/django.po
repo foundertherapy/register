@@ -754,6 +754,9 @@ msgstr "Ya has ayudado a 8 extraños, esta es tu oportunidad de ayudar a tus ser
 msgid "Enter one or more emails separated by commas."
 msgstr "incluye uno o más correos electrónicos separados por un coma."
 
+msgid "You can register as an organ donor at"
+msgstr "Tú también te puedes registrar como donador de órganos en"
+
 msgid "To"
 msgstr "PARA"
 
