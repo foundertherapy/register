@@ -261,13 +261,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                 if 'email' in e.errors:
                     form.add_error('email', _(e.message))
                     error_message_log = '{}{}'.format('Invalid email: ', email)
-                    logger.error('{} While trying to call EmailSubmit API '
-                                 'with error response {}'.format(error_message_log, unicode(e.errors)))
                 if 'postal_code' in e.errors:
                     form.add_error('postal_code', _(e.errors['postal_code'][0]))
                     error_message_log = '{}{}'.format('Invalid postal code: ', postal_code)
-                    logger.info('{} While trying to call EmailSubmit API '
-                                'with error response {}'.format(error_message_log, unicode(e.errors)))
+                logger.info('{} While trying to call EmailSubmit API '
+                            'with error response {}'.format(error_message_log, unicode(e.errors)))
             django.contrib.messages.error(self.request, _(e.message))
             return self.form_invalid(form)
         except fiftythree.client.ServiceError as e:
