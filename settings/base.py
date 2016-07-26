@@ -284,7 +284,8 @@ FIFTYTHREE_CLIENT_USE_SECURE = os.environ.get(
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 REDIS_EXPIRE_TIME = int(os.getenv('REDIS_EXPIRE_TIME', 60 * 60 * 24 * 30))
-REDIS_DB = 0
+INSECURE_REDIS_DB = 0
+SECURE_REDIS_DB = 1
 STATIC_FILES_REDIS_DB = 1
 REDIS = urlparse.urlparse(REDIS_URL)
 
@@ -300,7 +301,7 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': REDIS_DB,
+            'DB': SECURE_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
             'REDIS_SECRET_KEY': os.getenv('REDIS_SECRET_KEY'),
             'SERIALIZER': 'secure_redis.serializer.SecureSerializer',
@@ -313,7 +314,7 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': REDIS_DB,
+            'DB': INSECURE_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
         'KEY_PREFIX': 'register',

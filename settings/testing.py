@@ -21,7 +21,7 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': REDIS_DB,
+            'DB': SECURE_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
             'REDIS_SECRET_KEY': 'kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY=',
             'CLIENT_CLASS': 'secure_redis.client.SecureDjangoRedisClient',
@@ -40,7 +40,7 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': REDIS_DB,
+            'DB': INSECURE_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
         'KEY_PREFIX': 'register',
