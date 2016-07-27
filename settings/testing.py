@@ -18,7 +18,7 @@ SECRET_KEY = '23lq&zoojn6df5e7z#n8n$%cv9!f89c)r9!m7o8uigf2tampnf'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
+        'LOCATION': "{}/{}".format(REDIS_URL, SECURE_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': SECURE_REDIS_DB,
@@ -37,7 +37,7 @@ CACHES = {
     },
     'insecure': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
+        'LOCATION': "{}/{}".format(REDIS_URL, INSECURE_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': INSECURE_REDIS_DB,

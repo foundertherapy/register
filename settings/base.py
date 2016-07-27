@@ -298,7 +298,7 @@ SESSION_COOKIE_NAME = 'sessionid-register'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
+        'LOCATION': "{}/{}".format(REDIS_URL, SECURE_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': SECURE_REDIS_DB,
@@ -311,7 +311,7 @@ CACHES = {
     },
     'insecure': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
+        'LOCATION': "{}/{}".format(REDIS_URL, INSECURE_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'DB': INSECURE_REDIS_DB,
