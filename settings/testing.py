@@ -24,13 +24,7 @@ CACHES = {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'PARSER_CLASS': 'redis.connection.HiredisParser',
             'REDIS_SECRET_KEY': 'kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY=',
-            'CLIENT_CLASS': 'secure_redis.client.SecureDjangoRedisClient',
-            'DATA_RECOVERY': {
-                'OLD_KEY_PREFIX': 'register',
-                'OLD_CACHE_NAME': 'insecure',
-                'CLEAR_OLD_ENTRIES': False,
-            }
-
+            'SERIALIZER': 'secure_redis.serializer.SecureSerializer',
         },
         'KEY_PREFIX': 'register:secure',
         'TIMEOUT': 60 * 60 * 24,  # 1 day
