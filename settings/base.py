@@ -298,10 +298,10 @@ SESSION_COOKIE_NAME = 'sessionid-register'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
+        # Redis url, ensure it has correct db number - Should be the form '<host>:<port>/<db>'
         'LOCATION': "{}/{}".format(REDIS_URL, SECURE_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': SECURE_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
             'REDIS_SECRET_KEY': os.getenv('REDIS_SECRET_KEY'),
             'SERIALIZER': 'secure_redis.serializer.SecureSerializer',
@@ -311,10 +311,10 @@ CACHES = {
     },
     'insecure': {
         'BACKEND': 'django_redis.cache.RedisCache',
+        # Redis url, ensure it has correct db number - Should be the form '<host>:<port>/<db>'
         'LOCATION': "{}/{}".format(REDIS_URL, INSECURE_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': INSECURE_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
         'KEY_PREFIX': 'register',
@@ -325,7 +325,6 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            'DB': STATIC_FILES_REDIS_DB,
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
         'KEY_PREFIX': 'sf',
