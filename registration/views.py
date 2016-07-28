@@ -235,13 +235,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             email = self.request.GET['email']
             postal_code = self.request.GET['postal_code']
             # Email and postal codes are provided, go ahead and process them
-            try:
-                self.submit_email({'email': email, 'postal_code': postal_code})
-                postal_code_response = self.get_postal_code_resp(postal_code)
-                self.set_session_data(email, postal_code, postal_code_response)
-                return django.http.HttpResponseRedirect(self.get_success_url())
-            except Exception as e:
-                logger.error(e.message)
+            form = self.form_class(data={'email': email, 'postal_code': postal_code})
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
         return super(StateLookupView, self).get(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -315,7 +313,11 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
              return self.form_invalid(form)
 
         try:
-            postal_code_response = self.get_postal_code_resp(postal_code)
+            postal_code_response = cache.get('postal_code_data:{}'.format(postal_code))
+            if not postal_code_response:
+                postal_code_response = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
+                cache.set('postal_code_data:{}'.format(postal_code),
+                          postal_code_response, settings.POSTAL_CODE_RESPONSE_CACHE_TIMEOUT)
         except fiftythree.client.InvalidDataError as e:
             django.contrib.messages.error(self.request, _(e.message))
             for field, errors in e.errors.items():
@@ -339,29 +341,18 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                 field=None, error=_('Unknown state registration configuration'))
             return self.form_invalid(form)
 
-        self.set_session_data(email, postal_code, postal_code_response)
-
-        return super(StateLookupView, self).form_valid(form)
-
-    def get_postal_code_resp(self, postal_code):
-        postal_code_response = cache.get('postal_code_data:{}'.format(postal_code))
-        if not postal_code_response:
-            postal_code_response = FIFTYTHREE_CLIENT.lookup_postal_code(postal_code)
-            cache.set('postal_code_data:{}'.format(postal_code),
-                      postal_code_response, settings.POSTAL_CODE_RESPONSE_CACHE_TIMEOUT)
-        return postal_code_response
-
-    def set_session_data(self, email, postal_code, postal_code_response):
         self.request.session[SESSION_EMAIL] = email
         self.request.session[SESSION_STATE] = postal_code_response['state']
         self.request.session[SESSION_STATE_NAME] = postal_code_response['state_name']
         self.request.session[SESSION_POSTAL_CODE] = postal_code
         self.request.session[SESSION_REGISTRATION_UPDATE] = self.is_update
+
         if 'license_id_formats' in postal_code_response:
             self.request.session[SESSION_LICENSE_ID_FORMATS] = postal_code_response['license_id_formats']
+
         if 'validate_organ_tissue_selection' in postal_code_response:
-            self.request.session[SESSION_VALIDATE_ORGAN_TISSUE_SELECTION] = postal_code_response[
-                'validate_organ_tissue_selection']
+            self.request.session[SESSION_VALIDATE_ORGAN_TISSUE_SELECTION] = postal_code_response['validate_organ_tissue_selection']
+
         if postal_code_response['accepts_registration']:
             self.accepts_registration = True
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = True
@@ -372,6 +363,8 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             self.accepts_registration = False
             self.request.session[SESSION_ACCEPTS_REGISTRATION] = False
             self.request.session[SESSION_REDIRECT_URL] = postal_code_response['redirect_url']
+
+        return super(StateLookupView, self).form_valid(form)
 
 
 class UPENNStateLookupView(StateLookupView):
