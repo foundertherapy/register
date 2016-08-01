@@ -124,7 +124,7 @@ MIDDLEWARE_CLASSES = [
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django-users-plus.registration.validators.ComplexPasswordValidator',
+        'NAME': 'accounts.validators.ComplexPasswordValidator',
     }, {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     }, {
