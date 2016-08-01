@@ -14,4 +14,4 @@ class CustomPasswordValidator(object):
 
     def get_help_text(self):
          return _("Password should be 8 characters minimum, containing capital and small letters, "
-                  "numeric values and one of the following @#$%^&+=")
+                  "numeric values and one of the following $@$!%*?&")
