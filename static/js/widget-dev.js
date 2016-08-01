@@ -38,6 +38,17 @@ function popupWindow() {
     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + wTop + ', left=' + wLeft);
 }
 
+// Escape HTML special characters to prevent any DOM Based XSS
+function escapeHTML(unsafe_str) {
+    return unsafe_str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/\//g, '&#x2F;')
+}
+
 (function() {
     var isMobile = false;
     // device detection
@@ -104,7 +115,7 @@ function popupWindow() {
     organizeRegistrationBtnTag.setAttribute('class', 'organize-registration-btn');
     organizeRegistrationBtnTag.setAttribute('id', 'organize_registration_btn');
     var widgetChoiceImagePath = "//d1qr8e9x47knhm.cloudfront.net/static/images/widget/" + organizeWidgetChoice + ".png";
-    organizeRegistrationBtnTag.innerHTML = '<img style="height: 100%;border:1px solid #021a40;" src="' + widgetChoiceImagePath + '"/>';
+    organizeRegistrationBtnTag.innerHTML = escapeHTML('<img style="height: 100%;border:1px solid #021a40;" src="' + widgetChoiceImagePath + '"/>');
 
     organizeScriptNode = document.getElementById('organize_widget_script');
     parentNode = organizeScriptNode.parentNode;
