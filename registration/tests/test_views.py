@@ -188,10 +188,8 @@ class CSPHeadersTestCase(django.test.TestCase):
 
     def test_response_headers_contain_csp(self):
         c = django.test.client.Client()
-        self.assertTrue(
-            c.login(email='regularuser@example.com', password='password'))
 
-        response = c.get('/search/')
+        response = c.get('/')
 
         self.assertEqual(200, response.status_code)
         cspHeader = response['Content-Security-Policy']
