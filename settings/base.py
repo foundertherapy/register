@@ -204,6 +204,7 @@ INSTALLED_APPS = (
     'cobrand',
     'widget',
     'secure_redis',
+    'csp',
 )
 
 AUTH_PASSWORD_VALIDATORS = [

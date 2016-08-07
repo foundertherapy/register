@@ -174,3 +174,30 @@ class InstagramRedirectViewTestCase(django.test.TestCase):
     def test_insta(self):
         r = self.client.get('/insta/', follow=False)
         self.assertRedirects(r, '/?reg_source=instagram')
+
+
+@django.test.utils.override_settings(
+    CSP_STYLE_SRC='/static/',
+    CSP_SCRIPT_SRC='/static/',
+    CSP_FONT_SRC='/static/',
+    CSP_IMG_SRC='/static/',
+    CSP_MEDIA_SRC='/media/',
+)
+class CSPHeadersTestCase(django.test.TestCase):
+    fixtures = ('test_users.json', 'test_companies.json',)
+
+    def test_response_headers_contain_csp(self):
+        c = django.test.client.Client()
+        self.assertTrue(
+            c.login(email='regularuser@example.com', password='password'))
+
+        response = c.get('/search/')
+
+        self.assertEqual(200, response.status_code)
+        cspHeader = response['Content-Security-Policy']
+        self.assertNotEqual(cspHeader, None)
+        self.assertIn('script-src', cspHeader)
+        self.assertIn('img-src', cspHeader)
+        self.assertIn('style-src', cspHeader)
+        self.assertIn('font-src', cspHeader)
+        self.assertIn('media-src', cspHeader)
