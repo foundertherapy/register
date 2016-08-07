@@ -40,4 +40,5 @@ git+https://github.com/foundertherapy/django-redis-secure.git@master
 django-waffle
 validate_email
 fiftythree-client
+django-csp
 git+https://github.com/foundertherapy/django-users-plus.git@master

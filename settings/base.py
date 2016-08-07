@@ -119,6 +119,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'waffle.middleware.WaffleMiddleware',
     'accounts.middleware.TimezoneMiddleware',
+    'csp.middleware.CSPMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
