@@ -122,6 +122,21 @@ MIDDLEWARE_CLASSES = [
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'accounts.validators.ComplexPasswordValidator',
+    }, {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
+    }, {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    }, {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+]
+
 SECURE_BROWSER_XSS_FILTER = True
 
 TEMPLATES = [
