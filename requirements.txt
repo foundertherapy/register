@@ -39,4 +39,4 @@ git+https://github.com/waseem-omar/django-template-email.git@master
 django-waffle
 validate_email
 fiftythree-client
-git+https://github.com/foundertherapy/django-users-plus.git@1088_password_validator
+git+https://github.com/foundertherapy/django-users-plus.git@master
