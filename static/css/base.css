@@ -1374,3 +1374,27 @@ p.identity-info-text a {
         font-size: 16px;
     }
 }
+
+.locked-out-container {
+    text-align: center;
+    margin-top: 20%;
+}
+
+.locked-out-container #recaptcha_area {
+    margin: 0 auto;
+}
+
+.locked-out-container div.form-actions {
+    margin-top: 10px;
+}
+
+.locked-out-container div.login-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .locked-out-container {
+        margin-top: 50%;
+    }
+}

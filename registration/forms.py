@@ -19,8 +19,7 @@ import requests
 import dateutil.parser
 import validate_email
 
-from captcha import fields
-
+from captcha.fields import ReCaptchaField
 
 logger = logging.getLogger(__name__)
 
@@ -442,4 +441,4 @@ class EmailNextOfKinForm(django.forms.Form):
 
 
 class CaptchaForm(django.forms.Form):
-    captcha = fields.CaptchaField()
+    captcha = ReCaptchaField()
