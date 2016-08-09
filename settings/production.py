@@ -47,5 +47,5 @@ CSP_STYLE_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://cdnjs.c
 CSP_SCRIPT_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://cdn.ravenjs.com', 'unsafe-inline', ]
 CSP_FONT_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://fonts.gstatic.com',
                 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC']
-CSP_IMG_SRC = [STATIC_URL, 'https://register-dev.organize.org', 'https://secure.fastclick.net', ]
+CSP_IMG_SRC = [STATIC_URL, 'https://register-prod.organize.org', 'https://secure.fastclick.net', ]
 CSP_MEDIA_SRC = MEDIA_URL
