@@ -43,8 +43,8 @@ SECURE_SSL_REDIRECT = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # django csp settings
-CSP_STYLE_SRC = STATIC_URL
-CSP_SCRIPT_SRC = STATIC_URL
+CSP_STYLE_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://cdnjs.cloudflare.com', 'https://fonts.googleapis.com/css']
+CSP_SCRIPT_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com']
 CSP_FONT_SRC = STATIC_URL
-CSP_IMG_SRC = STATIC_URL
+CSP_IMG_SRC = [STATIC_URL, 'https://fiftythree-dev.organize.org', 'data:image']
 CSP_MEDIA_SRC = MEDIA_URL
