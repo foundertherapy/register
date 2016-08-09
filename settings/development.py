@@ -44,8 +44,11 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # django csp settings
 CSP_STYLE_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://cdnjs.cloudflare.com', 'https://fonts.googleapis.com/css', ]
-CSP_SCRIPT_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://cdn.ravenjs.com', 'unsafe-inline', ]
+CSP_SCRIPT_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://cdn.ravenjs.com', 'sha256-R5E0hZZHI8ZgYNXkZDWjcvhS4N2NBY39iAUmpzPTYL4=',
+                  'sha256-TcdixPnjQRhlAxAHYXKV+LWTnosrjPHOG3moTOQdQNQ=', 'sha256-cqN7AiVkj74EGOuHhv4EZ7lEb/jmQX69+C/rVUOqsqA=',
+                  'sha256-yMGoDw7QJl/hIedAqZVCL7SuZ8ze12NayTW7A9N12OM=', 'sha256-R/d38a6707BlqMnH4uCcUEsAEMfivLq0+sNXFha3p0I=',
+                  ]
 CSP_FONT_SRC = [STATIC_URL, 'https://maxcdn.bootstrapcdn.com', 'https://fonts.gstatic.com',
-                'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC']
+                'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC', ]
 CSP_IMG_SRC = [STATIC_URL, 'https://register-dev.organize.org', 'https://secure.fastclick.net', ]
 CSP_MEDIA_SRC = MEDIA_URL
