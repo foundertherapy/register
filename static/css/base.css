@@ -67,7 +67,7 @@
 }
 
 body {
-    background: #fff url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC") no-repeat top center;
+    background: #fff url("../images/red_pixel.png") no-repeat top center;
     background-size: 100% 10px;
     font-family: 'Lato', sans-serif;
 }
