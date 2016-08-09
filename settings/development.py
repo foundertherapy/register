@@ -60,7 +60,6 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
 CSP_FONT_SRC = ("'self'", STATIC_URL,
                 'https://maxcdn.bootstrapcdn.com',
                 'https://fonts.gstatic.com',
-                'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQI12N4q6QCAAMzATQeQy8IAAAAAElFTkSuQmCC',
                 )
 CSP_IMG_SRC = ("'self'", STATIC_URL,
                'https://register-dev.organize.org',
