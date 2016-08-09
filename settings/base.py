@@ -205,6 +205,8 @@ INSTALLED_APPS = (
     'widget',
     'secure_redis',
     'csp',
+    'axes',
+    'captcha',
 )
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -374,3 +376,8 @@ POSTAL_CODE_RESPONSE_CACHE_TIMEOUT = os.environ.get('POSTAL_CODE_RESPONSE_CACHE_
 FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID', '')
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# django-axes settings
+AXES_COOLOFF_TIME = 1
+AXES_LOGIN_FAILURE_LIMIT = 5
+AXES_LOCKOUT_URL = 'locked/'

@@ -42,3 +42,5 @@ validate_email
 fiftythree-client
 django-csp
 git+https://github.com/foundertherapy/django-users-plus.git@master
+django-axes
+django-simple-captcha

@@ -19,6 +19,8 @@ import requests
 import dateutil.parser
 import validate_email
 
+from captcha import fields
+
 
 logger = logging.getLogger(__name__)
 
@@ -437,3 +439,7 @@ class EmailNextOfKinForm(django.forms.Form):
             raise django.forms.ValidationError(_('Enter valid email addresses.'))
         else:
             return valid_emails
+
+
+class CaptchaForm(django.forms.Form):
+    captcha = fields.CaptchaField()

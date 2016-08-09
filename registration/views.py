@@ -22,6 +22,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
+from axes import utils
 import dateutil.parser
 
 import cobrand.models
@@ -926,3 +927,20 @@ class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(RegisterDoneView, self).get_context_data(**kwargs)
         return context
+
+
+class AdminLockedOut(django.views.generic.FormView):
+    template_name = 'registration/locked_out.html'
+    form_class = forms.CaptchaForm
+
+    def get_success_url(self):
+        return django.core.urlresolvers.reverse_lazy('admin:index')
+
+    def form_valid(self, form):
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = self.request.META.get('REMOTE_ADDR')
+        utils.reset(ip=ip)
+        return super(AdminLockedOut, self).form_valid(form)
