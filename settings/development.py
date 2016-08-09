@@ -47,6 +47,8 @@ CSP_STYLE_SRC = ("'self'", STATIC_URL,
                  'https://maxcdn.bootstrapcdn.com',
                  'https://cdnjs.cloudflare.com',
                  'https://fonts.googleapis.com/css',
+                 "'unsafe-inline'",
+                 "'unsafe-eval'",
                  )
 CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   'https://maxcdn.bootstrapcdn.com',
@@ -54,6 +56,9 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   'https://cdn.heapanalytics.com',
                   'https://code.jquery.com',
                   'https://www.google-analytics.com',
+                  'https://www.googleadservices.com',
+                  'https://connect.facebook.net',
+                  'https://platform.twitter.com',
                   "'unsafe-inline'",
                   "'unsafe-eval'",
                   )
@@ -67,5 +72,6 @@ CSP_IMG_SRC = ("'self'", STATIC_URL,
                'https://www.google-analytics.com',
                'https://heapanalytics.com',
                'https://heapanalytics.com',
+               'https://stats.g.doubleclick.net',
                )
-CSP_MEDIA_SRC = ("'self'", MEDIA_URL, )
+CSP_MEDIA_SRC = ("'self'", MEDIA_URL, STATIC_URL)
