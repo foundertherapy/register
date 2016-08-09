@@ -64,5 +64,8 @@ CSP_FONT_SRC = ("'self'", STATIC_URL,
 CSP_IMG_SRC = ("'self'", STATIC_URL,
                'https://register-dev.organize.org',
                'https://secure.fastclick.net',
+               'https://www.google-analytics.com',
+               'https://heapanalytics.com',
+               'https://heapanalytics.com',
                )
 CSP_MEDIA_SRC = ("'self'", MEDIA_URL, )
