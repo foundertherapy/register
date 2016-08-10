@@ -71,7 +71,9 @@ CSP_IMG_SRC = ("'self'", STATIC_URL,
                'https://secure.fastclick.net',
                'https://www.google-analytics.com',
                'https://heapanalytics.com',
-               'https://heapanalytics.com',
                'https://stats.g.doubleclick.net',
+               'https://www.facebook.com',
+               'https://www.googleadservices.com',
                )
-CSP_MEDIA_SRC = ("'self'", MEDIA_URL, STATIC_URL)
+CSP_MEDIA_SRC = ("'self'", MEDIA_URL, STATIC_URL, )
+CSP_FRAME_SRC = ("'self'", STATIC_URL, 'https://staticxx.facebook.com', )
