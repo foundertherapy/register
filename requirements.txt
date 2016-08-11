@@ -41,6 +41,6 @@ django-waffle
 validate_email
 fiftythree-client
 django-csp
-git+https://github.com/foundertherapy/django-users-plus.git@master
+django-users-plus==1.0.3
 git+https://github.com/foundertherapy/django-axes.git@remove_dependency_on_ip
 django-recaptcha
