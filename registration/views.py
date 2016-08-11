@@ -937,10 +937,5 @@ class AdminLockedOut(django.views.generic.FormView):
         return django.core.urlresolvers.reverse_lazy('admin:index')
 
     def form_valid(self, form):
-        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = self.request.META.get('REMOTE_ADDR')
-        utils.reset(ip=ip)
+        utils.reset(username=form.cleaned_data['username'])
         return super(AdminLockedOut, self).form_valid(form)

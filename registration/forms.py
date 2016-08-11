@@ -442,3 +442,4 @@ class EmailNextOfKinForm(django.forms.Form):
 
 class CaptchaForm(django.forms.Form):
     captcha = ReCaptchaField()
+    username = django.forms.CharField()

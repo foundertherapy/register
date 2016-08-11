@@ -8,14 +8,19 @@
             Your login is blocked due to multiple failing login attempts. Solve the following captcha to get unblocked!
         </div>
         <div>
-            <form action="" method="post">
+            <form action="{{ form.action }}" method="post">
                 {% csrf_token %}
+
+                <div class="input-group">
+                    <span class="input-group-addon">@</span>
+                    <input class="form-control input-lg" id="id_username" maxlength="254" name="username" type="email" placeholder="Email Address" {% if form.username.value %}value="{{ form.username.value }}{% endif %}">
+                </div>
 
                 {{ form.captcha.errors }}
                 {{ form.captcha }}
 
                 <div class="form-actions" align="center">
-                    <input type="submit" value="Unblock Me"/>
+                    <button type="submit" class="btn btn-default btn-primary">Unblock Me</button>
                 </div>
             </form>
         </div>
