@@ -16,7 +16,10 @@
                     <input class="form-control input-lg" id="id_username" maxlength="254" name="username" type="email" placeholder="Email Address" {% if form.username.value %}value="{{ form.username.value }}{% endif %}">
                 </div>
 
-                {{ form.captcha.errors }}
+                <div class="error-list">
+                     {{ form.captcha.errors }}
+                </div>
+
                 {{ form.captcha }}
 
                 <div class="form-actions" align="center">
