@@ -30,3 +30,26 @@ a:link, a:visited {
     border-color: #666;
 }
 
+.logout-form {
+    display: inline;
+}
+
+.logout-form .logout-btn {
+    border: none;
+    outline: none;
+    color: white;
+    background-color: transparent;
+    padding: inherit;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: right;
+    font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+}
+
+.logout-form .logout-btn:hover {
+    border-bottom: 1px solid #79aec8;
+}
+
