@@ -11,6 +11,8 @@ PIPELINE['PIPELINE_ENABLED'] = False
 SESSION_COOKIE_AGE = 60
 
 MIDDLEWARE_CLASSES += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
+if 'csp.middleware.CSPMiddleware' in MIDDLEWARE_CLASSES:
+    MIDDLEWARE_CLASSES.remove('csp.middleware.CSPMiddleware')
 if 'sslify.middleware.SSLifyMiddleware' in MIDDLEWARE_CLASSES:
     MIDDLEWARE_CLASSES.remove('sslify.middleware.SSLifyMiddleware')
 
