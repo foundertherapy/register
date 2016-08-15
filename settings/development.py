@@ -68,7 +68,7 @@ CSP_FONT_SRC = ("'self'", STATIC_URL,
                 'https://maxcdn.bootstrapcdn.com',
                 'https://fonts.gstatic.com',
                 )
-CSP_IMG_SRC = ("'self'", STATIC_URL,
+CSP_IMG_SRC = ("'self'", STATIC_URL, MEDIA_URL,
                'https://register-dev.organize.org',
                'https://secure.fastclick.net',
                'https://www.google-analytics.com',
