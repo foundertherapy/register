@@ -305,14 +305,15 @@ REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 REDIS_EXPIRE_TIME = int(os.getenv('REDIS_EXPIRE_TIME', 60 * 60 * 24 * 30))
 INSECURE_REDIS_DB = 0
 SECURE_REDIS_DB = 1
-STATIC_FILES_REDIS_DB = 1
+STATIC_FILES_REDIS_DB = 2
+SESSION_REDIS_DB = 3
 REDIS = urlparse.urlparse(REDIS_URL)
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_REDIS_PREFIX = 'session:register'
 SESSION_COOKIE_AGE = 60 * 30  # 30 minute session length
 SESSION_COOKIE_NAME = 'sessionid-register'
-
+SESSION_CACHE_ALIAS = 'session'
 
 CACHES = {
     'default': {
@@ -337,6 +338,19 @@ CACHES = {
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         },
         'KEY_PREFIX': 'register',
+        'TIMEOUT': 60 * 60 * 24,  # 1 day
+    },
+    'session': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        # Redis url, ensure it has correct db number - Should be the form '<host>:<port>/<db>'
+        'LOCATION': "{}/{}".format(REDIS_URL, SESSION_REDIS_DB),
+        'OPTIONS': {
+            # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'SERIALIZER': 'secure_redis.serializer.SecureSerializer',
+            'REDIS_SECRET_KEY': os.getenv('REDIS_SECRET_KEY'),
+        },
+        'KEY_PREFIX': SESSION_REDIS_PREFIX,
         'TIMEOUT': 60 * 60 * 24,  # 1 day
     },
     'staticfiles': {

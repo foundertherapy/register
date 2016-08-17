@@ -1,6 +1,7 @@
 machine:
     environment:
         DJANGO_SETTINGS_MODULE: "settings.testing"
+        REDIS_SECRET_KEY: "kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY="
 
 deployment:
     security-testing:
