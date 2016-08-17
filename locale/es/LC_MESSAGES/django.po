@@ -770,9 +770,9 @@ msgid "Send"
 msgstr "ENVIARTE"
 
 msgid "I just registered to be an organ donor at ORGANIZE.org because I dig the idea of saving someone else's life. "
-            "I'm now legally registered but it's still important that my next of kin (which is YOU) know my wishes.\n\n"
-            "So to remove all doubt: I want to be an organ donor.\n\n"
-            "If you want to register too, it only takes 47 seconds at ORGANIZE.org."
+      "I'm now legally registered but it's still important that my next of kin (which is YOU) know my wishes.\n\n"
+      "So to remove all doubt: I want to be an organ donor.\n\n"
+      "If you want to register too, it only takes 47 seconds at ORGANIZE.org."
 msgstr "Acabo de registrarme para ser un donador de órganos en ORGANIZE.org porque me encanta la idea de salvar la vida de otra persona. Ya estoy legalmente registrado, pero es muy importante que mi pariente más cercano (que eres TÚ) esté enterado de mi deseo.\n\nAsí que evitar dudas: deseo ser un donador de órganos.\n\nSi tú también quieres registrarte, sólo te tomará 47 segundos en ORGANIZE.org"
 
 msgid "Important: I'm an organ donor."
