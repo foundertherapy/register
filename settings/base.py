@@ -400,3 +400,5 @@ AXES_LOCKOUT_URL = 'locked/'
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 RECAPTCHA_USE_SSL = True
+
+CSRF_FAILURE_VIEW = 'registration.views.csrf_failure'

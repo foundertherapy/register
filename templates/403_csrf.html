@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>403 - CSRF Forbidden</title>
+
+        {# protocol must be included because IE 8 doesn't seem to handle this properly #}
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" media="all" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{% static 'css/awesome-bootstrap-checkbox.css' %}" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,300italic|Montserrat:700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="navbar" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <p class="navbar-brand">
+                        {% block navbar_brand %}
+                            <a href="{% url 'start' %}"><img width="160" height="24" alt="ORGANIZE Logo" src="{% static 'images/logo-small.png' %}" /></a>
+                        {% endblock %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <!-- Add your site or application content here -->
+            <p style="text-align: center;">
+                <img src="{% static 'images/logo-large.png' %}" />
+            </p>
+            <h1 style="text-align: center;">403 - CSRF Forbidden</h1>
+            <p style="text-align: center;">Your request failed to be validated using CSRF.</p>
+
+        </div><!-- /.container -->
+
+        {# JQuery 2.x not supported by <= IE8, so we are loading JQuery 1.x for it #}
+        <!--[if lt IE 9]>
+            <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+            <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.11.3.min.js' %}"><\/script>')</script>
+        <![endif]-->
+        <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-2.1.4.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="{% static 'js/jquery.js' %}"><\/script>') </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

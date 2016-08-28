@@ -21,6 +21,7 @@ from formtools.wizard.storage import get_storage
 from formtools.wizard.views import NamedUrlSessionWizardView
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.shortcuts import render_to_response
 
 from axes import utils
 import dateutil.parser
@@ -185,6 +186,10 @@ def setup_external_source_session(request):
 def strip_unicode_from_list(unicode_list):
     stripped_list = [str(unicode_item) for unicode_item in unicode_list]
     return stripped_list
+
+
+def csrf_failure(request, reason=""):
+    return render_to_response('403_csrf.html')
 
 
 class UserCheckMixin(object):
