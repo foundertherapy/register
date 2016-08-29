@@ -202,32 +202,32 @@
 
   var upenn_registration = '{{ request.session.is_upenn_registration }}';
   if (upenn_registration == '1') {
-    ga('set', 'campaignName', 'upenn-donate');
-    ga('set', 'campaignId', 'upenn-donate');
-    ga('set', 'campaignContent', 'upenn-register');
-    ga('set', 'campaignSource', 'upenn-marketing');
-    ga('set', 'campaignMedium', 'partner');
+      ga('set', 'campaignName', 'upenn-donate');
+      ga('set', 'campaignId', 'upenn-donate');
+      ga('set', 'campaignContent', 'upenn-register');
+      ga('set', 'campaignSource', 'upenn-marketing');
+      ga('set', 'campaignMedium', 'partner');
 
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
-        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-    var pmlMessage = getParameterByName('pml_message');
-    var pmlCreative = getParameterByName('pml_creative');
-    if (pmlMessage) {
-        ga('set', 'dimension3', pmlMessage);
-    }
-    if (pmlCreative) {
-        ga('set', 'dimension4', pmlCreative);
-    }
-    if (pmlMessage||pmlCreative) {
-        ga(function(tracker) {
-          var tracker_client_id = tracker.get('clientId');
-          ga('set', 'dimension5', tracker_client_id);
-        });
-    }
-}
+      function getParameterByName(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+          return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      var pmlMessage = getParameterByName('pml_message');
+      var pmlCreative = getParameterByName('pml_creative');
+      if (pmlMessage) {
+          ga('set', 'dimension3', pmlMessage);
+      }
+      if (pmlCreative) {
+          ga('set', 'dimension4', pmlCreative);
+      }
+      if (pmlMessage||pmlCreative) {
+          ga(function(tracker) {
+            var tracker_client_id = tracker.get('clientId');
+            ga('set', 'dimension5', tracker_client_id);
+          });
+      }
+  }
 
   ga('send', 'pageview');
 
