@@ -188,7 +188,7 @@ def strip_unicode_from_list(unicode_list):
     return stripped_list
 
 
-def csrf_failure(request, reason=""):
+def csrf_failure(request, reason=''):
     return render_to_response('403_csrf.html')
 
 
