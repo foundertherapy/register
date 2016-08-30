@@ -61,6 +61,7 @@ CSP_SCRIPT_SRC = ("'self'", STATIC_URL,
                   'https://cdnjs.cloudflare.com',
                   'https://connect.facebook.net',
                   'https://platform.twitter.com',
+                  'https://organize-analytics.herokuapp.com',
                   "'unsafe-inline'",
                   "'unsafe-eval'",
                   )
@@ -78,6 +79,7 @@ CSP_IMG_SRC = ("'self'", STATIC_URL, MEDIA_URL,
                'https://www.facebook.com',
                'https://www.googleadservices.com',
                'http://organize-analytics.herokuapp.com',
+               'https://ams-login.dotomi.com/',
                )
 CSP_MEDIA_SRC = ("'self'", MEDIA_URL, STATIC_URL, )
 CSP_FRAME_SRC = ("'self'", STATIC_URL, 'https://staticxx.facebook.com', )
