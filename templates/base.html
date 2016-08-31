@@ -146,6 +146,22 @@
     var u="//organize-analytics.herokuapp.com/";
     _paq.push(['setTrackerUrl', u+'piwik.php']);
     _paq.push(['setSiteId', '2']);
+      var upenn_registration = '{{ request.session.is_upenn_registration }}';
+    if (upenn_registration == '1') {
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        var pmlMessage = getParameterByName('pml_message');
+        var pmlCreative = getParameterByName('pml_creative');
+        if (pmlMessage) {
+            _paq.push(['setCustomDimension', 1, pmlMessage]);
+        }
+        if (pmlCreative) {
+            _paq.push(['setCustomDimension', 2, pmlCreative]);
+        }
+    }
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
@@ -231,7 +247,15 @@
       var pmlCreative = getParameterByName('pml_creative');
       if (pmlMessage) {
           ga('set', 'dimension3', pmlMessage);
+      }
+      if (pmlCreative) {
           ga('set', 'dimension4', pmlCreative);
+      }
+      if (pmlMessage||pmlCreative) {
+          ga(function(tracker) {
+            var tracker_client_id = tracker.get('clientId');
+            ga('set', 'dimension5', tracker_client_id);
+          });
       }
   }
 
