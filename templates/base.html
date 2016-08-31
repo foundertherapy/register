@@ -247,15 +247,7 @@
       var pmlCreative = getParameterByName('pml_creative');
       if (pmlMessage) {
           ga('set', 'dimension3', pmlMessage);
-      }
-      if (pmlCreative) {
           ga('set', 'dimension4', pmlCreative);
-      }
-      if (pmlMessage||pmlCreative) {
-          ga(function(tracker) {
-            var tracker_client_id = tracker.get('clientId');
-            ga('set', 'dimension5', tracker_client_id);
-          });
       }
   }
 
