@@ -203,7 +203,6 @@ INSTALLED_APPS = (
     'registration',
     'cobrand',
     'widget',
-    'secure_redis',
     'csp',
     'axes',
     'captcha',
