@@ -139,32 +139,32 @@
         {% block script %}{% endblock %}
         <!-- Piwik -->
 <script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//organize-analytics.herokuapp.com/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '2']);
-      var upenn_registration = '{{ request.session.is_upenn_registration }}';
-    if (upenn_registration == '1') {
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
-            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    var _paq = _paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u="//organize-analytics.herokuapp.com/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '2']);
+        var upenn_registration = '{{ request.session.is_upenn_registration }}';
+        if (upenn_registration == '1') {
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+                return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            var pmlMessage = getParameterByName('pml_message');
+            var pmlCreative = getParameterByName('pml_creative');
+            if (pmlMessage) {
+                _paq.push(['setCustomDimension', 1, pmlMessage]);
+            }
+            if (pmlCreative) {
+                _paq.push(['setCustomDimension', 2, pmlCreative]);
+            }
         }
-        var pmlMessage = getParameterByName('pml_message');
-        var pmlCreative = getParameterByName('pml_creative');
-        if (pmlMessage) {
-            _paq.push(['setCustomDimension', 1, pmlMessage]);
-        }
-        if (pmlCreative) {
-            _paq.push(['setCustomDimension', 2, pmlCreative]);
-        }
-    }
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
 </script>
 <noscript><p><img src="//organize-analytics.herokuapp.com/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
