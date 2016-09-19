@@ -402,3 +402,5 @@ RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 RECAPTCHA_USE_SSL = True
 
 CSRF_FAILURE_VIEW = 'registration.views.csrf_failure'
+
+LOGIN_URL = '/admin/login/'

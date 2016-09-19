@@ -2,11 +2,13 @@ from __future__ import unicode_literals
 
 import django.conf.urls
 import django.views.generic
+from django.views.generic import RedirectView
 
 import views
 
 urlpatterns = django.conf.urls.patterns(
     '',
+    django.conf.urls.url(r'^login/$', RedirectView.as_view(url='/admin/login')),
     django.conf.urls.url(r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(r'^upenn-donate/$',
                          views.UPENNStateLookupView.as_view(
