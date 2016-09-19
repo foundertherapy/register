@@ -22,7 +22,7 @@ urlpatterns = django.conf.urls.patterns(
     # override the admin password reset flow to use the normal site password
     # reset flow
     django.conf.urls.url(r'^password_reset/$', views.password_reset, name='admin_password_reset'),
-
+    django.conf.urls.url(r'^login/$', django.views.generic.RedirectView.as_view(url='/admin/login')),
     django.conf.urls.url(r'^', django.conf.urls.include(django.contrib.auth.urls)),
     django.conf.urls.url(r'^widget/', django.conf.urls.include('widget.urls')),
 )

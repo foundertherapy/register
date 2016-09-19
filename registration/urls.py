@@ -7,7 +7,6 @@ import views
 
 urlpatterns = django.conf.urls.patterns(
     '',
-    django.conf.urls.url(r'^login/$', django.views.generic.RedirectView.as_view(url='/admin/login')),
     django.conf.urls.url(r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(r'^upenn-donate/$',
                          views.UPENNStateLookupView.as_view(
