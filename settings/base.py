@@ -355,7 +355,8 @@ CACHES = {
     },
     'staticfiles': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': REDIS_URL,
+        # Redis url, ensure it has correct db number - Should be the form '<host>:<port>/<db>'
+        'LOCATION': "{}/{}".format(REDIS_URL, STATIC_FILES_REDIS_DB),
         'OPTIONS': {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             'PARSER_CLASS': 'redis.connection.HiredisParser',
