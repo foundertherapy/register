@@ -35,7 +35,7 @@ yolk
 python-gettext
 psycopg2
 git+https://github.com/waseem-omar/django-template-email.git@master
-git+https://github.com/foundertherapy/django-redis-secure.git@1178_remove_init_rq_dependancy
+git+https://github.com/foundertherapy/django-redis-secure.git@master
 git+https://github.com/jsocol/django-waffle@master
 validate_email
 fiftythree-client
