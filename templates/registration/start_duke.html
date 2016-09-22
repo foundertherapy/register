@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block script %}
+    <img src="https://secure.fastclick.net/w/roitrack.cgi?aid=1000050676" width=1 height=1 border=0>
+    <img src="https://secure.fastclick.net/w/tre?ad_id=60292;evt=29230;cat1=39656;cat2=39657;rand={% now "U" %}" width="1"
+         height="1" border="0">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <h3 class="home-headline">
+            {% autoescape off %}
+                {% blocktrans trimmed %}
+                    Register to become an organ donor.
+                {% endblocktrans %}
+            {% endautoescape %}
+        </h3>
+    </div>
+</div>
+
+<div class="row status-bar">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% spaceless %}
+            <div class="step"></div>
+        {% endspaceless %}
+    </div>
+</div>
+
+<div class="row">
+   <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+       <form class="register" role="form" action="{% url 'start' %}" method="post">
+           {% csrf_token %}
+
+           {% if form.non_field_errors %}
+               {% bootstrap_form_errors form type='non_fields' %}
+           {% endif %}
+
+           {% for field in form %}
+               <label for="{{ field.id }}" class="pull-left land-label">{{ field.label }}</label>
+               <span class="help-block pull-left">
+                   {{ field.help_text }}
+               </span>
+               {% bootstrap_field field show_label=False show_help=False size="large" %}
+           {% endfor %}
+
+           {% buttons %}
+               {% if update %}
+                   <a href="{% url 'start' %}" class="btn btn-secondary btn-organize" tabindex="100">
+                       &lsaquo; {% blocktrans %}Cancel{% endblocktrans %}
+                   </a>
+               {% endif %}
+
+               <button type="submit" class="btn btn-primary btn-organize" disabled>
+                   {% blocktrans %}Continue{% endblocktrans %} &rsaquo;
+               </button>
+           {% endbuttons %}
+       </form>
+   </div>
+</div>
+
+<div class="row update-reg-button">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        {% if not update %}
+            <a href="{% url 'update_choice' %}" tabindex="100">
+                {% blocktrans trimmed %}Update existing registration{% endblocktrans %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row home-footer">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 home-footer-content">
+        {% blocktrans trimmed %}
+            As an official registry, ORGANIZE keeps all of your information encrypted and secure. Any information you enter is only used for the purposes of facilitating your wishes regarding organ donation. You can read our Terms of Service <a href="#" onClick="window.open('&#047;terms-of-service&#047;','_blank','width=900,height=900')">here</a>.
+        {% endblocktrans %}
+    </div>
+</div>
+{% endblock %}

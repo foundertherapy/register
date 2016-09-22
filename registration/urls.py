@@ -8,12 +8,6 @@ import views
 urlpatterns = django.conf.urls.patterns(
     '',
     django.conf.urls.url(r'^$', views.StateLookupView.as_view(), name='start'),
-    django.conf.urls.url(r'^upenn-donate/$',
-                         views.UPENNStateLookupView.as_view(
-                                 template_name='registration/upenn_start.html'), name='upenn_donate'),
-    django.conf.urls.url(r'^upenn-donate-2/$',
-                         views.UPENNStateLookupView.as_view(
-                                 template_name='registration/upenn_start_2.html'), name='upenn_donate_2'),
     django.conf.urls.url(r'^update/$', views.StateLookupView.as_view(), kwargs={'update': True, }, name='update'),
     django.conf.urls.url(r'^email-nok/a/$', views.EmailNextOfKinView1.as_view(), name='email_next_of_kin_a'),
     django.conf.urls.url(r'^email-nok/b/$', views.EmailNextOfKinView2.as_view(), name='email_next_of_kin_b'),
@@ -45,4 +39,7 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(r'^instagram/$', views.InstagramRedirectView.as_view(), name='instagram_redirect'),
     django.conf.urls.url(r'^insta/$', views.InstagramRedirectView.as_view(), name='insta_redirect'),
     django.conf.urls.url(r'^admin/login/locked/$', views.AdminLockedOut.as_view(), name='locked_out'),
+
+    # Research Partners
+    django.conf.urls.url(r'^become-a-donor/$', views.DukeStateLookupView.as_view(), name='duke_donate'),
 )

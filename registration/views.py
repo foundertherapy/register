@@ -373,13 +373,8 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
         return super(StateLookupView, self).form_valid(form)
 
 
-class UPENNStateLookupView(StateLookupView):
-    form_class = forms.UPENNStateLookupForm
-
-    def get(self, request, *args, **kwargs):
-        res = super(UPENNStateLookupView, self).get(request, *args, **kwargs)
-        request.session[SESSION_UPENN_REGISTRATION] = '1'
-        return res
+class DukeStateLookupView(StateLookupView):
+    template_name = 'registration/start_duke.html'
 
 
 class FBRedirectView(django.views.generic.RedirectView):
