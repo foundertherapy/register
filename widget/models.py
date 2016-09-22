@@ -4,7 +4,7 @@ import logging
 
 import django.db.models
 import django.core.cache
-import django.core.urlresolvers
+import django.urls
 import django.core.validators
 
 import shortuuidfield
@@ -30,4 +30,4 @@ class WidgetHost(django.db.models.Model):
         return unicode(self.host_url)
 
     def get_absolute_url(self):
-        return django.core.urlresolvers.reverse_lazy('widget_view', kwargs={'uuid': self.uuid, })
+        return django.urls.reverse_lazy('widget_view', kwargs={'uuid': self.uuid, })

@@ -5,8 +5,7 @@ import django.views.generic
 
 import views
 
-urlpatterns = django.conf.urls.patterns(
-    '',
+urlpatterns = [
     django.conf.urls.url(r'^$', views.StateLookupView.as_view(), name='start'),
     django.conf.urls.url(r'^update/$', views.StateLookupView.as_view(), kwargs={'update': True, }, name='update'),
     django.conf.urls.url(r'^email-nok/a/$', views.EmailNextOfKinView1.as_view(), name='email_next_of_kin_a'),
@@ -42,4 +41,4 @@ urlpatterns = django.conf.urls.patterns(
 
     # Research Partners
     django.conf.urls.url(r'^become-a-donor/$', views.DukeStateLookupView.as_view(), name='duke_donate'),
-)
+]

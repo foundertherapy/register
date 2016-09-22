@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import logging
 
 import django.contrib.messages
-import django.core.urlresolvers
+import django.urls
 import django.forms
 import django.http
 import django.shortcuts
@@ -39,7 +39,7 @@ class WidgetCreateView(django.views.generic.edit.CreateView):
         return response
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse_lazy('widget_view', kwargs={'uuid': self.object.uuid, })
+        return django.urls.reverse_lazy('widget_view', kwargs={'uuid': self.object.uuid, })
 
 
 class WidgetDetailView(django.views.generic.TemplateView):

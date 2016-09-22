@@ -5,7 +5,7 @@ import logging
 import django.db.models
 import django.core.cache
 import django.template.defaultfilters
-import django.core.urlresolvers
+import django.urls
 
 import shortuuidfield
 
@@ -35,10 +35,10 @@ class CobrandCompany(django.db.models.Model):
         super(CobrandCompany, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return django.core.urlresolvers.reverse('cobrand_view', args=[self.uuid, ])
+        return django.urls.reverse('cobrand_view', args=[self.uuid, ])
 
     def get_redirect_url(self):
-        return django.core.urlresolvers.reverse('cobrand_redirect', kwargs={'slug': self.slug, })
+        return django.urls.reverse('cobrand_redirect', kwargs={'slug': self.slug, })
 
     def get_logo_filename(self):
         return '{}.png'.format(self.uuid)

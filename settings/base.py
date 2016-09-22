@@ -105,7 +105,7 @@ DATETIME_INPUT_FORMATS = (
     '%m/%d/%y %H:%M', '%m/%d/%y', '%m/%d/%y %H:%M:%S',
 )
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'sslify.middleware.SSLifyMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -114,11 +114,10 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'waffle.middleware.WaffleMiddleware',
-    'accounts.middleware.TimezoneMiddleware',
+    'accountsplus.middleware.TimezoneMiddleware',
     'csp.middleware.CSPMiddleware',
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -140,7 +139,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.request',
+                'django.template.context_processors.request',
                 'registration.context_processors.settings'
             ],
             'debug': DEBUG,
@@ -189,7 +188,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.admin',
-    'djangosecure',
     'django_extensions',
     'formtools',
     'waffle',
@@ -211,7 +209,7 @@ INSTALLED_APPS = (
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'accounts.validators.ComplexPasswordValidator',
+        'NAME': 'accountsplus.validators.ComplexPasswordValidator',
     }, {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {

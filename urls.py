@@ -11,8 +11,7 @@ import django.contrib.admin
 from django.contrib.auth import views
 
 
-urlpatterns = django.conf.urls.patterns(
-    '',
+urlpatterns = [
     django.conf.urls.url(r'^i18n/', django.conf.urls.include('django.conf.urls.i18n')),
     django.conf.urls.url(r'^robots.txt$', django.views.generic.TemplateView.as_view(template_name='robots.txt')),
     django.conf.urls.url(r'^', django.conf.urls.include('registration.urls')),
@@ -25,7 +24,7 @@ urlpatterns = django.conf.urls.patterns(
     django.conf.urls.url(r'^login/$', django.views.generic.RedirectView.as_view(url='/admin/login')),
     django.conf.urls.url(r'^', django.conf.urls.include('accounts.urls')),
     django.conf.urls.url(r'^widget/', django.conf.urls.include('widget.urls')),
-)
+]
 
 urlpatterns += django.conf.urls.static.static(
     django.conf.settings.MEDIA_URL,
@@ -33,10 +32,8 @@ urlpatterns += django.conf.urls.static.static(
 
 if django.conf.settings.DEBUG:
     import debug_toolbar
-    urlpatterns += django.conf.urls.patterns('',
-        django.conf.urls.url(
+    urlpatterns += django.conf.urls.url(
             r'^__debug__/', django.conf.urls.include(debug_toolbar.urls)),
-    )
 
 
 django.contrib.admin.site.site_title = 'Register Admin'

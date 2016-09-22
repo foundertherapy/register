@@ -8,7 +8,7 @@ import random
 
 import dateutil.parser
 import django.contrib.messages
-import django.core.urlresolvers
+import django.urls
 import django.http
 import django.shortcuts
 import django.views.generic.edit
@@ -250,10 +250,10 @@ class StateLookupView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 
     def get_success_url(self):
         if self.accepts_registration:
-            return django.core.urlresolvers.reverse(
+            return django.urls.reverse(
                 'register', kwargs={'step': '1',})
         else:
-            return django.core.urlresolvers.reverse('unsupported_state')
+            return django.urls.reverse('unsupported_state')
 
     def get_initial(self):
         initial = self.initial.copy()
@@ -411,7 +411,7 @@ class StateRedirectView(django.views.generic.RedirectView):
         if redirect_url:
             return redirect_url
         else:
-            return django.core.urlresolvers.reverse('start')
+            return django.urls.reverse('start')
 
 
 class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
@@ -791,10 +791,10 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 
     def get_success_url(self):
         if self.postal_code:
-            return django.core.urlresolvers.reverse_lazy(
+            return django.urls.reverse_lazy(
                 'revoke_done', kwargs={'postal_code': self.postal_code,})
         else:
-            return django.core.urlresolvers.reverse_lazy('revoke-done')
+            return django.urls.reverse_lazy('revoke-done')
 
     def submit_deregistration(self, data):
         try:
@@ -864,7 +864,7 @@ class EmailNextOfKinBaseView(MinorRestrictedMixin, django.views.generic.FormView
         return context
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse_lazy('done')
+        return django.urls.reverse_lazy('done')
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
@@ -934,7 +934,7 @@ class AdminLockedOut(django.views.generic.FormView):
     form_class = forms.CaptchaForm
 
     def get_success_url(self):
-        return django.core.urlresolvers.reverse_lazy('admin:index')
+        return django.urls.reverse_lazy('admin:index')
 
     def form_valid(self, form):
         utils.reset(username=form.cleaned_data['username'])

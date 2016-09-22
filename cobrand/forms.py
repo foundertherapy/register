@@ -10,7 +10,7 @@ import django.conf
 import django.utils.six  # Python 3 compatibility
 import django.utils.safestring
 import django.utils.functional
-import django.core.urlresolvers
+import django.urls
 
 
 import requests
