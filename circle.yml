@@ -4,6 +4,8 @@ machine:
         REDIS_SECRET_KEY: "kPEDO_pSrPh3qGJVfGAflLZXKAh4AuHU64tTlP-f_PY="
     services:
         - redis
+    post:
+        - pyenv global 2.7.9
 
 deployment:
     security-testing:
