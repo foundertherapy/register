@@ -11,3 +11,6 @@ class Company(accountsplus.models.BaseCompany):
 class User(accountsplus.models.BaseUser):
     company = django.db.models.ForeignKey(Company, null=True, related_name='%(app_label)s_%(class)s_users')
 
+
+class AuditLogEvent(accountsplus.models.BaseAuditLogEvent):
+    pass
