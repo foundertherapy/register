@@ -146,6 +146,15 @@
         var u="//analytics.organize.org/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', '1']);
+        if (gender != '') {
+            _paq.push(['setCustomDimension', 2, gender]);
+        }
+        if (birthdate != null) {
+            var ageDifference = Date.now() - birthdate.getTime();
+            var ageDate = new Date(ageDifference); // miliseconds from epoch
+            age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            _paq.push(['setCustomDimension', 1, age]);
+        }
         var upenn_registration = '{{ request.session.is_upenn_registration }}';
         if (upenn_registration == '1') {
             function getParameterByName(name) {
