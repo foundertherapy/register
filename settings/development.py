@@ -81,6 +81,7 @@ CSP_IMG_SRC = ("'self'", STATIC_URL, MEDIA_URL,
                'http://organize-analytics.herokuapp.com',
                'https://ams-login.dotomi.com/',
                'https://organize-analytics.herokuapp.com',
+               'https://secure-media.msg.dotomi.com',
                )
 CSP_MEDIA_SRC = ("'self'", MEDIA_URL, STATIC_URL, )
 CSP_FRAME_SRC = ("'self'", STATIC_URL, 'https://staticxx.facebook.com', )
