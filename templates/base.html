@@ -146,6 +146,20 @@
         var u="//analytics.organize.org/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', '1']);
+        var gender = '';
+        var birthdate = null;
+        var age = '';
+        {% if cleaned_data %}
+            {% if cleaned_data|key:'gender' == 'M' %}
+                gender = 'Male';
+            {% elif cleaned_data|key:'gender' == 'F' %}
+                gender = 'Female';
+            {% endif %}
+
+            {% if cleaned_data|key:'birthdate' %}
+                birthdate = new Date('{{ cleaned_data|key:'birthdate' }}');
+            {% endif %}
+        {% endif %}
         if (gender != '') {
             _paq.push(['setCustomDimension', 2, gender]);
         }
