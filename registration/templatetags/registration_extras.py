@@ -1,3 +1,5 @@
+from datetime import date
+
 from django import template
 
 import phonenumbers
@@ -28,3 +30,13 @@ def phonenumber(p):
             phone_number, phonenumbers.PhoneNumberFormat.NATIONAL)
     except phonenumbers.phonenumberutil.NumberParseException:
         return p
+
+
+@register.filter
+def age(birthdate):
+    # birthdate format is day month year
+    # since we are recording statistics, we only use the year in calculating the age.
+    print "hellooooooo"
+    bd_date = datetime.datetime.strptime(birthdate, '%d %m %y').date()
+    today = date.today()
+    return today.year - bd_date.year

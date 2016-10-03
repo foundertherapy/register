@@ -146,29 +146,23 @@
         var u="//analytics.organize.org/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', '1']);
-        var gender = '';
-        var birthdate = null;
-        var age = '';
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        _paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = 'Male']);
+        _paq.push(['setCustomDimension', customDimensionId = 2, customDimensionValue = 'Male']);
         {% if cleaned_data %}
             {% if cleaned_data|key:'gender' == 'M' %}
-                gender = 'Male';
+                _paq.push(['setCustomDimension', 2, 'Male']);
             {% elif cleaned_data|key:'gender' == 'F' %}
-                gender = 'Female';
+                _paq.push(['setCustomDimension', 2, 'Female']);
             {% endif %}
 
             {% if cleaned_data|key:'birthdate' %}
-                birthdate = new Date('{{ cleaned_data|key:'birthdate' }}');
+                var birth_date_str = '{{ cleaned_data|key:'birthdate' }}';
+                _paq.push(['setCustomDimension', 1, '{{ birth_date_str|age }}']);
             {% endif %}
         {% endif %}
-        if (gender != '') {
-            _paq.push(['setCustomDimension', 2, gender]);
-        }
-        if (birthdate != null) {
-            var ageDifference = Date.now() - birthdate.getTime();
-            var ageDate = new Date(ageDifference); // miliseconds from epoch
-            age = Math.abs(ageDate.getUTCFullYear() - 1970);
-            _paq.push(['setCustomDimension', 1, age]);
-        }
+
         var upenn_registration = '{{ request.session.is_upenn_registration }}';
         if (upenn_registration == '1') {
             function getParameterByName(name) {
@@ -185,11 +179,9 @@
                 _paq.push(['setCustomDimension', 2, pmlCreative]);
             }
         }
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
 </script>
-<noscript><p><img src="//organize-analytics.herokuapp.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<noscript><p><img src="//analytics.organize.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
