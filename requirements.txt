@@ -35,11 +35,11 @@ yolk
 python-gettext
 psycopg2
 git+https://github.com/waseem-omar/django-template-email.git@master
-git+https://github.com/foundertherapy/django-redis-secure.git@master
+django-redis-secure==1.1.1
 git+https://github.com/jsocol/django-waffle@master
 validate_email
 fiftythree-client
 git+https://github.com/mozilla/django-csp.git@master
-git+https://github.com/foundertherapy/django-users-plus.git@add_support_for_django_1.10
+django-users-plus==1.2.0
 git+https://github.com/foundertherapy/django-axes.git@remove_dependency_on_ip
 django-recaptcha
