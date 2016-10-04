@@ -142,7 +142,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'registration.context_processors.settings'
             ],
-            'debug': True,
+            'debug': DEBUG,
         }
     },
 ]
