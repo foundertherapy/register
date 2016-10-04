@@ -152,12 +152,12 @@
         var gender = '{{ gender }}';
         if (gender != '') {
             gender = gender == 'M'? 'Male' : 'Female';
-            _paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = gender]);
+            _paq.push(['setCustomDimension', customDimensionId = 2, customDimensionValue = gender]);
         }
 
         var age = '{{ birthdate|age }}';
         if (age != 'None') {
-            _paq.push(['setCustomDimension', customDimensionId = 3, customDimensionValue = age]);
+            _paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = age]);
         }
 
         var upenn_registration = '{{ request.session.is_upenn_registration }}';
