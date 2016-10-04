@@ -148,20 +148,17 @@
         _paq.push(['setSiteId', '1']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-        _paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = 'Male']);
-        _paq.push(['setCustomDimension', customDimensionId = 2, customDimensionValue = 'Male']);
-        {% if cleaned_data %}
-            {% if cleaned_data|key:'gender' == 'M' %}
-                _paq.push(['setCustomDimension', 2, 'Male']);
-            {% elif cleaned_data|key:'gender' == 'F' %}
-                _paq.push(['setCustomDimension', 2, 'Female']);
-            {% endif %}
 
-            {% if cleaned_data|key:'birthdate' %}
-                var birth_date_str = '{{ cleaned_data|key:'birthdate' }}';
-                _paq.push(['setCustomDimension', 1, '{{ birth_date_str|age }}']);
-            {% endif %}
-        {% endif %}
+        var gender = '{{ gender }}';
+        if (gender != '') {
+            gender = gender == 'M'? 'Male' : 'Female';
+            _paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = gender]);
+        }
+
+        var age = '{{ birthdate|age }}';
+        if (age != 'None') {
+            _paq.push(['setCustomDimension', customDimensionId = 3, customDimensionValue = age]);
+        }
 
         var upenn_registration = '{{ request.session.is_upenn_registration }}';
         if (upenn_registration == '1') {
@@ -179,6 +176,8 @@
                 _paq.push(['setCustomDimension', 2, pmlCreative]);
             }
         }
+
+        _paq.push(['trackPageView']);
     })();
 </script>
 <noscript><p><img src="//analytics.organize.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>

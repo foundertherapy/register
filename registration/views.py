@@ -683,6 +683,10 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                     'ok': _('Continue &#8250;'),
                     'cancel': _('&#8249; Check ID'),}
                 d['invalid_license_modal_content'] = invalid_license_modal_content
+        if self.get_all_cleaned_data() and 'gender' in self.get_all_cleaned_data().keys():
+            d['gender'] = self.get_all_cleaned_data()['gender']
+        if self.get_all_cleaned_data() and 'birthdate' in self.get_all_cleaned_data().keys():
+                d['birthdate'] = self.get_all_cleaned_data()['birthdate']
         if form.api_errors and form.api_errors.get('non_field_errors'):
             d['non_field_errors'] = form.api_errors.get('non_field_errors')[0]
         else:
