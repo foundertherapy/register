@@ -35,7 +35,6 @@ def phonenumber(p):
 
 @register.filter
 def age(birthdate):
-    # birthdate format is day month year
     # since we are recording statistics, we only use the year in calculating the age.
     if birthdate:
         today = date.today()
