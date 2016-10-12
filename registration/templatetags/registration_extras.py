@@ -42,6 +42,6 @@ def age(birthdate):
         return today.year - birthdate.year
 
 
-@register.filter
+@register.simple_tag
 def settings_value(name):
     return getattr(settings, name, '')
