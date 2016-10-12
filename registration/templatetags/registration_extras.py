@@ -5,7 +5,7 @@ from django import template
 
 import phonenumbers
 import phonenumbers.phonenumberutil
-import settings
+from django.conf import settings
 
 register = template.Library()
 
