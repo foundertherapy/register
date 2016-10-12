@@ -5,6 +5,7 @@ from django import template
 
 import phonenumbers
 import phonenumbers.phonenumberutil
+import settings
 
 register = template.Library()
 
@@ -39,3 +40,8 @@ def age(birthdate):
     if birthdate:
         today = date.today()
         return today.year - birthdate.year
+
+
+@register.filter
+def settings_value(name):
+    return getattr(settings, name, '')
