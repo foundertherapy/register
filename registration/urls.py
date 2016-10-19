@@ -37,6 +37,7 @@ urlpatterns = [
     django.conf.urls.url(r'^fb/$', views.FBRedirectView.as_view(), name='fb_redirect'),
     django.conf.urls.url(r'^instagram/$', views.InstagramRedirectView.as_view(), name='instagram_redirect'),
     django.conf.urls.url(r'^insta/$', views.InstagramRedirectView.as_view(), name='insta_redirect'),
+    django.conf.urls.url(r'^waitinglistfilm/$', views.WaitingListFilmRedirectView.as_view(), name='waitinglistfilm_redirect'),
     django.conf.urls.url(r'^admin/login/locked/$', views.AdminLockedOut.as_view(), name='locked_out'),
 
     # Research Partners

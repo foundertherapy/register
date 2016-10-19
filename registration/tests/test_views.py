@@ -176,6 +176,15 @@ class InstagramRedirectViewTestCase(django.test.TestCase):
         self.assertRedirects(r, '/?reg_source=instagram')
 
 
+class WaitingListFilmRedirectViewTestCase(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+
+    def test_waitinglistfilm(self):
+        r = self.client.get('/waitinglistfilm/', follow=False)
+        self.assertRedirects(r, '/?reg_source=waitinglistfilm')
+
+
 @django.test.utils.override_settings(
     CSP_STYLE_SRC='/static/',
     CSP_SCRIPT_SRC='/static/',
