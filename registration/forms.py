@@ -233,7 +233,7 @@ def validate_date_generator(min_value):
     return validate_date
 
 
-def register_form_generator(conf):
+def register_form_generator(conf, registry_url):
     fieldsets = []
     fields = collections.OrderedDict()
     for index, fieldset_def in enumerate(conf['fieldsets']):
@@ -250,6 +250,8 @@ def register_form_generator(conf):
             field_name = field_def['field_name']
             field_type = field_def.get('type')
             label = _(field_def['human_name']) or ''
+            if field_name == 'agree_to_tos':
+                label = label.format(registry_url)
             is_required = field_def.get('required', False)
             max_length = field_def.get('length')
             initial = field_def.get('default')

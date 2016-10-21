@@ -90,6 +90,62 @@ FIFTYTHREE_CLIENT.lookup_zipcode_api_path(api_version='v4')
 NOK_PAGE_NAME_CHOICES = ['email_next_of_kin_a', 'email_next_of_kin_b', ]
 
 
+STATE_REGISTRY_URLS = {
+    'WA': 'https://www.registerme.org',
+    'WI': 'https://www.registerme.org',
+    'WV': 'https://donatelife.wv.gov',
+    'FL': 'https://www.registerme.org',
+    'WY': 'http://www.donatelifecolorado.org',
+    'NH': 'http://donatelifenewengland.org',
+    'NJ': 'https://www.registerme.org',
+    'NM': 'https://www.registerme.org',
+    'NC': 'https://www.registerme.org',
+    'ND': 'https://apps.nd.gov/dot/dlts/dlos/donorChange.htm',
+    'NE': 'http://www.donatelifenebraska.com',
+    'NY': 'https://www.registerme.org',
+    'RI': 'http://donatelifenewengland.org',
+    'NV': 'http://www.nvdonor.org',
+    'CO': 'http://www.donatelifecolorado.org',
+    'CA': 'https://www.registerme.org',
+    'GA': 'https://www.registerme.org',
+    'CT': 'http://donatelifenewengland.org',
+    'OK': 'https://www.lifeshareregistry.org',
+    'OH': 'https://www.registerme.org',
+    'KS': 'https://www.donatelifekansas.com',
+    'SC': 'https://www.registerme.org',
+    'KY': 'https://www.donatelifeky.org',
+    'OR': 'https://www.registerme.org',
+    'SD': 'https://www.registerme.org',
+    'DE': 'http://www.donatelife-de.org',
+    'DC': 'https://www.registerme.org',
+    'HI': 'http://www.legacyoflifehawaii.org',
+    'PR': 'https://www.registerme.org',
+    'TX': 'https://www.registerme.org',
+    'LA': 'https://www.registerme.org',
+    'TN': 'http://donatelifetn.org',
+    'PA': 'https://www.registerme.org',
+    'VA': 'https://www.registerme.org',
+    'VI': 'https://www.registerme.org',
+    'AK': 'https://www.registerme.org',
+    'AL': 'http://alabamalifelegacy.org',
+    'AR': 'http://www.donatelifearkansas.org',
+    'VT': 'http://donatelifenewengland.org',
+    'IL': 'https://www.ilsos.gov/organdonorregister',
+    'IN': 'https://www.donatelifeindiana.org',
+    'IA': 'https://www.registerme.org',
+    'AZ': 'https://www.registerme.org',
+    'ID': 'https://register.yesidaho.org',
+    'ME': 'http://donatelifenewengland.org',
+    'MD': 'https://www.registerme.org',
+    'MA': 'http://donatelifenewengland.org',
+    'UT': 'https://register.yesutah.org',
+    'MO': 'https://www.missouriorgandonor.com',
+    'MN': 'https://www.lifesourcedonorregistry.org',
+    'MI': 'http://giftoflifemichigan.org',
+    'MT': 'https://www.registerme.org',
+    'MS': 'https://www.donatelifems.org',
+}
+
 def clean_session(session):
     for key in (
             SESSION_STATE, SESSION_STATE_NAME, SESSION_POSTAL_CODE, SESSION_REGISTRATION_CONFIGURATION,
@@ -462,8 +518,9 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                 self.page_names[step] = page_name
                 self.page_explanatory_texts[step] = explanatory_text
                 self.page_fieldsets[step] = fieldsets
+                registry_url = STATE_REGISTRY_URLS[self.request.session[SESSION_STATE]]
                 self.form_list[unicode(step)] = forms.register_form_generator(
-                    conf=page_conf)
+                    conf=page_conf,registry_url=registry_url)
 
     def submit_registration(self, data):
         try:
