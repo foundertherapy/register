@@ -518,9 +518,8 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
                 self.page_names[step] = page_name
                 self.page_explanatory_texts[step] = explanatory_text
                 self.page_fieldsets[step] = fieldsets
-                registry_url = STATE_REGISTRY_URLS[self.request.session[SESSION_STATE]]
                 self.form_list[unicode(step)] = forms.register_form_generator(
-                    conf=page_conf,registry_url=registry_url)
+                    conf=page_conf)
 
     def submit_registration(self, data):
         try:
