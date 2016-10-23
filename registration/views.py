@@ -532,6 +532,8 @@ class RegistrationWizardView(MinorRestrictedMixin, NamedUrlSessionWizardView):
         except fiftythree.client.InvalidDataError as e:
             logger.error('{} While trying to call Register API '
                          'with error response {}'.format(e.message, unicode(e.errors)))
+            if 'This field is required' in unicode(e.errors):
+                return [[None, _('An error occured. Please try again later.')]]
             return e.errors.items()
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
