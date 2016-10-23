@@ -233,7 +233,7 @@ def validate_date_generator(min_value):
     return validate_date
 
 
-def register_form_generator(conf, registry_url):
+def register_form_generator(conf):
     fieldsets = []
     fields = collections.OrderedDict()
     for index, fieldset_def in enumerate(conf['fieldsets']):
@@ -251,7 +251,10 @@ def register_form_generator(conf, registry_url):
             field_type = field_def.get('type')
             label = _(field_def['human_name']) or ''
             if field_name == 'agree_to_tos':
-                label = label.format(registry_url)
+                regex = re.compile('RegisterMe.org.*window.open\(\'(?P<registry_url>.*)\', \'_blank\', '
+                                   '\'width=900,height=900\'\)">state registry')
+                url_search = regex.search(str(label)).group('registry_url')
+                label = _(label.replace(url_search, '%(registry_url)s')) % {'registry_url': url_search}
             is_required = field_def.get('required', False)
             max_length = field_def.get('length')
             initial = field_def.get('default')
