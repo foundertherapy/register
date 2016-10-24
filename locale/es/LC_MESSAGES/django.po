@@ -697,6 +697,9 @@ msgstr ""
 msgid "Welcome to the most important form field on the Internet."
 msgstr "Bienvendo a la forma más importante del internet."
 
+msgid "Enter your information to register as an organ, eye and tissue donor."
+msgstr "Introduce tu información para registrarte como donador de un órgano, ojo o tejido."
+
 msgid "Please specify your donation preferences"
 msgstr "Por favor especifíqua tu preferencia de donación"
 
