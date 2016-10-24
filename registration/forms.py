@@ -250,11 +250,7 @@ def register_form_generator(conf):
             field_name = field_def['field_name']
             field_type = field_def.get('type')
             label = _(field_def['human_name']) or ''
-            if field_name == 'agree_to_tos':
-                regex = re.compile('RegisterMe.org.*window.open\(\'(?P<registry_url>.*)\', \'_blank\', '
-                                   '\'width=900,height=900\'\)">state registry')
-                url_search = regex.search(str(label)).group('registry_url')
-                label = _(label.replace(url_search, '%(registry_url)s')) % {'registry_url': url_search}
+
             is_required = field_def.get('required', False)
             max_length = field_def.get('length')
             initial = field_def.get('default')
