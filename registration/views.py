@@ -841,9 +841,9 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
                           for a, b in api_errors.items()}
 
             if 'non_field_errors' in api_errors.keys() and api_errors['non_field_errors']:
-                logger.error('Received API errors for registration: {}'.format(api_errors['non_field_errors']))
+                logger.error('Received API errors for revocation: {}'.format(api_errors['non_field_errors']))
 
-            logger.info('Received API errors for registration: {}'.format(api_errors))
+            logger.info('Received API errors for revocation: {}'.format(api_errors))
 
             error_field_names = set(form.fields.keys()).intersection(set(api_errors.keys()))
             if error_field_names:
@@ -868,8 +868,6 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
             data_copy.update(get_external_source_data(self.request.session))
             FIFTYTHREE_CLIENT.revoke(**data_copy)
         except fiftythree.client.InvalidDataError as e:
-            logger.error('{} While trying to call Revoke '
-                         'API with error response {}'.format(e.message, unicode(e.errors)))
             return e.errors.items()
         except fiftythree.client.ServiceError as e:
             logger.error(e.message)
