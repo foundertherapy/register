@@ -839,8 +839,12 @@ class RevokeView(MinorRestrictedMixin, django.views.generic.edit.FormView):
 
             api_errors = {a: [django.utils.translation.ugettext(c) for c in b]
                           for a, b in api_errors.items()}
-            logger.error(
-                'Received API errors for registration: {}'.format(api_errors))
+
+            if 'non_field_errors' in api_errors.keys() and api_errors['non_field_errors']:
+                logger.error('Received API errors for registration: {}'.format(api_errors['non_field_errors']))
+
+            logger.info('Received API errors for registration: {}'.format(api_errors))
+
             error_field_names = set(form.fields.keys()).intersection(set(api_errors.keys()))
             if error_field_names:
                 form.add_error(field=None, error=api_errors)
