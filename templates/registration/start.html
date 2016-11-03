@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load bootstrap3 %}
+{% load set_variable %}
 
 {% block script %}
     <img src="https://secure.fastclick.net/w/roitrack.cgi?aid=1000050676" width=1 height=1 border=0>
@@ -51,9 +52,15 @@
     </div>
 </div>
 
+{% set form_action = 'start' %}
+{% if update %}
+    {% set form_action = 'update' %}
+{% endif %}
+
 <div class="row">
    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-       <form class="register" role="form" action="{% url 'start' %}" method="post">
+       <form class="register" role="form" action="{% url form_action %}" method="post">
+
            {% csrf_token %}
 
            {% if form.non_field_errors %}
