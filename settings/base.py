@@ -21,9 +21,7 @@ APPSERVER = os.uname()[1]
 
 INTERNAL_IPS = ('127.0.0.1', )
 ADMINS = (
-    ('Dana Spiegel', 'dana@foundertherapy.co'),
-    ('Waseem Omar', 'waseem@foundertherapy.co'),
-    ('Mohammad AbuAisha', 'abuaisha@foundertherapy.co'),
+    ('Organize System', 'systems-organize@foundertherapy.co'),
 )
 
 SITE_ID = 1
