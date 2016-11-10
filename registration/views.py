@@ -991,15 +991,3 @@ class RegisterDoneView(MinorRestrictedMixin, django.views.generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(RegisterDoneView, self).get_context_data(**kwargs)
         return context
-
-
-class AdminLockedOut(django.views.generic.FormView):
-    template_name = 'registration/locked_out.html'
-    form_class = forms.CaptchaForm
-
-    def get_success_url(self):
-        return django.urls.reverse_lazy('admin:index')
-
-    def form_valid(self, form):
-        utils.reset(username=form.cleaned_data['username'])
-        return super(AdminLockedOut, self).form_valid(form)

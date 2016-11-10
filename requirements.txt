@@ -40,6 +40,6 @@ git+https://github.com/jsocol/django-waffle@master
 validate_email
 fiftythree-client
 git+https://github.com/mozilla/django-csp.git@master
-django-users-plus==1.2.0
+git+https://github.com/foundertherapy/django-users-plus.git@1381_check_user_registered
 git+https://github.com/foundertherapy/django-axes.git@remove_dependency_on_ip
 django-recaptcha
