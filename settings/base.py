@@ -391,9 +391,11 @@ FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID', '')
 AUTH_USER_MODEL = 'accounts.User'
 
 # django-axes settings
+AXES_LOCK_OUT_AT_FAILURE = True
 AXES_COOLOFF_TIME = 1
 AXES_LOGIN_FAILURE_LIMIT = 5
 AXES_LOCKOUT_URL = 'locked/'
+LOCKOUT_TEMPLATE_PATH = 'registration/locked_out.html'
 
 # captcha settings
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
