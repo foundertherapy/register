@@ -83,4 +83,3 @@ CSP_IMG_SRC = ("'self'", STATIC_URL, MEDIA_URL,
 CSP_MEDIA_SRC = ("'self'", MEDIA_URL, STATIC_URL, )
 CSP_FRAME_SRC = ("'self'", STATIC_URL, 'https://staticxx.facebook.com', )
 
-PIWIK_SITE_ID = 3
